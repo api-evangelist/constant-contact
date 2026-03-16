@@ -8,9 +8,9 @@ apis:
       - Email Marketing
       - Surveys
       - Campaigns
-    humanURL: ' https://developer.constantcontact.com/'
+    humanURL: https://developer.constantcontact.com/
     properties:
-      - url: ' https://developer.constantcontact.com/'
+      - url: https://developer.constantcontact.com/
         type: Documentation
     description: >-
       Constant Contact is a leading email marketing platform that helps
@@ -33,7 +33,7 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2025-03-01'
+modified: '2026-03-16'
 position: Consumer
 description: >-
   Constant Contact is a leading provider of email marketing and online survey
@@ -46,5 +46,5 @@ description: >-
   in a meaningful and impactful way.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
