@@ -5,9 +5,9 @@ apis:
   - aid: constant-contact:constant-contact
     name: Constant Contact
     tags:
+      - Campaigns
       - Email Marketing
       - Surveys
-      - Campaigns
     humanURL: https://developer.constantcontact.com/
     properties:
       - url: https://developer.constantcontact.com/
@@ -19,9 +19,9 @@ apis:
       businesses to easily design emails that engage their audience and drive results.
 name: Constant Contact
 tags:
+  - Campaigns
   - Email Marketing
   - Surveys
-  - Campaigns
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
