@@ -1,0 +1,116 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules for the Constant Contact V3 API.
+# Tuned to api.cc.email/v3 conventions: HTTPS, OAuth2 bearer tokens,
+# JSON request/response bodies, cursor pagination, and 4xx error
+# responses on mutating operations.
+rules:
+  constant-contact-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  constant-contact-host:
+    description: Host (Swagger 2.0) or server URL (OAS 3.x) must point to api.cc.email.
+    severity: warn
+    given:
+      - "$.host"
+      - "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(api\\.cc\\.email|^https://)"
+
+  constant-contact-base-path:
+    description: Base path must be /v3.
+    severity: warn
+    given: "$.basePath"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v3"
+
+  constant-contact-oauth2:
+    description: An OAuth2 security definition must be present.
+    severity: error
+    given:
+      - "$.securityDefinitions[*]"
+      - "$.components.securitySchemes[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            type:
+              enum: ["oauth2"]
+
+  constant-contact-operation-id:
+    description: Every operation must declare a unique operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  constant-contact-operation-tags:
+    description: Operations must declare at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  constant-contact-json-content:
+    description: Operations should accept and return application/json.
+    severity: warn
+    given: "$.paths[*][post,put,patch]"
+    then:
+      field: consumes
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            const: "application/json"
+
+  constant-contact-error-responses:
+    description: Mutating operations should declare 4xx error responses.
+    severity: warn
+    given: "$.paths[*][post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["400"]
+            - required: ["401"]
+            - required: ["403"]
+            - required: ["404"]
+            - required: ["409"]
+            - required: ["415"]
+
+  constant-contact-cursor-pagination:
+    description: Collection GETs should expose a `cursor` or `limit` query parameter.
+    severity: info
+    given: "$.paths[?(@property.match(/(contacts|contact_lists|contact_tags|emails|events|segments)$/))].get"
+    then:
+      field: parameters
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              name:
+                enum: ["cursor", "limit"]

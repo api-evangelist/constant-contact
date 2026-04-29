@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/constant-contact/refs/heads/main/json-schema/constant-contact-campaign-schema.json",
+  "title": "Constant Contact Email Campaign",
+  "description": "Schema for a Constant Contact V3 email campaign and campaign activity.",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "type": {
+      "type": "string",
+      "enum": ["NEWSLETTER", "ANNOUNCEMENT", "PRODUCT_PROMOTION", "ABANDONED_CART", "WELCOME", "BIRTHDAY", "ANNIVERSARY", "RESEND", "EVENT", "CUSTOM_CODE", "A_B_TEST"]
+    },
+    "type_code": { "type": "integer" },
+    "current_status": {
+      "type": "string",
+      "enum": ["NONE", "DRAFT", "SCHEDULED", "EXECUTING", "DONE", "ERROR", "REMOVED"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "campaign_activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "campaign_activity_id": { "type": "string", "format": "uuid" },
+          "role": {
+            "type": "string",
+            "enum": ["primary_email", "resend", "permalink", "winner_resend", "ab_a", "ab_b"]
+          }
+        }
+      }
+    }
+  },
+  "required": ["name"],
+  "definitions": {
+    "EmailCampaignActivity": {
+      "type": "object",
+      "properties": {
+        "campaign_activity_id": { "type": "string", "format": "uuid" },
+        "campaign_id": { "type": "string", "format": "uuid" },
+        "role": {
+          "type": "string",
+          "enum": ["primary_email", "resend", "permalink", "winner_resend", "ab_a", "ab_b"]
+        },
+        "current_status": {
+          "type": "string",
+          "enum": ["DRAFT", "SCHEDULED", "EXECUTING", "DONE", "ERROR", "REMOVED"]
+        },
+        "from_email": { "type": "string", "format": "email" },
+        "from_name": { "type": "string", "maxLength": 100 },
+        "reply_to_email": { "type": "string", "format": "email" },
+        "subject": { "type": "string", "maxLength": 200 },
+        "preheader": { "type": "string", "maxLength": 250 },
+        "html_content": { "type": "string" },
+        "physical_address_in_footer": {
+          "type": "object",
+          "properties": {
+            "address_line1": { "type": "string" },
+            "address_line2": { "type": "string" },
+            "city": { "type": "string" },
+            "state_code": { "type": "string" },
+            "country_code": { "type": "string" },
+            "organization_name": { "type": "string" },
+            "postal_code": { "type": "string" }
+          }
+        },
+        "contact_list_ids": {
+          "type": "array",
+          "items": { "type": "string", "format": "uuid" }
+        },
+        "segment_ids": {
+          "type": "array",
+          "items": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

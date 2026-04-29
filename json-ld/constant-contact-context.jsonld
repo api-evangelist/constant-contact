@@ -1,0 +1,149 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "cc": "https://developer.constantcontact.com/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Contact": {
+      "@id": "cc:Contact",
+      "@context": {
+        "id": "cc:contact_id",
+        "emailAddress": "schema:email",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "phoneNumber": "schema:telephone",
+        "createSource": "cc:create_source",
+        "updateSource": "cc:update_source",
+        "permissionToSend": "cc:permission_to_send",
+        "listMemberships": "cc:list_memberships",
+        "taggings": "cc:taggings",
+        "customFields": "cc:custom_fields",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ContactList": {
+      "@id": "cc:ContactList",
+      "@context": {
+        "id": "cc:list_id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "favorite": "cc:favorite",
+        "membershipCount": "cc:membership_count",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Tag": {
+      "@id": "cc:Tag",
+      "@context": {
+        "id": "cc:tag_id",
+        "name": "schema:name",
+        "tagSource": "cc:tag_source",
+        "contactsCount": "cc:contacts_count"
+      }
+    },
+
+    "Segment": {
+      "@id": "cc:Segment",
+      "@context": {
+        "id": "cc:segment_id",
+        "name": "schema:name",
+        "segmentCriteria": "cc:segment_criteria",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "editableSegmentCriteria": "cc:editable_segment_criteria"
+      }
+    },
+
+    "EmailCampaign": {
+      "@id": "cc:EmailCampaign",
+      "@context": {
+        "id": "cc:campaign_id",
+        "name": "schema:name",
+        "type": "cc:type",
+        "currentStatus": "cc:current_status",
+        "campaignActivities": "cc:campaign_activities",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "CampaignActivity": {
+      "@id": "cc:CampaignActivity",
+      "@context": {
+        "id": "cc:campaign_activity_id",
+        "role": "cc:role",
+        "fromEmail": "schema:email",
+        "fromName": "schema:name",
+        "subject": "cc:subject",
+        "previewText": "cc:preview_text",
+        "htmlContent": "cc:html_content",
+        "physicalAddressInFooter": "cc:physical_address_in_footer",
+        "currentStatus": "cc:current_status"
+      }
+    },
+
+    "Event": {
+      "@id": "cc:Event",
+      "@context": {
+        "id": "cc:event_id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "cc:status",
+        "activeDateTime": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "endDateTime": {
+          "@id": "schema:endDate",
+          "@type": "xsd:dateTime"
+        },
+        "location": "schema:location",
+        "currency": "cc:currency"
+      }
+    },
+
+    "Activity": {
+      "@id": "cc:Activity",
+      "@context": {
+        "id": "cc:activity_id",
+        "state": "cc:state",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "percentDone": "cc:percent_done",
+        "activityErrors": "cc:activity_errors"
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/constant-contact/refs/heads/main/json-schema/constant-contact-contact-schema.json",
+  "title": "Constant Contact Contact",
+  "description": "Schema for a Constant Contact V3 contact resource.",
+  "type": "object",
+  "properties": {
+    "contact_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the contact."
+    },
+    "email_address": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string", "format": "email" },
+        "permission_to_send": {
+          "type": "string",
+          "enum": ["explicit", "implicit", "pending_confirmation", "temp_hold", "unsubscribed"]
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "opt_in_source": { "type": "string" },
+        "opt_in_date": { "type": "string", "format": "date-time" },
+        "opt_out_source": { "type": "string" },
+        "opt_out_date": { "type": "string", "format": "date-time" },
+        "opt_out_reason": { "type": "string" },
+        "confirm_status": { "type": "string" }
+      },
+      "required": ["address"]
+    },
+    "first_name": { "type": "string", "maxLength": 50 },
+    "last_name": { "type": "string", "maxLength": 50 },
+    "job_title": { "type": "string", "maxLength": 50 },
+    "company_name": { "type": "string", "maxLength": 50 },
+    "phone_numbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phone_number_id": { "type": "string" },
+          "phone_number": { "type": "string" },
+          "kind": { "type": "string", "enum": ["home_phone", "work_phone", "mobile_phone", "other_phone"] }
+        }
+      }
+    },
+    "sms_channel": {
+      "type": "object",
+      "properties": {
+        "full_sms_address": { "type": "string" },
+        "sms_channel_consents": { "type": "array" }
+      }
+    },
+    "street_addresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "street_address_id": { "type": "string" },
+          "kind": { "type": "string", "enum": ["home", "work", "other"] },
+          "street": { "type": "string" },
+          "city": { "type": "string" },
+          "state": { "type": "string" },
+          "postal_code": { "type": "string" },
+          "country": { "type": "string" }
+        }
+      }
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "custom_field_id": { "type": "string" },
+          "value": { "type": "string" }
+        },
+        "required": ["custom_field_id", "value"]
+      }
+    },
+    "list_memberships": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" }
+    },
+    "taggings": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" }
+    },
+    "create_source": { "type": "string", "enum": ["Contact", "Account"] },
+    "update_source": { "type": "string", "enum": ["Contact", "Account"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "deleted_at": { "type": "string", "format": "date-time" }
+  },
+  "required": ["email_address", "create_source"]
+}

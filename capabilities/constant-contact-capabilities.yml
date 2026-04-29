@@ -1,0 +1,290 @@
+# Naftiko capabilities profile for the Constant Contact V3 API.
+# Capabilities cover the highest-leverage operations across contacts,
+# email campaigns, bulk activities, events, and reporting.
+provider: constant-contact
+name: Constant Contact
+description: >-
+  Constant Contact V3 email marketing platform: contacts, lists, tags, custom
+  fields, segments, email campaigns and activities, bulk import/export,
+  events, and reporting.
+capabilities:
+  - id: constant-contact.contacts.list
+    name: List contacts
+    description: Page through contacts with optional filters by email, list, tag, or status.
+    api: constant-contact:v3
+    inputs:
+      - email
+      - lists
+      - tags
+      - status
+      - segment_id
+      - limit
+      - cursor
+    outputs:
+      - contacts
+      - _links
+
+  - id: constant-contact.contacts.create
+    name: Create contact
+    description: Create a single email or SMS contact with permission and source metadata.
+    api: constant-contact:v3
+    inputs:
+      - email_address
+      - first_name
+      - last_name
+      - phone_number
+      - list_memberships
+      - taggings
+      - custom_fields
+      - create_source
+    outputs:
+      - contact_id
+      - email_address
+
+  - id: constant-contact.contacts.update
+    name: Update contact
+    description: Update contact attributes, list memberships, tags, or custom fields.
+    api: constant-contact:v3
+    inputs:
+      - contact_id
+      - first_name
+      - last_name
+      - email_address
+      - list_memberships
+      - taggings
+      - custom_fields
+      - update_source
+    outputs:
+      - contact_id
+      - updated_at
+
+  - id: constant-contact.contacts.delete
+    name: Delete contact
+    description: Permanently remove a contact from the account.
+    api: constant-contact:v3
+    inputs:
+      - contact_id
+    outputs:
+      - status
+
+  - id: constant-contact.lists.list
+    name: List contact lists
+    description: Retrieve all contact lists for the account.
+    api: constant-contact:v3
+    inputs:
+      - include_count
+      - include_membership_count
+      - limit
+      - cursor
+    outputs:
+      - lists
+      - _links
+
+  - id: constant-contact.lists.create
+    name: Create contact list
+    description: Create a new contact list to segment subscribers.
+    api: constant-contact:v3
+    inputs:
+      - name
+      - description
+      - favorite
+    outputs:
+      - list_id
+      - created_at
+
+  - id: constant-contact.tags.list
+    name: List tags
+    description: Retrieve all contact tags for the account.
+    api: constant-contact:v3
+    inputs:
+      - limit
+      - cursor
+    outputs:
+      - tags
+
+  - id: constant-contact.tags.create
+    name: Create tag
+    description: Create a new contact tag.
+    api: constant-contact:v3
+    inputs:
+      - name
+    outputs:
+      - tag_id
+      - name
+
+  - id: constant-contact.segments.list
+    name: List segments
+    description: Retrieve all contact segments.
+    api: constant-contact:v3
+    inputs:
+      - sort_by
+      - limit
+      - cursor
+    outputs:
+      - segments
+
+  - id: constant-contact.campaigns.list
+    name: List email campaigns
+    description: Retrieve email campaigns with filters by type and status.
+    api: constant-contact:v3
+    inputs:
+      - type
+      - status
+      - limit
+      - before_date
+      - after_date
+    outputs:
+      - campaigns
+      - _links
+
+  - id: constant-contact.campaigns.create
+    name: Create email campaign
+    description: Create a new email campaign with one initial campaign activity.
+    api: constant-contact:v3
+    inputs:
+      - name
+      - email_campaign_activities
+    outputs:
+      - campaign_id
+      - current_status
+
+  - id: constant-contact.campaigns.schedule
+    name: Schedule campaign activity
+    description: Schedule a campaign activity to send at a future time or immediately.
+    api: constant-contact:v3
+    inputs:
+      - campaign_activity_id
+      - scheduled_date
+    outputs:
+      - schedule_id
+
+  - id: constant-contact.campaigns.test-send
+    name: Send test email
+    description: Send a test version of a campaign activity to one or more email addresses.
+    api: constant-contact:v3
+    inputs:
+      - campaign_activity_id
+      - email_addresses
+      - personal_message
+    outputs:
+      - test_send_id
+
+  - id: constant-contact.activities.import-json
+    name: Bulk import contacts (JSON)
+    description: Bulk-create or update contacts from a JSON payload.
+    api: constant-contact:v3
+    inputs:
+      - import_data
+      - list_ids
+      - taggings
+      - sms_permission_to_send
+    outputs:
+      - activity_id
+      - state
+
+  - id: constant-contact.activities.import-file
+    name: Bulk import contacts (CSV)
+    description: Bulk-create or update contacts from an uploaded CSV file.
+    api: constant-contact:v3
+    inputs:
+      - file
+      - list_ids
+      - taggings
+    outputs:
+      - activity_id
+      - state
+
+  - id: constant-contact.activities.export
+    name: Bulk export contacts
+    description: Start an asynchronous export of contact data filtered by list, segment, tag, or status.
+    api: constant-contact:v3
+    inputs:
+      - list_ids
+      - segment_id
+      - tag_ids
+      - status
+      - fields
+    outputs:
+      - activity_id
+      - file_export_id
+
+  - id: constant-contact.activities.tag-add
+    name: Bulk add tags
+    description: Add tags to many contacts in a single asynchronous activity.
+    api: constant-contact:v3
+    inputs:
+      - source
+      - tag_ids
+    outputs:
+      - activity_id
+      - state
+
+  - id: constant-contact.events.create
+    name: Create event
+    description: Create an event listing with registration tracks and tickets.
+    api: constant-contact:v3
+    inputs:
+      - name
+      - description
+      - status
+      - active_date_time
+      - location
+      - currency
+    outputs:
+      - event_id
+
+  - id: constant-contact.events.list-registrations
+    name: List event registrations
+    description: List registrations for a specific track of an event.
+    api: constant-contact:v3
+    inputs:
+      - event_id
+      - track_id
+      - limit
+      - cursor
+    outputs:
+      - registrations
+
+  - id: constant-contact.events.check-in
+    name: Check in event tickets
+    description: Mark one or more tickets as checked in.
+    api: constant-contact:v3
+    inputs:
+      - event_id
+      - ticket_ids
+    outputs:
+      - tickets
+
+  - id: constant-contact.reporting.campaign-stats
+    name: Get campaign stats
+    description: Retrieve aggregate engagement metrics for a campaign or campaign activity.
+    api: constant-contact:v3
+    inputs:
+      - campaign_id
+      - campaign_activity_id
+    outputs:
+      - sends
+      - opens
+      - clicks
+      - bounces
+      - unsubscribes
+
+  - id: constant-contact.reporting.contact-tracking
+    name: Get contact tracking activity
+    description: List all engagement activity for a single contact across campaigns.
+    api: constant-contact:v3
+    inputs:
+      - contact_id
+      - tracking_activities_list
+      - limit
+    outputs:
+      - tracking_activities
+
+  - id: constant-contact.account.summary
+    name: Get account summary
+    description: Retrieve account profile, contact, and physical-address details.
+    api: constant-contact:v3
+    inputs:
+      - extra_fields
+    outputs:
+      - account_summary
