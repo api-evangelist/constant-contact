@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Constant Contact
+providerId: constant-contact
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Email Marketing
+  - Marketing Automation
+description: 'Constant Contact tiers: Lite / Standard / Premium with per-contact tier scaling.'
+sources:
+  - https://www.constantcontact.com/pricing
+plans:
+  - id: constant-contact-lite
+    name: Lite
+    type: paid
+    description: $12/month for up to 500 contacts; jumps to $50/mo at 1,000.
+    entries:
+      - label: Monthly base (500 contacts)
+        name: base_500
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '12.00'
+        userMultiplied: false
+      - label: At 1,000 contacts
+        name: tier_1k
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '50.00'
+        userMultiplied: false
+      - label: Email overage
+        name: email_overage
+        type: metered
+        metric: email
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.002'
+        userMultiplied: false
+    elements:
+      - name: 1 GB storage
+      - name: Basic email marketing
+      - name: Templates
+      - name: KPI tracking
+      - name: Up to 12x contact volume in monthly emails
+  - id: constant-contact-standard
+    name: Standard
+    type: paid
+    description: Mid-tier; pricing scales with contact count.
+    entries:
+      - label: Monthly (varies)
+        name: monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: varies
+        userMultiplied: false
+    elements:
+      - name: All Lite features
+      - name: Advanced segmentation
+      - name: A/B testing
+      - name: Multichannel
+      - name: Pre-built automations
+  - id: constant-contact-premium
+    name: Premium
+    type: paid
+    description: $80/month at 500 contacts; advanced tier.
+    entries:
+      - label: Monthly (500 contacts)
+        name: base_500
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '80.00'
+        userMultiplied: false
+      - label: Up to 24x emails per contact
+        name: email_ratio
+        type: quota
+        metric: ratio
+        limit: 24
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Custom automation
+      - name: Funnel reports
+      - name: Dynamic content
+      - name: Lead scoring
+      - name: 24x contact-volume email allotment
