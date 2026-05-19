@@ -1,0 +1,291 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Email Scheduling
+  description: 'AppConnect V3 — Email Scheduling. 6 operations. Lead operation: GET the HTML Preview of an Email Campaign
+    Activity. Self-contained Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Email Scheduling
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-email-scheduling
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Email Scheduling business capability. Self-contained, no shared references.
+    resources:
+    - name: emails-activities-campaign_activity_id-previews
+      path: /emails/activities/{campaign_activity_id}/previews
+      operations:
+      - name: retrieveemailcampaignactivitypreviewusingget
+        method: GET
+        description: GET the HTML Preview of an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity.
+          required: true
+    - name: emails-activities-campaign_activity_id-schedules
+      path: /emails/activities/{campaign_activity_id}/schedules
+      operations:
+      - name: retrieveemailschedulesusingget
+        method: GET
+        description: GET an Email Campaign Activity Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity.
+          required: true
+      - name: scheduleemailcampaignactivityusingpost
+        method: POST
+        description: POST (Create) an Email Campaign Activity Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity. You can only schedule email campaign activities that
+            have the `primary_email` role.
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: A request body payload that contains the date that you want Constant Contact to send your email campaign
+            activity on. Use `"0"` as the date to have Constant Con
+          required: true
+      - name: unscheduleemailcampaignactivityusingdelete
+        method: DELETE
+        description: DELETE an Email Campaign Activity Schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity.
+          required: true
+    - name: emails-activities-campaign_activity_id-send_history
+      path: /emails/activities/{campaign_activity_id}/send_history
+      operations:
+      - name: retrieveemailsendhistoryusingget
+        method: GET
+        description: GET the Send History of an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity. You can return the send history for `primary_email` and
+            `resend` role email campaign activities.
+          required: true
+    - name: emails-activities-campaign_activity_id-tests
+      path: /emails/activities/{campaign_activity_id}/tests
+      operations:
+      - name: testsendcampaignactivityusingpost
+        method: POST
+        description: POST Test Send an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for an email campaign activity. You can only test send email campaign activities that
+            have the `primary_email` role.
+          required: true
+        - name: email_test_send_input
+          in: body
+          type: string
+          description: A JSON request body that contains the recipients of the test email and an optional personal message.
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-email-scheduling-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Email Scheduling. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/emails/activities/{campaign-activity-id}/previews
+      name: emails-activities-campaign-activity-id-previews
+      description: REST surface for emails-activities-campaign_activity_id-previews.
+      operations:
+      - method: GET
+        name: retrieveemailcampaignactivitypreviewusingget
+        description: GET the HTML Preview of an Email Campaign Activity
+        call: v3-email-scheduling.retrieveemailcampaignactivitypreviewusingget
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/emails/activities/{campaign-activity-id}/schedules
+      name: emails-activities-campaign-activity-id-schedules
+      description: REST surface for emails-activities-campaign_activity_id-schedules.
+      operations:
+      - method: GET
+        name: retrieveemailschedulesusingget
+        description: GET an Email Campaign Activity Schedule
+        call: v3-email-scheduling.retrieveemailschedulesusingget
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: scheduleemailcampaignactivityusingpost
+        description: POST (Create) an Email Campaign Activity Schedule
+        call: v3-email-scheduling.scheduleemailcampaignactivityusingpost
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unscheduleemailcampaignactivityusingdelete
+        description: DELETE an Email Campaign Activity Schedule
+        call: v3-email-scheduling.unscheduleemailcampaignactivityusingdelete
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/emails/activities/{campaign-activity-id}/send-history
+      name: emails-activities-campaign-activity-id-send-history
+      description: REST surface for emails-activities-campaign_activity_id-send_history.
+      operations:
+      - method: GET
+        name: retrieveemailsendhistoryusingget
+        description: GET the Send History of an Email Campaign Activity
+        call: v3-email-scheduling.retrieveemailsendhistoryusingget
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/emails/activities/{campaign-activity-id}/tests
+      name: emails-activities-campaign-activity-id-tests
+      description: REST surface for emails-activities-campaign_activity_id-tests.
+      operations:
+      - method: POST
+        name: testsendcampaignactivityusingpost
+        description: POST Test Send an Email Campaign Activity
+        call: v3-email-scheduling.testsendcampaignactivityusingpost
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+          email_test_send_input: rest.email_test_send_input
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-email-scheduling-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Email Scheduling. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-html-preview-email-campaign
+      description: GET the HTML Preview of an Email Campaign Activity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-email-scheduling.retrieveemailcampaignactivitypreviewusingget
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-email-campaign-activity-schedule
+      description: GET an Email Campaign Activity Schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-email-scheduling.retrieveemailschedulesusingget
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-create-email-campaign-activity
+      description: POST (Create) an Email Campaign Activity Schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-email-scheduling.scheduleemailcampaignactivityusingpost
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-email-campaign-activity-schedule
+      description: DELETE an Email Campaign Activity Schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: v3-email-scheduling.unscheduleemailcampaignactivityusingdelete
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-send-history-email-campaign
+      description: GET the Send History of an Email Campaign Activity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-email-scheduling.retrieveemailsendhistoryusingget
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-test-send-email-campaign
+      description: POST Test Send an Email Campaign Activity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: v3-email-scheduling.testsendcampaignactivityusingpost
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+        email_test_send_input: tools.email_test_send_input
+      outputParameters:
+      - type: object
+        mapping: $.

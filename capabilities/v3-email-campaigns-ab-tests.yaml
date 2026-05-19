@@ -1,0 +1,155 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Email Campaigns AB Tests
+  description: 'AppConnect V3 — Email Campaigns AB Tests. 3 operations. Lead operation: GET A/B Test Details for an Email
+    Campaign Activity. Self-contained Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Email Campaigns AB Tests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-email-campaigns-ab-tests
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Email Campaigns AB Tests business capability. Self-contained, no shared references.
+    resources:
+    - name: emails-activities-campaign_activity_id-abtest
+      path: /emails/activities/{campaign_activity_id}/abtest
+      operations:
+      - name: retrieveemailcampaignabtestusingget
+        method: GET
+        description: GET A/B Test Details for an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for the primary email campaign activity.
+          required: true
+      - name: createemailcampaignabtestusingpost
+        method: POST
+        description: POST (Create) an A/B Test for an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for the primary email campaign activity.
+          required: true
+        - name: abtest
+          in: body
+          type: string
+          description: Specify the `alternative_subject` line, `test_size` percentage of contacts (value must from `5` to
+            `50` inclusively), and the `winner_wait_duration` (value must
+          required: true
+      - name: deleteemailcampaignabtestusingdelete
+        method: DELETE
+        description: DELETE an A/B Test for an Email Campaign Activity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaign_activity_id
+          in: path
+          type: string
+          description: The unique ID for the primary email campaign activity.
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-email-campaigns-ab-tests-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Email Campaigns AB Tests. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/emails/activities/{campaign-activity-id}/abtest
+      name: emails-activities-campaign-activity-id-abtest
+      description: REST surface for emails-activities-campaign_activity_id-abtest.
+      operations:
+      - method: GET
+        name: retrieveemailcampaignabtestusingget
+        description: GET A/B Test Details for an Email Campaign Activity
+        call: v3-email-campaigns-ab-tests.retrieveemailcampaignabtestusingget
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createemailcampaignabtestusingpost
+        description: POST (Create) an A/B Test for an Email Campaign Activity
+        call: v3-email-campaigns-ab-tests.createemailcampaignabtestusingpost
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+          abtest: rest.abtest
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteemailcampaignabtestusingdelete
+        description: DELETE an A/B Test for an Email Campaign Activity
+        call: v3-email-campaigns-ab-tests.deleteemailcampaignabtestusingdelete
+        with:
+          campaign_activity_id: rest.campaign_activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-email-campaigns-ab-tests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Email Campaigns AB Tests. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-b-test-details-email
+      description: GET A/B Test Details for an Email Campaign Activity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-email-campaigns-ab-tests.retrieveemailcampaignabtestusingget
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-create-b-test-email
+      description: POST (Create) an A/B Test for an Email Campaign Activity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: v3-email-campaigns-ab-tests.createemailcampaignabtestusingpost
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+        abtest: tools.abtest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-b-test-email-campaign
+      description: DELETE an A/B Test for an Email Campaign Activity
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: v3-email-campaigns-ab-tests.deleteemailcampaignabtestusingdelete
+      with:
+        campaign_activity_id: tools.campaign_activity_id
+      outputParameters:
+      - type: object
+        mapping: $.

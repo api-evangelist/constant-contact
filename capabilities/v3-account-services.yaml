@@ -1,0 +1,339 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Account Services
+  description: 'AppConnect V3 — Account Services. 8 operations. Lead operation: GET a Collection of Account Email Addresses.
+    Self-contained Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Account Services
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-account-services
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Account Services business capability. Self-contained, no shared references.
+    resources:
+    - name: account-emails
+      path: /account/emails
+      operations:
+      - name: retrieveemailaddresses
+        method: GET
+        description: GET a Collection of Account Email Addresses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: confirm_status
+          in: query
+          type: string
+          description: Use the `confirm_status` query parameter to search for account emails using the email status. Possible
+            values are `CONFIRMED` or `UNCONFIRMED`. You can also abb
+        - name: role_code
+          in: query
+          type: string
+          description: 'Use the `role_code` query parameter to search for account emails that have a specific role. Each each
+            email address in an account can have multiple roles or no '
+        - name: email_address
+          in: query
+          type: string
+          description: Use the `email_address` query parameter to search for a specific account email address.
+      - name: addaccountemailaddress
+        method: POST
+        description: POST Add an Account Email Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: A JSON request payload containing the new email address you want to add to the Constant Contact account.
+          required: true
+    - name: account-summary
+      path: /account/summary
+      operations:
+      - name: getaccountbyid
+        method: GET
+        description: GET a Summary of Account Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: extra_fields
+          in: query
+          type: string
+          description: Use the `extra_fields` query parameter to include the `physical_address` and/or `company_logo` details
+            in the response body. Use a comma separated list to inclu
+      - name: putcustomerbyid
+        method: PUT
+        description: PUT (update) Account Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: In the request body, specify changes to account details by including and modifying all or select `CustomerPut`
+            properties. Changes to read-only fields (`encoded
+          required: true
+    - name: account-summary-physical_address
+      path: /account/summary/physical_address
+      operations:
+      - name: getphysicaladdress
+        method: GET
+        description: GET the Physical Address for the Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: addphysicaladdress
+        method: POST
+        description: POST the Physical Address for the Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Include all `AccountPhysicalAddress` properties required for the specified `country_code`. If a required
+            property is not included or incorrectly formatted, a 40
+          required: true
+      - name: putphysicaladdress
+        method: PUT
+        description: PUT (update) the Physical Address for an Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Include all `AccountPhysicalAddress` properties required for the specified `country_code` and then
+            update only those properties that you want to change. Excludi
+          required: true
+    - name: account-user-privileges
+      path: /account/user/privileges
+      operations:
+      - name: getuserprivileges
+        method: GET
+        description: GET User Privileges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: v3-account-services-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Account Services. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/account/emails
+      name: account-emails
+      description: REST surface for account-emails.
+      operations:
+      - method: GET
+        name: retrieveemailaddresses
+        description: GET a Collection of Account Email Addresses
+        call: v3-account-services.retrieveemailaddresses
+        with:
+          confirm_status: rest.confirm_status
+          role_code: rest.role_code
+          email_address: rest.email_address
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addaccountemailaddress
+        description: POST Add an Account Email Address
+        call: v3-account-services.addaccountemailaddress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/account/summary
+      name: account-summary
+      description: REST surface for account-summary.
+      operations:
+      - method: GET
+        name: getaccountbyid
+        description: GET a Summary of Account Details
+        call: v3-account-services.getaccountbyid
+        with:
+          extra_fields: rest.extra_fields
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putcustomerbyid
+        description: PUT (update) Account Details
+        call: v3-account-services.putcustomerbyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/account/summary/physical-address
+      name: account-summary-physical-address
+      description: REST surface for account-summary-physical_address.
+      operations:
+      - method: GET
+        name: getphysicaladdress
+        description: GET the Physical Address for the Account
+        call: v3-account-services.getphysicaladdress
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addphysicaladdress
+        description: POST the Physical Address for the Account
+        call: v3-account-services.addphysicaladdress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putphysicaladdress
+        description: PUT (update) the Physical Address for an Account
+        call: v3-account-services.putphysicaladdress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/account/user/privileges
+      name: account-user-privileges
+      description: REST surface for account-user-privileges.
+      operations:
+      - method: GET
+        name: getuserprivileges
+        description: GET User Privileges
+        call: v3-account-services.getuserprivileges
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-account-services-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Account Services. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-collection-account-email-addresses
+      description: GET a Collection of Account Email Addresses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-account-services.retrieveemailaddresses
+      with:
+        confirm_status: tools.confirm_status
+        role_code: tools.role_code
+        email_address: tools.email_address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-add-account-email-address
+      description: POST Add an Account Email Address
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-account-services.addaccountemailaddress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-summary-account-details
+      description: GET a Summary of Account Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-account-services.getaccountbyid
+      with:
+        extra_fields: tools.extra_fields
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-update-account-details
+      description: PUT (update) Account Details
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-account-services.putcustomerbyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-physical-address-account
+      description: GET the Physical Address for the Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-account-services.getphysicaladdress
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-physical-address-account
+      description: POST the Physical Address for the Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-account-services.addphysicaladdress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-update-physical-address-account
+      description: PUT (update) the Physical Address for an Account
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-account-services.putphysicaladdress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-privileges
+      description: GET User Privileges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-account-services.getuserprivileges
+      outputParameters:
+      - type: object
+        mapping: $.

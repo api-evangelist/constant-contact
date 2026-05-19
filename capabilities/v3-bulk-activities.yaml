@@ -1,0 +1,650 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Bulk Activities
+  description: 'AppConnect V3 — Bulk Activities. 14 operations. Lead operation: GET Activity Status Collection. Self-contained
+    Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Bulk Activities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-bulk-activities
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Bulk Activities business capability. Self-contained, no shared references.
+    resources:
+    - name: activities
+      path: /activities
+      operations:
+      - name: getactivitystatuscollection
+        method: GET
+        description: GET Activity Status Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+        - name: state
+          in: query
+          type: string
+          description: 'Use this parameter to filter the response to include only activities in one of the following states:
+            cancelled, completed, failed, processing, or timed_out.'
+    - name: activities-add_list_memberships
+      path: /activities/add_list_memberships
+      operations:
+      - name: postlistaddcontact
+        method: POST
+        description: Add Contacts to Lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to create the 'add contacts to lists' activity
+          required: true
+    - name: activities-contact_delete
+      path: /activities/contact_delete
+      operations:
+      - name: postcontactdelete
+        method: POST
+        description: Delete Contacts in Bulk
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The request body contains an array of contact_ids <em>or</em> list_ids. All contact_ids provided are
+            deleted, or all members of each specified list_id are delet
+          required: true
+    - name: activities-contact_exports
+      path: /activities/contact_exports
+      operations:
+      - name: postcontactsexport
+        method: POST
+        description: Export Contacts to a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: A JSON payload that specifies the contacts (rows in the CSV file) and contact properties (columns in
+            the CSV file) you want to export.
+          required: true
+    - name: activities-contacts_file_import
+      path: /activities/contacts_file_import
+      operations:
+      - name: contactscsvimport
+        method: POST
+        description: Import Contacts using a CSV File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: file
+          in: formData
+          type: file
+          description: 'The CSV file you are importing  must include either `email` or `sms_number` as a column heading. Other
+            properties you can include using column headings are: `fi'
+          required: true
+        - name: list_ids
+          in: formData
+          type: string
+          description: Specify which contact lists you are adding all imported contacts to as an array of up to 50 contact
+            `list_id` values.
+          required: true
+        - name: sms_permission_to_send
+          in: formData
+          type: string
+          description: If importing contact `sms_number`s, use this parameter to specify how SMS consent was provided. If
+            all contacts in the file provided their consent, set to `expl
+    - name: activities-contacts_json_import
+      path: /activities/contacts_json_import
+      operations:
+      - name: bulkimportcontactsjson
+        method: POST
+        description: Import Contacts using a JSON Payload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON request payload that contains the contact data and contact lists for the import.
+          required: true
+    - name: activities-contacts_taggings_add
+      path: /activities/contacts_taggings_add
+      operations:
+      - name: posttagaddcontact
+        method: POST
+        description: Add Tags to Contacts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to create an asynchronous activity that adds tags to contacts that meet your
+            specified contact filtering criteria.
+          required: true
+    - name: activities-contacts_taggings_remove
+      path: /activities/contacts_taggings_remove
+      operations:
+      - name: posttagremovecontact
+        method: POST
+        description: Remove Tags from Contacts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to create an asynchronous activity that removes tags from contacts meeting your
+            specified contact filtering criteria.
+          required: true
+    - name: activities-contacts_tags_delete
+      path: /activities/contacts_tags_delete
+      operations:
+      - name: posttagdelete
+        method: POST
+        description: Delete Tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: An array of string values (`tag_id`s) to delete.
+          required: true
+    - name: activities-custom_fields_delete
+      path: /activities/custom_fields_delete
+      operations:
+      - name: postcustomfielddelete
+        method: POST
+        description: Delete Custom Fields
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: An array of `custom_field_id`'s to delete.
+          required: true
+    - name: activities-list_delete
+      path: /activities/list_delete
+      operations:
+      - name: postlistdelete
+        method: POST
+        description: Delete Contact Lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: An array of `list_id`'s to delete.
+          required: true
+    - name: activities-remove_list_memberships
+      path: /activities/remove_list_memberships
+      operations:
+      - name: postlistremovecontact
+        method: POST
+        description: Remove Contacts from Lists
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to create the Remove Contacts from Lists' activity
+          required: true
+    - name: activities-activity_id
+      path: /activities/{activity_id}
+      operations:
+      - name: getactivity
+        method: GET
+        description: GET an Activity Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: activity_id
+          in: path
+          type: string
+          description: The unique ID of the activity to GET
+          required: true
+    - name: contact_exports-file_export_id
+      path: /contact_exports/{file_export_id}
+      operations:
+      - name: getcontactsexport
+        method: GET
+        description: Retrieve Exported Contacts File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: file_export_id
+          in: path
+          type: string
+          description: 'The unique ID of the exported file provided in the results: section of the export contacts activity
+            response.'
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-bulk-activities-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Bulk Activities. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/activities
+      name: activities
+      description: REST surface for activities.
+      operations:
+      - method: GET
+        name: getactivitystatuscollection
+        description: GET Activity Status Collection
+        call: v3-bulk-activities.getactivitystatuscollection
+        with:
+          limit: rest.limit
+          state: rest.state
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/add-list-memberships
+      name: activities-add-list-memberships
+      description: REST surface for activities-add_list_memberships.
+      operations:
+      - method: POST
+        name: postlistaddcontact
+        description: Add Contacts to Lists
+        call: v3-bulk-activities.postlistaddcontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contact-delete
+      name: activities-contact-delete
+      description: REST surface for activities-contact_delete.
+      operations:
+      - method: POST
+        name: postcontactdelete
+        description: Delete Contacts in Bulk
+        call: v3-bulk-activities.postcontactdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contact-exports
+      name: activities-contact-exports
+      description: REST surface for activities-contact_exports.
+      operations:
+      - method: POST
+        name: postcontactsexport
+        description: Export Contacts to a File
+        call: v3-bulk-activities.postcontactsexport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contacts-file-import
+      name: activities-contacts-file-import
+      description: REST surface for activities-contacts_file_import.
+      operations:
+      - method: POST
+        name: contactscsvimport
+        description: Import Contacts using a CSV File
+        call: v3-bulk-activities.contactscsvimport
+        with:
+          file: rest.file
+          list_ids: rest.list_ids
+          sms_permission_to_send: rest.sms_permission_to_send
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contacts-json-import
+      name: activities-contacts-json-import
+      description: REST surface for activities-contacts_json_import.
+      operations:
+      - method: POST
+        name: bulkimportcontactsjson
+        description: Import Contacts using a JSON Payload
+        call: v3-bulk-activities.bulkimportcontactsjson
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contacts-taggings-add
+      name: activities-contacts-taggings-add
+      description: REST surface for activities-contacts_taggings_add.
+      operations:
+      - method: POST
+        name: posttagaddcontact
+        description: Add Tags to Contacts
+        call: v3-bulk-activities.posttagaddcontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contacts-taggings-remove
+      name: activities-contacts-taggings-remove
+      description: REST surface for activities-contacts_taggings_remove.
+      operations:
+      - method: POST
+        name: posttagremovecontact
+        description: Remove Tags from Contacts
+        call: v3-bulk-activities.posttagremovecontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/contacts-tags-delete
+      name: activities-contacts-tags-delete
+      description: REST surface for activities-contacts_tags_delete.
+      operations:
+      - method: POST
+        name: posttagdelete
+        description: Delete Tags
+        call: v3-bulk-activities.posttagdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/custom-fields-delete
+      name: activities-custom-fields-delete
+      description: REST surface for activities-custom_fields_delete.
+      operations:
+      - method: POST
+        name: postcustomfielddelete
+        description: Delete Custom Fields
+        call: v3-bulk-activities.postcustomfielddelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/list-delete
+      name: activities-list-delete
+      description: REST surface for activities-list_delete.
+      operations:
+      - method: POST
+        name: postlistdelete
+        description: Delete Contact Lists
+        call: v3-bulk-activities.postlistdelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/remove-list-memberships
+      name: activities-remove-list-memberships
+      description: REST surface for activities-remove_list_memberships.
+      operations:
+      - method: POST
+        name: postlistremovecontact
+        description: Remove Contacts from Lists
+        call: v3-bulk-activities.postlistremovecontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/activities/{activity-id}
+      name: activities-activity-id
+      description: REST surface for activities-activity_id.
+      operations:
+      - method: GET
+        name: getactivity
+        description: GET an Activity Status
+        call: v3-bulk-activities.getactivity
+        with:
+          activity_id: rest.activity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contact-exports/{file-export-id}
+      name: contact-exports-file-export-id
+      description: REST surface for contact_exports-file_export_id.
+      operations:
+      - method: GET
+        name: getcontactsexport
+        description: Retrieve Exported Contacts File
+        call: v3-bulk-activities.getcontactsexport
+        with:
+          file_export_id: rest.file_export_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-bulk-activities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Bulk Activities. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-activity-status-collection
+      description: GET Activity Status Collection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-bulk-activities.getactivitystatuscollection
+      with:
+        limit: tools.limit
+        state: tools.state
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-contacts-lists
+      description: Add Contacts to Lists
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postlistaddcontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-contacts-bulk
+      description: Delete Contacts in Bulk
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postcontactdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-contacts-file
+      description: Export Contacts to a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postcontactsexport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-contacts-using-csv-file
+      description: Import Contacts using a CSV File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.contactscsvimport
+      with:
+        file: tools.file
+        list_ids: tools.list_ids
+        sms_permission_to_send: tools.sms_permission_to_send
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: import-contacts-using-json-payload
+      description: Import Contacts using a JSON Payload
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.bulkimportcontactsjson
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-tags-contacts
+      description: Add Tags to Contacts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.posttagaddcontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-tags-contacts
+      description: Remove Tags from Contacts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.posttagremovecontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tags
+      description: Delete Tags
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.posttagdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-custom-fields
+      description: Delete Custom Fields
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postcustomfielddelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-contact-lists
+      description: Delete Contact Lists
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postlistdelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-contacts-lists
+      description: Remove Contacts from Lists
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-bulk-activities.postlistremovecontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-activity-status
+      description: GET an Activity Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-bulk-activities.getactivity
+      with:
+        activity_id: tools.activity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-exported-contacts-file
+      description: Retrieve Exported Contacts File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-bulk-activities.getcontactsexport
+      with:
+        file_export_id: tools.file_export_id
+      outputParameters:
+      - type: object
+        mapping: $.

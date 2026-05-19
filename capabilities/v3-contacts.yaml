@@ -1,0 +1,551 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Contacts
+  description: 'AppConnect V3 — Contacts. 10 operations. Lead operation: GET Contacts Collection. Self-contained Naftiko capability
+    covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Contacts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-contacts
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Contacts business capability. Self-contained, no shared references.
+    resources:
+    - name: contacts
+      path: /contacts
+      operations:
+      - name: getcontacts
+        method: GET
+        description: GET Contacts Collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: 'Use the `status` query parameter to search for contacts by status. This parameter accepts one or more
+            comma separated values: `all`, `active`, `deleted`, `not_s'
+        - name: email
+          in: query
+          type: string
+          description: Use the `email` query parameter to search for a contact using a specific email address.
+        - name: lists
+          in: query
+          type: string
+          description: Use the `lists` query parameter to search for contacts that are members of one or more specified lists.
+            Use a comma to separate multiple `list_id` values, up to
+        - name: segment_id
+          in: query
+          type: string
+          description: Use to get contacts that meet the segment criteria for a single specified `segment_id`. This query
+            parameter can only be combined with the limit query parameter
+        - name: tags
+          in: query
+          type: string
+          description: Use to get contact details for up to 50 specified tags. Use a comma to separate each `tag_id`.
+        - name: updated_after
+          in: query
+          type: string
+          description: Use `updated_after` to search for contacts that have been updated after the date you specify. To search
+            for updated contacts within a date range, specify both `
+        - name: updated_before
+          in: query
+          type: string
+          description: Use `updated_before` to search for contacts that have been updated before a specified date. To search
+            for updated contacts within a date range, specify both `up
+        - name: created_after
+          in: query
+          type: string
+          description: 'Use `created_after` to search for contacts created after a specified date. To search for contacts
+            created within a date range, specify both `created_after` and '
+        - name: created_before
+          in: query
+          type: string
+          description: Use `created_before` to search for contacts created before a specified date. To search for contacts
+            created within a date range, specify both `created_after` an
+        - name: optout_after
+          in: query
+          type: string
+          description: Use `optout_after` to search for contacts that unsubscribed after a specified date.
+        - name: optout_before
+          in: query
+          type: string
+          description: Use `optout_before` to search for contacts that unsubscribed before a specified date.
+        - name: include
+          in: query
+          type: string
+          description: 'Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate
+            multiple sub-resources. Valid values: `custom_fields`, '
+        - name: sms_status
+          in: query
+          type: string
+          description: 'Use to get contacts by their SMS status. This parameter accepts one or more comma separated values:
+            `all`, `explicit`, `unsubscribed`, `pending_confirmation`, `'
+        - name: include_count
+          in: query
+          type: boolean
+          description: Set `include_count=true` to include the total number of contacts (`contacts_count`) that meet all search
+            criteria in the response body.
+        - name: limit
+          in: query
+          type: integer
+          description: Specifies the number of results displayed per page of output in the response, from 1 - 500, default
+            = 50.
+      - name: createcontact
+        method: POST
+        description: POST (create) a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload defining the contact
+          required: true
+    - name: contacts-contact_id_xrefs
+      path: /contacts/contact_id_xrefs
+      operations:
+      - name: getcontactidxrefs
+        method: GET
+        description: GET a collection of V2 and V3 API contact IDs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sequence_ids
+          in: query
+          type: string
+          description: Comma delimited list of V2 API contact `ids` to cross-reference with the V3 API `contact_id` value.
+            Endpoint accepts a maximum of 500 ids at a time.
+          required: true
+    - name: contacts-counts
+      path: /contacts/counts
+      operations:
+      - name: countcontact
+        method: GET
+        description: GET Contact Consent Counts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include
+          in: query
+          type: string
+          description: Use to return the total number of contacts that subscribed within the last 30 days in the results.
+    - name: contacts-resubscribe-contact_id
+      path: /contacts/resubscribe/{contact_id}
+      operations:
+      - name: resubscribecontact
+        method: PUT
+        description: PUT Resubscribe a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: The ID that uniquely identifies the contact to resubscribe.
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to specify one (or more) contact lists to which the contact requested to be resubscribed.
+          required: true
+    - name: contacts-sign_up_form
+      path: /contacts/sign_up_form
+      operations:
+      - name: createorupdatecontact
+        method: POST
+        description: Create or Update a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: A JSON request body payload that contains the contact resource you are creating or updating. The request
+            body must contain the `email_address` property and `lis
+          required: true
+    - name: contacts-sms_engagement_history-contact_id
+      path: /contacts/sms_engagement_history/{contact_id}
+      operations:
+      - name: getsmsengagementhistory
+        method: GET
+        description: GET SMS Engagement History for a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: The contact's unique ID.
+          required: true
+    - name: contacts-contact_id
+      path: /contacts/{contact_id}
+      operations:
+      - name: getcontact
+        method: GET
+        description: GET a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: Unique ID of contact to GET
+          required: true
+        - name: include
+          in: query
+          type: string
+          description: 'Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate
+            multiple sub-resources. Valid values: `custom_fields`, '
+      - name: putcontact
+        method: PUT
+        description: PUT (update) a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: Unique ID of contact to update
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: 'JSON payload defining the contact object, with updates. Any properties left blank or not included
+            in the PUT payload are overwritten with null value - does not '
+          required: true
+      - name: deletecontact
+        method: DELETE
+        description: DELETE a Contact
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: Unique ID of contact to DELETE
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-contacts-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Contacts. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/contacts
+      name: contacts
+      description: REST surface for contacts.
+      operations:
+      - method: GET
+        name: getcontacts
+        description: GET Contacts Collection
+        call: v3-contacts.getcontacts
+        with:
+          status: rest.status
+          email: rest.email
+          lists: rest.lists
+          segment_id: rest.segment_id
+          tags: rest.tags
+          updated_after: rest.updated_after
+          updated_before: rest.updated_before
+          created_after: rest.created_after
+          created_before: rest.created_before
+          optout_after: rest.optout_after
+          optout_before: rest.optout_before
+          include: rest.include
+          sms_status: rest.sms_status
+          include_count: rest.include_count
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcontact
+        description: POST (create) a Contact
+        call: v3-contacts.createcontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/contact-id-xrefs
+      name: contacts-contact-id-xrefs
+      description: REST surface for contacts-contact_id_xrefs.
+      operations:
+      - method: GET
+        name: getcontactidxrefs
+        description: GET a collection of V2 and V3 API contact IDs
+        call: v3-contacts.getcontactidxrefs
+        with:
+          sequence_ids: rest.sequence_ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/counts
+      name: contacts-counts
+      description: REST surface for contacts-counts.
+      operations:
+      - method: GET
+        name: countcontact
+        description: GET Contact Consent Counts
+        call: v3-contacts.countcontact
+        with:
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/resubscribe/{contact-id}
+      name: contacts-resubscribe-contact-id
+      description: REST surface for contacts-resubscribe-contact_id.
+      operations:
+      - method: PUT
+        name: resubscribecontact
+        description: PUT Resubscribe a Contact
+        call: v3-contacts.resubscribecontact
+        with:
+          contact_id: rest.contact_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/sign-up-form
+      name: contacts-sign-up-form
+      description: REST surface for contacts-sign_up_form.
+      operations:
+      - method: POST
+        name: createorupdatecontact
+        description: Create or Update a Contact
+        call: v3-contacts.createorupdatecontact
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/sms-engagement-history/{contact-id}
+      name: contacts-sms-engagement-history-contact-id
+      description: REST surface for contacts-sms_engagement_history-contact_id.
+      operations:
+      - method: GET
+        name: getsmsengagementhistory
+        description: GET SMS Engagement History for a Contact
+        call: v3-contacts.getsmsengagementhistory
+        with:
+          contact_id: rest.contact_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contacts/{contact-id}
+      name: contacts-contact-id
+      description: REST surface for contacts-contact_id.
+      operations:
+      - method: GET
+        name: getcontact
+        description: GET a Contact
+        call: v3-contacts.getcontact
+        with:
+          contact_id: rest.contact_id
+          include: rest.include
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putcontact
+        description: PUT (update) a Contact
+        call: v3-contacts.putcontact
+        with:
+          contact_id: rest.contact_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecontact
+        description: DELETE a Contact
+        call: v3-contacts.deletecontact
+        with:
+          contact_id: rest.contact_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-contacts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Contacts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-contacts-collection
+      description: GET Contacts Collection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts.getcontacts
+      with:
+        status: tools.status
+        email: tools.email
+        lists: tools.lists
+        segment_id: tools.segment_id
+        tags: tools.tags
+        updated_after: tools.updated_after
+        updated_before: tools.updated_before
+        created_after: tools.created_after
+        created_before: tools.created_before
+        optout_after: tools.optout_after
+        optout_before: tools.optout_before
+        include: tools.include
+        sms_status: tools.sms_status
+        include_count: tools.include_count
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-create-contact
+      description: POST (create) a Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-contacts.createcontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-collection-v2-and-v3
+      description: GET a collection of V2 and V3 API contact IDs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts.getcontactidxrefs
+      with:
+        sequence_ids: tools.sequence_ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-contact-consent-counts
+      description: GET Contact Consent Counts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts.countcontact
+      with:
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-resubscribe-contact
+      description: PUT Resubscribe a Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-contacts.resubscribecontact
+      with:
+        contact_id: tools.contact_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-contact
+      description: Create or Update a Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-contacts.createorupdatecontact
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-sms-engagement-history-contact
+      description: GET SMS Engagement History for a Contact
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts.getsmsengagementhistory
+      with:
+        contact_id: tools.contact_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-contact
+      description: GET a Contact
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts.getcontact
+      with:
+        contact_id: tools.contact_id
+        include: tools.include
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-update-contact
+      description: PUT (update) a Contact
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-contacts.putcontact
+      with:
+        contact_id: tools.contact_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-contact
+      description: DELETE a Contact
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: v3-contacts.deletecontact
+      with:
+        contact_id: tools.contact_id
+      outputParameters:
+      - type: object
+        mapping: $.

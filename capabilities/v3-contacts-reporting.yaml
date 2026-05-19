@@ -1,0 +1,217 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Contacts Reporting
+  description: 'AppConnect V3 — Contacts Reporting. 3 operations. Lead operation: GET Contact Activity Details. Self-contained
+    Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Contacts Reporting
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-contacts-reporting
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Contacts Reporting business capability. Self-contained, no shared references.
+    resources:
+    - name: reports-contact_reports-contact_id-activity_details
+      path: /reports/contact_reports/{contact_id}/activity_details
+      operations:
+      - name: getcontacttracking
+        method: GET
+        description: GET Contact Activity Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: The contact's ID for which tracking activity data is requested.
+          required: true
+        - name: tracking_activities_list
+          in: query
+          type: string
+          description: Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and
+            `tracking_activities_type` query paramet
+        - name: tracking_activity_type
+          in: query
+          type: array
+          description: Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and
+            `tracking_activities_type` query parameters are mutually
+        - name: include_campaign_activity_names
+          in: query
+          type: boolean
+          description: Default (`true`) returns campaign activity names in the results. Not including campaign activity names
+            in the results (`false`), is more efficient.
+        - name: limit
+          in: query
+          type: string
+          description: The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is
+            100.
+    - name: reports-contact_reports-contact_id-activity_summary
+      path: /reports/contact_reports/{contact_id}/activity_summary
+      operations:
+      - name: getcontacttrackingcount
+        method: GET
+        description: GET Contact Action Summary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)
+          required: true
+        - name: start
+          in: query
+          type: string
+          description: 'The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.'
+          required: true
+        - name: end
+          in: query
+          type: string
+          description: 'The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.'
+          required: true
+    - name: reports-contact_reports-contact_id-open_and_click_rates
+      path: /reports/contact_reports/{contact_id}/open_and_click_rates
+      operations:
+      - name: getcontactopenclickrate
+        method: GET
+        description: GET Average Open and Click Rates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contact_id
+          in: path
+          type: string
+          description: The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)
+          required: true
+        - name: start
+          in: query
+          type: string
+          description: 'The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.'
+          required: true
+        - name: end
+          in: query
+          type: string
+          description: 'The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.'
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-contacts-reporting-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Contacts Reporting. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/reports/contact-reports/{contact-id}/activity-details
+      name: reports-contact-reports-contact-id-activity-details
+      description: REST surface for reports-contact_reports-contact_id-activity_details.
+      operations:
+      - method: GET
+        name: getcontacttracking
+        description: GET Contact Activity Details
+        call: v3-contacts-reporting.getcontacttracking
+        with:
+          contact_id: rest.contact_id
+          tracking_activities_list: rest.tracking_activities_list
+          tracking_activity_type: rest.tracking_activity_type
+          include_campaign_activity_names: rest.include_campaign_activity_names
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reports/contact-reports/{contact-id}/activity-summary
+      name: reports-contact-reports-contact-id-activity-summary
+      description: REST surface for reports-contact_reports-contact_id-activity_summary.
+      operations:
+      - method: GET
+        name: getcontacttrackingcount
+        description: GET Contact Action Summary
+        call: v3-contacts-reporting.getcontacttrackingcount
+        with:
+          contact_id: rest.contact_id
+          start: rest.start
+          end: rest.end
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/reports/contact-reports/{contact-id}/open-and-click-rates
+      name: reports-contact-reports-contact-id-open-and-click-rates
+      description: REST surface for reports-contact_reports-contact_id-open_and_click_rates.
+      operations:
+      - method: GET
+        name: getcontactopenclickrate
+        description: GET Average Open and Click Rates
+        call: v3-contacts-reporting.getcontactopenclickrate
+        with:
+          contact_id: rest.contact_id
+          start: rest.start
+          end: rest.end
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-contacts-reporting-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Contacts Reporting. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-contact-activity-details
+      description: GET Contact Activity Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts-reporting.getcontacttracking
+      with:
+        contact_id: tools.contact_id
+        tracking_activities_list: tools.tracking_activities_list
+        tracking_activity_type: tools.tracking_activity_type
+        include_campaign_activity_names: tools.include_campaign_activity_names
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-contact-action-summary
+      description: GET Contact Action Summary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts-reporting.getcontacttrackingcount
+      with:
+        contact_id: tools.contact_id
+        start: tools.start
+        end: tools.end
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-average-open-and-click
+      description: GET Average Open and Click Rates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contacts-reporting.getcontactopenclickrate
+      with:
+        contact_id: tools.contact_id
+        start: tools.start
+        end: tools.end
+      outputParameters:
+      - type: object
+        mapping: $.

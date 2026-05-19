@@ -1,0 +1,229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Technology Partners Webhooks
+  description: 'AppConnect V3 — Technology Partners Webhooks. 5 operations. Lead operation: GET a Collection of Webhook Topic
+    Subscriptions. Self-contained Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Technology Partners Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-technology-partners-webhooks
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Technology Partners Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: partner-webhooks-subscriptions
+      path: /partner/webhooks/subscriptions
+      operations:
+      - name: getwebhookscollection
+        method: GET
+        description: GET a Collection of Webhook Topic Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: partner-webhooks-subscriptions-topic_id
+      path: /partner/webhooks/subscriptions/{topic_id}
+      operations:
+      - name: getwebhookstopic
+        method: GET
+        description: GET Webhook Topic Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic_id
+          in: path
+          type: string
+          description: Identifies a webhook topic.
+          required: true
+      - name: putwebhookstopic
+        method: PUT
+        description: PUT Webhook Topic Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic_id
+          in: path
+          type: string
+          description: Identifies a webhook topic.
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: A JSON payload containing a callback URI. Constant Contact uses this callback URI to notify you about
+            your chosen topic.
+          required: true
+      - name: deletewebhookssubscriptions
+        method: DELETE
+        description: DELETE Webhook Topic Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic_id
+          in: path
+          type: string
+          description: Identifies a webhook topic.
+          required: true
+    - name: partner-webhooks-subscriptions-topic_id-tests
+      path: /partner/webhooks/subscriptions/{topic_id}/tests
+      operations:
+      - name: testsendwebhookstopic
+        method: POST
+        description: POST Test Send Webhook Notification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic_id
+          in: path
+          type: string
+          description: Identifies a webhook topic.
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-technology-partners-webhooks-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Technology Partners Webhooks. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/partner/webhooks/subscriptions
+      name: partner-webhooks-subscriptions
+      description: REST surface for partner-webhooks-subscriptions.
+      operations:
+      - method: GET
+        name: getwebhookscollection
+        description: GET a Collection of Webhook Topic Subscriptions
+        call: v3-technology-partners-webhooks.getwebhookscollection
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/partner/webhooks/subscriptions/{topic-id}
+      name: partner-webhooks-subscriptions-topic-id
+      description: REST surface for partner-webhooks-subscriptions-topic_id.
+      operations:
+      - method: GET
+        name: getwebhookstopic
+        description: GET Webhook Topic Subscription
+        call: v3-technology-partners-webhooks.getwebhookstopic
+        with:
+          topic_id: rest.topic_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: putwebhookstopic
+        description: PUT Webhook Topic Subscription
+        call: v3-technology-partners-webhooks.putwebhookstopic
+        with:
+          topic_id: rest.topic_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhookssubscriptions
+        description: DELETE Webhook Topic Subscriptions
+        call: v3-technology-partners-webhooks.deletewebhookssubscriptions
+        with:
+          topic_id: rest.topic_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/partner/webhooks/subscriptions/{topic-id}/tests
+      name: partner-webhooks-subscriptions-topic-id-tests
+      description: REST surface for partner-webhooks-subscriptions-topic_id-tests.
+      operations:
+      - method: POST
+        name: testsendwebhookstopic
+        description: POST Test Send Webhook Notification
+        call: v3-technology-partners-webhooks.testsendwebhookstopic
+        with:
+          topic_id: rest.topic_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-technology-partners-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Technology Partners Webhooks. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-collection-webhook-topic-subscriptions
+      description: GET a Collection of Webhook Topic Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-technology-partners-webhooks.getwebhookscollection
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-webhook-topic-subscription
+      description: GET Webhook Topic Subscription
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-technology-partners-webhooks.getwebhookstopic
+      with:
+        topic_id: tools.topic_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-webhook-topic-subscription
+      description: PUT Webhook Topic Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-technology-partners-webhooks.putwebhookstopic
+      with:
+        topic_id: tools.topic_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook-topic-subscriptions
+      description: DELETE Webhook Topic Subscriptions
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: v3-technology-partners-webhooks.deletewebhookssubscriptions
+      with:
+        topic_id: tools.topic_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-test-send-webhook-notification
+      description: POST Test Send Webhook Notification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: v3-technology-partners-webhooks.testsendwebhookstopic
+      with:
+        topic_id: tools.topic_id
+      outputParameters:
+      - type: object
+        mapping: $.

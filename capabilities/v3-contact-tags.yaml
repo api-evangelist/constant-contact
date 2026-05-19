@@ -1,0 +1,244 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — Contact Tags
+  description: 'AppConnect V3 — Contact Tags. 5 operations. Lead operation: GET Details for All Tags. Self-contained Naftiko
+    capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - Contact Tags
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-contact-tags
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — Contact Tags business capability. Self-contained, no shared references.
+    resources:
+    - name: contact_tags
+      path: /contact_tags
+      operations:
+      - name: gettags
+        method: GET
+        description: GET Details for All Tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Use to specify the number of tag results (up to `500`) to display per page of output. The default is
+            `50`.
+        - name: include_count
+          in: query
+          type: boolean
+          description: Returns the total number of contacts (`contacts_count`) to which a tag applies.
+      - name: posttag
+        method: POST
+        description: POST (Create) a Tag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload to use to create a new tag.
+          required: true
+    - name: contact_tags-tag_id
+      path: /contact_tags/{tag_id}
+      operations:
+      - name: gettag
+        method: GET
+        description: GET Tag Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_id
+          in: path
+          type: string
+          description: The ID that uniquely identifies a tag (UUID format).
+          required: true
+        - name: include_count
+          in: query
+          type: boolean
+          description: Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`)
+            from the results.
+      - name: puttag
+        method: PUT
+        description: PUT (Update) a Tag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_id
+          in: path
+          type: string
+          description: The system generated ID used to uniquely identify the tag that you want to rename (UUID format).
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: The JSON payload used to update the tag name (`name`).
+          required: true
+      - name: deletetag
+        method: DELETE
+        description: DELETE a Tag
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_id
+          in: path
+          type: string
+          description: The ID that uniquely identifies a tag in UUID format.
+          required: true
+  exposes:
+  - type: rest
+    namespace: v3-contact-tags-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — Contact Tags. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/contact-tags
+      name: contact-tags
+      description: REST surface for contact_tags.
+      operations:
+      - method: GET
+        name: gettags
+        description: GET Details for All Tags
+        call: v3-contact-tags.gettags
+        with:
+          limit: rest.limit
+          include_count: rest.include_count
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: posttag
+        description: POST (Create) a Tag
+        call: v3-contact-tags.posttag
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/contact-tags/{tag-id}
+      name: contact-tags-tag-id
+      description: REST surface for contact_tags-tag_id.
+      operations:
+      - method: GET
+        name: gettag
+        description: GET Tag Details
+        call: v3-contact-tags.gettag
+        with:
+          tag_id: rest.tag_id
+          include_count: rest.include_count
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: puttag
+        description: PUT (Update) a Tag
+        call: v3-contact-tags.puttag
+        with:
+          tag_id: rest.tag_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetag
+        description: DELETE a Tag
+        call: v3-contact-tags.deletetag
+        with:
+          tag_id: rest.tag_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-contact-tags-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — Contact Tags. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-details-all-tags
+      description: GET Details for All Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contact-tags.gettags
+      with:
+        limit: tools.limit
+        include_count: tools.include_count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-create-tag
+      description: POST (Create) a Tag
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: v3-contact-tags.posttag
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tag-details
+      description: GET Tag Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-contact-tags.gettag
+      with:
+        tag_id: tools.tag_id
+        include_count: tools.include_count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: put-update-tag
+      description: PUT (Update) a Tag
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: v3-contact-tags.puttag
+      with:
+        tag_id: tools.tag_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tag
+      description: DELETE a Tag
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: v3-contact-tags.deletetag
+      with:
+        tag_id: tools.tag_id
+      outputParameters:
+      - type: object
+        mapping: $.

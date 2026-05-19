@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppConnect V3 — SMS Reporting
+  description: 'AppConnect V3 — SMS Reporting. 1 operations. Lead operation: GET an SMS Campaigns Summary Report. Self-contained
+    Naftiko capability covering one Constant Contact business surface.'
+  tags:
+  - Constant Contact
+  - SMS Reporting
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSTANT_CONTACT_API_KEY: CONSTANT_CONTACT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: v3-sms-reporting
+    baseUri: https://api.cc.email/v3
+    description: AppConnect V3 — SMS Reporting business capability. Self-contained, no shared references.
+    resources:
+    - name: reports-summary_reports-sms_campaign_summaries
+      path: /reports/summary_reports/sms_campaign_summaries
+      operations:
+      - name: getallbulksmscampaignsummaries
+        method: GET
+        description: GET an SMS Campaigns Summary Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: string
+          description: Use to limit the number of results to return on a single page (from 1 to 50). The default setting is
+            50.
+        - name: start_at
+          in: query
+          type: string
+          description: Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or after
+            the required `start_at` date you specify. ISO 8601 format.
+          required: true
+        - name: end_at
+          in: query
+          type: string
+          description: Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or before
+            the `end_at` date you specify. ISO 8601 format.
+  exposes:
+  - type: rest
+    namespace: v3-sms-reporting-rest
+    port: 8080
+    description: REST adapter for AppConnect V3 — SMS Reporting. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/reports/summary-reports/sms-campaign-summaries
+      name: reports-summary-reports-sms-campaign-summaries
+      description: REST surface for reports-summary_reports-sms_campaign_summaries.
+      operations:
+      - method: GET
+        name: getallbulksmscampaignsummaries
+        description: GET an SMS Campaigns Summary Report
+        call: v3-sms-reporting.getallbulksmscampaignsummaries
+        with:
+          limit: rest.limit
+          start_at: rest.start_at
+          end_at: rest.end_at
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: v3-sms-reporting-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppConnect V3 — SMS Reporting. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-sms-campaigns-summary-report
+      description: GET an SMS Campaigns Summary Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: v3-sms-reporting.getallbulksmscampaignsummaries
+      with:
+        limit: tools.limit
+        start_at: tools.start_at
+        end_at: tools.end_at
+      outputParameters:
+      - type: object
+        mapping: $.
