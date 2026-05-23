@@ -1,0 +1,1091 @@
+{
+  "provider": "Constant Contact",
+  "providerId": "constant-contact",
+  "kind": "json-structure",
+  "description": "Structural overview of the Constant Contact API surface; extracted from openapi/.",
+  "schemaCount": 0,
+  "operationCount": 120,
+  "schemas": [],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/account/user/privileges",
+      "operationId": "getUserPrivileges",
+      "summary": "GET User Privileges",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/account/summary",
+      "operationId": "getAccountById",
+      "summary": "GET a Summary of Account Details",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/account/summary",
+      "operationId": "putCustomerById",
+      "summary": "PUT (update) Account Details",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/account/summary/physical_address",
+      "operationId": "getPhysicalAddress",
+      "summary": "GET the Physical Address for the Account",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/account/summary/physical_address",
+      "operationId": "addPhysicalAddress",
+      "summary": "POST the Physical Address for the Account",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/account/summary/physical_address",
+      "operationId": "putPhysicalAddress",
+      "summary": "PUT (update) the Physical Address for an Account",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/account/emails",
+      "operationId": "retrieveEmailAddresses",
+      "summary": "GET a Collection of Account Email Addresses",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/account/emails",
+      "operationId": "addAccountEmailAddress",
+      "summary": "POST Add an Account Email Address",
+      "tags": [
+        "Account Services"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/activities",
+      "operationId": "getActivityStatusCollection",
+      "summary": "GET Activity Status Collection",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/activities/{activity_id}",
+      "operationId": "getActivity",
+      "summary": "GET an Activity Status",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contact_exports",
+      "operationId": "postContactsExport",
+      "summary": "Export Contacts to a File",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_exports/{file_export_id}",
+      "operationId": "getContactsExport",
+      "summary": "Retrieve Exported Contacts File",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contact_delete",
+      "operationId": "postContactDelete",
+      "summary": "Delete Contacts in Bulk",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contacts_file_import",
+      "operationId": "contactsCSVImport",
+      "summary": "Import Contacts using a CSV File",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contacts_json_import",
+      "operationId": "bulkImportContactsJSON",
+      "summary": "Import Contacts using a JSON Payload",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/remove_list_memberships",
+      "operationId": "postListRemoveContact",
+      "summary": "Remove Contacts from Lists",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/add_list_memberships",
+      "operationId": "postListAddContact",
+      "summary": "Add Contacts to Lists",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/list_delete",
+      "operationId": "postListDelete",
+      "summary": "Delete Contact Lists",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contacts_taggings_remove",
+      "operationId": "postTagRemoveContact",
+      "summary": "Remove Tags from Contacts",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contacts_taggings_add",
+      "operationId": "postTagAddContact",
+      "summary": "Add Tags to Contacts",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/contacts_tags_delete",
+      "operationId": "postTagDelete",
+      "summary": "Delete Tags",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/activities/custom_fields_delete",
+      "operationId": "postCustomFieldDelete",
+      "summary": "Delete Custom Fields",
+      "tags": [
+        "Bulk Activities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events",
+      "operationId": "findEvents",
+      "summary": "GET a collection of events.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/default",
+      "operationId": "addDefaultEvent",
+      "summary": "POST (create) a new event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events/{event_id}",
+      "operationId": "getEvent_2",
+      "summary": "GET details for a single event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/events/{event_id}",
+      "operationId": "patchEvent",
+      "summary": "PATCH (update) an event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/{event_id}/copy",
+      "operationId": "copyEvent",
+      "summary": "POST (copy) an existing event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/{event_id}/check_in/tickets",
+      "operationId": "checkInTickets",
+      "summary": "Check in event tickets.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/events/{event_id}/undo_check_in/tickets",
+      "operationId": "undoCheckInTickets",
+      "summary": "Undo event ticket check-in.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events/{event_id}/tracks/{track_id}/registrations/{registration_id}",
+      "operationId": "getRegistrationInfo",
+      "summary": "Get registration details for an event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/events/{event_id}/tracks/{track_id}/registrations",
+      "operationId": "findRegistrationsUsingGET",
+      "summary": "Get a list of registrations for an event.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/events/{event_id}/tracks/{track_id}/registrations",
+      "operationId": "updateRegistrationStatusUsingPUT",
+      "summary": "Update status for event registrations.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/events/{event_id}/tracks/{track_id}/registrations/payment_status",
+      "operationId": "updateRegistrationPaymentStatusUsingPUT",
+      "summary": "Update payment status for event registrations.",
+      "tags": [
+        "Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/segments",
+      "operationId": "getAccountSegments",
+      "summary": "GET all Segments",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/segments",
+      "operationId": "createSegment",
+      "summary": "POST (create) a Segment",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/segments/{segment_id}",
+      "operationId": "getSegmentDetail",
+      "summary": "GET a Segment's Details",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/segments/{segment_id}",
+      "operationId": "updateSegment",
+      "summary": "PUT (update) a Segment",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/segments/{segment_id}",
+      "operationId": "deleteSegment",
+      "summary": "DELETE a Segment",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/segments/{segment_id}/name",
+      "operationId": "updateSegmentName",
+      "summary": "PATCH (rename) a Segment",
+      "tags": [
+        "Segments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/{contact_id}",
+      "operationId": "getContact",
+      "summary": "GET a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/contacts/{contact_id}",
+      "operationId": "putContact",
+      "summary": "PUT (update) a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contacts/{contact_id}",
+      "operationId": "deleteContact",
+      "summary": "DELETE a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts",
+      "operationId": "getContacts",
+      "summary": "GET Contacts Collection",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contacts",
+      "operationId": "createContact",
+      "summary": "POST (create) a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contacts/sign_up_form",
+      "operationId": "createOrUpdateContact",
+      "summary": "Create or Update a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/contact_id_xrefs",
+      "operationId": "getContactIdXrefs",
+      "summary": "GET a collection of V2 and V3 API contact IDs",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_custom_fields/{custom_field_id}",
+      "operationId": "getCustomField",
+      "summary": "GET a custom_field",
+      "tags": [
+        "Contacts Custom Fields"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/contact_custom_fields/{custom_field_id}",
+      "operationId": "putCustomField",
+      "summary": "Update a custom field.",
+      "tags": [
+        "Contacts Custom Fields"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contact_custom_fields/{custom_field_id}",
+      "operationId": "deleteCustomField",
+      "summary": "DELETE a custom_field",
+      "tags": [
+        "Contacts Custom Fields"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_custom_fields",
+      "operationId": "getCustomFields",
+      "summary": "GET custom_fields Collection",
+      "tags": [
+        "Contacts Custom Fields"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact_custom_fields",
+      "operationId": "postCustomFields",
+      "summary": "POST (create) a custom_field",
+      "tags": [
+        "Contacts Custom Fields"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_lists/{list_id}",
+      "operationId": "getList",
+      "summary": "GET a List",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/contact_lists/{list_id}",
+      "operationId": "putList",
+      "summary": "PUT (update) a List",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contact_lists/{list_id}",
+      "operationId": "deleteListActivity",
+      "summary": "DELETE a List",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_lists",
+      "operationId": "getLists",
+      "summary": "GET Lists Collection",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact_lists",
+      "operationId": "createList",
+      "summary": "POST (create) a List",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_lists/list_id_xrefs",
+      "operationId": "getListIdXrefs",
+      "summary": "GET a collection of V2 and V3 API List IDs",
+      "tags": [
+        "Contact Lists"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/sms_engagement_history/{contact_id}",
+      "operationId": "getSmsEngagementHistory",
+      "summary": "GET SMS Engagement History for a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contacts/counts",
+      "operationId": "countContact",
+      "summary": "GET Contact Consent Counts",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/contacts/resubscribe/{contact_id}",
+      "operationId": "resubscribeContact",
+      "summary": "PUT Resubscribe a Contact",
+      "tags": [
+        "Contacts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_tags/{tag_id}",
+      "operationId": "getTag",
+      "summary": "GET Tag Details",
+      "tags": [
+        "Contact Tags"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/contact_tags/{tag_id}",
+      "operationId": "putTag",
+      "summary": "PUT (Update) a Tag",
+      "tags": [
+        "Contact Tags"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/contact_tags/{tag_id}",
+      "operationId": "deleteTag",
+      "summary": "DELETE a Tag",
+      "tags": [
+        "Contact Tags"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/contact_tags",
+      "operationId": "getTags",
+      "summary": "GET Details for All Tags",
+      "tags": [
+        "Contact Tags"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact_tags",
+      "operationId": "postTag",
+      "summary": "POST (Create) a Tag",
+      "tags": [
+        "Contact Tags"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails",
+      "operationId": "retrieveEmailCampaignsUsingGET",
+      "summary": "GET a Collection of Email Campaigns",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/emails",
+      "operationId": "createEmailCampaignUsingPOST",
+      "summary": "POST (Create) a New Email Campaign",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/{campaign_id}",
+      "operationId": "retrieveEmailCampaignUsingGET",
+      "summary": "GET Details About a Single Email Campaign",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/emails/{campaign_id}",
+      "operationId": "removeEmailCampaignUsingDELETE",
+      "summary": "DELETE an Email Campaign",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/emails/{campaign_id}",
+      "operationId": "renameEmailCampaignUsingPATCH",
+      "summary": "PATCH (Update) an Email Campaign Name",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/campaign_id_xrefs",
+      "operationId": "retrieveXrefMappingsUsingGET",
+      "summary": "GET a Collection of V2 and V3 API Email Campaign Identifiers",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}",
+      "operationId": "retrieveEmailCampaignActivityUsingGET",
+      "summary": "GET a Single Email Campaign Activity",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/emails/activities/{campaign_activity_id}",
+      "operationId": "updateEmailCampaignActivityUsingPUT",
+      "summary": "PUT (Update) An Email Campaign Activity",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}/schedules",
+      "operationId": "retrieveEmailSchedulesUsingGET",
+      "summary": "GET an Email Campaign Activity Schedule",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/emails/activities/{campaign_activity_id}/schedules",
+      "operationId": "scheduleEmailCampaignActivityUsingPOST",
+      "summary": "POST (Create) an Email Campaign Activity Schedule",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/emails/activities/{campaign_activity_id}/schedules",
+      "operationId": "unscheduleEmailCampaignActivityUsingDELETE",
+      "summary": "DELETE an Email Campaign Activity Schedule",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/emails/activities/{campaign_activity_id}/tests",
+      "operationId": "testSendCampaignActivityUsingPOST",
+      "summary": "POST Test Send an Email Campaign Activity",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}/previews",
+      "operationId": "retrieveEmailCampaignActivityPreviewUsingGET",
+      "summary": "GET the HTML Preview of an Email Campaign Activity",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}/send_history",
+      "operationId": "retrieveEmailSendHistoryUsingGET",
+      "summary": "GET the Send History of an Email Campaign Activity",
+      "tags": [
+        "Email Scheduling"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}/non_opener_resends",
+      "operationId": "retrieveResendToNonOpenersUsingGET",
+      "summary": "GET Details for a Resend to Non-openers Campaign Activity",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/emails/activities/{campaign_activity_id}/non_opener_resends",
+      "operationId": "createResendToNonOpenersUsingPOST",
+      "summary": "POST a Resend to Non-openers Campaign Activity",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/emails/activities/{campaign_activity_id}/non_opener_resends/{resend_request_id}",
+      "operationId": "deleteResendToNonOpenersUsingDELETE",
+      "summary": "DELETE a Resend to Non Openers Activity",
+      "tags": [
+        "Email Campaigns"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/emails/activities/{campaign_activity_id}/abtest",
+      "operationId": "retrieveEmailCampaignABTestUsingGET",
+      "summary": "GET A/B Test Details for an Email Campaign Activity",
+      "tags": [
+        "Email Campaigns AB Tests"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/emails/activities/{campaign_activity_id}/abtest",
+      "operationId": "createEmailCampaignABTestUsingPOST",
+      "summary": "POST (Create) an A/B Test for an Email Campaign Activity",
+      "tags": [
+        "Email Campaigns AB Tests"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/emails/activities/{campaign_activity_id}/abtest",
+      "operationId": "deleteEmailCampaignABTestUsingDELETE",
+      "summary": "DELETE an A/B Test for an Email Campaign Activity",
+      "tags": [
+        "Email Campaigns AB Tests"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/contact_reports/{contact_id}/activity_details",
+      "operationId": "getContactTracking",
+      "summary": "GET Contact Activity Details",
+      "tags": [
+        "Contacts Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/contact_reports/{contact_id}/open_and_click_rates",
+      "operationId": "getContactOpenClickRate",
+      "summary": "GET Average Open and Click Rates",
+      "tags": [
+        "Contacts Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/contact_reports/{contact_id}/activity_summary",
+      "operationId": "getContactTrackingCount",
+      "summary": "GET Contact Action Summary",
+      "tags": [
+        "Contacts Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/links",
+      "operationId": "getCampaignActivityLinkStats",
+      "summary": "GET an Email Links Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/sends",
+      "operationId": "getSends",
+      "summary": "GET an Email Sends Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/opens",
+      "operationId": "getOpens",
+      "summary": "GET an Email Opens Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/unique_opens",
+      "operationId": "getUniqueOpens",
+      "summary": "GET an Email Unique Opens Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/didnotopens",
+      "operationId": "getDidNotOpens",
+      "summary": "GET an Email Did Not Opens Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/clicks",
+      "operationId": "getClicks",
+      "summary": "GET an Email Clicks Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/forwards",
+      "operationId": "getForwards",
+      "summary": "GET an Email Forwards Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/optouts",
+      "operationId": "getOptouts",
+      "summary": "GET an Email Opt-outs Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/email_reports/{campaign_activity_id}/tracking/bounces",
+      "operationId": "getBounces",
+      "summary": "GET an Email Bounces Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/summary_reports/email_campaign_summaries",
+      "operationId": "getAllBulkEmailCampaignSummaries",
+      "summary": "GET an Email Campaigns Summary Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/stats/email_campaigns/{campaign_ids}",
+      "operationId": "getEmailSummary",
+      "summary": "GET an Email Campaign Stats Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/stats/email_campaign_activities/{campaign_activity_ids}",
+      "operationId": "getEmailCampaignActivitySummary",
+      "summary": "GET an Email Campaign Activity Stats Report",
+      "tags": [
+        "Email Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_clicks",
+      "operationId": "getUniqueContactClicks",
+      "summary": "GET a Unique Contacts Clicks Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_opens",
+      "operationId": "getUniqueContactOpens",
+      "summary": "GET a Unique Contacts Opens Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_contact_opens",
+      "operationId": "getContactOpens",
+      "summary": "GET a Contacts Opens Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_updates",
+      "operationId": "getUniqueContactUpdates",
+      "summary": "GET a Unique Contacts Updates Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_adds",
+      "operationId": "getContactAdds",
+      "summary": "GET a Unique Contacts Adds Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_sms_optins",
+      "operationId": "getUniqueContactSMSOptIns",
+      "summary": "GET a Unique Contacts SMS Opt-In Landing Page Report",
+      "tags": [
+        "Landing Pages Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/summary_reports/sms_campaign_summaries",
+      "operationId": "getAllBulkSmsCampaignSummaries",
+      "summary": "GET an SMS Campaigns Summary Report",
+      "tags": [
+        "SMS Reporting"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/partner/accounts",
+      "operationId": "getPartnerSiteOwners",
+      "summary": "GET Partner Client Accounts",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/partner/accounts",
+      "operationId": "provision",
+      "summary": "POST (create) a Partner Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/partner/accounts/{encoded_account_id}/plan",
+      "operationId": "getPlan",
+      "summary": "GET Billing Plan Details for a Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/partner/accounts/{encoded_account_id}/plan",
+      "operationId": "setPlan",
+      "summary": "PUT (update) Billing Plan Details for a Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/partner/accounts/{encoded_account_id}/status/cancel",
+      "operationId": "cancelAccount",
+      "summary": "PUT Cancel the Billing Plan for a Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/partner/accounts/{encoded_account_id}/account_operations/sync",
+      "operationId": "partnerAccountOperationsPostSync",
+      "summary": "POST Send an API request on Behalf of a Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/partner/accounts/{encoded_account_id}/users/sso",
+      "operationId": "createSSOUser",
+      "summary": "POST a User Under a Partner's SSO-Enabled Client Account",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/partner/accounts/{encoded_account_id}/contacts/unsubscribe",
+      "operationId": "partnerUnsubscribeContacts",
+      "summary": "POST Unsubscribe Contacts",
+      "tags": [
+        "Technology Partners"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/partner/webhooks/subscriptions",
+      "operationId": "getWebhooksCollection",
+      "summary": "GET a Collection of Webhook Topic Subscriptions",
+      "tags": [
+        "Technology Partners Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/partner/webhooks/subscriptions/{topic_id}",
+      "operationId": "getWebhooksTopic",
+      "summary": "GET Webhook Topic Subscription",
+      "tags": [
+        "Technology Partners Webhooks"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/partner/webhooks/subscriptions/{topic_id}",
+      "operationId": "putWebhooksTopic",
+      "summary": "PUT Webhook Topic Subscription",
+      "tags": [
+        "Technology Partners Webhooks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/partner/webhooks/subscriptions/{topic_id}",
+      "operationId": "deleteWebhooksSubscriptions",
+      "summary": "DELETE Webhook Topic Subscriptions",
+      "tags": [
+        "Technology Partners Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/partner/webhooks/subscriptions/{topic_id}/tests",
+      "operationId": "testSendWebhooksTopic",
+      "summary": "POST Test Send Webhook Notification",
+      "tags": [
+        "Technology Partners Webhooks"
+      ]
+    }
+  ]
+}

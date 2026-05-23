@@ -1,0 +1,41 @@
+name: Constant Contact Domain Vocabulary
+provider: Constant Contact
+providerId: constant-contact
+description: Tag-derived vocabulary for the Constant Contact API surface; sourced from openapi/ tags.
+terms:
+- term: Account Services
+  description: Use the account endpoints and methods to get account information.
+- term: Bulk Activities
+  description: Bulk activities endpoints are used to manage large numbers of contacts, lists, and tags.
+- term: Contacts
+  description: Endpoints and methods to get, create, delete, and update one or more contacts.
+- term: Contact Lists
+  description: Endpoints and methods to get, create, delete, and update one or more contact lists.
+- term: Contact Tags
+  description: Endpoints and methods to get, create, delete, and update one or more contact tags.
+- term: Contacts Reporting
+  description: Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.
+- term: Contacts Custom Fields
+  description: Endpoints and methods to get, create, delete, and update on one or more custom fields.
+- term: Email Campaigns
+  description: Use email campaign endpoints and methods to get, create, and update email campaigns.
+- term: Email Campaigns AB Tests
+  description: Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.
+- term: Email Reporting
+  description: Use the email reporting endpoints and methods to get reporting data for email campaigns you sent to contacts.
+- term: Email Scheduling
+  description: Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule an email campaign
+    activity, and GET schedule information.
+- term: Events
+  description: Endpoints and methods used to create and manage events.
+- term: Segments
+  description: Use segments to target a subset of your contacts that are most likely to engage with a particular campaign.
+- term: Landing Pages Reporting
+  description: Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted with
+    a campaign activity.
+- term: SMS Reporting
+  description: Use SMS reporting endpoints and methods to get reporting data about SMS campaigns.
+- term: Technology Partners
+  description: Use partner endpoints to manage client Constant Contact accounts under your partner account.
+- term: Technology Partners Webhooks
+  description: Use partner webhooks to subscribe to billing event notifications from Constant Contact.
