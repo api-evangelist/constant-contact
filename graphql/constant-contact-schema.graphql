@@ -1,0 +1,1304 @@
+"""
+Constant Contact V3 API – Conceptual GraphQL Schema
+Generated from the Constant Contact REST API v3 (api.cc.email/v3).
+Covers accounts, contacts, lists, tags, custom fields, segments,
+email campaigns, activities, bulk operations, events, reporting,
+landing pages, webhooks, and partner provisioning.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar URL
+scalar EmailAddress
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  EXECUTING
+  DONE
+  ERROR
+  REMOVED
+}
+
+enum ActivityStatus {
+  DRAFT
+  SCHEDULED
+  EXECUTING
+  DONE
+  ERROR
+}
+
+enum ContactStatus {
+  ACTIVE
+  UNSUBSCRIBED
+  BOUNCED
+  DELETED
+  SUSPENDED
+}
+
+enum BulkActivityType {
+  ADD_CONTACTS
+  REMOVE_CONTACTS
+  EXPORT_CONTACTS
+  ADD_LIST_MEMBERSHIPS
+  REMOVE_LIST_MEMBERSHIPS
+  IMPORT_CONTACTS
+}
+
+enum PhoneType {
+  HOME
+  WORK
+  MOBILE
+  FAX
+  OTHER
+}
+
+enum AddressType {
+  HOME
+  WORK
+  OTHER
+}
+
+enum CustomFieldType {
+  STRING
+  DATE
+}
+
+enum SegmentCriteriaType {
+  CONTACT_FIELD
+  LIST_MEMBERSHIP
+  EMAIL_ENGAGEMENT
+  PURCHASE_HISTORY
+}
+
+enum WebhookEventType {
+  CONTACT_CREATED
+  CONTACT_UPDATED
+  CONTACT_DELETED
+  EMAIL_CAMPAIGN_SCHEDULED
+  EMAIL_CAMPAIGN_SENT
+  EMAIL_OPENED
+  EMAIL_CLICKED
+  EMAIL_BOUNCED
+  EMAIL_UNSUBSCRIBED
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  REFUNDED
+  CANCELLED
+}
+
+enum TicketStatus {
+  AVAILABLE
+  SOLD_OUT
+  CANCELLED
+}
+
+enum EventStatus {
+  DRAFT
+  ACTIVE
+  CANCELLED
+  COMPLETED
+}
+
+enum PlanType {
+  LITE
+  STANDARD
+  PREMIUM
+  TRIAL
+}
+
+enum FormFieldType {
+  TEXT
+  EMAIL
+  PHONE
+  DATE
+  DROPDOWN
+  CHECKBOX
+  RADIO
+  HIDDEN
+}
+
+enum BounceCategory {
+  HARD_BOUNCE
+  SOFT_BOUNCE
+  BLOCKED
+}
+
+enum SMSStatus {
+  OPTED_IN
+  OPTED_OUT
+  NON_SUBSCRIBER
+}
+
+# ---------------------------------------------------------------------------
+# Account & Organization
+# ---------------------------------------------------------------------------
+
+type Account {
+  contactId: ID!
+  firstName: String
+  lastName: String
+  email: EmailAddress
+  username: String
+  companyName: String
+  website: URL
+  phone: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  summary: AccountSummary
+  physicalAddress: OrganizationAddress
+  plan: Plan
+  billingInfo: BillingInfo
+  usage: Usage
+  apiKeys: [APIKey!]
+  webhooks: [Webhook!]
+  integrations: [Integration!]
+}
+
+type AccountSummary {
+  accountId: ID!
+  companyName: String
+  contactCount: Int
+  listCount: Int
+  campaignCount: Int
+  createdAt: DateTime
+}
+
+type OrganizationAddress {
+  line1: String
+  line2: String
+  city: String
+  stateCode: String
+  postalCode: String
+  countryCode: String
+  addressType: AddressType
+}
+
+type Plan {
+  planType: PlanType!
+  label: String
+  maxContacts: Int
+  maxEmailsSentPerMonth: Int
+  startDate: Date
+  endDate: Date
+  isTrialPlan: Boolean
+}
+
+type BillingInfo {
+  billingDay: Int
+  nextBillingDate: Date
+  currentBalance: Float
+  currencyCode: String
+  planType: PlanType
+}
+
+type Usage {
+  contactCount: Int
+  emailsSentThisMonth: Int
+  emailsRemainingThisMonth: Int
+  activeListCount: Int
+  landingPageCount: Int
+  eventCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Auth & API Keys
+# ---------------------------------------------------------------------------
+
+type APIKey {
+  apiKey: ID!
+  name: String
+  redirectUri: URL
+  createdAt: DateTime
+  scopes: [String!]
+}
+
+type Token {
+  accessToken: String!
+  tokenType: String
+  expiresIn: Int
+  refreshToken: String
+  scope: String
+  createdAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Webhooks
+# ---------------------------------------------------------------------------
+
+type Webhook {
+  webhookId: ID!
+  hookUrl: URL!
+  events: [WebhookEventType!]!
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Contact Management
+# ---------------------------------------------------------------------------
+
+type Contact {
+  contactId: ID!
+  email: EmailAddress
+  firstName: String
+  lastName: String
+  jobTitle: String
+  companyName: String
+  birthday: Date
+  anniversary: Date
+  status: ContactStatus!
+  source: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  phoneNumbers: [ContactPhone!]
+  streetAddresses: [ContactAddress!]
+  lists: [ContactList!]
+  tags: [Tag!]
+  customFields: [ContactDetail!]
+  notes: [Note!]
+  smsChannel: SMSMA
+  emailActivity: EmailActivity
+}
+
+type ContactDetail {
+  customFieldId: ID!
+  customFieldName: String
+  value: String
+}
+
+type ContactPhone {
+  phoneNumberId: ID
+  phoneNumber: String!
+  phoneType: PhoneType
+  updatedAt: DateTime
+}
+
+type ContactAddress {
+  streetAddressId: ID
+  kind: AddressType
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  updatedAt: DateTime
+}
+
+type Note {
+  noteId: ID!
+  contactId: ID!
+  content: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  authorName: String
+}
+
+type Tag {
+  tagId: ID!
+  name: String!
+  contactCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type SMSMA {
+  smsChannelId: ID
+  smsChannelType: String
+  smsStatus: SMSStatus
+  consentDate: DateTime
+  updatedAt: DateTime
+}
+
+type PhoneList {
+  phoneListId: ID!
+  name: String!
+  description: String
+  memberCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  contacts: [Contact!]
+}
+
+# ---------------------------------------------------------------------------
+# Contact Lists
+# ---------------------------------------------------------------------------
+
+type EmailList {
+  listId: ID!
+  name: String!
+  description: String
+  favorite: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberCount: Int
+  contacts: [Contact!]
+}
+
+type ContactList {
+  listId: ID!
+  name: String!
+  status: String
+  createdAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Custom Fields
+# ---------------------------------------------------------------------------
+
+type CustomField {
+  customFieldId: ID!
+  name: String!
+  label: String
+  type: CustomFieldType!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Segments
+# ---------------------------------------------------------------------------
+
+type Segment {
+  segmentId: ID!
+  name: String!
+  segmentCriteria: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+  contactCount: Int
+  contacts: [Contact!]
+}
+
+# ---------------------------------------------------------------------------
+# Email Campaigns
+# ---------------------------------------------------------------------------
+
+type EmailCampaign {
+  campaignId: ID!
+  name: String!
+  type: String
+  status: CampaignStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+  currentStatus: CampaignStatus
+  activities: [CampaignActivity!]
+  summary: CampaignSummary
+}
+
+type CampaignActivity {
+  campaignActivityId: ID!
+  campaignId: ID!
+  role: String
+  status: ActivityStatus
+  fromEmail: EmailAddress
+  replyTo: EmailAddress
+  fromName: String
+  subject: String
+  preheader: String
+  htmlContent: String
+  textContent: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  scheduledDate: DateTime
+  format: String
+  contactLists: [EmailList!]
+  segments: [Segment!]
+  summary: CampaignSummary
+}
+
+type ScheduledActivity {
+  scheduledDate: DateTime!
+  campaignActivityId: ID!
+  campaignId: ID!
+  status: ActivityStatus
+  scheduledBy: String
+  createdAt: DateTime
+}
+
+type CampaignSummary {
+  campaignId: ID
+  campaignActivityId: ID
+  sendCount: Int
+  openCount: Int
+  clickCount: Int
+  bounceCount: Int
+  unsubscribeCount: Int
+  spamCount: Int
+  uniqueOpenCount: Int
+  uniqueClickCount: Int
+  forwardCount: Int
+  openRate: Float
+  clickRate: Float
+  lastSentAt: DateTime
+  reportingPeriodStart: DateTime
+  reportingPeriodEnd: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Email Reporting
+# ---------------------------------------------------------------------------
+
+type EmailActivity {
+  contactId: ID!
+  emailAddress: EmailAddress
+  lastOpenedAt: DateTime
+  lastClickedAt: DateTime
+  totalOpens: Int
+  totalClicks: Int
+  campaignActivities: [CampaignActivityEngagement!]
+}
+
+type CampaignActivityEngagement {
+  campaignActivityId: ID!
+  campaignId: ID!
+  sentAt: DateTime
+  openedAt: DateTime
+  clickedAt: DateTime
+  bouncedAt: DateTime
+  unsubscribedAt: DateTime
+}
+
+type EmailOpen {
+  contactId: ID!
+  emailAddress: EmailAddress
+  openedAt: DateTime
+  campaignActivityId: ID
+  campaignId: ID
+  deviceType: String
+}
+
+type LinkClicks {
+  linkId: ID!
+  url: URL
+  uniqueClickCount: Int
+  totalClickCount: Int
+  campaignActivityId: ID
+  clicks: [ClickDetail!]
+}
+
+type ClickDetail {
+  contactId: ID!
+  emailAddress: EmailAddress
+  clickedAt: DateTime
+  deviceType: String
+}
+
+type UnsubscribedContact {
+  contactId: ID!
+  emailAddress: EmailAddress
+  unsubscribedAt: DateTime
+  unsubscribeSource: String
+  campaignActivityId: ID
+}
+
+type BouncedContact {
+  contactId: ID!
+  emailAddress: EmailAddress
+  bouncedAt: DateTime
+  bounceCategory: BounceCategory
+  bounceCode: String
+  campaignActivityId: ID
+}
+
+# ---------------------------------------------------------------------------
+# Bulk Activities
+# ---------------------------------------------------------------------------
+
+type BulkActivity {
+  activityId: ID!
+  activityType: BulkActivityType!
+  status: String
+  createdAt: DateTime
+  startedAt: DateTime
+  completedAt: DateTime
+  percentDone: Int
+  fileDescription: String
+  errors: [BulkActivityError!]
+  links: BulkActivityLinks
+}
+
+type BulkActivityError {
+  message: String
+  errorKey: String
+}
+
+type BulkActivityLinks {
+  results: URL
+}
+
+# ---------------------------------------------------------------------------
+# Domain Authentication
+# ---------------------------------------------------------------------------
+
+type DomainAuthentication {
+  domainName: String!
+  isVerified: Boolean
+  authenticationType: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  dkimRecords: [DKIMRecord!]
+  spfRecord: String
+}
+
+type DKIMRecord {
+  host: String
+  type: String
+  value: String
+}
+
+# ---------------------------------------------------------------------------
+# Events
+# ---------------------------------------------------------------------------
+
+type Event {
+  eventId: ID!
+  name: String!
+  description: String
+  status: EventStatus!
+  startDate: DateTime
+  endDate: DateTime
+  timezone: String
+  location: EventLocation
+  isOnlineEvent: Boolean
+  onlineEventUrl: URL
+  registrationUrl: URL
+  createdAt: DateTime
+  updatedAt: DateTime
+  capacity: Int
+  registrationCount: Int
+  summary: EventSummary
+  detail: EventDetail
+  ticketTypes: [TicketType!]
+  registrations: [Registration!]
+  tracks: [EventTrack!]
+}
+
+type EventLocation {
+  locationName: String
+  street1: String
+  street2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+type EventSummary {
+  eventId: ID!
+  name: String
+  totalRegistrants: Int
+  totalAttendees: Int
+  totalRevenue: Float
+  currencyCode: String
+  status: EventStatus
+}
+
+type EventDetail {
+  eventId: ID!
+  fullDescription: String
+  registrationSettings: JSON
+  paymentOptions: [String!]
+  confirmationEmail: String
+  waitlistEnabled: Boolean
+  waitlistCount: Int
+}
+
+type EventTrack {
+  trackId: ID!
+  eventId: ID!
+  name: String
+  description: String
+  sessions: [EventSession!]
+}
+
+type EventSession {
+  sessionId: ID!
+  trackId: ID!
+  name: String
+  startTime: DateTime
+  endTime: DateTime
+  location: String
+  capacity: Int
+}
+
+type EventActivity {
+  eventActivityId: ID!
+  eventId: ID!
+  contactId: ID
+  activityType: String
+  createdAt: DateTime
+  detail: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Tickets & Orders
+# ---------------------------------------------------------------------------
+
+type TicketType {
+  ticketId: ID!
+  eventId: ID!
+  name: String!
+  description: String
+  price: Float
+  currencyCode: String
+  quantity: Int
+  quantityAvailable: Int
+  status: TicketStatus
+  salesStartDate: DateTime
+  salesEndDate: DateTime
+}
+
+type Order {
+  orderId: ID!
+  eventId: ID!
+  registrantId: ID
+  totalAmount: Float
+  currencyCode: String
+  paymentStatus: PaymentStatus
+  createdAt: DateTime
+  updatedAt: DateTime
+  items: [OrderItem!]
+  payment: Payment
+}
+
+type OrderItem {
+  orderItemId: ID!
+  orderId: ID!
+  ticketTypeId: ID!
+  ticketTypeName: String
+  quantity: Int
+  unitPrice: Float
+  totalPrice: Float
+}
+
+type Payment {
+  paymentId: ID!
+  orderId: ID!
+  amount: Float
+  currencyCode: String
+  status: PaymentStatus!
+  paymentMethod: String
+  transactionId: String
+  paidAt: DateTime
+}
+
+type Discount {
+  discountId: ID!
+  eventId: ID!
+  code: String!
+  discountType: String
+  discountValue: Float
+  maxUses: Int
+  usedCount: Int
+  expiresAt: DateTime
+  isActive: Boolean
+}
+
+# ---------------------------------------------------------------------------
+# Event Registration
+# ---------------------------------------------------------------------------
+
+type Registrant {
+  registrantId: ID!
+  eventId: ID!
+  contactId: ID
+  firstName: String
+  lastName: String
+  email: EmailAddress
+  phone: String
+  registeredAt: DateTime
+  updatedAt: DateTime
+  registrations: [Registration!]
+  order: Order
+}
+
+type Registration {
+  registrationId: ID!
+  eventId: ID!
+  registrantId: ID!
+  ticketTypeId: ID
+  status: String
+  checkedIn: Boolean
+  checkedInAt: DateTime
+  registeredAt: DateTime
+  notes: String
+  answers: [RegistrationAnswer!]
+}
+
+type RegistrationAnswer {
+  questionId: ID!
+  question: String
+  answer: String
+}
+
+type EventRegistration {
+  eventId: ID!
+  registrantId: ID!
+  registrationId: ID!
+  registeredAt: DateTime
+  status: String
+  attendedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Forms & Landing Pages
+# ---------------------------------------------------------------------------
+
+type Form {
+  formId: ID!
+  name: String!
+  description: String
+  isActive: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  submissionCount: Int
+  fields: [FormField!]
+  links: [FormLink!]
+  landingPage: LandingPage
+}
+
+type FormField {
+  fieldId: ID!
+  formId: ID!
+  fieldType: FormFieldType!
+  label: String!
+  placeholder: String
+  isRequired: Boolean
+  order: Int
+  options: [String!]
+  mappedContactField: String
+}
+
+type FormLink {
+  linkId: ID!
+  formId: ID!
+  url: URL!
+  label: String
+  target: String
+  createdAt: DateTime
+}
+
+type LandingPage {
+  landingPageId: ID!
+  name: String!
+  url: URL
+  title: String
+  description: String
+  isPublished: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  viewCount: Int
+  conversionCount: Int
+  forms: [Form!]
+}
+
+type WebSignup {
+  webSignupId: ID!
+  name: String!
+  listId: ID
+  contactList: EmailList
+  formId: ID
+  form: Form
+  isActive: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  signupCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Integrations
+# ---------------------------------------------------------------------------
+
+type Integration {
+  integrationId: ID!
+  name: String!
+  provider: String
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  configuration: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  # Account
+  account: Account
+  accountSummary: AccountSummary
+
+  # Contacts
+  contact(contactId: ID!): Contact
+  contacts(
+    status: ContactStatus
+    listId: ID
+    tagId: ID
+    limit: Int
+    cursor: String
+  ): ContactConnection!
+
+  # Lists
+  emailList(listId: ID!): EmailList
+  emailLists(limit: Int, cursor: String): EmailListConnection!
+
+  # Tags
+  tag(tagId: ID!): Tag
+  tags(limit: Int, cursor: String): TagConnection!
+
+  # Custom Fields
+  customField(customFieldId: ID!): CustomField
+  customFields: [CustomField!]!
+
+  # Segments
+  segment(segmentId: ID!): Segment
+  segments(limit: Int, cursor: String): SegmentConnection!
+
+  # Email Campaigns
+  emailCampaign(campaignId: ID!): EmailCampaign
+  emailCampaigns(
+    status: CampaignStatus
+    limit: Int
+    cursor: String
+  ): EmailCampaignConnection!
+
+  # Campaign Activities
+  campaignActivity(campaignActivityId: ID!): CampaignActivity
+  campaignSummary(campaignActivityId: ID!): CampaignSummary
+
+  # Reporting
+  emailOpens(campaignActivityId: ID!, limit: Int, cursor: String): EmailOpenConnection!
+  linkClicks(campaignActivityId: ID!): [LinkClicks!]!
+  unsubscribedContacts(campaignActivityId: ID!, limit: Int, cursor: String): UnsubscribedContactConnection!
+  bouncedContacts(campaignActivityId: ID!, limit: Int, cursor: String): BouncedContactConnection!
+
+  # Bulk Activities
+  bulkActivity(activityId: ID!): BulkActivity
+  bulkActivities(limit: Int, cursor: String): BulkActivityConnection!
+
+  # Domain Authentication
+  domainAuthentications: [DomainAuthentication!]!
+
+  # Events
+  event(eventId: ID!): Event
+  events(status: EventStatus, limit: Int, cursor: String): EventConnection!
+  eventRegistrations(eventId: ID!, limit: Int, cursor: String): EventRegistrationConnection!
+  registrant(registrantId: ID!): Registrant
+
+  # Tickets & Orders
+  ticketTypes(eventId: ID!): [TicketType!]!
+  order(orderId: ID!): Order
+  discounts(eventId: ID!): [Discount!]!
+
+  # Forms & Landing Pages
+  form(formId: ID!): Form
+  forms(limit: Int, cursor: String): FormConnection!
+  landingPage(landingPageId: ID!): LandingPage
+  landingPages(limit: Int, cursor: String): LandingPageConnection!
+  webSignup(webSignupId: ID!): WebSignup
+  webSignups(limit: Int, cursor: String): WebSignupConnection!
+
+  # Auth & Webhooks
+  apiKeys: [APIKey!]!
+  webhooks: [Webhook!]!
+
+  # Integrations
+  integrations: [Integration!]!
+
+  # Plan & Billing
+  plan: Plan
+  billingInfo: BillingInfo
+  usage: Usage
+
+  # Phone Lists
+  phoneList(phoneListId: ID!): PhoneList
+  phoneLists: [PhoneList!]!
+}
+
+type Mutation {
+  # Contacts
+  createContact(input: CreateContactInput!): Contact
+  updateContact(contactId: ID!, input: UpdateContactInput!): Contact
+  deleteContact(contactId: ID!): Boolean
+
+  # Notes
+  createNote(contactId: ID!, content: String!): Note
+  updateNote(noteId: ID!, content: String!): Note
+  deleteNote(noteId: ID!): Boolean
+
+  # Lists
+  createEmailList(name: String!, description: String): EmailList
+  updateEmailList(listId: ID!, name: String, description: String): EmailList
+  deleteEmailList(listId: ID!): Boolean
+  addContactsToList(listId: ID!, contactIds: [ID!]!): Boolean
+  removeContactsFromList(listId: ID!, contactIds: [ID!]!): Boolean
+
+  # Tags
+  createTag(name: String!): Tag
+  updateTag(tagId: ID!, name: String!): Tag
+  deleteTag(tagId: ID!): Boolean
+  addTagsToContact(contactId: ID!, tagIds: [ID!]!): Boolean
+  removeTagsFromContact(contactId: ID!, tagIds: [ID!]!): Boolean
+
+  # Custom Fields
+  createCustomField(name: String!, type: CustomFieldType!): CustomField
+  updateCustomField(customFieldId: ID!, name: String!): CustomField
+  deleteCustomField(customFieldId: ID!): Boolean
+
+  # Segments
+  createSegment(name: String!, segmentCriteria: JSON!): Segment
+  updateSegment(segmentId: ID!, name: String, segmentCriteria: JSON): Segment
+  deleteSegment(segmentId: ID!): Boolean
+
+  # Email Campaigns
+  createEmailCampaign(name: String!, type: String): EmailCampaign
+  updateEmailCampaign(campaignId: ID!, name: String): EmailCampaign
+  deleteEmailCampaign(campaignId: ID!): Boolean
+  scheduleActivity(campaignActivityId: ID!, scheduledDate: DateTime!): ScheduledActivity
+  cancelScheduledActivity(campaignActivityId: ID!): Boolean
+  testSendActivity(campaignActivityId: ID!, emailAddresses: [EmailAddress!]!): Boolean
+
+  # Bulk Activities
+  createBulkActivity(input: BulkActivityInput!): BulkActivity
+
+  # Events
+  createEvent(input: CreateEventInput!): Event
+  updateEvent(eventId: ID!, input: UpdateEventInput!): Event
+  deleteEvent(eventId: ID!): Boolean
+  cancelEvent(eventId: ID!): Event
+  createTicketType(eventId: ID!, input: CreateTicketTypeInput!): TicketType
+  updateTicketType(ticketId: ID!, input: UpdateTicketTypeInput!): TicketType
+  deleteTicketType(ticketId: ID!): Boolean
+  createDiscount(eventId: ID!, input: CreateDiscountInput!): Discount
+  updateRegistrationPaymentStatus(registrationId: ID!, paymentStatus: PaymentStatus!): Registration
+
+  # Forms
+  createForm(name: String!, description: String): Form
+  updateForm(formId: ID!, name: String, description: String): Form
+  deleteForm(formId: ID!): Boolean
+
+  # Landing Pages
+  createLandingPage(name: String!, title: String): LandingPage
+  updateLandingPage(landingPageId: ID!, name: String, title: String): LandingPage
+  deleteLandingPage(landingPageId: ID!): Boolean
+  publishLandingPage(landingPageId: ID!): LandingPage
+  unpublishLandingPage(landingPageId: ID!): LandingPage
+
+  # WebSignups
+  createWebSignup(name: String!, listId: ID!): WebSignup
+  updateWebSignup(webSignupId: ID!, name: String, listId: ID): WebSignup
+  deleteWebSignup(webSignupId: ID!): Boolean
+
+  # Webhooks
+  createWebhook(hookUrl: URL!, events: [WebhookEventType!]!): Webhook
+  updateWebhook(webhookId: ID!, hookUrl: URL, events: [WebhookEventType!]): Webhook
+  deleteWebhook(webhookId: ID!): Boolean
+
+  # Domain Authentication
+  authenticateDomain(domainName: String!): DomainAuthentication
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input CreateContactInput {
+  email: EmailAddress!
+  firstName: String
+  lastName: String
+  jobTitle: String
+  companyName: String
+  birthday: Date
+  anniversary: Date
+  phoneNumbers: [ContactPhoneInput!]
+  streetAddresses: [ContactAddressInput!]
+  listIds: [ID!]
+  tagIds: [ID!]
+  customFields: [ContactDetailInput!]
+}
+
+input UpdateContactInput {
+  email: EmailAddress
+  firstName: String
+  lastName: String
+  jobTitle: String
+  companyName: String
+  birthday: Date
+  anniversary: Date
+  phoneNumbers: [ContactPhoneInput!]
+  streetAddresses: [ContactAddressInput!]
+  listIds: [ID!]
+  tagIds: [ID!]
+  customFields: [ContactDetailInput!]
+}
+
+input ContactPhoneInput {
+  phoneNumber: String!
+  phoneType: PhoneType
+}
+
+input ContactAddressInput {
+  kind: AddressType
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+input ContactDetailInput {
+  customFieldId: ID!
+  value: String!
+}
+
+input BulkActivityInput {
+  activityType: BulkActivityType!
+  source: BulkActivitySourceInput
+  listIds: [ID!]
+  tagIds: [ID!]
+  contactIds: [ID!]
+}
+
+input BulkActivitySourceInput {
+  fileUrl: URL
+  csvData: String
+}
+
+input CreateEventInput {
+  name: String!
+  description: String
+  startDate: DateTime!
+  endDate: DateTime!
+  timezone: String
+  location: EventLocationInput
+  isOnlineEvent: Boolean
+  onlineEventUrl: URL
+  capacity: Int
+}
+
+input UpdateEventInput {
+  name: String
+  description: String
+  startDate: DateTime
+  endDate: DateTime
+  timezone: String
+  location: EventLocationInput
+  isOnlineEvent: Boolean
+  onlineEventUrl: URL
+  capacity: Int
+}
+
+input EventLocationInput {
+  locationName: String
+  street1: String
+  street2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+input CreateTicketTypeInput {
+  name: String!
+  description: String
+  price: Float
+  currencyCode: String
+  quantity: Int
+  salesStartDate: DateTime
+  salesEndDate: DateTime
+}
+
+input UpdateTicketTypeInput {
+  name: String
+  description: String
+  price: Float
+  quantity: Int
+  salesStartDate: DateTime
+  salesEndDate: DateTime
+}
+
+input CreateDiscountInput {
+  code: String!
+  discountType: String!
+  discountValue: Float!
+  maxUses: Int
+  expiresAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Pagination Types
+# ---------------------------------------------------------------------------
+
+type ContactConnection {
+  edges: [ContactEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type ContactEdge {
+  node: Contact!
+  cursor: String!
+}
+
+type EmailListConnection {
+  edges: [EmailListEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EmailListEdge {
+  node: EmailList!
+  cursor: String!
+}
+
+type TagConnection {
+  edges: [TagEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type TagEdge {
+  node: Tag!
+  cursor: String!
+}
+
+type SegmentConnection {
+  edges: [SegmentEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type SegmentEdge {
+  node: Segment!
+  cursor: String!
+}
+
+type EmailCampaignConnection {
+  edges: [EmailCampaignEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EmailCampaignEdge {
+  node: EmailCampaign!
+  cursor: String!
+}
+
+type EmailOpenConnection {
+  edges: [EmailOpenEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EmailOpenEdge {
+  node: EmailOpen!
+  cursor: String!
+}
+
+type UnsubscribedContactConnection {
+  edges: [UnsubscribedContactEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type UnsubscribedContactEdge {
+  node: UnsubscribedContact!
+  cursor: String!
+}
+
+type BouncedContactConnection {
+  edges: [BouncedContactEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type BouncedContactEdge {
+  node: BouncedContact!
+  cursor: String!
+}
+
+type BulkActivityConnection {
+  edges: [BulkActivityEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type BulkActivityEdge {
+  node: BulkActivity!
+  cursor: String!
+}
+
+type EventConnection {
+  edges: [EventEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EventEdge {
+  node: Event!
+  cursor: String!
+}
+
+type EventRegistrationConnection {
+  edges: [EventRegistrationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type EventRegistrationEdge {
+  node: EventRegistration!
+  cursor: String!
+}
+
+type FormConnection {
+  edges: [FormEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type FormEdge {
+  node: Form!
+  cursor: String!
+}
+
+type LandingPageConnection {
+  edges: [LandingPageEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type LandingPageEdge {
+  node: LandingPage!
+  cursor: String!
+}
+
+type WebSignupConnection {
+  edges: [WebSignupEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type WebSignupEdge {
+  node: WebSignup!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
