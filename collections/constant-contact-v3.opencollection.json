@@ -1,0 +1,2782 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET User Privileges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/user/privileges"
+          },
+          "docs": "Use this method to return the user privileges associated with your access token as an array of objects. This method returns all user privileges, including privileges the V3 API does not currently use. Constant Contact requires specific user privileges to make requests using the V3 API. For more information, see the [User Privileges and Roles Overview](/api_guide/user_privileges.html)."
+        },
+        {
+          "info": {
+            "name": "GET a Summary of Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/summary",
+            "params": [
+              {
+                "name": "extra_fields",
+                "value": "",
+                "type": "query",
+                "description": "Use the `extra_fields` query parameter to include the `physical_address` and/or `company_logo` details in the response body. Use a comma separated list to include both (physical_address, company logo)."
+              }
+            ]
+          },
+          "docs": "Get account related details for a Constant Contact user account. Use the `extra_fields` query parameter to include the `company_logo` and/or `physical_address` details in the response body. For more details, see [Get Account Summary Details](/api_guide/account_details_get.html)."
+        },
+        {
+          "info": {
+            "name": "PUT (update) Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/account/summary"
+          },
+          "docs": "Use this method to update account details for a Constant Contact account, such as the email address or phone number. This PUT method provides a partial update where only valid properties that you include in the request body are updated and excluded properties are not overwritten. For more details, see [Put (update) Account Summary Details](/api_guide/account_details_put.html)."
+        },
+        {
+          "info": {
+            "name": "GET the Physical Address for the Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to get the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account."
+        },
+        {
+          "info": {
+            "name": "POST the Physical Address for the Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to add the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Canada (<code>CA</code>) addresses, or use the <code>state_name</code> to specify all other countries."
+        },
+        {
+          "info": {
+            "name": "PUT (update) the Physical Address for an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to update the organization's physical address for the Constant Contact user account. The physical address is required to send emails and displays on the footer of every email that is sent from the account. To get the current physical address, make a GET call to `/account/summary/physical_address`. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Cana"
+        },
+        {
+          "info": {
+            "name": "GET a Collection of Account Email Addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/emails",
+            "params": [
+              {
+                "name": "confirm_status",
+                "value": "",
+                "type": "query",
+                "description": "Use the `confirm_status` query parameter to search for account emails using the email status. Possible values are `CONFIRMED` or `UNCONFIRMED`. You can also abbreviate the values of this query parameter and use `C` or `U`.\n"
+              },
+              {
+                "name": "role_code",
+                "value": "",
+                "type": "query",
+                "description": "Use the `role_code` query parameter to search for account emails that have a specific role. Each each email address in an account can have multiple roles or no role. Possible values are `CONTACT`, `BILLING`, `REPLY_TO`, `JOURNALING`, or `OTHER`. You can also abbreviate the value of this query parameter and use `C`,`B`,`R`,`J`, or `O`."
+              },
+              {
+                "name": "email_address",
+                "value": "",
+                "type": "query",
+                "description": "Use the `email_address` query parameter to search for a specific account email address."
+              }
+            ]
+          },
+          "docs": "Use this method to return a collection of email addresses for the account associated with your access token. When you <a href=\"https://v3.developer.constantcontact.com/api_reference/index.html#!/Email_Campaigns/createEmailCampaignUsingPOST\" target=\"_blank\">Create an Email Campaign<a/>, you must use an account email address with a `CONFIRMED` status in the email campaign `from_email` and `reply_to_email` headers.\n      \n\nUse the query parameters to filter results. You can filter using `confirm_st"
+        },
+        {
+          "info": {
+            "name": "POST Add an Account Email Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/account/emails"
+          },
+          "docs": "Use this method to add a new email address to a Constant Contact account. If the email address you are adding already exists in the account the API will return a 409 conflict error. \n\nWhen you add a new email address to an account, Constant Contact automatically sends an email to that address with a link to confirm it. After a user clicks that link, the account email status changes from `UNCONFIRMED` to `CONFIRMED`. You can use confirmed account email addresses in the email campaign `from_email`"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk Activities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Activity Status Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/activities",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results displayed per page of output, from 1 - 500, default = 50."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Use this parameter to filter the response to include only activities in one of the following states: cancelled, completed, failed, processing, or timed_out."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a collection of activities. Use the state query parameter to include only activities with a specific status (processing, completed, cancelled, failed, or time_out). Use the limit query parameter to define the number of activities returned per page. Learn [more](/api_guide/activity_status.html)."
+        },
+        {
+          "info": {
+            "name": "GET an Activity Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/activities/:activity_id",
+            "params": [
+              {
+                "name": "activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the activity to GET"
+              }
+            ]
+          },
+          "docs": "This endpoint returns an activity status report."
+        },
+        {
+          "info": {
+            "name": "Export Contacts to a File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contact_exports"
+          },
+          "docs": "Use this method to create an activity that exports contacts and contact details to a CSV file.  You can choose to export all contacts in your account (default) or you can use parameters to filter on which contacts to export. After Constant Contact finishes processing the activity, use the `results` link in the response body to retrieve the CSV file."
+        },
+        {
+          "info": {
+            "name": "Retrieve Exported Contacts File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_exports/:file_export_id",
+            "params": [
+              {
+                "name": "file_export_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the exported file provided in the results: section of the export contacts activity response."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to retrieve (GET) a CSV file containing exported contacts by providing the `activity_id` of a completed CSV export activity. \n"
+        },
+        {
+          "info": {
+            "name": "Delete Contacts in Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contact_delete"
+          },
+          "docs": "Use this endpoint to bulk delete contacts in an account. Contacts to delete are specified by contact_id (up to 500), or by list_id (up to 50 lists); all contacts that are members of the list_ids are deleted. Deleted contacts won’t receive email from you, and they don’t count as active contacts. Unlike unsubscribed contacts, deleted contacts can be added back to an account. [Learn how to revive deleted contacts](/api_guide/contacts_delete.html#revive)."
+        },
+        {
+          "info": {
+            "name": "Import Contacts using a CSV File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_file_import"
+          },
+          "docs": "This multipart method creates an asynchronous background job that adds or updates contacts by importing a CSV file containing contact information. Do not use a Content-Type header value with this method.\n\nImporting a new contact email address automatically sets the contact's `permission_to_send` property as `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request.\nImporting contacts with `sms_number`s r"
+        },
+        {
+          "info": {
+            "name": "Import Contacts using a JSON Payload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_json_import"
+          },
+          "docs": "Use this method to create an asynchronous background job that adds new contacts or updates existing contacts by importing a JSON payload. This method requires a request body that contains the contact data you are importing and the contact lists to which you want to add the imported contacts. A contact's data must include an `email` address and/or `sms_number`. The `sms_number` must be a US phone number to associate with the contact's SMS-enabled phone. Valid formats are <code>1231231234</code> o"
+        },
+        {
+          "info": {
+            "name": "Remove Contacts from Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/remove_list_memberships"
+          },
+          "docs": "Use this method to create an activity that removes contacts from one or more contact lists. Use the properties in the `source` object to remove specific contacts from your lists. Use the `list_ids` array to specify the target lists from which contacts are removed. Optionally, if the source is  `all_active_contacts` (billable) or `list_ids`, use the `exclude` object to exclude specific contacts from being removed from the destination lists."
+        },
+        {
+          "info": {
+            "name": "Add Contacts to Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/add_list_memberships"
+          },
+          "docs": "Use this method to create an activity that adds contacts to one or more lists. Each contact can be a member of up to 50 lists. Use the properties in the `source` object to specify the contacts you want to add to lists. Use the `list_ids` array to specify which lists you want to add your source contacts to."
+        },
+        {
+          "info": {
+            "name": "Delete Contact Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/list_delete"
+          },
+          "docs": "Use this endpoint to delete up to 100 contact lists in an account. "
+        },
+        {
+          "info": {
+            "name": "Remove Tags from Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_taggings_remove"
+          },
+          "docs": "Use this method to create an asynchronous activity that removes one or more tags from all contacts meeting your contact filtering criteria. Filtering criteria must include the `source` type used to identify contacts from which the specified tags (`tag_id`) are removed.\nSource types are mutually exclusive. If the specified source is either `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` specified contacts by `contact_id`. Use the activity link in the results to check t"
+        },
+        {
+          "info": {
+            "name": "Add Tags to Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_taggings_add"
+          },
+          "docs": "Use this method to create an asynchronous activity that adds one or more tags to all contacts meeting your contact filtering criteria. Use the `source` type to identify contacts from which the specified tags (`tag_id`) are added.\nSource criteria are mutually exclusive. If the source is `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` contacts by `contact_id`. Use the activity link in the results to check the status of your request.\nFor more use case information, see \"["
+        },
+        {
+          "info": {
+            "name": "Delete Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_tags_delete"
+          },
+          "docs": "Use this method to create an asynchronous activity that deletes up to 500 tags. Deleted tags are automatically removed from tagged contacts. Use the `tag_ids` array of string values in the request body to specify which tags to delete."
+        },
+        {
+          "info": {
+            "name": "Delete Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/custom_fields_delete"
+          },
+          "docs": "Use this endpoint to delete up to 100 custom fields for an account. "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a collection of events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events",
+            "params": [
+              {
+                "name": "event_status",
+                "value": "",
+                "type": "query",
+                "description": "Use to return only events that meet the specified status. Acceptable values include `ACTIVE`,`DRAFT`, `COMPLETE`, `DELETED`,`CANCELLED`, and `ERROR`."
+              },
+              {
+                "name": "search_text",
+                "value": "",
+                "type": "query",
+                "description": "Use to return only events that include the specified text."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Use to sort resulting events by one of the following properties: `name`, `start_time`, `end_time`, `created_time`, or `updated_time`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for the `sort_by parameter`. Accepted values include `ASC` (ascending) or `DESC` (descending). Defaults to `ASC` if `sort_by` is provided."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of results to return per page. Default and maximum is `100`."
+              },
+              {
+                "name": "prev",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for retrieving the previous page of results. This value is obtained from the `prev_cursor` field in a previous response."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for retrieving the next page of results. This value is obtained from the `next_cursor` field in a previous response."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of events with event details."
+        },
+        {
+          "info": {
+            "name": "POST (create) a new event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/default",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name for the new event. If not provided, a default name will be generated."
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Event start time in ISO 8601 format. If not provided, defaults to a future date."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "Event end time in ISO 8601 format. If not provided, defaults to one hour after start time."
+              },
+              {
+                "name": "placeholder_campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Placeholder campaign ID for the event."
+              }
+            ]
+          },
+          "docs": "Creates a new event with default settings, registration form, and landing page. The event will be created in DRAFT status."
+        },
+        {
+          "info": {
+            "name": "GET details for a single event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use to include (`true`) or exclude (`false`) event setting properties in the results."
+              }
+            ]
+          },
+          "docs": "Specify the `event_id` path parameter to retrieve the event's details."
+        },
+        {
+          "info": {
+            "name": "PATCH (update) an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/events/:event_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event to update."
+              }
+            ]
+          },
+          "docs": "Partially updates an event with the provided fields. Only the specified fields will be updated. This endpoint only works for events in DRAFT or ACTIVE status. Events in COMPLETE, CANCELED, or DELETED status cannot be updated."
+        },
+        {
+          "info": {
+            "name": "POST (copy) an existing event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/copy",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event to copy."
+              }
+            ]
+          },
+          "docs": "Creates a deep copy of an existing event with all its settings, registration forms, and landing pages. The copied event is created in DRAFT status. Events in DRAFT, ACTIVE, COMPLETE, or CANCELED status can be copied. DELETED events cannot be copied."
+        },
+        {
+          "info": {
+            "name": "Check in event tickets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/check_in/tickets",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to mark one or more tickets as checked in. The event must be in `ACTIVE` or `COMPLETE` status. Tickets with `CANCELLED` status cannot be checked in (returns HTTP 400)."
+        },
+        {
+          "info": {
+            "name": "Undo event ticket check-in.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/undo_check_in/tickets",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to undo check-in for one or more tickets, marking them as not checked in. The event must be in `ACTIVE` or `COMPLETE` status."
+        },
+        {
+          "info": {
+            "name": "Get registration details for an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations/:registration_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              },
+              {
+                "name": "registration_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the registration."
+              }
+            ]
+          },
+          "docs": "Use the `event_id`, `registration_id`, and `track_id` path parameters to get registration details."
+        },
+        {
+          "info": {
+            "name": "Get a list of registrations for an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track ID that uniquely identifies the event track."
+              },
+              {
+                "name": "registration_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by status."
+              },
+              {
+                "name": "payment_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by payment status."
+              },
+              {
+                "name": "search_text",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by first name, last name, or email address."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify the field to use to sort the results."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify how you want the results sorted."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Alternative to the <code>limit</code> parameter to limit the number of results returned per page. If specifying both the <code>limit</code> and <code>page_size</code> query parameters, they must be the same value."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of results returned per page. If specifying both the <code>limit</code> and <code>page_size</code> query parameters, they must be the same value."
+              },
+              {
+                "name": "prev",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination used to get the previous page of results (mutually exclusive with <code>next</code>)."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination used to get the next page of results (mutually exclusive with <code>prev</code>)."
+              }
+            ]
+          },
+          "docs": "Use the `event_id` and `track_id` path parameters to get a list of registrations for an event. Use optional query parameters to limit the number of results returned per page, the sort order, or to filter results by specific criteria; such as registration `status`."
+        },
+        {
+          "info": {
+            "name": "Update status for event registrations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              },
+              {
+                "name": "increase_count",
+                "value": "",
+                "type": "query",
+                "description": "Override count flag."
+              },
+              {
+                "name": "increase_item_count",
+                "value": "",
+                "type": "query",
+                "description": "Override item count flag."
+              },
+              {
+                "name": "return_items_to_inventory",
+                "value": "",
+                "type": "query",
+                "description": "Return items to inventory flag. Defaults to `true`."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to update the registration status for one or more registrations within an event track."
+        },
+        {
+          "info": {
+            "name": "Update payment status for event registrations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations/payment_status",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to update the payment status for one or more registrations. This endpoint only processes registrations with a payment method (PAYPAL, WEPAY, STRIPE, DOOR, or CHECK). Free registrations without a payment method are silently excluded."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET all Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/segments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of segments to return on a page."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first."
+              }
+            ]
+          },
+          "docs": "Use this method to get a list of all segments associated with the account. You can sort segment results and limit the number of segments that display per page. Deleted segments are excluded from the results. For more use case information, see [Get All Segments](/api_guide/segment_get_all.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "POST (create) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/segments"
+          },
+          "docs": "Use this method to create a new segment. You create segments to target a subset of your contacts that meet your specific criteria for a marketing campaign. The segment `name` must be unique. The `segment_criteria` requires single-string escaped JSON. Constant Contact uses the contact data that you specify in the `segment_criteria` to evaluate and identify the contacts you want to target. Contact data can be grouped from different data sources, including:\n\n  -  **`tracking`**: Supports **or** and"
+        },
+        {
+          "info": {
+            "name": "GET a Segment's Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system-generated unique ID that identifies a segment."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about a segment, including the segment criteria. If you know the `segment_id` You can also use this method to get details about a deleted segment. For more use case information, see [Get a Segment's Details](/api_guide/segment_get.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment that you want to modify."
+              }
+            ]
+          },
+          "docs": "Use this method to update an existing segment's name (`name`) and/or contact selection criteria (`segment_criteria`). You must specify both the `name` and the `segment_criteria` in the request body, even if you don't plan to update both. The segment's name must be unique and the JSON must be valid (requires single-string escaped JSON). To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 day"
+        },
+        {
+          "info": {
+            "name": "DELETE a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment."
+              }
+            ]
+          },
+          "docs": "Use this method to delete a segment from your account. Before deleting a segment, verify that the segment is not associated with a scheduled campaign.\n\nDeleted segments do not display in the results when using the `GET /segments` endpoint. If you know the `segment_id`, you can use the `GET /segments/{segment_id}` endpoint to view the deleted segment's details. A segment's details are preserved for external reference purposes, such as displaying the segment name in a campaign's history. For more "
+        },
+        {
+          "info": {
+            "name": "PATCH (rename) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/segments/:segment_id/name",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment that you want to modify."
+              }
+            ]
+          },
+          "docs": "Use this method to update an existing segment `name` with a new unique name in the request body. For more use case information, see [Rename a Segment](/api_guide/segment_rename.html) in the API guide."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to GET"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `phone_numbers`, `street_addresses`, `notes`, and `taggings`."
+              }
+            ]
+          },
+          "docs": "This endpoint GETs a specific contact resource (contact_id). Use the `include` query parameter to add any of the available contact sub-resources to the response payload."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to update"
+              }
+            ]
+          },
+          "docs": "The PUT method updates an existing contact. You must include the `update_source` property in the PUT request payload. To restore  a deleted contact you must specify the `update_source` as `Account`. When updating any resource using PUT, all properties are updated, overwriting all previous values. Any properties left blank or not included in the request are overwritten with null value - however this does not apply to contact subresources. \n\nAdd or change any of the subresources by including them "
+        },
+        {
+          "info": {
+            "name": "DELETE a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to DELETE"
+              }
+            ]
+          },
+          "docs": "Deletes the contact identified by the contact_id path parameter. Deleted contacts won't receive email from you, and they don't count as active contacts. Unlike unsubscribed contacts, deleted contacts can be revived, or added back to an account. Learn how to [revive deleted contacts](/api_guide/contacts_delete.html#revive)."
+        },
+        {
+          "info": {
+            "name": "GET Contacts Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Use the `status` query parameter to search for contacts by status. This parameter accepts one or more comma separated values: `all`, `active`, `deleted`, `not_set`, `pending_confirmation`, `temp_hold`, and `unsubscribed`."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Use the `email` query parameter to search for a contact using a specific email address."
+              },
+              {
+                "name": "lists",
+                "value": "",
+                "type": "query",
+                "description": "Use the `lists` query parameter to search for contacts that are members of one or more specified lists. Use a comma to separate multiple `list_id` values, up to a maximum of 25."
+              },
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contacts that meet the segment criteria for a single specified `segment_id`. This query parameter can only be combined with the limit query parameter. When using the `segment_id` query parameter, the V3 API may return a 202 response code instead of a 200 response. The 202 response code indicates that your request has been accepted, but not fully completed. Retry sending your API request to return the completed results and a 200 response code."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contact details for up to 50 specified tags. Use a comma to separate each `tag_id`."
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `updated_after` to search for contacts that have been updated after the date you specify. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `updated_before` to search for contacts that have been updated before a specified date. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `created_after` to search for contacts created after a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `created_before` to search for contacts created before a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "optout_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `optout_after` to search for contacts that unsubscribed after a specified date."
+              },
+              {
+                "name": "optout_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `optout_before` to search for contacts that unsubscribed before a specified date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `taggings`, `notes`,`phone_numbers`, `street_addresses`."
+              },
+              {
+                "name": "sms_status",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contacts by their SMS status. This parameter accepts one or more comma separated values: `all`, `explicit`, `unsubscribed`, `pending_confirmation`, `not_set`."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set `include_count=true` to include the total number of contacts (`contacts_count`) that meet all search criteria in the response body."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results displayed per page of output in the response, from 1 - 500, default = 50."
+              }
+            ]
+          },
+          "docs": "Use this method to return a collection of contacts. Use the query parameters to search for contacts that match specific contact properties and sub-resource properties as criteria. For example, you can search using the contact's `email` address, `lists` memberships, and by the date range that a contact was created or updated. Use the `limit` query parameter to limit the number of results returned per page. Use the `include` query parameter to include contact sub-resources in the response and `inc"
+        },
+        {
+          "info": {
+            "name": "POST (create) a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contacts"
+          },
+          "docs": "\nCreates a new contact resource. You must include the `create_source` property and at least one of the following properties: `first_name`, `last_name`, a unique `email_address` (specified using the `EmailAddress` object), or the `sms_channel` property (specified using the `ContactSmsChannel` object).\n\n<div class=\"Msg\"><p class=\"note-text\">If `email_address` is specified: **Only use this method when a contact gives you their explicit permission to send them an email. It is a violation of anti-spa"
+        },
+        {
+          "info": {
+            "name": "Create or Update a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contacts/sign_up_form"
+          },
+          "docs": "Use this method to create a new contact or update an existing contact. In the request body, this method requires including the `list_memberships` array as well as either the contact's `email_address` string or `sms_channel` object which includes the contact's SMS number. The information you specify determines if a new contact is either created (the email address or SMS number does not already exist in the account), or if an existing contact is updated (the email address or SMS number already exi"
+        },
+        {
+          "info": {
+            "name": "GET a collection of V2 and V3 API contact IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/contact_id_xrefs",
+            "params": [
+              {
+                "name": "sequence_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma delimited list of V2 API contact `ids` to cross-reference with the V3 API `contact_id` value. Endpoint accepts a maximum of 500 ids at a time."
+              }
+            ]
+          },
+          "docs": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 contact ids to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nThis GET call retrieves a collection of cross-referenced contact sequence IDs (`id` used in the V2 API) and UUIDs (`contact_id` used in the V3 API). This endpoint is in"
+        },
+        {
+          "info": {
+            "name": "GET SMS Engagement History for a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/sms_engagement_history/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact's unique ID."
+              }
+            ]
+          },
+          "docs": "Use this method to return SMS engagement details for a contact, such as SMS consent and advertising frequency details."
+        },
+        {
+          "info": {
+            "name": "GET Contact Consent Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/counts",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use to return the total number of contacts that subscribed within the last 30 days in the results."
+              }
+            ]
+          },
+          "docs": "Use to get the total contacts count for the account and the total contact-consent counts for each consent state. Optionally, to include the total number of contacts that subscribed within the last 30 days in the results, use `new_subscribers` in the `include` query parameter. To optimize open rates, reduce spam reports, and help grow your business,  you must value your contact's consent to receive or to not receive your emails."
+        },
+        {
+          "info": {
+            "name": "PUT Resubscribe a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contacts/resubscribe/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the contact to resubscribe."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to send a confirmation resubscribe email to a contact in order to get their confirmation to resubscribe. This endpoint also adds the resubscribed contact to the contact lists you specify in the request body. You can only send a resubscribe email to the unsubscribed contact once. The contact is not resubscribed until after you receive their confirmation. "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a custom_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the custom field."
+              }
+            ]
+          },
+          "docs": "Get details for a specified custom field."
+        },
+        {
+          "info": {
+            "name": "Update a custom field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contact_custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the custom field to update."
+              }
+            ]
+          },
+          "docs": "Update an existing custom field."
+        },
+        {
+          "info": {
+            "name": "DELETE a custom_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contact_custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the custom field to delete."
+              }
+            ]
+          },
+          "docs": "Delete a custom field from the user's account."
+        },
+        {
+          "info": {
+            "name": "GET custom_fields Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_custom_fields",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results displayed per page of output, from 1 - 100, default = 50."
+              }
+            ]
+          },
+          "docs": "Get all custom fields defined in the user's account.\n<div class=\"Msg\"><p class=\"note-text\">This method does not currently support filtering results using the custom field update date.</p></div>"
+        },
+        {
+          "info": {
+            "name": "POST (create) a custom_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contact_custom_fields"
+          },
+          "docs": "Custom fields are extra data fields you create to store additional information about your contacts, such as preferences, membership levels, and interests. Use custom fields to organize contacts, send personalized email campaigns, and to identify a targeted audience for a specific campaign. Custom fields types include text, number, date, drop-down lists, radio buttons, and checkboxes. A user can configure up to 100 `custom_fields` in their account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contact Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies a contact list."
+              },
+              {
+                "name": "include_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the total number of contacts per list that meet your selection criteria. Set the `include_membership_count` to `active`, to count only active contacts, or `all` to include all contacts in the count."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about a specific contact list (`list_id`)."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the contact list to update"
+              }
+            ]
+          },
+          "docs": "Updates an existing contact list resource, specified by `list_id`"
+        },
+        {
+          "info": {
+            "name": "DELETE a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the list to delete"
+              }
+            ]
+          },
+          "docs": "Deletes the specified contact list and its membership. DELETE List requests are processed asynchronously, and you can track the status of the request by making a GET call to the URI shown in the `_links` property in the response."
+        },
+        {
+          "info": {
+            "name": "GET Lists Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify the number of results displayed per page of output, from 1 - 500, default = 50."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set `include_count` to `true` to return the total number of contact lists that meet your selection criteria."
+              },
+              {
+                "name": "include_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Use to include the total number of contacts per list. Set to  `active`, to count only active (mailable) contacts, or `all` to count all contacts."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Use to get details for a single list by entering the full name of the list."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Use to get lists by status. Accepts comma-separated status values."
+              },
+              {
+                "name": "channel_type",
+                "value": "",
+                "type": "query",
+                "description": "Use to return lists by channel type. The default value is `email`."
+              },
+              {
+                "name": "include_sms_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to `true` to return the total number of SMS members in each list. Only applicable when `channel_type` is `sms`. Default is `false`."
+              }
+            ]
+          },
+          "docs": "Use this method to return details about all contact lists for the account.\n<div class=\"Msg\"><p class=\"note-text\">This method does not currently support filtering results using the contact list update date.</p></div>"
+        },
+        {
+          "info": {
+            "name": "POST (create) a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contact_lists"
+          },
+          "docs": "Create a new contact list resource"
+        },
+        {
+          "info": {
+            "name": "GET a collection of V2 and V3 API List IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists/list_id_xrefs",
+            "params": [
+              {
+                "name": "sequence_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma delimited list of V2 API list `ids` to cross-reference with the V3 API `list_id` value. Endpoint accepts a maximum of 500 ids at a time."
+              }
+            ]
+          },
+          "docs": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 contact list data to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nThis GET call retrieves a collection of cross-referenced list sequence IDs (`id` used in the V2 API) and UUIDs (`list_id` used in the V3 API). This endpoint is in"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contact Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Tag Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies a tag (UUID format)."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results."
+              }
+            ]
+          },
+          "docs": "Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see  [Get a Tag's Details](/api_guide/tags_get_single.html)."
+        },
+        {
+          "info": {
+            "name": "PUT (Update) a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
+              }
+            ]
+          },
+          "docs": "Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. [Learn more](/api_guide/tags_update.html)"
+        },
+        {
+          "info": {
+            "name": "DELETE a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies a tag in UUID format."
+              }
+            ]
+          },
+          "docs": "Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. [Learn more](/api_guide/tags_delete.html)."
+        },
+        {
+          "info": {
+            "name": "GET Details for All Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_tags",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to get details for all tags in your account. Use the <code>include_count</code> query parameter to include the total number of contacts assigned each tag. Use the <code>limit</code> query parameter to limit the number of tag results returned per page. To get the next page of results, copy the <code>cursor={the cursor ID}</code> from the resulting href link and add it (<code>&</code>) to the URL. For example:\n\n<p><code>/v3/contact_tags?limit=1&cursor=</code></p><p><code>bGltaXQ9"
+        },
+        {
+          "info": {
+            "name": "POST (Create) a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contact_tags"
+          },
+          "docs": "Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. [Learn more](/api_guide/tags_create.html)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Collection of Email Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of campaigns to display on each page of output that is returned (from return 1 - 500). The default returns 50 campaigns per page."
+              },
+              {
+                "name": "before_date",
+                "value": "",
+                "type": "query",
+                "description": "Use to return email campaigns with `updated_at` timestamps that are before a specific date and time (in ISO-8601 format). Use with the `after_date` query parameter to get email campaigns sent within a specific date range."
+              },
+              {
+                "name": "after_date",
+                "value": "",
+                "type": "query",
+                "description": "Use to return email campaigns with last `updated_at` timestamps that are after a specific date and time (in ISO-8601 format). Use with the `before_date` query parameter to get email campaigns sent within a specific date range."
+              }
+            ]
+          },
+          "docs": "Use this method to list and get details about your email campaigns. By default, this method returns all email campaigns for the user account including deleted email campaigns. To get email campaigns within a date-range, use the `after_date` and `before_date` query parameters.\n\nThis endpoint does not return campaign activity details for each email campaign in the collection. To get email campaign activity details for a single email campaign, use the GET `/emails/{campaign_id}` endpoint.\"\n<div cla"
+        },
+        {
+          "info": {
+            "name": "POST (Create) a New Email Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails"
+          },
+          "docs": "Use this method to create a new email campaign. You must include a tracking image (`[[trackingImage]]`) in the email body in order for Constant Contact to report on the email performance. This method also creates new `primary_email` and `permalink` email campaign activities and associates them with the new email campaign.\nThe request body must contain the `name` property and the `email_campaign_activities` array. The `name` must be unique. The `email_campaign_activities` array contains the main "
+        },
+        {
+          "info": {
+            "name": "GET Details About a Single Email Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID (UUID format) that uniquely identifies this email campaign."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about a single email campaign and campaign related activities. Details include the email campaign name, current status, create date, last update date, and a list of campaign activities; including the `campaign_activity_id` and `role`."
+        },
+        {
+          "info": {
+            "name": "PATCH (Update) an Email Campaign Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/emails/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for an email campaign."
+              }
+            ]
+          },
+          "docs": "Use this method to rename an email campaign. The name is not visible to contacts. The name must be unique and cannot exceed 80 characters. You cannot rename email campaigns that have a `Removed` status."
+        },
+        {
+          "info": {
+            "name": "DELETE an Email Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emails/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the email campaign you are deleting."
+              }
+            ]
+          },
+          "docs": "Use this method to delete an email campaign and the email campaign activities associated with the email campaign. You cannot delete an email campaign when it has a `Scheduled` status.\n\nConstant Contact users can restore deleted email campaigns using the UI.\n"
+        },
+        {
+          "info": {
+            "name": "GET a Collection of V2 and V3 API Email Campaign Identifiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/campaign_id_xrefs",
+            "params": [
+              {
+                "name": "v2_email_campaign_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of V2 API `campaignId` values. You can enter up to 50 V2 `campaignId` values in each request."
+              }
+            ]
+          },
+          "docs": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 email campaign data to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nUse this method to migrate your local V2 API email data to the V3 API format. For each value that you provide in the `v2_email_campaign_ids` query parameter, th"
+        },
+        {
+          "info": {
+            "name": "GET a Single Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use the `include` query parameter to enter a comma separated list of additional email campaign activity properties for the V3 API to return. Valid values are `physical_address_in_footer`, `permalink_url`, `html_content`, and `document_properties`."
+              }
+            ]
+          },
+          "docs": "Use this method to return a specific email campaign activity. Each email campaign activity contains the email content, metadata, and styling information of an email. Email campaign activities can also contain either contact lists or segments. Constant Contact uses this information to determine who to send the email campaign activity to when you schedule it. You cannot get email campaign activities that have a `REMOVED` status.\n"
+        },
+        {
+          "info": {
+            "name": "PUT (Update) An Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the email campaign activity you are updating."
+              }
+            ]
+          },
+          "docs": "Use this method to update an email campaign activity by including the complete email campaign activity with your changes in the request body. The request body requires the `from_name`, `from_email`, `reply_to_email`, and `subject` properties.\n\nYou can only update email campaign activities that have the `primary_email` role and that are in `DRAFT` or `Done` status.\nWhen you use a PUT method to update a resource, the V3 API overwrites any properties that are missing in the request body. However, t"
+        },
+        {
+          "info": {
+            "name": "GET Details for a Resend to Non-openers Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/non_opener_resends",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Get details about a resend to non-openers campaign activity. If resend activity does not exist for the specified `campaign_activity_id`, an empty list is returned in the results. You can only create one resend activity per email campaign."
+        },
+        {
+          "info": {
+            "name": "POST a Resend to Non-openers Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/non_opener_resends",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this POST method to resend a primary campaign activity to contacts that did not open a campaign activity that has a current `status` of `Draft`, `Scheduled`, or `Done`. You can only create one resend activity per email campaign.\n \n After an email campaign activity is sent to contacts, Constant Contact waits the specified number of `delay_days` or `delay_minutes` (properties are mutually exclusive) before resending to non-openers. If you set both `delay_days` or `delay_minutes`, `delay_minute"
+        },
+        {
+          "info": {
+            "name": "DELETE a Resend to Non Openers Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/non_opener_resends/:resend_request_id",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              },
+              {
+                "name": "resend_request_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID associated with the resend for the email campaign activity (for example: `389093`). If the email campaign activity is currently in draft status, specify `DRAFT` as the ID."
+              }
+            ]
+          },
+          "docs": "Use this `DELETE` method to delete (unschedule) a resend to non openers activity."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email Scheduling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET an Email Campaign Activity Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/schedules",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to return the current schedule for an email campaign activity. This schedule contains the date that Constant Contact will send the email campaign activity to contacts. If the email campaign activity is not in `SCHEDULED` status, this method returns an empty array and a 200 response code."
+        },
+        {
+          "info": {
+            "name": "POST (Create) an Email Campaign Activity Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/schedules",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity. You can only schedule email campaign activities that have the `primary_email` role."
+              }
+            ]
+          },
+          "docs": "Use this method to send an email campaign activity to contacts either immediately or on a specific date. To send the email campaign activity immediately, specify `0` for the `scheduled_date` request property (results return an empty array). To send the email campaign activity on a specific date, specify the date using the `scheduled_date` request property (results return the scheduled date in an array).  \n\nBefore you schedule an email campaign activity, you must update the email campaign activit"
+        },
+        {
+          "info": {
+            "name": "DELETE an Email Campaign Activity Schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/schedules",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to unschedule an email campaign activity by deleting the schedule. You can only unschedule email campaign activities that are in `SCHEDULED` status. Unscheduling reverts the email campaign activity to the status prior to `SCHEDULED`."
+        },
+        {
+          "info": {
+            "name": "POST Test Send an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/tests",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity. You can only test send email campaign activities that have the `primary_email` role."
+              }
+            ]
+          },
+          "docs": "Use this method to send a test email to specific email addresses. Test emails allow you to verify how the email campaign activity will look before you send it to contacts. This method uses the `email_addresses` array in the request body to determine the recipients of the test email. The test email does not process any dynamic content in the email campaign activity. Dynamic content includes contact and custom field variables.\n\nYou can send up to 50 test emails each day. Each recipient you add to "
+        },
+        {
+          "info": {
+            "name": "GET the HTML Preview of an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/previews",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to get the HTML preview of an email campaign activity. The HTML preview allows you to verify how the email campaign activity will look before you send it to contacts.\n\nCustom code emails (`format_type` 5) use the Constant Contact account owner's contact information to process contact, custom field, and account variables in the preview.\n\nThis method returns the HTML preview encoded as a JSON string. You will need to decode the string before you can use it as valid HTML.\n"
+        },
+        {
+          "info": {
+            "name": "GET the Send History of an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/send_history",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity. You can return the send history for `primary_email` and `resend` role email campaign activities."
+              }
+            ]
+          },
+          "docs": "Use this method to return the send history of an email campaign activity. This method returns the send history as an array containing an object for each time you sent a specific email campaign activity to contacts. \n\nEach send history object contains the email campaign activity send date, the number of contacts it was sent to, and the contact lists or segments used to send it. Each send history object also includes if the send attempt completed or encountered an error, and the reason why each er"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email Campaigns AB Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET A/B Test Details for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to get A/B test details for a primary email campaign activity, such as the alternate email subject line, the contact test percentage size, and the number of hours to wait to determine the winning subject line to use. Currently, A/B tests support subject line only."
+        },
+        {
+          "info": {
+            "name": "POST (Create) an A/B Test for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to create a new A/B test for a primary email campaign activity. You must specify an alternative subject line, the percentage of contact to use for the A/B test, and the number of hours to wait after the A/B test is sent before determining the winning subject line. To create an A/B test, the campaign must have a `current_status` of `DRAFT`. When you create an A/B test, the `type` changes from Newsletter (code= `10`) to A/B Test (code= `57`)."
+        },
+        {
+          "info": {
+            "name": "DELETE an A/B Test for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Deletes an A/B Test on an primary email campaign activity. You can only delete A/B tests that have a `current_status` of `Draft`. Deleting an A/B tests reverts the email campaign activity `type` from A/B Test (code= `57`) back to NewsLetter (code= `10`). Constant Contact uses the original subject line, rather than the alternate A/B test subject line, when an A/B test is deleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Contact Activity Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact's ID for which tracking activity data is requested."
+              },
+              {
+                "name": "tracking_activities_list",
+                "value": "",
+                "type": "query",
+                "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
+              },
+              {
+                "name": "tracking_activity_type",
+                "value": "",
+                "type": "query",
+                "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
+              },
+              {
+                "name": "include_campaign_activity_names",
+                "value": "",
+                "type": "query",
+                "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100."
+              }
+            ]
+          },
+          "docs": "<p>Gets the tracking activity data for a single contact, sorted in descending activity date order.</p> <p>You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.</p>\n      <table><tr><td colspan='2'>Valid tracking activity types</td></tr>\n        <tr><td><b>em_sends</"
+        },
+        {
+          "info": {
+            "name": "GET Average Open and Click Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
+              }
+            ]
+          },
+          "docs": "<p>Gets the average open and click rate for a given account and contact.<p>Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.</p><p>Returns the rates and the number of campaign activities that were included in the calculation.</p><p>If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.</p>"
+        },
+        {
+          "info": {
+            "name": "GET Contact Action Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
+              }
+            ]
+          },
+          "docs": "Get a list of the recent emails (aka, campaign activities) sent to a specific contact and a summary of the actions the contact took on that email for the most recent 200 campaigns."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET an Email Links Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/links",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              },
+              {
+                "name": "no_clicks",
+                "value": "",
+                "type": "query",
+                "description": "Set this query parameter to `true` to  return details for links that were not clicked in the response results."
+              }
+            ]
+          },
+          "docs": "Use this method to return link details, including the number of unique contacts that clicked each link in an email campaign activity, and the type of action associated with clicking each link. To include link details for links that were not clicked, set the `no_clicks` query parameter to `true`.\n\nYou can return reporting data for `primary_email` and `resend` role email campaign activities. For more use case information, see [Get an Email Links Report](/api_guide/email_links_report.html) in the A"
+        },
+        {
+          "info": {
+            "name": "GET an Email Sends Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/sends",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each contact that was sent a specific email campaign activity. This sends report includes general contact data such as the date and time that the email campaign activity was sent to a contact's email address, the contact's first and last name, and unique ID. This report lists the most recent activity first. For more use case information, see [Get an Sends report for an Email Campaign Activity](/api_guide/email_summary_sends_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each time a contact opened a specific email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Opens report for an Email Campaign Activity](/api_guide/email_summary_opens_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Unique Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/unique_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a unique opens report that provides details about the last time that each contact opened the specified email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Unique Opens Report for an Email Campaign Activity]("
+        },
+        {
+          "info": {
+            "name": "GET an Email Did Not Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/didnotopens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each contact that was sent, but did not open the specified email campaign activity. This report lists contact information such as the contact's email address and unique ID, and the date and time that the email campaign activity was sent. This report lists the most recent activity first. For more use case information, see [Get a Did Not Opens Report for an Email Campaign Activity](/api_guide/email_summary_non_opens_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Clicks Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/clicks",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "url_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID that uniquely identifies a single link URL for which you want to get a clicks report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each time a contact clicked a link, the click date and time, and the device type they used. Use the `url_id` query parameter to get a clicks report for a specific link URL. Clicks report data is sorted with most recent activity listed first."
+        },
+        {
+          "info": {
+            "name": "GET an Email Forwards Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/forwards",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each time a contact forwarded the email campaign activity using the forwarding link in the email footer. The report includes general contact information, such as the contact's email address and unique ID, and the date and time that the email campaign activity was forwarded. Forwards report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Forwards Report](/api_guide/email_summary_forwards_report.htm"
+        },
+        {
+          "info": {
+            "name": "GET an Email Opt-outs Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/optouts",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each contact that clicked the unsubscribe link in the email campaign activity to opt-out from receiving emails sent from your Constant Contact account. This report includes contact information, such as the contact's email address, unique ID, and the opt-out date and time. Opt-out report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Opt-outs Report](/api_guide/email_summary_optouts_report.html) i"
+        },
+        {
+          "info": {
+            "name": "GET an Email Bounces Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/bounces",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "bounce_code",
+                "value": "",
+                "type": "query",
+                "description": "To return results for a specific bounce code, select the `bounce_code` from the drop-down list. To return results for multiple codes, repeat the bounce code parameter for each. For example, to return results for bounce codes `B` and `D` use `bounce_code=B&bounce_code=D`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing contact bounce data for the specified email campaign activity. This report lists the most recent bounce data first and includes contact information, such as the contact's email address, unique ID, and the email bounce date and time.\nUse the <code>bounce_code</code> query parameter to limit the type of bounce data to return.\n\nFor more use case information, see [Get a Bounces Report for an Email Campaign Activity](/api_guide/email_summary_bounces_report.html"
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaigns Summary Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/summary_reports/email_campaign_summaries",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use the `limit` query parameter to limit the number of email campaign summaries to return on a single page. The default is `50` and the maximum is `500` per page."
+              }
+            ]
+          },
+          "docs": "Use this method to get aggregate email campaign statistics for up to five hundred email campaigns. The response results include the total number of times that each contact uniquely interacted with each tracked campaign activity.\n\nResults are sorted in descending order by the date that the email was last sent (<code>last_sent_date</code>). Use the <code>limit</code> query parameter to limit the number of email campaign summary reports listed on each page.\n\n\n\n For more use case information, see \"["
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaign Stats Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/stats/email_campaigns/:campaign_ids",
+            "params": [
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma-separated list of `campaign_id`s (UUID's)."
+              }
+            ]
+          },
+          "docs": "Use this method to get email campaign performance tracking statistics for one or more campaigns, including the total number of times contacts interacted with your campaigns and how.\n\nFor each `campaign_id`, this method returns lists that include total counts (`stats`) for each type of tracked email and relevant campaign-related percentages (`percents`). It also returns the date and time at which the campaign stats were last refreshed.\nIf any specified `campaign_id` is invalid, a 404 error respon"
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaign Activity Stats Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/stats/email_campaign_activities/:campaign_activity_ids",
+            "params": [
+              {
+                "name": "campaign_activity_ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma-separated list of `campaign_activity_id`s (UUID's)."
+              }
+            ]
+          },
+          "docs": "Use this method to get performance tracking statistics for up to ten email campaign activities. Statistics include the total number of times contacts interacted with your campaigns and how.\n\nFor each `campaign_activity_id`, this method returns the `campaign_id`, the total counts (`stats`) for each type of tracked email activity, and the date and time that Constant Contact last refreshed (`last_refresh_time`) the `stats`.\n\nWhen requesting statistics for multiple email campaign activities, if one "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Landing Pages Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Unique Contacts Clicks Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_clicks",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about each contact that clicked a link on a landing page campaign activity. Unique contact clicks are identified by both the `contact_id` and `url_id`. The same contact may appear more than once in the results, if they clicked more than one link on the landing page. The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Opens Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Contacts Opens Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_contact_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get contact details for each time a contact opens a link on a landing page.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Updates Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_updates",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Adds Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_adds",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about each contact added to the account from a specified landing page. Contacts are identified by `contact_id`. The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts SMS Opt-In Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_sms_optins",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``.  The resulting contact data is listed with most recent activity first."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SMS Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET an SMS Campaigns Summary Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/summary_reports/sms_campaign_summaries",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of results to return on a single page (from 1 to 50). The default setting is 50."
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or after the required `start_at` date you specify. ISO 8601 format."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or before the `end_at` date you specify. ISO 8601 format."
+              }
+            ]
+          },
+          "docs": "Use this method to get SMS campaign summary details, including the total number of times that each contact uniquely interacted with each tracked campaign activity and aggregate tracking statistics. Results are sorted in descending order by the date the SMS was last sent (`last_sent_date`).\nThe `start_at` date is required. Use both the `start_at` and `end_at` date query parameters to return only SMS campaign summary details that occurred within a specified date range.\nUse the `limit` query parame"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Technology Partners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Partner Client Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/accounts",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of client accounts to return on each page of results. The default value is `50`. Entering a `limit` value less than the minimum (`10`) or greater than the maximum (`50`) is ignored and the system uses the default values. Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results."
+              },
+              {
+                "name": "account_type",
+                "value": "",
+                "type": "query",
+                "description": "Filters client account results by account type: `all` (default), `managed`, or `unmanaged`. Excluding the `account_type` query parameter returns all client accounts for the partner."
+              }
+            ]
+          },
+          "docs": "Get all Constant Contact client accounts managed under your technology partner account. Use the `limit` query parameter to set the number of accounts to return on each results page. Use the `account_type` query parameter to filter client account results by type: `all` (default), `managed`, or `unmanaged`.\nOnly technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get all Partner Client Accounts]"
+        },
+        {
+          "info": {
+            "name": "POST (create) a Partner Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts"
+          },
+          "docs": "Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.\n\nNewly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.\n\nIf a field validation error occurs, a 400 response message is returned.\n\nIf provisioning does not complete successfully d"
+        },
+        {
+          "info": {
+            "name": "GET Billing Plan Details for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/plan",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Specify the client's unique `encoded_account_id`."
+              }
+            ]
+          },
+          "docs": "Use this GET method to return billing plan details for a client's Constant Contact account.\nIf you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported. Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get Billing Plan Details for a Client Account](/api_guide/partners_plans_"
+        },
+        {
+          "info": {
+            "name": "PUT (update) Billing Plan Details for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/plan",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Specify the client's unique `encoded_account_id`."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to update the type of billing plan to assign to the Constant Contact client account. The type of billing plan determines which Constant Contact product features that the client account can access. The billing plan that you specify in the request body (`plan_type`) must already exist in the plan group. Attempting to change to a plan that is currently not available within your partner plan group results in a 400 error response code.\n\nWhen you create a new client account, the `p"
+        },
+        {
+          "info": {
+            "name": "PUT Cancel the Billing Plan for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/status/cancel",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the client account."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to cancel a client's Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.\n\n\n  To get a list of all canceled client accounts (`\"billing_status\": \"Canceled\"`), make a `GET` call to the `/partner/accounts` endpoint.\n\n  Only technology partners can access partner endpoints an"
+        },
+        {
+          "info": {
+            "name": "POST Send an API request on Behalf of a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/account_operations/sync",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "An encoded account id for a managed account in your partnership."
+              }
+            ]
+          },
+          "docs": "Use this API method to send an API request on behalf of a managed client account in your partnership.\n\nThe request body properties you use in this partner API call determine the structure of the API request that Constant Contact sends on behalf of the managed client account. This includes the HTTP url, HTTP method type, request body, request url parameters, request query parameters, and headers that for the request. You can use this `/partner/accounts/{encoded_account_id}/account_operations/sync"
+        },
+        {
+          "info": {
+            "name": "POST a User Under a Partner's SSO-Enabled Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/users/sso",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The encoded account ID that identifies the partner's client account to which to add the new user. "
+              }
+            ]
+          },
+          "docs": "Use this endpoint to create a new user under a partner client account that has the Single Sign On (SSO) for all users feature enabled."
+        },
+        {
+          "info": {
+            "name": "POST Unsubscribe Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/contacts/unsubscribe",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The encoded account ID that uniquely identifies the partner's client account."
+              }
+            ]
+          },
+          "docs": "Use to unsubscribe contacts from partner client accounts. Identify the contacts to unsubscribe using the `email_address` parameter. To unsubscribe a single contact from all partner client accounts, specify the contacts `email_address` and set the `global_unsubscribe` parameter to `true`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Technology Partners Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Collection of Webhook Topic Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions"
+          },
+          "docs": "Use this GET method to return a collection containing your application's webhook subscriptions."
+        },
+        {
+          "info": {
+            "name": "GET Webhook Topic Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n  * `1` - Billing tier upgrade.\n  * `2` - Billing tier downgrade.\n  * `3` - Account cancelled.\n  * `4` - Account disabled."
+        },
+        {
+          "info": {
+            "name": "PUT Webhook Topic Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request "
+        },
+        {
+          "info": {
+            "name": "DELETE Webhook Topic Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled."
+        },
+        {
+          "info": {
+            "name": "POST Test Send Webhook Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
