@@ -1,0 +1,36 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/constant-contact-v3-openapi.yml
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - implicit
+schemes:
+- name: oauth2_implicit
+  type: oauth2
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    scopes: 4
+  sources:
+  - openapi/constant-contact-v3-openapi.yml
+- name: oauth2_access_code
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    scopes: 4
+  sources:
+  - openapi/constant-contact-v3-openapi.yml
+- name: api_key
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  sources:
+  - openapi/constant-contact-v3-openapi.yml

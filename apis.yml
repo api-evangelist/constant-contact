@@ -58,6 +58,10 @@ apis:
     check-in, payment status), contact reporting, landing pages, and partner technology-account
     provisioning.
 common:
+- type: DomainSecurity
+  url: security/constant-contact-domain-security.yml
+- type: Authentication
+  url: authentication/constant-contact-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/constant-contact
 - type: Website
