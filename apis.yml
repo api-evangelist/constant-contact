@@ -58,6 +58,8 @@ apis:
     check-in, payment status), contact reporting, landing pages, and partner technology-account
     provisioning.
 common:
+- type: AgenticAccess
+  url: agentic-access/constant-contact-agentic-access.yml
 - type: DomainSecurity
   url: security/constant-contact-domain-security.yml
 - type: Authentication
