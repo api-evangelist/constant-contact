@@ -1,0 +1,1131 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Email Campaigns API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Email Campaigns
+  description: Use email campaign endpoints and methods to get, create, and update email campaigns.
+paths:
+  /emails:
+    get:
+      tags:
+      - Email Campaigns
+      summary: GET a Collection of Email Campaigns
+      description: 'Use this method to list and get details about your email campaigns. By default, this method returns all email campaigns for the user account including deleted email campaigns. To get email campaigns within a date-range, use the `after_date` and `before_date` query parameters.
+
+
+        This endpoint does not return campaign activity details for each email campaign in the collection. To get email campaign activity details for a single email campaign, use the GET `/emails/{campaign_id}` endpoint."
+
+        <div class="Msg"><p class="note-text">This method does not currently support filtering results using the email campaign creation date.</p></div>
+
+        '
+      operationId: retrieveEmailCampaignsUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Specifies the number of campaigns to display on each page of output that is returned (from return 1 - 500). The default returns 50 campaigns per page.
+        required: false
+        type: integer
+        default: 50
+        format: int32
+      - name: before_date
+        in: query
+        description: Use to return email campaigns with `updated_at` timestamps that are before a specific date and time (in ISO-8601 format). Use with the `after_date` query parameter to get email campaigns sent within a specific date range.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2021-01-10T11:42:57.000Z'
+      - name: after_date
+        in: query
+        description: Use to return email campaigns with last `updated_at` timestamps that are after a specific date and time (in ISO-8601 format). Use with the `before_date` query parameter to get email campaigns sent within a specific date range.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2021-03-10T11:42:57.000Z'
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/PagedEmailCampaignResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getAllEmailCampaigns
+    post:
+      tags:
+      - Email Campaigns
+      summary: POST (Create) a New Email Campaign
+      description: 'Use this method to create a new email campaign. You must include a tracking image (`[[trackingImage]]`) in the email body in order for Constant Contact to report on the email performance. This method also creates new `primary_email` and `permalink` email campaign activities and associates them with the new email campaign.
+
+        The request body must contain the `name` property and the `email_campaign_activities` array. The `name` must be unique. The `email_campaign_activities` array contains the main content of your email campaign and must include `format_type`, `from_name`, `from_email`, `reply_to_email`, `subject`, and `html_content` properties. The `from_email` address you use must use a verified email address for your account.
+
+        NOTE: If you create an email campaign using a legacy (V7) format, Constant Contact automatically converts it to the newer custom code format.
+
+        '
+      operationId: createEmailCampaignUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: A JSON request body that contains the email content.
+        required: true
+        schema:
+          $ref: '#/definitions/EmailCampaignComplete'
+      responses:
+        '200':
+          description: 'Request successful. NOTE: If you created an email campaign using a legacy (V7) format, Constant Contact successfully converted it to the newer custom code format.'
+          schema:
+            $ref: '#/definitions/EmailCampaign'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-sdk-methodName: createEmailCampaign
+      x-ctctmcp-tool-desc: "Use this tool to create a new email campaign. You must include a tracking image (`[[trackingImage]]`) in the email body in order for Constant Contact to report on the email performance. The request body must contain the `name` property and the `email_campaign_activities` array. The `name` must be unique. The `email_campaign_activities` array contains the main content of your email campaign and must include `format_type`, `from_name`, `from_email`, `reply_to_email`, `subject`, and `html_content` properties. The `from_email` address you use must use a verified email address for the account.\nBefore creating an email campaign, first retrieve the current account physical mailing address using the getPhysicalAddress tool. If the address is missing or incomplete, do not assume values; ask the user for the missing fields or update the address only with user-provided information.\nCompliance and sender preflight requirements:\n  Before creating an email campaign, the assistant must verify two separate account requirements:\n\n  1. Physical mailing address requirement\n  - First retrieve the current account physical mailing address using the `getPhysicalAddress` tool.\n  - A physical mailing address is required to send emails and displays in the footer of every email sent from the account.\n  - If the address is missing or incomplete, do not assume values.\n  - Ask the user for the missing fields, or update the address only with user-provided information.\n\n  2. Sender email requirement\n  - Then retrieve account email addresses using `retrieveEmailAddresses`.\n  - Do not assume that a confirmed email alone is the best choice for sender headers.\n  - The assistant must verify which confirmed account emails are eligible for campaign headers and should inspect returned email roles.\n  - `from_email` must be a confirmed account email and should prefer an email with the `DEFAULT_FROM` role when available.\n  - `reply_to_email` must be a confirmed account email and should prefer an email with the `REPLY_TO` role when available.\n  - If the same confirmed account email has both roles, it is the preferred default for both fields.\n  - If no role-qualified email exists, the assistant must clearly say so and either ask the user which confirmed account email to use or use a confirmed fallback only if the API allows it and the user accepts.\n  - The assistant must not present sender details as validated until it has actually checked confirmed account emails.\n\nQuality requirement for default output: when the user asks to create an email campaign and does not explicitly request a plain or minimal draft, default to a polished, production-ready HTML marketing email, not a schema-valid stub. Treat any included HTML example as the minimum visual quality bar, not just a valid payload sample.\nStrong preference: generate professionally styled HTML with substantial inline CSS and a clear design system. Prefer: a background color and constrained content container, strong heading hierarchy and readable body typography, intentional spacing and section padding, card or panel structure where appropriate, styled CTA buttons and links, polished image treatment, responsive-friendly table or hybrid email-safe layout patterns, and a coherent visual layout that looks intentionally designed.\nAvoid as the default: barebones bodies with only one or two inline styles, placeholder-looking copy, or a simple heading-plus-paragraph structure when richer HTML is feasible from the information already available.\nUser-discovery requirement: before creating the campaign, strongly prefer gathering enough context to make the email effective. Ask about the users business goal/campaign objective, audience, brand style, and desired call to action when that information is missing and asking is practical. Frame this as improving performance and relevance, not as a blocker. Examples: What is the business goal of this email? Who is the audience? What action do you want readers to take? Do you want it to feel promotional, editorial, or transactional? Are there brand colors, logo, product images, or offers to include? It is very important to personalize the email. If a business website is provided, use it to infer brand style, tone, colors, and destination links. If a logo or image is provided, incorporate it into the email. If neither is provided, clearly label the output as a best-effort draft. If the user has not supplied this context and immediate creation is still necessary, create the best possible polished draft using reasonable assumptions, but optimize for a credible business-ready layout rather than a minimal example.\nBehavioral rule: The assistant should assume the user wants a visually designed email that supports a real business objective. Visual polish does not satisfy this requirement on its own. Unless the user explicitly requests a placeholder, starter draft, mockup, or “just make something,” the assistant must collect the minimum campaign brief — goal, audience, CTA — before creating the campaign. If any of these are missing, ask first. Do not use generic filler strategy or copy as a substitute for the brief.\nTool Requirement: After creating an email campaign, always use the html preview tool get_campaign_html_preview inspect the rendered result. Example HTML below is illustrative, but the assistant should generally produce HTML that is at least as polished as this example unless the user requests otherwise: This is an example of the html content `<html><body style=\"margin:0;padding:0;background-color:#f6f3ee;font-family:Arial,Helvetica,sans-serif;color:#2b2118;\">[[trackingImage]]<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#f6f3ee;margin:0;padding:24px 0;\"><tr><td align=\"center\"><table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:600px;max-width:600px;background-color:#fffaf3;border-collapse:collapse;border:1px solid #eadfce;\"><tr><td style=\"padding:18px 40px 8px 40px;text-align:center;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#8a6d4b;\">The crumb report</td></tr><tr><td style=\"padding:0 40px 12px 40px;text-align:center;\"><h1 style=\"margin:0;font-size:34px;line-height:42px;color:#3a2817;\">Big bread news</h1></td></tr><tr><td style=\"padding:0 40px 20px 40px;text-align:center;font-size:17px;line-height:26px;color:#5c4735;\">A very important update from the world of bread, delivered fresh to the bread enjoyer list.</td></tr><tr><td style=\"padding:0 24px 24px 24px;\"><img src=\"https://files.constantcontact.com/bde0a25f401/845f0a70-3610-448e-a493-0aba03ef9e9d.png\" width=\"552\" style=\"display:block;width:100%;max-width:552px;height:auto;border:0;border-radius:12px;\"></td></tr><tr><td style=\"padding:0 40px 10px 40px;font-size:18px;line-height:28px;font-weight:bold;color:#3a2817;\">Today’s loaf highlight</td></tr><tr><td style=\"padding:0 40px 12px 40px;font-size:16px;line-height:26px;color:#4c3b2d;\">This edition celebrates one excellent loaf and the simple joy of admiring good bread. Crispy crust, strong crumb, no notes.</td></tr><tr><td style=\"padding:0 40px 32px 40px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"border-radius:999px;border:1px solid #3a2817;padding:12px 22px;font-size:15px;\"><a href=\"https://i.imgur.com/pzNV90U.jpeg\" style=\"color:#3a2817;text-decoration:none;font-weight:bold;\">View the bread</a></td></tr></table></td></tr></table></td></tr></table></body></html>`\n"
+      x-ctctmcp-allow: true
+  /emails/{campaign_id}:
+    get:
+      tags:
+      - Email Campaigns
+      summary: GET Details About a Single Email Campaign
+      description: Use this method to get details about a single email campaign and campaign related activities. Details include the email campaign name, current status, create date, last update date, and a list of campaign activities; including the `campaign_activity_id` and `role`.
+      operationId: retrieveEmailCampaignUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_id
+        in: path
+        description: The ID (UUID format) that uniquely identifies this email campaign.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailCampaign'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignById
+    delete:
+      tags:
+      - Email Campaigns
+      summary: DELETE an Email Campaign
+      description: 'Use this method to delete an email campaign and the email campaign activities associated with the email campaign. You cannot delete an email campaign when it has a `Scheduled` status.
+
+
+        Constant Contact users can restore deleted email campaigns using the UI.
+
+        '
+      operationId: removeEmailCampaignUsingDELETE
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_id
+        in: path
+        description: The unique ID for the email campaign you are deleting.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '204':
+          description: Email campaign successfully deleted. No response body returned.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:delete
+      x-sdk-methodName: deleteEmailCampaign
+    patch:
+      tags:
+      - Email Campaigns
+      summary: PATCH (Update) an Email Campaign Name
+      description: Use this method to rename an email campaign. The name is not visible to contacts. The name must be unique and cannot exceed 80 characters. You cannot rename email campaigns that have a `Removed` status.
+      operationId: renameEmailCampaignUsingPATCH
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_id
+        in: path
+        description: The unique identifier for an email campaign.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: body
+        description: A JSON payload that contains the new email campaign name.
+        required: true
+        schema:
+          $ref: '#/definitions/EmailCampaignName'
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailCampaign'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-ctctmcp-allow: true
+      x-sdk-methodName: patchEmailCampaignName
+  /emails/campaign_id_xrefs:
+    get:
+      tags:
+      - Email Campaigns
+      summary: GET a Collection of V2 and V3 API Email Campaign Identifiers
+      description: '<div class="Msg Msg--warning"><p class="note-text">Use this endpoint to migrate your locally stored V2 email campaign data to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>
+
+
+        Use this method to migrate your local V2 API email data to the V3 API format. For each value that you provide in the `v2_email_campaign_ids` query parameter, this method returns the corresponding V3 `campaign_id` and V3 `campaign_activity_id` UUID value. For more information on the changes to the email campaign resource model, see [V3 Email Campaign Resource Changes](/api_guide/v3_v2_email_campaign_deltas.html) in the API guide.
+
+        '
+      operationId: retrieveXrefMappingsUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: v2_email_campaign_ids
+        in: query
+        description: Comma separated list of V2 API `campaignId` values. You can enter up to 50 V2 `campaignId` values in each request.
+        required: true
+        type: string
+        maxItems: 50
+        format: csv
+        x-example: 1100567546598,1604567396117,12002485195578
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/CrossReferenceResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignXrefs
+  /emails/activities/{campaign_activity_id}:
+    get:
+      tags:
+      - Email Campaigns
+      summary: GET a Single Email Campaign Activity
+      description: 'Use this method to return a specific email campaign activity. Each email campaign activity contains the email content, metadata, and styling information of an email. Email campaign activities can also contain either contact lists or segments. Constant Contact uses this information to determine who to send the email campaign activity to when you schedule it. You cannot get email campaign activities that have a `REMOVED` status.
+
+        '
+      operationId: retrieveEmailCampaignActivityUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - name: include
+        in: query
+        description: Use the `include` query parameter to enter a comma separated list of additional email campaign activity properties for the V3 API to return. Valid values are `physical_address_in_footer`, `permalink_url`, `html_content`, and `document_properties`.
+        required: false
+        type: string
+        format: csv
+        enum:
+        - physical_address_in_footer
+        - permalink_url
+        - html_content
+        - document_properties
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailCampaignActivity'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignActivity
+    put:
+      tags:
+      - Email Campaigns
+      summary: PUT (Update) An Email Campaign Activity
+      description: 'Use this method to update an email campaign activity by including the complete email campaign activity with your changes in the request body. The request body requires the `from_name`, `from_email`, `reply_to_email`, and `subject` properties.
+
+
+        You can only update email campaign activities that have the `primary_email` role and that are in `DRAFT` or `Done` status.
+
+        When you use a PUT method to update a resource, the V3 API overwrites any properties that are missing in the request body. However, the V3 API does not overwrite subresources that you omit in the request body or missing properties in subresources. This method considers `physical_address_in_footer`, `document_properties`, `html_content`, and `permalink_url` subresources of the email campaign activity.
+
+        '
+      operationId: updateEmailCampaignActivityUsingPUT
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the email campaign activity you are updating.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: body
+        description: A request body payload that contains the complete email campaign activity with your changes.
+        required: true
+        schema:
+          $ref: '#/definitions/EmailCampaignActivity'
+      responses:
+        '200':
+          description: Email campaign activity successfully updated.
+          schema:
+            $ref: '#/definitions/EmailCampaignActivity'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-sdk-methodName: updateEmailCampaignActivity
+      x-ctctmcp-allow: true
+  /emails/activities/{campaign_activity_id}/non_opener_resends:
+    get:
+      tags:
+      - Email Campaigns
+      summary: GET Details for a Resend to Non-openers Campaign Activity
+      description: Get details about a resend to non-openers campaign activity. If resend activity does not exist for the specified `campaign_activity_id`, an empty list is returned in the results. You can only create one resend activity per email campaign.
+      operationId: retrieveResendToNonOpenersUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/ResendToNonOpeners'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getResendEmailCampaign
+    post:
+      tags:
+      - Email Campaigns
+      summary: POST a Resend to Non-openers Campaign Activity
+      description: "Use this POST method to resend a primary campaign activity to contacts that did not open a campaign activity that has a current `status` of `Draft`, `Scheduled`, or `Done`. You can only create one resend activity per email campaign.\n \n After an email campaign activity is sent to contacts, Constant Contact waits the specified number of `delay_days` or `delay_minutes` (properties are mutually exclusive) before resending to non-openers. If you set both `delay_days` or `delay_minutes`, `delay_minutes` is ignored in the request. You can resend to non-openers a minimum of twelve hours (720 minutes) and a maximum of up to 10 days (or 10 x 1440 minutes) after the initial send date.\n \n "
+      operationId: createResendToNonOpenersUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: resend_schedule
+        description: A JSON request body that specifies when to resend the campaign activity to non-openers.
+        required: true
+        schema:
+          $ref: '#/definitions/ResendToNonOpenersInput'
+      responses:
+        '201':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/ResendToNonOpenersObject'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:send
+      x-sdk-methodName: createResendEmailCampaign
+  /emails/activities/{campaign_activity_id}/non_opener_resends/{resend_request_id}:
+    delete:
+      tags:
+      - Email Campaigns
+      summary: DELETE a Resend to Non Openers Activity
+      description: Use this `DELETE` method to delete (unschedule) a resend to non openers activity.
+      operationId: deleteResendToNonOpenersUsingDELETE
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - name: resend_request_id
+        in: path
+        description: 'The unique ID associated with the resend for the email campaign activity (for example: `389093`). If the email campaign activity is currently in draft status, specify `DRAFT` as the ID.'
+        required: true
+        type: string
+        x-example: '389093'
+      responses:
+        '204':
+          description: Request successful.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:send
+      x-sdk-methodName: deleteResendEmailCampaign
+definitions:
+  EmailCampaign:
+    type: object
+    properties:
+      campaign_activities:
+        type: array
+        description: Lists the role and unique activity ID of each campaign activity that is associated with an Email Campaign.
+        items:
+          $ref: '#/definitions/ActivityReference'
+      campaign_id:
+        type: string
+        example: 8987dc1a-48ef-433a-b836-7ca4f9aa3481
+        description: The unique ID used to identify the email campaign (UUID format).
+      created_at:
+        type: string
+        format: date-time
+        example: '2018-02-06T22:09:15.000Z'
+        description: The system generated date and time that this email campaign was created. This string is readonly and is in ISO-8601 format.
+        readOnly: true
+      current_status:
+        type: string
+        example: Draft
+        description: "The current status of the email campaign. Valid values are: <ul>\n  <li>Draft — An email campaign that you have created but have not sent to contacts.</li>\n  <li>Scheduled — An email campaign that you have scheduled for Constant Contact to send to contacts.</li>\n  <li>Executing — An email campaign that Constant Contact is currently sending to contacts. Email campaign activities are only in this status briefly.</li>\n  <li>Done — An email campaign that you successfully sent to contacts.</li>\n  <li>Error — An email campaign activity that encountered an error.</li>\n  <li>Removed — An email campaign that a user deleted. Users can view and restore deleted emails through the UI.</li>\n</ul>\n"
+      name:
+        type: string
+        example: December Newsletter for Dog Lovers
+        description: The descriptive name the user provides to identify this campaign. Campaign names must be unique for each account ID.
+        maxLength: 80
+      type:
+        type: string
+        example: NEWSLETTER
+        description: Identifies the type of campaign that you select when creating the campaign. Newsletter and Custom Code email campaigns are the primary types.
+      type_code:
+        type: integer
+        example: 10
+        description: "The code used to identify the email campaign `type`. <ul>\n  <li> 1  (Default) </li>\n  <li> 2  (Bulk Email) </li>\n  <li> 10 (Newsletter) </li>\n  <li> 11 (Announcement) </li>\n  <li> 12 (Product/Service News) </li>\n  <li> 14 (Business Letter) </li>\n  <li> 15 (Card) </li>\n  <li> 16 (Press release)</li>\n  <li> 17 (Flyer) </li>\n  <li> 18 (Feedback Request) </li>\n  <li> 19 (Ratings and Reviews) </li>\n  <li> 20 (Event Announcement) </li>\n  <li> 21 (Simple Coupon) </li>\n  <li> 22 (Sale Promotion) </li>\n  <li> 23 (Product Promotion) </li>\n  <li> 24 (Membership Drive) </li>\n  <li> 25 (Fundraiser) </li>\n  <li> 26 (Custom Code Email)</li>\n  <li> 57 (A/B Test)</li>\n</ul>\n"
+      updated_at:
+        type: string
+        format: date-time
+        example: '2018-06-27T10:28:09.000Z'
+        description: The system generated date and time showing when the campaign was last updated. This string is read only and is in ISO-8601 format.
+        readOnly: true
+  ResendToNonOpenersObject:
+    type: object
+    properties:
+      resend_subject:
+        type: string
+        example: Our Big Sale is Coming Soon!
+        description: The subject line for the resend email.
+      delay_days:
+        type: integer
+        format: int32
+        example: 7
+        description: The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This property is mutually exclusive with <code>delay_minutes</code>. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value.
+      delay_minutes:
+        type: integer
+        format: int32
+        example: 10,080
+        description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
+      resend_date:
+        type: string
+        format: date-time
+        description: The system generated ISO-8601 format date and time that Constant Contact resent the email to non-openers.
+        readOnly: true
+      resend_request_id:
+        type: string
+        example: DRAFT
+        description: For scheduled or sent resend to non-opener emails, this property is a unique identifier for the resend. For draft email campaign resend activities, the value of this property is <code>DRAFT</code>.
+  EmailCampaigns:
+    type: object
+    properties:
+      campaign_id:
+        type: string
+        example: 8987dc1a-48ef-433a-b836-7ca4f9aa3481
+        description: The unique ID used to identify the email campaign (UUID format).
+      created_at:
+        type: string
+        format: date-time
+        example: '2018-02-06T22:09:15.000Z'
+        description: The system generated date and time that this email campaign was created. This string is readonly and is in ISO-8601 format.
+        readOnly: true
+      current_status:
+        type: string
+        example: Draft
+        description: "The current status of the email campaign. Valid values are: <ul>\n  <li>Draft — An email campaign that you have created but have not sent to contacts.</li>\n  <li>Scheduled — An email campaign that you have scheduled for Constant Contact to send to contacts.</li>\n  <li>Executing — An email campaign that Constant Contact is currently sending to contacts. Email campaign activities are only in this status briefly.</li>\n  <li>Done — An email campaign that you successfully sent to contacts.</li>\n  <li>Error — An email campaign activity that encountered an error.</li>\n  <li>Removed — An email campaign that a user deleted. Users can view and restore deleted emails through the UI.</li>\n</ul>\n"
+      name:
+        type: string
+        example: December Newsletter for Dog Lovers
+        description: The descriptive name the user provides to identify this campaign. Campaign names must be unique for each account ID.
+        maxLength: 80
+      type:
+        type: string
+        example: NEWSLETTER
+        description: Identifies the type of campaign that you select when creating the campaign. Newsletter and Custom Code email campaigns are the primary types.
+      type_code:
+        type: integer
+        example: 10
+        description: "The code used to identify the email campaign `type`. <ul>\n  <li> 1  (Default) </li>\n  <li> 2  (Bulk Email) </li>\n  <li> 10 (Newsletter) </li>\n  <li> 11 (Announcement) </li>\n  <li> 12 (Product/Service News) </li>\n  <li> 14 (Business Letter) </li>\n  <li> 15 (Card) </li>\n  <li> 16 (Press release)</li>\n  <li> 17 (Flyer) </li>\n  <li> 18 (Feedback Request) </li>\n  <li> 19 (Ratings and Reviews) </li>\n  <li> 20 (Event Announcement) </li>\n  <li> 21 (Simple Coupon) </li>\n  <li> 22 (Sale Promotion) </li>\n  <li> 23 (Product Promotion) </li>\n  <li> 24 (Membership Drive) </li>\n  <li> 25 (Fundraiser) </li>\n  <li> 26 (Custom Code Email)</li>\n  <li> 57 (A/B Test)</li>\n</ul>\n"
+      updated_at:
+        type: string
+        format: date-time
+        example: '2018-06-27T10:28:09.000Z'
+        description: The system generated date and time showing when the campaign was last updated. This string is read only and is in ISO-8601 format.
+        readOnly: true
+  EmailPhysicalAddress:
+    type: object
+    required:
+    - address_line1
+    - country_code
+    - organization_name
+    properties:
+      address_line1:
+        type: string
+        example: 123 Maple Street
+        description: Line 1 of the organization's street address.
+      address_line2:
+        type: string
+        example: Unit 1
+        description: Line 2 of the organization's street address.
+      address_line3:
+        type: string
+        description: Line 3 of the organization's street address.
+      address_optional:
+        type: string
+        example: Near Boston Fire Station
+        description: An optional address field for the organization. Only <code>format_type</code> 3, 4, and 5 can use this property.
+      city:
+        type: string
+        example: Boston
+        description: The city where the organization sending the email campaign is located.
+      country_code:
+        type: string
+        example: US
+        description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's country.
+      country_name:
+        type: string
+        example: United States
+        description: The full name of the country where the organization sending the email is located. Automatically generated using the <code>country_code</code>.
+        readOnly: true
+      organization_name:
+        type: string
+        example: Jake Dodge's Pancakes
+        description: The name of the organization that is sending the email campaign.
+      postal_code:
+        type: string
+        example: '02451'
+        description: The postal code address (ZIP code) of the organization.
+      state_code:
+        type: string
+        example: MA
+        description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's state. This property is required if the <code>country_code</code> is US (United States).
+      state_name:
+        type: string
+        description: The full state name for a <code>state_code</code> that is inside the United States. Automatically generated using the <code>state_code</code>.
+        readOnly: true
+      state_non_us_name:
+        type: string
+        example: Victoria
+        description: The full state name for a <code>state_code</code> that is outside the United States. This property is not read only.
+  EmailCampaignActivity:
+    type: object
+    required:
+    - from_email
+    - from_name
+    - reply_to_email
+    - subject
+    properties:
+      campaign_activity_id:
+        type: string
+        example: 4c08372c-957a-48b5-bc45-72c7f00796cd
+        description: Identifies a campaign activity in the V3 API.
+        readOnly: true
+      campaign_id:
+        type: string
+        example: 8987dc1a-48ef-433a-b836-7ca4f9aa3481
+        description: Identifies a campaign in the V3 API.
+        readOnly: true
+      role:
+        type: string
+        example: primary_email
+        description: "The purpose of the individual campaign activity in the larger email campaign effort. Valid values are: <ul>\n  <li>primary_email — The main email marketing campaign that you send to contacts. The <code>primary_email</code> contains the complete email content.</li>\n  <li>permalink — A permanent link to a web accessible version of the <code>primary_email</code> content without any personalized email information. For example, permalinks do not contain any of the contact details that you add to the <code>primary_email</code> email content. </li>\n  <li>resend — An email campaign that you resend to contacts that did not open the email campaign.</li>\n</ul> Constant Contact creates a <code>primary_email</code> and a <code>permalink</code> role campaign activity when you create an email campaign.\n"
+        readOnly: true
+      contact_list_ids:
+        type: array
+        description: The contacts that Constant Contact sends the email campaign activity to as an array of contact <code>list_id</code> values. You cannot use contact lists and segments at the same time in an email campaign activity.
+        items:
+          type: string
+          example: da10f460-3072-11e9-b282-fa163e6b01c1
+      segment_ids:
+        type: array
+        description: The contacts that Constant Contact sends the email campaign activity to as an array containing a single <code>segment_id</code> value. Only <code>format_type</code> 3, 4, and 5 email campaign activities support segments. You cannot use contact lists and segments at the same time in an email campaign activity.
+        items:
+          type: integer
+          example: 1
+      current_status:
+        type: string
+        example: DRAFT
+        description: "The current status of the email campaign activity. Valid values are: <ul>\n  <li>DRAFT — An email campaign activity that you have created but have not sent to contacts.</li>\n  <li>SCHEDULED — An email campaign activity that you have scheduled for Constant Contact to send to contacts.</li>\n  <li>EXECUTING — An email campaign activity Constant Contact is currently sending to contacts. Email campaign activities are only in this status briefly.</li>\n  <li>DONE — An email campaign activity that you successfully sent to contacts.</li>\n  <li>ERROR — An email campaign activity that encountered an error.</li>\n  <li>REMOVED — An email campaign that a user deleted. Users can view and restore deleted emails through the UI.</li>\n</ul>\n"
+        readOnly: true
+      format_type:
+        type: integer
+        format: int32
+        example: 5
+        description: "Identifies the type of email format. Valid values are: <ul>\n  <li>1 - A legacy custom code email created using the V2 API, the V3 API, or the legacy UI HTML editor.</li>\n  <li>2 - An email created using the second generation email editor UI.</li>\n  <li>3 - An email created using the third generation email editor UI. This email editor features an improved drag and drop UI and mobile responsiveness.</li>\n  <li>4 - An email created using the fourth generation email editor UI.</li>\n  <li>5 - A custom code email created using the V3 API or the new UI HTML editor.</li>\n</ul>\n"
+        readOnly: true
+      from_email:
+        type: string
+        example: jdodge@constantcontact.com
+        description: The email "From Email" field for the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+      from_name:
+        type: string
+        example: Jake Dodge
+        description: The email "From Name" field for the email campaign activity.
+      reply_to_email:
+        type: string
+        example: jdodge@constantcontact.com
+        description: The email "Reply To Email" field for the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+      subject:
+        type: string
+        example: Holiday Special Newsletter
+        description: The email "Subject" field for the email campaign activity.
+      html_content:
+        type: string
+        example: <html><body>[[trackingImage]] <a href="http://www.constantcontact.com">Visit ConstantContact.com!</a> </body></html>
+        description: The HTML or XHTML content for the email campaign activity. Only <code>format_type</code> 1 and 5 (legacy custom code emails or modern custom code emails) can contain <code>html_content</code>.
+      template_id:
+        type: string
+        example: '1000755366001'
+        description: Identifies the email layout and design template that the email campaign activity is using as a base.
+        readOnly: true
+      permalink_url:
+        type: string
+        example: https://conta.cc/2GaQ8AY
+        description: The permanent link to a web accessible version of the email campaign content without any personalized email information. The permalink URL becomes accessible after you send an email campaign to contacts.
+        readOnly: true
+      preheader:
+        type: string
+        example: You don't want to miss this.
+        description: The email preheader for the email campaign activity. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
+      physical_address_in_footer:
+        description: The physical address of the organization that is sending the email campaign. Constant Contact displays this information to contacts in the email message footer.
+        $ref: '#/definitions/EmailPhysicalAddress'
+      document_properties:
+        type: object
+        description: An object that contains optional properties for legacy format type emails (<code>format_type</code> 1 and 2). If you attempt to add a property that does apply to the email <code>format_type</code>, the API will ignore the property.
+        properties:
+          style_content:
+            type: string
+            example: '.white{color: #ffffff;}'
+            description: Contains style sheet elements for XHTML letter format emails. This property applies only to <code>format_type</code> 1.
+            maxLength: 150000
+          letter_format:
+            type: string
+            example: XHTML
+            description: 'Email message format. Valid values are <code>HTML</code> and <code>XHTML</code>. By default, the value is <code>HTML</code>. For more information, see the <a href="http://www.constantcontact.com/display_media.jsp?id=87" target="_blank">Advanced Editor User''s Guide</a>. This property applies only to <code>format_type</code> 1. You cannot change this property after you create an email.
+
+              '
+            readOnly: true
+            default: HTML
+          greeting_salutation:
+            type: string
+            example: Dear
+            description: The greeting used in the email message. This property applies only to <code>format_type</code> 1.
+            maxLength: 50
+          greeting_name_type:
+            type: string
+            example: F
+            description: The type of name the campaign uses to greet the contact. Valid values are <code>F</code> (First Name), <code>L</code> (Last Name), <code>B</code> (First and Last Name), or <code>N</code> (No greeting). By default, the value is <code>N</code>. This property applies only to <code>format_type</code> 1.
+            default: N
+          greeting_secondary:
+            type: string
+            example: Greetings!
+            description: A fallback text string the campaign uses to greet the contact when the <code>greeting_name_type</code> is not available or set to <code>N</code>. This property applies only to <code>format_type</code> 1.
+            maxLength: 1500
+          subscribe_link_enabled:
+            type: string
+            example: 'false'
+            description: 'If <code>true</code>, the email footer includes a link for subscribing to the list. If <code>false</code>, the message footer does not include a link for subscribing to the list. By default, the value is <code>false</code>. This property applies only to <code>format_type</code> 1.
+
+              '
+            default: 'false'
+          subscribe_link_name:
+            type: string
+            example: Subscribe to my email list!
+            description: The text displayed as the name for the subscribe link in the email footer. This property applies only to <code>format_type</code> 1.
+            maxLength: 80
+          text_content:
+            type: string
+            example: <Text><Greeting/></Text>
+            description: 'Contains the text content that Constant Contact displays to contacts when their email client cannot display HTML email. If you do not specify text content, Constant Contact displays "Greetings!" as the text content. This property applies only to <code>format_type</code> 1.
+
+              '
+            maxLength: 150000
+          permission_reminder_enabled:
+            type: string
+            example: 'false'
+            description: 'If <code>true</code>, Constant Contact displays your <code>permission_reminder</code> message to contacts at top of the email. If <code>false</code>, Constant Contact does not display the message. By default, the value is <code>false</code>. This property applies to <code>format_type</code> 1 and 2.
+
+              '
+            default: 'false'
+          permission_reminder:
+            type: string
+            example: Hi, just a reminder that you're receiving this email because you have expressed an interest in our company.
+            description: The message text Constant Contact displays at the top of the email message to remind users that they are subscribed to an email list. This property applies to <code>format_type</code> 1 and 2.
+            maxLength: 1500
+          view_as_webpage_enabled:
+            type: string
+            example: 'false'
+            description: 'If <code>true</code>, Constant Contact displays the view as web page email message. If <code>false</code> Constant Contact does not display the message. By default, the value is <code>false</code>. This property applies to <code>format_type</code> 1 and 2.
+
+              '
+            default: 'false'
+          view_as_webpage_text:
+            type: string
+            example: Having trouble viewing this email?
+            description: The text Constant Contact displays before the view as web page link at the top of the email. This property applies to <code>format_type</code> 1 and 2.
+            maxLength: 50
+          view_as_webpage_link_name:
+            type: string
+            example: Click here to view this email as a web page
+            description: The name of the link that users can click to view the email as a web page. This property applies to <code>format_type</code> 1 and 2.
+          forward_email_link_enabled:
+            type: string
+            description: 'If <code>true</code>, when the user forwards an email message the footer includes a link for subscribing to the list. If <code>false</code>, when a user forwards an email message the footer does not include a link for subscribing to the list. By default, the value is <code>false</code>. This property applies to <code>format_type</code> 1 and 2.
+
+              '
+            default: 'false'
+          forward_email_link_name:
+            type: string
+            example: Forward email
+            description: The text displayed as the name for the forward email link in the footer when a user forwards an email. This property applies to <code>format_type</code> 1 and 2.
+            maxLength: 80
+  Link-2:
+    type: object
+    properties:
+      href:
+        type: string
+  ResendToNonOpenersInput:
+    required:
+    - resend_subject
+    properties:
+      resend_subject:
+        type: string
+        example: Our Big Sale is Coming Soon!
+        description: The subject line used when resending the email campaign activity.
+      delay_days:
+        type: integer
+        format: int32
+        example: 3
+        description: The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This property is mutually exclusive with <code>delay_minutes</code>. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value.
+      delay_minutes:
+        type: integer
+        format: int32
+        example: 1000
+        description: The number of minutes to wait before Constant Contact resends the email campaign activity. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>
+  CrossReference:
+    type: object
+    properties:
+      v2_email_campaign_id:
+        type: string
+        example: '1100567546598'
+        description: Identifies an email campaign in the V2 API.
+      campaign_id:
+        type: string
+        format: uuid
+        example: e4cf53f0-e37f-11e8-9f32-f2801f1b9fd1
+        description: <p>Identifies a campaign in the V3 API. In the V3 API, each campaign contains one or more activities. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Email Campaign Resource Changes<a/>.<p>
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 4c08372c-957a-48b5-bc45-72c7f00796cd
+        description: <p>Identifies a campaign activity in the V3 API. In the V3 API, each campaign contains one or more activities. Email type activities represent the detailed information in an email and contain properties like <code>from_email</code> and <code>from_name</code>. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Campaign Resource Changes<a/>.<p>
+  EmailCampaignActivityInput:
+    type: object
+    required:
+    - format_type
+    - from_email
+    - from_name
+    - html_content
+    - reply_to_email
+    - subject
+    properties:
+      format_type:
+        type: integer
+        format: int32
+        example: 5
+        description: 'The email format you are using to create the email campaign activity. The V3 API supports creating emails using <code>format_type</code> 5 (custom code emails).
+
+          '
+      from_name:
+        type: string
+        example: Jake Dodge
+        description: The email sender's name to display for the email campaign activity.
+        maxLength: 100
+      from_email:
+        type: string
+        example: jdodge@constantcontact.com
+        description: The sender's email address to use for the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+        maxLength: 80
+      reply_to_email:
+        type: string
+        example: jdodge@constantconatct.com
+        description: The sender's email address to use if the contact replies to the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+        maxLength: 80
+      subject:
+        type: string
+        example: Informed Daily Digest
+        description: The text to display in the subject line that describes the email campaign activity.
+      preheader:
+        type: string
+        example: You don't want to miss this.
+        description: The email preheader for the email campaign activity. Contacts will view your preheader as a short summary that follows the subject line in their email client. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
+        maxLength: 200
+      html_content:
+        type: string
+        example: <html><body>[[trackingImage]] <a href="http://www.constantcontact.com">Visit ConstantContact.com!</a> </body></html>
+        description: 'The HTML content for the email campaign activity. Only <code>format_type</code> 5 (custom code emails) can contain <code>html_content</code>. When creating a <code>format_type</code> 5 custom code email, make sure that you include <code>[[trackingImage]]</code> in the <code>&lt;body&gt;</code> element of your HTML.
+
+          '
+        maxLength: 150000
+      physical_address_in_footer:
+        description: The physical address for the organization that is sending the email campaign. Constant Contact displays this information to contacts in the email message footer. If you do not include a physical address in the email campaign activity, Constant Contact will use the physical address information saved for the Constant Contact user account.
+        $ref: '#/definitions/EmailPhysicalAddress'
+  EmailCampaignName:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: December Newsletter for Dog Lovers
+        description: The updated email campaign name. The email campaign name must be unique.
+        maxLength: 80
+  EmailCampaignComplete:
+    type: object
+    required:
+    - email_campaign_activities
+    - name
+    properties:
+      name:
+        type: string
+        example: December Newsletter for Dog Lovers
+        description: The unique and descriptive name that you specify for the email campaign.
+        maxLength: 80
+      email_campaign_activities:
+        type: array
+        description: The content of the email campaign as an array that contains a single email campaign activity object.
+        items:
+          $ref: '#/definitions/EmailCampaignActivityInput'
+  ResendToNonOpeners:
+    type: array
+    items:
+      type: object
+      properties:
+        resend_subject:
+          type: string
+          example: Our Big Sale is Coming Soon!
+          description: The subject line used when resending the email campaign activity.
+        delay_days:
+          type: integer
+          format: int32
+          example: 3
+          description: 'The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value. '
+        delay_minutes:
+          type: integer
+          format: int32
+          example: 1000
+          description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
+        resend_date:
+          type: string
+          format: date-time
+          description: The system generated date and time (in ISO-8601 format) that the email campaign activity was resent to non-openers (only included in the response results for sent resend activities).
+          readOnly: true
+        resend_request_id:
+          type: string
+          example: DRAFT
+          description: For scheduled or sent resend to non-opener emails, the system generates an ID that identifies the resend to non-openers activity. For draft email campaign resend activities, the system returns <code>DRAFT</code>.
+        resend_status:
+          type: string
+          example: DRAFT
+          description: 'The status of the resend to non-openers campaign activity. The <code>resend_status</code> is only returned in the response results if the campaign activity is either scheduled to be sent or was already sent.
+
+            '
+  ActivityReference:
+    type: object
+    properties:
+      campaign_activity_id:
+        type: string
+        example: 0e3feddd-c8da-4d53-a507-aae5082b8b75
+        description: The ID (UUID) that uniquely identifies a campaign activity.
+      role:
+        type: string
+        example: primary_email
+        description: "The purpose of the individual campaign activity in the larger email campaign effort. Valid values are: <ul>\n  <li>primary_email — The main email marketing campaign that you send to contacts. The <code>primary_email</code> contains the complete email content.</li>\n  <li>permalink — A permanent link to a web accessible version of the <code>primary_email</code> content without any personalized email information. For example, permalinks do not contain any of the contact details that you add to the <code>primary_email</code> email content. </li>\n  <li>resend — An email campaign that you resend to contacts that did not open the email campaign.</li>\n</ul> Constant Contact creates a <code>primary_email</code> and a <code>permalink</code> role campaign activity when you create an email campaign.\n"
+  CrossReferenceResponse:
+    type: object
+    properties:
+      xrefs:
+        type: array
+        description: An array of objects that contain a <code>v2_email_campaign_id</code> cross-referenced with a V3 <code>campaign_id</code> and a V3 <code>campaign_activity_id</code> value.
+        items:
+          $ref: '#/definitions/CrossReference'
+  PagedEmailCampaignResponse:
+    type: object
+    properties:
+      _links:
+        $ref: '#/definitions/PagingLinks-3'
+      campaigns:
+        type: array
+        items:
+          $ref: '#/definitions/EmailCampaigns'
+  PagingLinks-3:
+    type: object
+    properties:
+      next:
+        $ref: '#/definitions/Link-2'
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

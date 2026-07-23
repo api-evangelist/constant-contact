@@ -1,0 +1,440 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Email Scheduling API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Email Scheduling
+  description: Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule an email campaign activity, and GET schedule information.
+paths:
+  /emails/activities/{campaign_activity_id}/schedules:
+    get:
+      tags:
+      - Email Scheduling
+      summary: GET an Email Campaign Activity Schedule
+      description: Use this method to return the current schedule for an email campaign activity. This schedule contains the date that Constant Contact will send the email campaign activity to contacts. If the email campaign activity is not in `SCHEDULED` status, this method returns an empty array and a 200 response code.
+      operationId: retrieveEmailSchedulesUsingGET
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity.
+        required: true
+        type: string
+        format: uuid
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailScheduleResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignActivitySchedule
+    post:
+      tags:
+      - Email Scheduling
+      summary: POST (Create) an Email Campaign Activity Schedule
+      description: "Use this method to send an email campaign activity to contacts either immediately or on a specific date. To send the email campaign activity immediately, specify `0` for the `scheduled_date` request property (results return an empty array). To send the email campaign activity on a specific date, specify the date using the `scheduled_date` request property (results return the scheduled date in an array).  \n\nBefore you schedule an email campaign activity, you must update the email campaign activity and specify which contacts you want Constant Contact to send the email to. When you make a PUT call to update an email campaign activity, use the `contact_list_ids` or `segment_ids` array to add contacts.\n\nYou can only schedule email campaign activities that have the `primary_email` role and are in `DRAFT`, `DONE`, or `ERROR` status. When you schedule an email campaign activity in `DONE` status, Constant Contact does not send the email campaign activity to contacts that already received it. Constant Contact only sends the email campaign activity to any new contacts in the contact lists or segment you use.\n"
+      operationId: scheduleEmailCampaignActivityUsingPOST
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity. You can only schedule email campaign activities that have the `primary_email` role.
+        required: true
+        type: string
+        format: uuid
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: body
+        description: A request body payload that contains the date that you want Constant Contact to send your email campaign activity on. Use `"0"` as the date to have Constant Contact immediately send the email campaign activity.
+        required: true
+        schema:
+          $ref: '#/definitions/EmailScheduleInput'
+      responses:
+        '201':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailScheduleResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:send
+      x-sdk-methodName: scheduleEmailCampaignActivity
+    delete:
+      tags:
+      - Email Scheduling
+      summary: DELETE an Email Campaign Activity Schedule
+      description: Use this method to unschedule an email campaign activity by deleting the schedule. You can only unschedule email campaign activities that are in `SCHEDULED` status. Unscheduling reverts the email campaign activity to the status prior to `SCHEDULED`.
+      operationId: unscheduleEmailCampaignActivityUsingDELETE
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity.
+        required: true
+        type: string
+        format: uuid
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '204':
+          description: Email campaign activity schedule successfully deleted. No response body returned.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:send
+      x-sdk-methodName: unscheduleEmailCampaignActivity
+  /emails/activities/{campaign_activity_id}/tests:
+    post:
+      tags:
+      - Email Scheduling
+      summary: POST Test Send an Email Campaign Activity
+      description: 'Use this method to send a test email to specific email addresses. Test emails allow you to verify how the email campaign activity will look before you send it to contacts. This method uses the `email_addresses` array in the request body to determine the recipients of the test email. The test email does not process any dynamic content in the email campaign activity. Dynamic content includes contact and custom field variables.
+
+
+        You can send up to 50 test emails each day. Each recipient you add to the `email_addresses` array in the request body counts towards this limit. Successfully sending a test email returns a 204 response code without a response body.
+
+        '
+      operationId: testSendCampaignActivityUsingPOST
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity. You can only test send email campaign activities that have the `primary_email` role.
+        required: true
+        type: string
+        format: uuid
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: email_test_send_input
+        description: A JSON request body that contains the recipients of the test email and an optional personal message.
+        required: true
+        schema:
+          $ref: '#/definitions/EmailTestSendInput'
+      responses:
+        '204':
+          description: Test email campaign activity successfully sent. No response body returned.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:send
+      x-sdk-methodName: testSendEmailCampaignActivity
+  /emails/activities/{campaign_activity_id}/previews:
+    get:
+      tags:
+      - Email Scheduling
+      summary: GET the HTML Preview of an Email Campaign Activity
+      description: 'Use this method to get the HTML preview of an email campaign activity. The HTML preview allows you to verify how the email campaign activity will look before you send it to contacts.
+
+
+        Custom code emails (`format_type` 5) use the Constant Contact account owner''s contact information to process contact, custom field, and account variables in the preview.
+
+
+        This method returns the HTML preview encoded as a JSON string. You will need to decode the string before you can use it as valid HTML.
+
+        '
+      operationId: retrieveEmailCampaignActivityPreviewUsingGET
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity.
+        required: true
+        type: string
+        format: uuid
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailCampaignActivityPreview'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignActivityPreview
+  /emails/activities/{campaign_activity_id}/send_history:
+    get:
+      tags:
+      - Email Scheduling
+      summary: GET the Send History of an Email Campaign Activity
+      description: "Use this method to return the send history of an email campaign activity. This method returns the send history as an array containing an object for each time you sent a specific email campaign activity to contacts. \n\nEach send history object contains the email campaign activity send date, the number of contacts it was sent to, and the contact lists or segments used to send it. Each send history object also includes if the send attempt completed or encountered an error, and the reason why each error occurred. This method returns results in ascending order starting with the first send attempt. \n\nIf the email campaign activity has not been sent to contacts, this method returns a 200 response and an empty array.\n"
+      operationId: retrieveEmailSendHistoryUsingGET
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity. You can return the send history for `primary_email` and `resend` role email campaign activities.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/EmailSendHistory'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getEmailCampaignActivitySendHistory
+definitions:
+  EmailCampaignActivityPreview:
+    type: object
+    properties:
+      campaign_activity_id:
+        type: string
+        example: 4c08372c-957a-48b5-bc45-72c7f00796cd
+        description: The unique ID for an email campaign activity.
+      from_email:
+        type: string
+        example: jdodge@constantconatct.com
+        description: The "from email" email header for the email campaign activity.
+      from_name:
+        type: string
+        example: Jake Dodge
+        description: The "from name" email header for the email campaign activity.
+      preheader:
+        type: string
+        example: You don't want to miss this.
+        description: The email preheader for the email campaign activity. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
+      preview_html_content:
+        type: string
+        example: <html><body> <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>
+        description: An HTML preview of the email campaign activity.
+      preview_text_content:
+        type: string
+        example: Email Content
+        description: A plain text preview of the email campaign activity.
+      reply_to_email:
+        type: string
+        example: jdodge@constantcontact.com
+        description: The email "Reply To Email" field for the email campaign activity.
+      subject:
+        type: string
+        example: Informed Daily Digest
+        description: The email "Subject" field for the email campaign activity.
+  EmailScheduleInput:
+    type: object
+    required:
+    - scheduled_date
+    properties:
+      scheduled_date:
+        type: string
+        format: date-time
+        description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates. Use <code>"0"</code> as the date to have Constant Contact immediately send the email campaign activity to contacts.
+  EmailSendHistory:
+    type: array
+    items:
+      type: object
+      properties:
+        send_id:
+          type: integer
+          format: int32
+          example: 1
+          description: 'Uniquely identifies each send history object using the number of times that you sent the email campaign activity as a sequence starting at <code>1</code>. For example, when you send a specific email campaign activity twice this method returns an object with a <code>send_id</code> of 1 for the first send and an object with a <code>send_id</code> of 2 for the second send.
+
+            '
+          minimum: 1
+        contact_list_ids:
+          type: array
+          description: The contacts lists that Constant Contact sent email campaign activity to as an array of contact <code>list_id</code> strings.
+          items:
+            type: string
+            example: 72876990-b664-11e5-844a-00163e0cb6a5
+        segment_ids:
+          type: array
+          description: The contact segments that Constant Contact sent the email campaign activity to as an array of <code>segment_id</code> integers.
+          items:
+            type: integer
+            format: int64
+            example: 57
+        count:
+          type: integer
+          format: int64
+          example: 200
+          description: The number of contacts that Constant Contact sent this email campaign activity to. This property is specific to each send history object. When you resend an email campaign activity, Constant Contact only sends it to new contacts in the contact lists or segments you are using.
+        run_date:
+          type: string
+          format: date-time
+          example: '2018-06-27T10:28:09.000Z'
+          description: The system generated date and time that Constant Contact sent the email campaign activity to contacts in ISO-8601 format.
+        send_status:
+          type: string
+          example: COMPLETED
+          description: "The send status for the email campaign activity. Valid values are: <ul> \n  <li><code>COMPLETED</code>: Constant Contact successfully sent the email campaign activity.</li>\n  <li><code>ERRORED</code>: Constant Contact encountered an error when sending the email campaign activity.<li>\n</ul>\n"
+        reason_code:
+          type: integer
+          format: int32
+          example: 0
+          description: "The reason why the send attempt completed or encountered an error. This method returns <code>0</code> if Constant Contact successfully sent the email campaign activity to contacts. Possible <code>reason_code</code> values are: <ul>\n      <li>0 — Constant Contact successfully sent the email to contacts.</li>\n      <li>1 — An error occurred when sending this email. Try scheduling it again, or contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a>.</li>\n      <li>2 — We were unable to send the email. Please contact our <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/5782-contact-an-account-review-and-deliverability-specialist' target='_blank'>Account Review Team</a> for more information.</li>\n      <li>3 — This Constant Contact account cannot currently send emails. This can be due to billing or product expiration.</li>\n      <li>4 — You're not able to send the email to that many contacts. Remove contacts from the contact lists you are using or select a list with fewer contacts.</li>\n      <li>5 — The email is currently in staging. For more information, see the <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/7402-email-staging' target='_blank>Email Staging Knowledge Base article</a>.</li>\n      <li>6 — Constant Contact was unable to finish sending this email to all of the contacts on your list. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>7 — The email contains invalid images. This can be caused when one or more images in the email are longer available in your image library.</li>\n      <li>8 — The email contains a link URL that exceeds 1005 characters.</li>\n      <li>9 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>10 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>11 — This Constant Contact account cannot send survey invitations.</li>\n      <li>12 — Constant Contact attempted to send the email, but there were no eligible contacts to send it to. This can be caused by an invalid contact list, a contact list with no contacts, or a contact list with no new contacts during a resend. This method displays <code>reason_code</code> 12 as a send attempt with a <code>send_status</code> of COMPLETED and a <code>count</code> of 0.</li>\n</ul>\n"
+  EmailTestSendInput:
+    type: object
+    required:
+    - email_addresses
+    properties:
+      email_addresses:
+        type: array
+        description: The recipients of the test email as an array of email address strings. You can send a test email to up to 5 different email addresses at a time.
+        items:
+          type: string
+          example: dlang@example.com
+        maxItems: 5
+      personal_message:
+        type: string
+        example: This is a test send of the email campaign activity.
+        description: A personal message for the recipients of the test email. Constant Contact displays this message before the email campaign activity content.
+  EmailScheduleResponse:
+    type: array
+    items:
+      type: object
+      properties:
+        scheduled_date:
+          type: string
+          format: date-time
+          description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

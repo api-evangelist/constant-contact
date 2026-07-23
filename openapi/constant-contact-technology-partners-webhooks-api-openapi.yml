@@ -1,0 +1,311 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Technology Partners Webhooks API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Technology Partners Webhooks
+  description: Use partner webhooks to subscribe to billing event notifications from Constant Contact.
+paths:
+  /partner/webhooks/subscriptions:
+    get:
+      tags:
+      - Technology Partners Webhooks
+      summary: GET a Collection of Webhook Topic Subscriptions
+      description: Use this GET method to return a collection containing your application's webhook subscriptions.
+      operationId: getWebhooksCollection
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/WebhooksSubscriptionCollection'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: getAllWebhooks
+  /partner/webhooks/subscriptions/{topic_id}:
+    get:
+      tags:
+      - Technology Partners Webhooks
+      summary: GET Webhook Topic Subscription
+      description: "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n  * `1` - Billing tier upgrade.\n  * `2` - Billing tier downgrade.\n  * `3` - Account cancelled.\n  * `4` - Account disabled."
+      operationId: getWebhooksTopic
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: topic_id
+        in: path
+        description: Identifies a webhook topic.
+        required: true
+        type: string
+        x-example: '1'
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/WebhooksSubscriptionResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: getWebhooksTopicById
+    put:
+      tags:
+      - Technology Partners Webhooks
+      summary: PUT Webhook Topic Subscription
+      description: "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request body:\n\n  ```\n  {\"url\":\"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan\",\n  \"api_key\":\"90ed8738-5190-44a3-bc12-c172930db12c\",\n  \"event_type\":\"tier.increase\"}\n  ```\n</br>\nIf your application does not return a success response after receiving a notification, Constant Contact will retry sending the POST notification at 1 minute intervals for up to an hour."
+      operationId: putWebhooksTopic
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: topic_id
+        in: path
+        description: Identifies a webhook topic.
+        required: true
+        type: string
+        x-example: '1'
+      - in: body
+        name: body
+        description: A JSON payload containing a callback URI. Constant Contact uses this callback URI to notify you about your chosen topic.
+        required: true
+        schema:
+          $ref: '#/definitions/WebhooksSubscriptionBody'
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/WebhooksSubscriptionPutResp'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: updateWebhooksTopic
+    delete:
+      tags:
+      - Technology Partners Webhooks
+      summary: DELETE Webhook Topic Subscriptions
+      description: "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled."
+      operationId: deleteWebhooksSubscriptions
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: topic_id
+        in: path
+        description: Identifies a webhook topic.
+        required: true
+        type: string
+        x-example: '1'
+      responses:
+        '204':
+          description: Webhooks subscription successfully deleted.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+  /partner/webhooks/subscriptions/{topic_id}/tests:
+    post:
+      tags:
+      - Technology Partners Webhooks
+      summary: POST Test Send Webhook Notification
+      description: "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data."
+      operationId: testSendWebhooksTopic
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: topic_id
+        in: path
+        description: Identifies a webhook topic.
+        required: true
+        type: string
+        x-example: '1'
+      responses:
+        '201':
+          description: Test notification successfully sent to your callback URI.
+          schema:
+            $ref: '#/definitions/WebhooksTestSend'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+definitions:
+  WebhooksSubscriptionCollection:
+    type: array
+    description: An array of webhook subscriptions.
+    items:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          example: 2
+          description: Identifies the topic using an integer to indicate the type of topic.
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+        topic_name:
+          type: string
+          example: Billing Tier Downgrade
+          description: The name of the topic.
+        topic_description:
+          type: string
+          example: Executes when an account's billing tier is downgraded.
+          description: A description of what the topic is and when Constant Contact notifies you concerning it.
+  WebhooksSubscriptionResponse:
+    type: object
+    properties:
+      topic_id:
+        type: integer
+        example: 2
+        description: Identifies the topic using an integer to indicate the type of topic.
+      hook_uri:
+        type: string
+        example: https://www.examplename.com/webhooks/billingTier
+        description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+      topic_name:
+        type: string
+        example: Billing Tier Downgrade
+        description: The name of the topic.
+      topic_description:
+        type: string
+        example: Executes when an account's billing tier is downgraded.
+        description: A description of what the topic is and when Constant Contact notifies you concerning it.
+  WebhooksTestSend:
+    type: object
+    properties:
+      topic_id:
+        type: integer
+        example: 2
+        description: Identifies the topic using an integer to indicate the type of topic.
+      hook_uri:
+        type: string
+        example: https://www.examplename.com/webhooks/billingTier
+        description: The webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+      topic_name:
+        type: string
+        example: Billing Tier Downgrade
+        description: The name of the topic.
+      topic_description:
+        type: string
+        example: Executes when an account's billing tier is downgraded.
+        description: A description of what the topic is and when Constant Contact notifies you concerning it. When you use the test send API method, Constant Contact will immediately send a test event to you.
+  WebhooksSubscriptionBody:
+    type: object
+    properties:
+      hook_uri:
+        type: string
+        example: https://www.examplename.com/webhooks/billingTier
+        description: The callback URI you would like to use to receive webhook notifications. Constant Contact will automatically send POST notifications about your chosen topic to this URI.
+  WebhooksSubscriptionPutResp:
+    type: object
+    properties:
+      topic_id:
+        type: integer
+        example: 1
+        description: Identifies the topic using an integer to indicate the type of topic.
+      hook_uri:
+        type: string
+        example: https://www.examplename.com/webhooks/billingTier
+        description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

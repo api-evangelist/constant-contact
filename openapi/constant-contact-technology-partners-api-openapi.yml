@@ -1,0 +1,851 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Technology Partners API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Technology Partners
+  description: Use partner endpoints to manage client Constant Contact accounts under your partner account.
+paths:
+  /partner/accounts:
+    get:
+      tags:
+      - Technology Partners
+      summary: GET Partner Client Accounts
+      description: 'Get all Constant Contact client accounts managed under your technology partner account. Use the `limit` query parameter to set the number of accounts to return on each results page. Use the `account_type` query parameter to filter client account results by type: `all` (default), `managed`, or `unmanaged`.
+
+        Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.
+
+        For more use case information, see [Get all Partner Client Accounts](/api_guide/partners_accts_get.html) in the API guide.'
+      operationId: getPartnerSiteOwners
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results
+        required: false
+        type: string
+      - name: limit
+        in: query
+        description: The number of client accounts to return on each page of results. The default value is `50`. Entering a `limit` value less than the minimum (`10`) or greater than the maximum (`50`) is ignored and the system uses the default values. Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results.
+        required: false
+        type: string
+        default: '50'
+        maximum: 50
+        minimum: 10
+        format: int32
+        x-example: '50'
+      - name: account_type
+        in: query
+        description: 'Filters client account results by account type: `all` (default), `managed`, or `unmanaged`. Excluding the `account_type` query parameter returns all client accounts for the partner.'
+        required: false
+        type: string
+        default: all
+        enum:
+        - all
+        - managed
+        - unmanaged
+        x-example: managed
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/PartnerAccount'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: getAccounts
+    post:
+      tags:
+      - Technology Partners
+      summary: POST (create) a Partner Client Account
+      description: "Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.\n\nNewly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.\n\nIf a field validation error occurs, a 400 response message is returned.\n\nIf provisioning does not complete successfully due to unavailable dependencies, such as database or dependent services, a 503 response message is returned. By default, the client account provision data is stored and processed when provisioning becomes available.\n\nIf the partner client account has the Single Sign On (SSO) for all users feature enabled, all users in the client account can sign into the account using SSO. This feature must be set up through the Constant Contact Partner team. For feature details, see [Configuring Identity Provider Initiated SSO](/api_guide/partner_sso_config.html). Some client account features will be supported in future releases. \n\nFor more use case information, see [Create a new Partner Client Account](/api_guide/partners_accts_create.html) in the API guide."
+      operationId: provision
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: provision
+        description: Create a new Constant Contact client account under your partner account. All required properties must be included in the JSON payload request.
+        required: true
+        schema:
+          $ref: '#/definitions/Provision'
+      responses:
+        '201':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/ProvisionResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: createAccount
+  /partner/accounts/{encoded_account_id}/plan:
+    get:
+      tags:
+      - Technology Partners
+      summary: GET Billing Plan Details for a Client Account
+      description: 'Use this GET method to return billing plan details for a client''s Constant Contact account.
+
+        If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported. Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.
+
+        For more use case information, see [Get Billing Plan Details for a Client Account](/api_guide/partners_plans_get.html) in the API guide.'
+      operationId: getPlan
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: Specify the client's unique `encoded_account_id`.
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/PlanTiersObject'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '405':
+          description: Unsupported method used.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: getAccountBillingPlan
+    put:
+      tags:
+      - Technology Partners
+      summary: PUT (update) Billing Plan Details for a Client Account
+      description: 'Use this PUT method to update the type of billing plan to assign to the Constant Contact client account. The type of billing plan determines which Constant Contact product features that the client account can access. The billing plan that you specify in the request body (`plan_type`) must already exist in the plan group. Attempting to change to a plan that is currently not available within your partner plan group results in a 400 error response code.
+
+
+        When you create a new client account, the `plan_type` defaults to `TRIAL` and the `billing_day_of_month` defaults to `null`. The `billing_day_of_month` property is required if a client account is not set up to use single billing. You can change the day of month (`billing_day_of_month`) in which to bill a client account only when changing the `plan_type` value from `TRIAL` to a different `plan_type`, otherwise the `billing_day_of_month` value you enter is ignored. You can choose to enter a specific day of the month or accept the default value, which is the day on which the `plan_type` value changes from a `TRIAL` plan to a different `plan_type`. Changing the `plan_type` from `TRIAL` to another `plan_type` automatically changes the `billing_status` from `Trial` to `Open`.
+
+
+        Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported.
+
+
+        For more use case information, see [PUT Billing Plan Details for a Client Account](/api_guide/partners_plans_update.html) in the API guide.'
+      operationId: setPlan
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: Specify the client's unique `encoded_account_id`.
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      - in: body
+        name: body
+        description: "`plan_type`: Updates the billing plan assigned to a client account to a different `plan_type`.   \n\n`plan_group_id`: To update an older `plan_type` to a current a `plan_type`, use the `plan_group_id` parameter to specify the older billing `plan_type` number. \n\n- If the specified `plan_group_id` does not exist under the account's current plan group, the default partner plan group is used.\n- If the specified `plan_group_id` exists but does not match the account's current plan group, an error is returned.\n- If the `plan_group_id` parameter is not included in the request, the accounts current plan group is used.\n\n`billing_day_of _month`:   Updates the day of month in which to bill the client account. This property is required if a client account is not set up to use single billing.      "
+        required: false
+        schema:
+          $ref: '#/definitions/PlanInfo'
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/PlanTiersObject'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '405':
+          description: Unsupported method used.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: updateAccountBillingPlan
+  /partner/accounts/{encoded_account_id}/status/cancel:
+    put:
+      tags:
+      - Technology Partners
+      summary: PUT Cancel the Billing Plan for a Client Account
+      description: "Use this PUT method to cancel a client's Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.\n\n\n  To get a list of all canceled client accounts (`\"billing_status\": \"Canceled\"`), make a `GET` call to the `/partner/accounts` endpoint.\n\n  Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\n\n  For more use case information, see [Cancel the Billing Plan for a Client Account](/api_guide/partners_plans_cancel.html) in the API guide.\""
+      operationId: cancelAccount
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: The system generated ID that uniquely identifies the client account.
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      - in: body
+        name: body
+        description: By default, the current date and time is automatically used as the cancellation date. However, you can specify a future date and time to cancel the account (`effective_date`) in the request body in ISO format. You can also enter the client's cancellation reason (`reason_id`).
+        required: false
+        schema:
+          $ref: '#/definitions/AccountCancellation'
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/AccountCancellation'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: cancelAccountBillingPlan
+  /partner/accounts/{encoded_account_id}/account_operations/sync:
+    post:
+      tags:
+      - Technology Partners
+      summary: POST Send an API request on Behalf of a Client Account
+      description: 'Use this API method to send an API request on behalf of a managed client account in your partnership.
+
+
+        The request body properties you use in this partner API call determine the structure of the API request that Constant Contact sends on behalf of the managed client account. This includes the HTTP url, HTTP method type, request body, request url parameters, request query parameters, and headers that for the request. You can use this `/partner/accounts/{encoded_account_id}/account_operations/sync` API method to send a request using non-partner v3 API methods.'
+      operationId: partnerAccountOperationsPostSync
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: An encoded account id for a managed account in your partnership.
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      - in: body
+        name: body
+        description: A JSON request body that contains the structure of the HTTP request you are instructing Constant Contact to send on behalf of specific managed account in your partnership.
+        required: false
+        schema:
+          $ref: '#/definitions/PartnerAccountOperationsRequest'
+      responses:
+        '200':
+          description: Request successful. The response body schema returned by this method corresponds to the specific API request you provided in the request body.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: Not found. This may indicate that the encoded_account_id you provided is invalid, or the API request you are sending on behalf of an account returned a 404.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+      x-sdk-methodName: sendRequestUsingManagedAccount
+  /partner/accounts/{encoded_account_id}/users/sso:
+    post:
+      tags:
+      - Technology Partners
+      summary: POST a User Under a Partner's SSO-Enabled Client Account
+      description: Use this endpoint to create a new user under a partner client account that has the Single Sign On (SSO) for all users feature enabled.
+      operationId: createSSOUser
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: 'The encoded account ID that identifies the partner''s client account to which to add the new user. '
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      - in: body
+        name: SSO User
+        description: The JSON payload used to create a new user under the specified partner's client account. All request body properties are required (`first_name`, `last_name`, `role_name`, `contact_email`, `login_name`, `external_id`, `external_provider`).
+        required: true
+        schema:
+          $ref: '#/definitions/SSOUser'
+      responses:
+        '201':
+          description: Request successful.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+  /partner/accounts/{encoded_account_id}/contacts/unsubscribe:
+    post:
+      tags:
+      - Technology Partners
+      summary: POST Unsubscribe Contacts
+      description: Use to unsubscribe contacts from partner client accounts. Identify the contacts to unsubscribe using the `email_address` parameter. To unsubscribe a single contact from all partner client accounts, specify the contacts `email_address` and set the `global_unsubscribe` parameter to `true`.
+      operationId: partnerUnsubscribeContacts
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: encoded_account_id
+        in: path
+        description: The encoded account ID that uniquely identifies the partner's client account.
+        required: true
+        type: string
+        x-example: a07e1lxqqqo0
+      - in: body
+        name: body
+        description: The JSON payload.
+        required: true
+        schema:
+          type: object
+          required:
+          - update_source
+          properties:
+            email_addresses:
+              type: array
+              description: Array of email addresses to unsubscribe.
+              items:
+                type: string
+              maxItems: 500
+              x-example: lang.carry@anymail.com
+            update_source:
+              type: string
+              description: Required parameter to specify the update source performing the unsubscribe.
+              enum:
+              - Account
+              - Contact
+              - System
+              x-example: Account
+            opt_out_reason:
+              type: string
+              description: Optional parameter to specify the reason for the unsubscribe.
+              maxLength: 255
+              x-example: No longer interested.
+            delete_contacts:
+              type: boolean
+              description: Optional parameter to specify if the contact(s) should be soft-deleted as part of the unsubscribe.
+              default: false
+              x-example: 'false'
+            global_unsubscribe:
+              type: boolean
+              description: Optional parameter to specify if the contact's email address should be unsubscribed from all partner child accounts. When specified only a single email address in the `email_addresses` array can be specified.
+              default: false
+              x-example: 'true'
+      responses:
+        '200':
+          description: Contacts were successfully unsubscribed
+          schema:
+            $ref: '#/definitions/PartnerUnsubscribeResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '406':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - ctctPartnerAuthorizer: []
+        api_key: []
+definitions:
+  Link-2:
+    type: object
+    properties:
+      href:
+        type: string
+  PathParamObject:
+    type: object
+    properties:
+      path_param_key:
+        type: string
+        example: contact_id
+        description: The name of the path parameter.
+      path_param_value:
+        type: string
+        example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+        description: The value of the path parameter.
+  PartnerAccountOperationsRequest:
+    type: object
+    required:
+    - account_operation_method
+    - account_operation_url
+    properties:
+      account_operation_url:
+        type: string
+        example: /contacts/{contact_id}
+        description: 'The API method path for the request you are sending on behalf of a managed child account. This value should be a V3 API URL without the https://api.cc.email/v3 base url and with any path parameter names included. For example: <code>/emails/activities/{campaign_activity_id}</code>.'
+      account_operation_method:
+        type: string
+        example: GET
+        description: The http method for the request you are sending on behalf of a managed child account.
+      account_operation_payload:
+        type: string
+        example: ''
+        description: The request payload for the request you are sending on behalf of a managed child account. If you provide a JSON payload using this parameter, make sure that the JSON is string escaped.
+      account_operation_query_parameters:
+        type: array
+        description: An array containing the query parameters for the request you are sending on behalf of a managed child account.
+        items:
+          $ref: '#/definitions/QueryParamObject'
+      account_operation_path_parameters:
+        type: array
+        description: An array containing the path parameters for the request you are sending on behalf of a managed child account.
+        items:
+          $ref: '#/definitions/PathParamObject'
+      account_operation_headers:
+        type: array
+        description: An array containing the headers for the request you are sending on behalf of a managed child account.
+        items:
+          $ref: '#/definitions/HeadersObject'
+    description: JSON object that contains the fields Constant Contact uses to construct the HTTP request you are sending on behalf of a managed account.
+  Provision:
+    type: object
+    required:
+    - contact_email
+    - country_code
+    - login_name
+    - state_code
+    properties:
+      contact_email:
+        type: string
+        example: clients_email@gmail.com
+        description: A valid email address to associate with the client account.
+        maxLength: 80
+      contact_phone:
+        type: string
+        example: 588-768-6868
+        description: The contact phone number to associate with the client account.
+        minLength: 5
+        maxLength: 25
+      country_code:
+        type: string
+        example: US
+        description: The two-letter country code (ISO 3166-1 code) that specifies the country in which the client resides.
+        minLength: 2
+        maxLength: 3
+      organization_name:
+        type: string
+        example: Hanks Fresh Fruit Delivery
+        description: The name of organization that identifies the client account.
+        minLength: 1
+        maxLength: 50
+      organization_phone:
+        type: string
+        example: 401-244-1000
+        description: The organization phone number. To set the organization phone number using the user interface, select <b>My Settings</b> and in the <b>Organization Information</b> section, select <b>Edit Organization Information</b>.
+        minLength: 5
+        maxLength: 25
+      state_code:
+        type: string
+        example: MA
+        description: The two-letter state code that represents the US state (<code>country_code</code> is <code>US</code> ) or Canadian province (<code>country_code</code> is <code>CA</code>) where the client's organization is physically located. Leave the <code>state_code</code> blank for non-US states and Canadian provinces.
+      time_zone_id:
+        type: string
+        example: US/Eastern
+        description: The offical time zone to use to represent the physical location associated with the client account.
+      website:
+        type: string
+        example: http://your.company.website
+        description: The client's website URL. Specifying the website URL eliminates the need for clients to provide that information. Requires a valid URL starting with http:// or https://.
+      login_name:
+        type: string
+        example: hank_smith
+        description: 'A unique login name to associate with the client account. The name must only contain alphanumeric characters and ''-'', ''_'', ''@'',''.'',''+''. '
+        minLength: 6
+        maxLength: 50
+      password:
+        type: string
+        example: '123456789'
+        description: 'Required if not using Single Sign On (SSO) or external authenticator. The password to associate with the client account. Passwords must be at least 8 characters and no more than 80 characters in length. Passwords can contain alphabetical letters (A-Z) and (a-z), numbers (0-9), special characters (! @ # $ etc.) and spaces. Passwords should not contain any part of your username and cannot be the same as your last password, or be listed on an industry database; we check for easily guessed or compromised passwords. Your new password is not returned in the response payload for security reasons. If using SSO authentication, use <code>idp_provider</code> and <code>idp_provider_id</code> instead of <code>password</code>.'
+        minLength: 8
+        maxLength: 80
+      first_name:
+        type: string
+        example: Hank
+        description: The client account owner's first name.
+        minLength: 2
+        maxLength: 80
+      last_name:
+        type: string
+        example: Smith
+        description: The client account owner's last name.
+        minLength: 2
+        maxLength: 80
+      partner_account_id:
+        type: string
+        example: partner1234
+        description: The unique client account identifier that partners define and use for billing and reporting purposes.
+        maxLength: 80
+      billing_locale:
+        type: string
+        example: en_US.
+        description: 'The currency to use when billing the client account. Valid values are: <code>en_US</code> (default, US Dollars) or <code>en_GB</code> (British Pounds).'
+      managed_site_owner:
+        type: boolean
+        example: true
+        description: By default, if the client account is setup as a managed account <code>managed_site_owner</code> is automatically set to <code>true</code> and attempting to override the setting with <code>false</code> is ignored. This helps to avoid getting an account into an unknown state.
+      enable_single_billing:
+        type: boolean
+        example: true
+        description: If a partner account is setup to allow for single billing and the <code>managed_site_owner</code> property is set to <code>true</code>, use this property to enable the single billing feature for the client account. See your account manager for more information.
+      gdpr_opt_out:
+        type: boolean
+        example: true
+        description: When creating accounts for users who have opted-out of any marketing communications, set  the <code> gdpr_opt_out</code>  to <code>true</code>  so that Constant Contact does not send any marketing communications to the account.
+      external_id:
+        type: string
+        example: '123456789123456789'
+        description: The ID used to uniquely identify the client account for the external authenticator. Do not use the <code>password</code> property when using an external authenticator.
+        maxLength: 255
+      external_provider:
+        type: string
+        example: Yahoo
+        description: The name of the provider who externally authenticates this customer. For example, PayPal or Yahoo. Do not use the <code>password</code> property when using an external authenticator.
+        maxLength: 80
+  PlanInfo:
+    type: object
+    properties:
+      plan_type:
+        type: string
+        example: GOLD
+        description: "Use this property to update the client account billing plan to a different billing plan. After changing the <code>plan_type</code> from <code>TRIAL</code> to any other billing plan type, you cannot change it back to <code>TRIAL</code>.\n  <ul>\n    <li><code>TRIAL</code>: A non-billable account with an expiration date that allows clients to try Constant Contact product features.</li>\n     <li><code>GOLD</code>: A billable client account plan.</li>\n     <li><code>SILVER</code>: A billable client account plan.</li>\n     <li><code>BRONZE</code>: A billable client account plan.</li>\n  </ul>"
+      plan_group_id:
+        type: integer
+        format: int32
+        example: 152
+        description: Updates an existing client account billing plan group to a new billing plan group. If you don't know the `plan_group_id` to use, contact our API support team.
+      billing_day_of_month:
+        type: integer
+        format: int32
+        example: 15
+        description: This property is required if a client account is not set up to use single billing. You can choose to enter a specific day of the month or accept the default value, which is the day on which the <code>plan_type</code> value changes from a <code>TRIAL</code> plan to a different <code>plan_type</code>. For trial accounts, the value defaults to null. You can only change the <code>billing_day_of_month</code> when changing the <code>plan_type</code> value from <code>TRIAL</code> to a different <code>plan_type</code>, otherwise the value you enter is ignored.
+    description: Specifies the type of billing plan and the billing date to use for a client account.
+  PartnerUnsubscribeResponse:
+    type: object
+    properties:
+      unsubscribed_count:
+        type: integer
+        example: 5
+        description: The number of contacts that were successfully unsubscribed.
+    description: Response indicating the number of contacts that were successfully unsubscribed.
+  SSOUser:
+    type: object
+    required:
+    - contact_email
+    - external_id
+    - external_provider
+    - first_name
+    - last_name
+    - login_name
+    - role_name
+    properties:
+      first_name:
+        type: string
+        example: Josie
+        description: The client account user's first name.
+        maxLength: 80
+      last_name:
+        type: string
+        example: Lang
+        description: The client account user's last name.
+        maxLength: 80
+      role_name:
+        type: string
+        example: campaign_creator
+        description: The role (<code>account_manager</code> or <code>campaign_creator</code>) to assign the client account user.
+      contact_email:
+        type: string
+        example: josie.lang@gmail.com
+        description: The unique email address to associate with the new client account user.
+        maxLength: 80
+      login_name:
+        type: string
+        example: josie.lang
+        description: The login name to associate with the new client account user.
+        maxLength: 50
+      external_id:
+        type: string
+        example: '23378234122161121'
+        description: The unique ID used to identify the client account user to the external authenticator.
+        maxLength: 255
+      external_provider:
+        type: string
+        example: Yahoo
+        description: The unique name used to identify the external provider used to authenticate the client account user. For a list of external providers, contact the Constant Contact Partner Team.
+        maxLength: 80
+    description: Specify client account user's details. All fields are required.
+  QueryParamObject:
+    type: object
+    properties:
+      query_param_key:
+        type: string
+        example: include
+        description: The name of the query parameter.
+      query_param_value:
+        type: string
+        example: list_memberships
+        description: The value of the query parameter.
+  ProvisionResponse:
+    type: object
+    properties:
+      encoded_account_id:
+        type: string
+        example: a08e1izzh8t9
+        description: The system generated ID used to uniquely identify a client account.
+      provision_uuid:
+        type: string
+        example: x9xx2ede-5a58-4e23-8168-25930c5x7bxb
+        description: The system generated ID used to uniquely identify the provisioning of a client account.
+  PlanTiersObject:
+    type: object
+    properties:
+      plan_type:
+        type: string
+        example: GOLD
+        description: "The billing plan that is associated with a client's Constant Contact account. The billing plan determines which Constant Contact product features that the client account can access. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and <code>plan_type</code> enum values will continue to be supported. <ul>\n  <li><code>TRIAL</code>: Provides limited product features for a non-billed account and the account has an expiration date.</li>\n  <li><code>BRONZE</code>: Billable plan that provides basic email and marketing tools.</li>  \n  <li><code>SILVER</code>: Billable plan that provides all features available in the <code>BRONZE</code> plan, and adds some additional email campaign to features, such as contact segmentation and social media ads integration.</li>\n  <li><code>GOLD</code>: Billable plan that provides all available product features.</li>\n</ul>"
+      current_tiers:
+        type: array
+        description: Lists the billing plan tiers that are currently associated with a client account.
+        items:
+          $ref: '#/definitions/TierObject'
+      billing_status:
+        type: string
+        example: Open
+        description: "The client's account billing status. When you first create a client account the <code>billing_status</code> defaults to <code>Trial</code>. Billing status values include:\n  <ul>\n    <li><code>Trial</code> - A non-paying trial client account (default value).</li>\n    <li><code>Open</code> - An active and paying client account.</li>\n    <li><code>Canceled</code> - A canceled client account.</li>\n    <li><code>Trial End</code> - The trial period has ended for this client account.</li>\n  </ul>"
+      billing_day_of_month:
+        type: integer
+        format: int32
+        example: 15
+        description: This property is required when an account is not set up to use single billing. For trial accounts, the value is initially set to <code>null</code>. The value can only be changed when changing the <code>plan_type</code> from a trial account to a different type of plan, otherwise the value you enter is ignored. You can choose to enter a specific day of month or except the default value, which is the day that the <code>plan_type</code> value changes from a trial account plan to a different plan. Valid <code>billing_day_of_month</code> values include <code>1</code> through and including <code>31</code>.
+    description: Specifies client billing plan details including the type of plan, the plan tiers used, the current billing status, and the day of the month that the client is billed. When a client account is first provisioned, the `plan_type` defaults to a `Trial` account. After you change an account `billing_status` from `Trial` to any other `billing_status`, you cannot change it back to a `Trial` account.
+  AccountCancellation:
+    type: object
+    properties:
+      reason_id:
+        type: integer
+        format: int32
+        example: 1
+        description: "Specifies the reason that the client is canceling their Constant Contact account as follows:\n  <ul>\n    <li><code>1</code>  Cost Too High</li>\n    <li><code>2</code>  Using A Competitive Service</li>\n    <li><code>3</code>  Not Doing Email Marketing</li>\n    <li><code>11</code> Something Missing Or Not Working </li>\n    <li><code>12</code> Doing It In-House</li>\n    <li><code>14</code> Poor Results</li>\n    <li><code>21</code> Too Difficult To Use</li>\n    <li><code>27</code> Canceled Online by Customer</li>\n    <li><code>30</code> Dissatisfied With Billing Policies</li>\n  </ul>"
+      effective_date:
+        type: string
+        format: date-time
+        example: '2020-02-06T22:09:15.000Z'
+        description: The client account cancellation date and time in ISO-8601 format.
+    description: Specifies the date and time a client requests to cancel their Constant Contact account and changes the account `billing_status` to `Canceled`. By default, this is the current date and time in ISO format. In the request body, you can optionally specify a future cancellation date (in ISO format) and a reason (`reason_code`) that the client wants to cancel their account.
+  PartnerAccount:
+    type: object
+    required:
+    - site_owner_list
+    properties:
+      site_owner_list:
+        type: array
+        description: Lists all Constant Contact client accounts that are managed under a partner account.
+        items:
+          type: object
+          properties:
+            encoded_account_id:
+              type: string
+              example: a08e1izvh8t9
+              description: The obfuscated ID used to uniquely identify a client account.
+              readOnly: true
+            subscriber_count:
+              type: integer
+              format: int64
+              example: 65
+              description: The total number of subscriber contacts that are associated with a client account.
+              readOnly: true
+            organization_name:
+              type: string
+              example: Zenomatic
+              description: The name of the organization associated with this client account.
+              readOnly: true
+            site_owner_name:
+              type: string
+              example: Zen1016153
+              description: The user name that identifies a client account.
+              readOnly: true
+            billing_status:
+              type: string
+              example: Open
+              description: "The client's account billing status. When you first create a client account the `billing status` defaults to `Trial`. Billing status values include: <ul>\n  <li><code>Trial</code> - A non-paying trial client account (default value).</li>\n  <li><code>Open</code> - An active and paying client account.</li>\n  <li><code>Canceled</code> - A canceled client account.</li>\n  <li><code>Trial End</code> - The trial period has ended for this client account.</li>\n</ul>"
+              readOnly: true
+            last_login_date:
+              type: string
+              format: date-time
+              example: '2019-04-25T11:08:00.000Z'
+              description: The system generated date and time (ISO-8601) showing when the client last logged into their Constant Contact account. If a client has not logged into their account, the value is `null`. This property does not display in the results.
+              readOnly: true
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/PaginationLinks'
+  TierObject:
+    type: object
+    properties:
+      usage_type:
+        type: string
+        example: CONTACTS
+        description: Identifies the tier usage type that is associated with the billing plan.
+        readOnly: true
+        default: CONTACTS
+      current_usage:
+        type: number
+        format: float
+        example: 10.0
+        description: The number of active contacts (default) used within the current tier.
+        readOnly: true
+      tier:
+        type: integer
+        format: int32
+        example: 1
+        description: "The billing tier level that is associated with a client account. By default, the system determines the tier level to use based on the number of active contacts currently in the client account at the time of billing. Billing tiers may differ. The following shows an example billing tier: <ul>\n  <li>level <code>1</code> = 0 - 500 contacts</li>\n  <li>level <code>2</code> = 501 - 1000 contacts</li>\n  <li>level <code>3</code> = 1001 - ...</li>\n</ul>"
+        readOnly: true
+      tier_min:
+        type: number
+        format: float
+        example: 0.0
+        description: The minimum number of active contacts for the tier level.
+        readOnly: true
+      tier_max:
+        type: number
+        format: float
+        example: 500.0
+        description: The maximum number of active contacts for the tier level.
+        readOnly: true
+      price:
+        type: number
+        format: float
+        example: 20.0
+        description: The billing price set for the tier used to bill the client account each month.
+        readOnly: true
+      currency_code:
+        type: string
+        example: USD
+        description: The currency (ISO currency code) used to price the tier for a client account.
+        readOnly: true
+    description: The usage tier that is associated with a client's Constant Contact account and is used to calculate the monthly billing price.
+  PaginationLinks:
+    type: object
+    properties:
+      next:
+        description: Contains the next page link, if applicable.
+        $ref: '#/definitions/Link-2'
+  HeadersObject:
+    type: object
+    properties:
+      header_key:
+        type: string
+        example: Accept
+        description: The name of the header.
+      header_value:
+        type: string
+        example: application/json
+        description: The value of the header.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

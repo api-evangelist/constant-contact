@@ -1,0 +1,1700 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Contacts API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Contacts
+  description: Endpoints and methods to get, create, delete, and update one or more contacts.
+paths:
+  /contacts/{contact_id}:
+    get:
+      tags:
+      - Contacts
+      summary: GET a Contact
+      description: This endpoint GETs a specific contact resource (contact_id). Use the `include` query parameter to add any of the available contact sub-resources to the response payload.
+      operationId: getContact
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: Unique ID of contact to GET
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      - name: include
+        in: query
+        description: 'Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `phone_numbers`, `street_addresses`, `notes`, and `taggings`.'
+        required: false
+        type: string
+        format: csv
+        enum:
+        - custom_fields
+        - list_memberships
+        - phone_numbers
+        - street_addresses
+        - taggings
+        - notes
+        x-example: custom_fields,list_memberships
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/ContactResource'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+      x-sdk-methodName: getContactById
+    put:
+      tags:
+      - Contacts
+      summary: PUT (update) a Contact
+      description: "The PUT method updates an existing contact. You must include the `update_source` property in the PUT request payload. To restore  a deleted contact you must specify the `update_source` as `Account`. When updating any resource using PUT, all properties are updated, overwriting all previous values. Any properties left blank or not included in the request are overwritten with null value - however this does not apply to contact subresources. \n\nAdd or change any of the subresources by including them in the PUT request payload. Omitted subresources are not overwritten with null. If the contact being updated is deleted, the contact will be revived.\nIf `email_address` is specified: <div class=\"Msg\"><p class=\"note-text\"> **Only use this method when a contact gives you their explicit permission to send them an email. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>\n\nIf `sms_channel` is specified: <div class=\"Msg\"><p class=\"note-text\">Only use this method when a contact gives you their explicit permission to send them an SMS. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>"
+      operationId: putContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: Unique ID of contact to update
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      - in: body
+        name: body
+        description: JSON payload defining the contact object, with updates. Any properties left blank or not included in the PUT payload are overwritten with null value - does not apply to contact subresources.
+        required: true
+        schema:
+          $ref: '#/definitions/ContactPutRequest'
+      responses:
+        '200':
+          description: Contact resource has been updated
+          schema:
+            $ref: '#/definitions/ContactResource'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+      x-sdk-methodName: updateContact
+    delete:
+      tags:
+      - Contacts
+      summary: DELETE a Contact
+      description: Deletes the contact identified by the contact_id path parameter. Deleted contacts won't receive email from you, and they don't count as active contacts. Unlike unsubscribed contacts, deleted contacts can be revived, or added back to an account. Learn how to [revive deleted contacts](/api_guide/contacts_delete.html#revive).
+      operationId: deleteContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: Unique ID of contact to DELETE
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      responses:
+        '204':
+          description: Request successful; No content returned
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+  /contacts:
+    get:
+      tags:
+      - Contacts
+      summary: GET Contacts Collection
+      description: 'Use this method to return a collection of contacts. Use the query parameters to search for contacts that match specific contact properties and sub-resource properties as criteria. For example, you can search using the contact''s `email` address, `lists` memberships, and by the date range that a contact was created or updated. Use the `limit` query parameter to limit the number of results returned per page. Use the `include` query parameter to include contact sub-resources in the response and `include_count` to include the total number of contacts that meet your specified search criteria.
+
+
+        By default, this method returns all contacts that are not deleted. Use the `status` query parameter with the value `all` to return all contacts including deleted contacts.'
+      operationId: getContacts
+      produces:
+      - application/json
+      parameters:
+      - name: status
+        in: query
+        description: 'Use the `status` query parameter to search for contacts by status. This parameter accepts one or more comma separated values: `all`, `active`, `deleted`, `not_set`, `pending_confirmation`, `temp_hold`, and `unsubscribed`.'
+        required: false
+        type: string
+        format: csv
+        enum:
+        - all
+        - active
+        - deleted
+        - not_set
+        - pending_confirmation
+        - temp_hold
+        - unsubscribed
+      - name: email
+        in: query
+        description: Use the `email` query parameter to search for a contact using a specific email address.
+        required: false
+        type: string
+        x-example: xyz@example.com
+      - name: lists
+        in: query
+        description: Use the `lists` query parameter to search for contacts that are members of one or more specified lists. Use a comma to separate multiple `list_id` values, up to a maximum of 25.
+        required: false
+        type: string
+        maximum: 25
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a,04fe9a-a579-43c5-bb1a-58ed29bf0a6a,04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      - name: segment_id
+        in: query
+        description: Use to get contacts that meet the segment criteria for a single specified `segment_id`. This query parameter can only be combined with the limit query parameter. When using the `segment_id` query parameter, the V3 API may return a 202 response code instead of a 200 response. The 202 response code indicates that your request has been accepted, but not fully completed. Retry sending your API request to return the completed results and a 200 response code.
+        required: false
+        type: string
+        maximum: 1
+        x-example: '14'
+      - name: tags
+        in: query
+        description: Use to get contact details for up to 50 specified tags. Use a comma to separate each `tag_id`.
+        required: false
+        type: string
+        maximum: 50
+        format: uuid
+        x-example: fa85f64-5717-4562-b3fc-2c963f66afa6
+      - name: updated_after
+        in: query
+        description: Use `updated_after` to search for contacts that have been updated after the date you specify. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2022-01-01T16:37:59.091Z'
+      - name: updated_before
+        in: query
+        description: Use `updated_before` to search for contacts that have been updated before a specified date. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2022-07-16T16:37:59.091Z'
+      - name: created_after
+        in: query
+        description: Use `created_after` to search for contacts created after a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2021-01-01T16:37:59.091Z'
+      - name: created_before
+        in: query
+        description: Use `created_before` to search for contacts created before a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2022-07-16T16:37:59.091Z'
+      - name: optout_after
+        in: query
+        description: Use `optout_after` to search for contacts that unsubscribed after a specified date.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2022-11-16T16:20:59.091Z'
+      - name: optout_before
+        in: query
+        description: Use `optout_before` to search for contacts that unsubscribed before a specified date.
+        required: false
+        type: string
+        format: date-time
+        x-example: '2022-11-16T16:20:59.091Z'
+      - name: include
+        in: query
+        description: 'Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `taggings`, `notes`,`phone_numbers`, `street_addresses`.'
+        required: false
+        type: string
+        format: csv
+        enum:
+        - custom_fields
+        - list_memberships
+        - phone_numbers
+        - street_addresses
+        - taggings
+        - notes
+        x-example: custom_fields,list_memberships
+      - name: sms_status
+        in: query
+        description: 'Use to get contacts by their SMS status. This parameter accepts one or more comma separated values: `all`, `explicit`, `unsubscribed`, `pending_confirmation`, `not_set`.'
+        required: false
+        type: string
+        format: csv
+        enum:
+        - all
+        - explicit
+        - unsubscribed
+        - pending_confirmation
+        - not_set
+      - name: include_count
+        in: query
+        description: Set `include_count=true` to include the total number of contacts (`contacts_count`) that meet all search criteria in the response body.
+        required: false
+        type: boolean
+        x-example: 'true'
+      - name: limit
+        in: query
+        description: Specifies the number of results displayed per page of output in the response, from 1 - 500, default = 50.
+        required: false
+        type: integer
+        default: 50
+        maximum: 500
+        minimum: 1
+        x-example: 25
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/Contacts'
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/Contacts'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+      x-sdk-methodName: getAllContacts
+    post:
+      tags:
+      - Contacts
+      summary: POST (create) a Contact
+      description: '
+
+        Creates a new contact resource. You must include the `create_source` property and at least one of the following properties: `first_name`, `last_name`, a unique `email_address` (specified using the `EmailAddress` object), or the `sms_channel` property (specified using the `ContactSmsChannel` object).
+
+
+        <div class="Msg"><p class="note-text">If `email_address` is specified: **Only use this method when a contact gives you their explicit permission to send them an email. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>
+
+
+        If `sms_channel` is specified: <div class="Msg"><p class="note-text">Only use this method when a contact gives you their explicit permission to send them an SMS. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>'
+      operationId: createContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The JSON payload defining the contact
+        required: true
+        schema:
+          $ref: '#/definitions/ContactPostRequest'
+      responses:
+        '201':
+          description: New contact successfully created
+          schema:
+            $ref: '#/definitions/ContactResource'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type; the payload must be in JSON format, and Content-Type must be application/json
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+  /contacts/sign_up_form:
+    post:
+      tags:
+      - Contacts
+      summary: Create or Update a Contact
+      description: "Use this method to create a new contact or update an existing contact. In the request body, this method requires including the `list_memberships` array as well as either the contact's `email_address` string or `sms_channel` object which includes the contact's SMS number. The information you specify determines if a new contact is either created (the email address or SMS number does not already exist in the account), or if an existing contact is updated (the email address or SMS number already exists). The SMS product feature does not need to be enabled to include a contacts SMS details.\n\nUpdates to existing contacts are partial updates. This method only updates the contact properties you include in the request body. Updates append new contact lists or custom fields to the existing `list_memberships` or `custom_fields` arrays.\n\nIf `email_address` is specified: <div class=\"Msg\"><p class=\"note-text\">Only use this method when a contact gives you their explicit permission to send them an email. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>\n\nIf `sms_channel` is specified: <div class=\"Msg\"><p class=\"note-text\">Only use this method when a contact gives you their explicit permission to send them an SMS. It is a violation of anti-spam and telemarketing laws, as well as a serious violation of the Constant Contact Terms of Service to use the Opt-in features of the API to opt a contact back in without his or her own action and consent.</p></div>\n\nWhen this method creates a new contact, it returns a 201 response code.When this method updates an existing contact, it returns a 200 response code. Updating a deleted contact restores the contact.\n\nThe method automatically modifies the contact's `permission_to_send` and `opt_in_source` properties depending on the [Confirmed Opt-In](https://knowledgebase.constantcontact.com/articles/KnowledgeBase/5533-obtain-permission-to-send-email-campaigns-to-your-contacts-by-using-confirmed-opt-in) Constant Contact account setting:\n\nIf Confirmed Opt-in is _enabled_, this method automatically sets the `permission_to_send` property as `pending_confirmation` for new contacts. If Confirmed Opt-in is _disabled_, this method automatically sets the `permission_to_send` property as explicit and the `opt_in_source` property as `Contact` for new contacts. Updated contacts have their `permission_to_send` property set as explicit.\n      "
+      operationId: createOrUpdateContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: A JSON request body payload that contains the contact resource you are creating or updating. The request body must contain the `email_address` property and `list_memberships` array, or the `sms_channel` object.
+        required: true
+        schema:
+          $ref: '#/definitions/ContactCreateOrUpdateInput'
+      responses:
+        '200':
+          description: Contact successfully updated.
+          schema:
+            $ref: '#/definitions/ContactCreateOrUpdateResponse'
+        '201':
+          description: Contact successfully created.
+          schema:
+            $ref: '#/definitions/ContactCreateOrUpdateResponse'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. You sent simultaneous requests that are attempting to modify the same contact.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+  /contacts/contact_id_xrefs:
+    get:
+      tags:
+      - Contacts
+      summary: GET a collection of V2 and V3 API contact IDs
+      description: '<div class="Msg Msg--warning"><p class="note-text">Use this endpoint to migrate your locally stored V2 contact ids to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>
+
+
+        This GET call retrieves a collection of cross-referenced contact sequence IDs (`id` used in the V2 API) and UUIDs (`contact_id` used in the V3 API). This endpoint is intended for developers who have an existing V2 API integration, and are migrating their users to a new V3 API integration. The V2 and V3 APIs use different resource ID formats. Use the `sequence_ids` query parameter to specify a set of comma delimited V2 contacts ids to cross-referenced with their V3 `contact_ids`. See [Migrating to V3](/api_guide/migration_overview.html) to learn more.'
+      operationId: getContactIdXrefs
+      produces:
+      - application/json
+      parameters:
+      - name: sequence_ids
+        in: query
+        description: Comma delimited list of V2 API contact `ids` to cross-reference with the V3 API `contact_id` value. Endpoint accepts a maximum of 500 ids at a time.
+        required: true
+        type: string
+        maxItems: 500
+        format: csv
+        x-example: 1995998026,1882999944,1775099999
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/ContactXrefs'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+  /contacts/sms_engagement_history/{contact_id}:
+    get:
+      tags:
+      - Contacts
+      summary: GET SMS Engagement History for a Contact
+      description: Use this method to return SMS engagement details for a contact, such as SMS consent and advertising frequency details.
+      operationId: getSmsEngagementHistory
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: The contact's unique ID.
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/SmsEngagementHistory'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+  /contacts/counts:
+    get:
+      tags:
+      - Contacts
+      summary: GET Contact Consent Counts
+      description: Use to get the total contacts count for the account and the total contact-consent counts for each consent state. Optionally, to include the total number of contacts that subscribed within the last 30 days in the results, use `new_subscribers` in the `include` query parameter. To optimize open rates, reduce spam reports, and help grow your business,  you must value your contact's consent to receive or to not receive your emails.
+      operationId: countContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: include
+        in: query
+        description: Use to return the total number of contacts that subscribed within the last 30 days in the results.
+        required: false
+        type: string
+        enum:
+        - new_subscriber
+        x-example: new_subscriber
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/ContactsCounts'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+      x-sdk-methodName: getContactCounts
+  /contacts/resubscribe/{contact_id}:
+    put:
+      tags:
+      - Contacts
+      summary: PUT Resubscribe a Contact
+      description: 'Use this endpoint to send a confirmation resubscribe email to a contact in order to get their confirmation to resubscribe. This endpoint also adds the resubscribed contact to the contact lists you specify in the request body. You can only send a resubscribe email to the unsubscribed contact once. The contact is not resubscribed until after you receive their confirmation. '
+      operationId: resubscribeContact
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: The ID that uniquely identifies the contact to resubscribe.
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      - in: body
+        name: body
+        description: The JSON payload used to specify one (or more) contact lists to which the contact requested to be resubscribed.
+        required: true
+        schema:
+          $ref: '#/definitions/ContactResubscribeRequest'
+        x-example: 50429486-338f-11ed-a355-fa163ef30863
+      responses:
+        '200':
+          description: Contact resource has been updated.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+definitions:
+  ContactResource:
+    type: object
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+        description: Unique ID for each contact resource
+        readOnly: true
+      email_address:
+        $ref: '#/definitions/EmailAddress'
+      first_name:
+        type: string
+        example: Debora
+        description: The first name of the contact.
+        maxLength: 50
+      last_name:
+        type: string
+        example: Lang
+        description: The last name of the contact.
+        maxLength: 50
+      job_title:
+        type: string
+        example: Musician
+        description: The job title of the contact.
+        maxLength: 50
+      company_name:
+        type: string
+        example: Acme Corp.
+        description: The name of the company where the contact works.
+        maxLength: 50
+      birthday_month:
+        type: integer
+        example: 11
+        description: The month value for the contact's birthday. Valid values are from 1 through 12. You must use this property with <code>birthday_month</code>.
+      birthday_day:
+        type: integer
+        example: 24
+        description: The day value for the contact's birthday. Valid values are from 1 through 12. You must use this property with <code>birthday_day</code>.
+      anniversary:
+        type: string
+        example: '2006-11-15'
+        description: The anniversary date for the contact. For example, this value could be the date when the contact first became a customer of an organization in Constant Contact. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
+        maxLength: 10
+      update_source:
+        type: string
+        example: Contact
+        description: Identifies who last updated the contact; valid values are  <code>Contact</code> or <code>Account</code>.
+      create_source:
+        type: string
+        example: Account
+        description: Describes who added the contact; valid values are <code>Contact</code> or <code>Account</code>. Your integration must accurately identify <code>create_source</code> for compliance reasons; value is set when contact is created.
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: System generated date and time that the resource was created, in ISO-8601 format.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: System generated date and time that the contact was last updated, in ISO-8601 format.
+        readOnly: true
+      deleted_at:
+        type: string
+        format: date
+        example: '2016-07-08'
+        description: For deleted contacts (<code>email_address</code> contains <code>opt_out_source</code> and <code>opt_out_date</code>), shows the date of deletion.
+        readOnly: true
+      custom_fields:
+        type: array
+        description: Array of up to 25 <code>custom_field</code> subresources.
+        items:
+          $ref: '#/definitions/ContactCustomField'
+        maxItems: 25
+      phone_numbers:
+        type: array
+        description: Array of up to 3 <code>phone_numbers</code> subresources.
+        items:
+          $ref: '#/definitions/PhoneNumber'
+        maxItems: 3
+      street_addresses:
+        type: array
+        description: Array of up to 3 <code>street_addresses</code> subresources.
+        items:
+          $ref: '#/definitions/StreetAddress'
+        maxItems: 3
+      list_memberships:
+        type: array
+        description: Array of up to 50 <code>list_ids</code> to which the contact is subscribed.
+        items:
+          type: string
+          format: uuid
+          example: 07936f78-662a-11eb-af0a-fa163e56c9b0
+          description: Unique list ID to which the contact is subscribed.
+          readOnly: true
+        maxItems: 50
+      taggings:
+        type: array
+        description: Array of tags (<code>tag_id</code>) assigned to the contact, up to a maximum of 50.
+        items:
+          type: string
+          format: uuid
+          example: e7ddac60-51da-11eb-b3a4-fa163e6b01c1
+          description: Unique ID of a tag assigned to the contact, up to a maximum of 50.
+          readOnly: true
+        maxItems: 50
+      notes:
+        type: array
+        description: An array of notes about the contact listed by most recent note first.
+        items:
+          $ref: '#/definitions/Note'
+        maxItems: 150
+      sms_channel:
+        type: object
+        description: Includes SMS channel and consent details.
+        properties:
+          sms_channel_id:
+            type: string
+            format: uuid
+            example: 3fa85f64-5712-6245-b3fc-2c963f66bfc6
+            description: The unique ID that identifies an SMS channel.
+          sms_address:
+            type: string
+            example: '7815551212'
+            description: The phone number of the SMS-capable phone, which does not include the country code.
+          dial_code:
+            type: string
+            example: '1'
+            description: The dial code used for the SMS-capable phone. For example, the dial code for the United States is <code>1</code>.
+          country_code:
+            type: string
+            example: US
+            description: The two character ISO country code used for the SMS-capable phone. For example, the country code for the United States is <code>US</code>.
+          update_source:
+            type: string
+            example: Contact
+            description: Identifies who last updated SMS details for the contact. Valid values are Contact or Account
+          create_source:
+            type: string
+            example: Account
+            description: 'Identifies who added SMS details for the contact. The value is set when you create SMS details for the contact. Valid values are <code>Contact</code> or <code>Account</code>. '
+          sms_channel_consents:
+            type: array
+            description: Identifies SMS channel consent details such as the current permission status for the SMS channel and opt-in date.
+            items:
+              $ref: '#/definitions/SmsChannelConsentDetails'
+    description: Use this endpoint to retrieve (GET), update (PUT), or DELETE an existing contact resource specified using the <code>contact_id</code> path parameter.
+  SmsChannelConsentDetails:
+    type: object
+    properties:
+      sms_consent_permission:
+        type: string
+        example: explicit
+        description: Identifies the current permission status for the SMS channel.
+      consent_type:
+        type: string
+        example: promotional_sms
+        description: Identifies the type of consent provided. Currently, only <code>promotional_sms</code> is supported.
+      opt_in_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time, in ISO-8601 format, that the contact subscribed/opted-in to receiving SMS from the account. Displays only if the contact subscribes/opts-in. System generated.
+        readOnly: true
+      opt_out_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time, in ISO-8601 format, that the contact unsubscribed/opted-out of receiving SMS from the account. Displays only if the contact unsubscribed/opted-out. System generated.
+        readOnly: true
+      advertised_frequency:
+        type: string
+        example: '1'
+        description: The numeric used to set how often to send SMS advertisements during a specified time interval (<code>advertised_interval</code>). For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the  <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
+      advertised_interval:
+        type: string
+        example: monthly
+        description: Identifies the unit of time used by Constant Contact to send SMS advertisements as a string enum. For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the SMS stats were created, in ISO-8601 format. System generated.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the SMS stats were updated, in ISO-8601 format. System generated.
+        readOnly: true
+    description: Provides SMS consent details.
+  ContactPutRequest:
+    type: object
+    required:
+    - update_source
+    properties:
+      email_address:
+        $ref: '#/definitions/EmailAddressPut'
+      first_name:
+        type: string
+        example: Debora
+        description: The contact's first name
+        maxLength: 50
+      last_name:
+        type: string
+        example: Lang
+        description: The contact's last name
+        maxLength: 50
+      job_title:
+        type: string
+        example: Musician
+        description: The contact's job title
+        maxLength: 50
+      company_name:
+        type: string
+        example: Acme Corp.
+        description: Name of the company the contact works for.
+        maxLength: 50
+      birthday_month:
+        type: integer
+        example: 11
+        description: Accepts values from 1-12; must be used with <code>birthday_day</code>
+      birthday_day:
+        type: integer
+        example: 24
+        description: Accepts values from 1-31; must be used with <code>birthday_month</code>
+      anniversary:
+        type: string
+        example: '2006-11-15'
+        description: The anniversary date; Accepted formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D, MM-DD-YYYY, M-D-YYYY
+        maxLength: 10
+      update_source:
+        type: string
+        example: Account
+        description: Identifies who last updated the contact; valid values are <code>Contact</code> or <code>Account</code>.
+      custom_fields:
+        type: array
+        description: Array of up to 25 <code>custom_field</code> subresources.
+        items:
+          $ref: '#/definitions/ContactCustomField'
+        maxItems: 25
+      phone_numbers:
+        type: array
+        description: Array of up to 3 <code>phone_numbers</code> subresources.
+        items:
+          $ref: '#/definitions/PhoneNumberPut'
+        maxItems: 3
+      street_addresses:
+        type: array
+        description: Array of up to 3 <code>street_addresses</code> subresources.
+        items:
+          $ref: '#/definitions/StreetAddressPut'
+        maxItems: 3
+      list_memberships:
+        type: array
+        description: Array of up to 50 <code>list_ids</code> to which the contact is subscribed.
+        items:
+          type: string
+          format: uuid
+          example: 07936f78-662a-11eb-af0a-fa163e56c9b0
+          description: Unique list ID to which the contact is subscribed.
+          readOnly: true
+        maxItems: 50
+      taggings:
+        type: array
+        description: Array of tags (<code>tag_id</code>) assigned to the contact, up to a maximum of 50.
+        items:
+          type: string
+          format: uuid
+          example: e7ddac60-51da-11eb-b3a4-fa163e6b01c1
+          description: Unique ID of a tag assigned to the contact, up to a maximum of 50.
+          readOnly: true
+        maxItems: 50
+      notes:
+        type: array
+        description: An array of notes about the contact listed by most recent note first.
+        items:
+          $ref: '#/definitions/Note'
+        maxItems: 150
+      sms_channel:
+        $ref: '#/definitions/ContactSmsChannel'
+  ContactSmsChannelConsents:
+    type: object
+    required:
+    - consent_type
+    - sms_consent_permission
+    properties:
+      sms_consent_permission:
+        type: string
+        example: explicit
+        description: The current status of the SMS channel.
+      consent_type:
+        type: string
+        example: promotional_sms
+        description: The type of consent provided.
+      consent_medium_details:
+        type: string
+        example: IPhone 13 device used to provide consent.
+        description: Additional information about the consent such as the type of device used.
+  PhoneNumberPut:
+    type: object
+    properties:
+      phone_number:
+        type: string
+        example: +1-555-555-5555
+        description: The contact's phone number.
+        maxLength: 25
+      kind:
+        type: string
+        example: home
+        description: Identifies the type of phone number; valid values are home, work, mobile, or other.
+  ContactsCounts:
+    type: object
+    properties:
+      total:
+        type: integer
+        example: 72
+        description: Total number of contacts for the account.
+      explicit:
+        type: integer
+        example: 10
+        description: Total number of contacts explicitly confirmed. Consent is obtained when you explicitly ask your potential contacts for permission to send the email (for example, using a sign-up form) and they agree. After you obtain express consent, it is good forever or until the contact opts out.
+      implicit:
+        type: integer
+        example: 20
+        description: Total number of contacts implicitly confirmed. Consent is inferred based on actions, such as having an existing business relationship (making a purchase or donation, for example). In order to maintain implied consent to comply with CASL a contact must take a business action with you at least once every two years. Under CAN-Spam there is no need to maintain implied consent, it is assumed until the receiver indicates they no longer wish to receive messages.
+      pending:
+        type: integer
+        example: 30
+        description: Total number of contacts pending confirmation. Consent is requested and pending confirmation from the contact.
+      unsubscribed:
+        type: integer
+        example: 12
+        description: Total number of unsubscribed contacts. Consent is revoked when a contact has unsubscribed.
+      new_subscriber:
+        type: integer
+        example: 1
+        description: Total number of newly subscribed contacts.
+  PhoneNumber:
+    type: object
+    properties:
+      phone_number_id:
+        type: string
+        format: uuid
+        example: 6eec28a6-1cf5-11ea-859f-fa163e56c9b0
+        description: Unique ID for the phone number
+        readOnly: true
+      phone_number:
+        type: string
+        example: +1-555-555-5555
+        description: The contact's phone number.
+        maxLength: 25
+      kind:
+        type: string
+        example: home
+        description: Identifies the type of phone number; valid values are home, work, mobile, or other.
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:53:04-05:00'
+        description: Date and time that the street address was created, in ISO-8601 format. System generated.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:56:29-05:00'
+        description: Date and time that the phone number was last updated, in ISO-8601 format. System generated.
+        readOnly: true
+      update_source:
+        type: string
+        example: Account
+        description: Identifies who last updated the phone number; valid values are Contact or Account
+      create_source:
+        type: string
+        example: Account
+        description: Identifies who added the phone number; valid values are Contact or Account.
+  ContactCustomField:
+    type: object
+    required:
+    - custom_field_id
+    properties:
+      custom_field_id:
+        type: string
+        format: uuid
+        example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+        description: The custom field's unique ID
+      value:
+        type: string
+        example: Tesla S 2017
+        description: The custom field value.
+        maxLength: 255
+      choice_ids:
+        type: array
+        description: For <code>>multi_select</code> and <code>single_select</code> data types, the ID that uniquely identifies the choice associated with a the custom field.
+        items:
+          type: string
+          example: '000001'
+    description: Custom fields allow Constant Contact users to add custom content to a contact that can be used to personalize emails in addition to the standard set of variables available for email personalization.
+  Note:
+    type: object
+    properties:
+      note_id:
+        type: string
+        format: uuid
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        description: The ID that uniquely identifies the note (UUID format).
+      created_at:
+        type: string
+        format: date-time
+        example: '2021-05-12T13:48:44.108Z'
+        description: The date that the note was created.
+      content:
+        type: string
+        example: This contact resubscribed on 2021-05-12.
+        description: The content for the note.
+        maxLength: 2000
+    description: A note about the contact.
+  ContactResubscribeRequest:
+    type: object
+    required:
+    - list_ids
+    properties:
+      list_ids:
+        type: array
+        description: Array of list id values. Constant Contact adds the resubscribed contact to the contact lists you provide in the array.
+        items:
+          type: string
+          format: uuid
+          example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+          description: Contact list id value.
+  HistoryDetails:
+    type: object
+    properties:
+      state:
+        type: string
+        example: O
+        description: The code representing the consent state, including <code>E</code> for optin and <code>O</code> for Optin.
+      source:
+        type: string
+        example: A
+        description: The code representing the consent source type, including <code>A</code> for Account, <code>C</code> for Contact, and <code>S</code>' for System.
+      consent_type:
+        type: string
+        example: promotional_sms
+        description: The type of SMS consent used.
+      consent_action_time:
+        type: string
+        format: date-time
+        example: 2023-01-23 06:09:23 -0800
+        description: The date and time that SMS engagement data was last updated, in ISO-8601 format. System generated.
+      consent_action_type:
+        type: string
+        example: opt_out
+        description: The type of consent action provided.
+      consent_medium_type:
+        type: string
+        example: MD
+        description: The code representing the medium used to provide consent. Medium types include mobile device (<code>MD</code>). lead generation form(<code>LF</code>), deactivation by carrier(<code>CD</code>), import_file:(<code>FI</code>), and system (<code>SY</code>).
+      source_consent_timestamp:
+        type: string
+        example: 2016-03-03T10:53:04-05:0
+        description: The time that SMS consent was last updated.
+      source_sms_number:
+        type: string
+        example: '6035550239'
+        description: If applicable, the SMS consent number associated with the source.
+      advertised_frequency:
+        type: integer
+        example: 2
+        description: If applicable, the advertising numeric component used to advertise to the contact.. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
+      advertised_interval:
+        type: string
+        example: W
+        description: If applicable, the interval component used to advertise to the contact. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
+    description: Additional details about the SMS consent actions (opt-in, opt-out) in JSON format. The  <code>consent_action_type</code> and the method used to add or update a contacts SMS details determines which properties are returned in the results.
+  JmmlSmsChannelConsents:
+    type: object
+    required:
+    - consent_medium_details
+    - consent_medium_type
+    - consent_medium_url
+    - consent_type
+    - sms_consent_permission
+    properties:
+      sms_consent_permission:
+        type: string
+        example: pending_confirmation
+        description: The current consent status of the SMS Channel.
+      consent_type:
+        type: string
+        example: promotional_sms
+        description: The type of consent provided.
+      consent_medium_type:
+        type: string
+        example: LF
+        description: A code representing where the consent was retrieved.
+      consent_medium_url:
+        type: string
+        example: https://lp.constantcontactpages.com/su/iPtuMuh
+        description: The URL for which the consent was gathered, such as a landing page.
+      consent_medium_details:
+        type: string
+        example: Contact used our landing page to consent to SMS.
+        description: Additional information for the consent
+      advertised_frequency:
+        type: integer
+        example: 1
+        description: The numeric component used to indicate how often to send advertising. For example, <code>1</code> indicates once. Use with <code>advertised_internal</code> property to indicate when on the calender to send it. For example, to send once (<code>1</code>) daily, weekly, or monthly.
+      advertised_interval:
+        type: string
+        example: weekly
+        description: The calender interval used to indicate when advertising is sent. For example <code>weekly</code>.
+  Contacts:
+    type: object
+    properties:
+      contacts:
+        type: array
+        items:
+          $ref: '#/definitions/ContactResource'
+      contacts_count:
+        type: integer
+        example: 3249
+        description: Total number of contacts in the response.
+      _links:
+        $ref: '#/definitions/PagingLinks'
+      status:
+        type: string
+        description: If you use the <code>segment_id</code> query parameter to filter results based on a segment, this property indicates that the V3 API accepted your request and is still processing it.
+    description: Use this endpoint to retrieve (GET) a collection of existing contacts, or to create (POST) a new contact.
+  JmmlSmsChannel:
+    type: object
+    required:
+    - country_code
+    - dial_code
+    - sms_address
+    - sms_channel_consents
+    properties:
+      sms_address:
+        type: string
+        example: '7815551212'
+        description: The contact's SMS-capable phone number, excluding the country code.
+      dial_code:
+        type: string
+        example: '1'
+        description: The dial code the country uses. For example, use <code>1</code> for the United States dial code.
+      country_code:
+        type: string
+        example: US
+        description: The two-digit code that identifies the country.
+      sms_channel_consents:
+        type: array
+        description: The consents provided for the SMS Channel.
+        items:
+          $ref: '#/definitions/JmmlSmsChannelConsents'
+    description: The contact's SMS details.
+  StreetAddress:
+    type: object
+    required:
+    - kind
+    properties:
+      street_address_id:
+        type: string
+        format: uuid
+        example: 977a9a2e-3e00-11ea-804b-fa163e56c9b0
+        description: Unique ID for the street address
+        readOnly: true
+      kind:
+        type: string
+        example: home
+        description: Describes the type of address; valid values are home, work, or other.
+      street:
+        type: string
+        example: 123 Kashmir Valley Road
+        description: Number and street of the address.
+        maxLength: 255
+      city:
+        type: string
+        example: Chicago
+        description: The name of the city where the contact lives.
+        maxLength: 50
+      state:
+        type: string
+        example: Illinois
+        description: The name of the state or province where the contact lives.
+        maxLength: 50
+      postal_code:
+        type: string
+        example: '60609'
+        description: The zip or postal code of the contact.
+        maxLength: 50
+      country:
+        type: string
+        example: United States
+        description: The name of the country where the contact lives.
+        maxLength: 50
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:53:04-05:00'
+        description: Date and time that the street address was created, in ISO-8601 format. System generated.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:56:29-05:00'
+        description: Date and time that the street address was last updated, in ISO-8601 format. System generated.
+        readOnly: true
+  ContactSmsChannel:
+    type: object
+    required:
+    - full_sms_address
+    - sms_channel_consents
+    properties:
+      full_sms_address:
+        type: string
+        example: '17815551212'
+        description: The SMS-capable phone number for the Contact, including the dial code
+      sms_channel_consents:
+        type: array
+        description: The consents for the SMS Channel.
+        items:
+          $ref: '#/definitions/ContactSmsChannelConsents'
+  SmsEngagementHistory:
+    type: array
+    items:
+      type: object
+      description: Provides a contact's SMS engagement history details. The properties returned depend on the type of SMS consent granted by the contact.
+      properties:
+        contact_id:
+          type: string
+          example: 7f7923da-ebf7-11ec-ae6e-3e22fbb230ec
+          description: The unique contact UUID.
+        sms_channel_id:
+          type: string
+          example: 3fa85f64-5712-6245-b3fc-2c963f66bfc6
+          description: The unique SMS channel UUID.
+        sms_channel_history_id:
+          type: string
+          example: 04515cb3-17be-41e4-823a-f71c3d381c7b
+          description: The unique SMS channel history UUID.
+        insert_time:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:53:04-05:00'
+          description: The date and time that the history record was created, in ISO-8601 format. System generated.
+        history_details:
+          $ref: '#/definitions/HistoryDetails'
+  CreateOrUpdateContactCustomField:
+    type: object
+    properties:
+      custom_field_id:
+        type: string
+        format: uuid
+        example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+        description: The unique ID for the <code>custom_field</code>.
+      value:
+        type: string
+        example: Tesla S 2017
+        description: The value of the <code>custom_field</code>.
+        maxLength: 255
+  ContactPostRequest:
+    type: object
+    properties:
+      email_address:
+        $ref: '#/definitions/EmailAddressPost'
+      first_name:
+        type: string
+        example: Debora
+        description: The first name of the contact.
+        maxLength: 50
+      last_name:
+        type: string
+        example: Lang
+        description: The last name of the contact.
+        maxLength: 50
+      job_title:
+        type: string
+        example: Musician
+        description: The job title of the contact.
+        maxLength: 50
+      company_name:
+        type: string
+        example: Acme Corp.
+        description: The name of the company where the contact works.
+        maxLength: 50
+      create_source:
+        type: string
+        example: Account
+        description: Describes who added the contact; valid values are <code>Contact</code> or <code>Account</code>. Your integration must accurately identify <code>create_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
+      birthday_month:
+        type: integer
+        example: 11
+        description: The month value for the contact's birthday. Valid values are from 1 through 12. The <code>birthday_month</code> property is required if you use <code>birthday_day</code>.
+      birthday_day:
+        type: integer
+        example: 24
+        description: The day value for the contact's birthday. Valid values are from 1 through 31. The <code>birthday_day</code> property is required if you use <code>birthday_month</code>.
+      anniversary:
+        type: string
+        example: '2006-11-15'
+        description: The anniversary date for the contact. For example, this value could be the date when the contact first became a customer of an organization in Constant Contact. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
+        maxLength: 10
+      custom_fields:
+        type: array
+        description: Array of up to 25 <code>custom_field</code> key value pairs.
+        items:
+          $ref: '#/definitions/ContactCustomField'
+        maxItems: 25
+      phone_numbers:
+        type: array
+        description: Array of up to 3 phone numbers subresources.
+        items:
+          $ref: '#/definitions/PhoneNumberPut'
+        maxItems: 3
+      street_addresses:
+        type: array
+        description: Array of up to 3 street address subresources.
+        items:
+          $ref: '#/definitions/StreetAddressPut'
+        maxItems: 3
+      list_memberships:
+        type: array
+        description: Array of <code>list_id</code>s to which the contact is being subscribed, up to a maximum of 50.
+        items:
+          type: string
+          format: uuid
+          example: 07936f78-662a-11eb-af0a-fa163e56c9b0
+          description: Unique ID of a list to which the contact is subscribed, up to a maximum of 50.
+          readOnly: true
+        maxItems: 50
+      taggings:
+        type: array
+        description: Array of tags (<code>tag_id</code>) assigned to the contact, up to a maximum of 50.
+        items:
+          type: string
+          format: uuid
+          example: 00e4429c-3beb-11eb-9f34-fa163e56c9b9
+          description: Unique ID of a tag assigned to the contact, up to a maximum of 50.
+          readOnly: true
+        maxItems: 50
+      notes:
+        type: array
+        description: An array of notes about the contact.
+        items:
+          $ref: '#/definitions/Note'
+        maxItems: 150
+      sms_channel:
+        $ref: '#/definitions/ContactSmsChannel'
+  EmailAddressPost:
+    type: object
+    required:
+    - address
+    properties:
+      address:
+        type: string
+        example: dlang@example.com
+        description: The contact's email address.
+        maxLength: 80
+      permission_to_send:
+        type: string
+        example: implicit
+        description: 'Identifies the type of permission that the Constant Contact account has been granted to send email to the contact. Types of permission: explicit, implicit, not_set, pending_confirmation, temp_hold, unsubscribed.'
+    description: The contact's email address and related properties.
+  EmailAddress:
+    type: object
+    required:
+    - address
+    properties:
+      address:
+        type: string
+        example: dlang@example.com
+        description: The email address of the contact. The email address must be unique for each contact.
+        maxLength: 80
+      permission_to_send:
+        type: string
+        example: implicit
+        description: 'Identifies the type of permission that the Constant Contact account has to send email to the contact. Types of permission: explicit, implicit, not_set, pending_confirmation, temp_hold, unsubscribed.'
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:53:04-05:00'
+        description: Date and time that the email_address was created, in ISO-8601 format. System generated.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:56:29-05:00'
+        description: Date and time that the email_address was last updated, in ISO-8601 format. System generated.
+        readOnly: true
+      opt_in_source:
+        type: string
+        example: Contact
+        description: Describes who opted-in the email_address; valid values are Contact or Account. Your integration must accurately identify <code>opt_in_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
+      opt_in_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the email_address was opted-in to receive email from the account, in ISO-8601 format. System generated.
+        readOnly: true
+      opt_out_source:
+        type: string
+        example: Contact
+        description: 'Describes the source of the unsubscribed/opt-out action: either Account or Contact. If the Contact opted-out, then the account cannot send any campaigns to this contact until the contact opts back in. If the Account, then the account can add the contact back to any lists and send to them. Displayed only if contact has been unsubscribed/opt-out.'
+        readOnly: true
+      opt_out_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the contact unsubscribed/opted-out of receiving email from the account, in ISO-8601 format. Displayed only if contact has been unsubscribed/opt-out. System generated.
+        readOnly: true
+      opt_out_reason:
+        type: string
+        example: I am no longer interested in this service.
+        description: The reason, as provided by the contact, that they unsubscribed/opted-out of receiving email campaigns.
+        maxLength: 255
+      confirm_status:
+        type: string
+        example: confirmed
+        description: 'Indicates if the contact confirmed their email address after they subscribed to receive emails. Possible values: pending, confirmed, off.'
+        readOnly: true
+    description: A contact subresource describing the contact's email address.
+  ContactXref:
+    type: object
+    properties:
+      sequence_id:
+        type: string
+        example: '0016633325'
+        description: The V2 API contact unique identifier
+      contact_id:
+        type: string
+        format: uuid
+        example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
+        description: The V3 API contact unique identifier
+    description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
+  Link:
+    type: object
+    properties:
+      href:
+        type: string
+        example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+  PagingLinks:
+    type: object
+    properties:
+      next:
+        $ref: '#/definitions/Link'
+  ContactCreateOrUpdateInput:
+    type: object
+    required:
+    - list_memberships
+    properties:
+      email_address:
+        type: string
+        example: jdodge@example.com
+        description: The email address for the contact. This method identifies each unique contact using their email address. If the email address exists in the account, this method updates the contact. If the email address is new, this method creates a new contact.
+        maxLength: 50
+      first_name:
+        type: string
+        example: Jake
+        description: The first name of the contact.
+        maxLength: 50
+      last_name:
+        type: string
+        example: Dodge
+        description: The last name of the contact.
+        maxLength: 50
+      job_title:
+        type: string
+        example: Musician
+        description: The job title of the contact.
+        maxLength: 50
+      company_name:
+        type: string
+        example: Acme Corp.
+        description: The name of the company where the contact works.
+        maxLength: 50
+      phone_number:
+        type: string
+        example: (555) 555-1212
+        description: The phone number for the contact.
+        maxLength: 25
+      list_memberships:
+        type: array
+        description: The contact lists you want to add the contact to as an array of up to 50 contact <code>list_id</code> values. You must include at least one <code>list_id</code>.
+        items:
+          type: string
+          format: uuid
+          example: 07936f78-662a-11eb-af0a-fa163e56c9b0
+        maxItems: 50
+        minItems: 1
+      custom_fields:
+        type: array
+        description: The custom fields you want to add to the contact as an array of up to 50 custom field objects.
+        items:
+          $ref: '#/definitions/CreateOrUpdateContactCustomField'
+        maxItems: 50
+      anniversary:
+        type: string
+        example: 11-15-2006
+        description: 'The anniversary date for the contact. For example, this value could be the date when the contact first became a customer of an organization in Constant Contact. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
+
+          '
+      birthday_month:
+        type: integer
+        example: 11
+        description: The month value for the contact's birthday. Valid values are from 1 through 12. The <code>birthday_month</code> property is required if you use <code>birthday_day</code>.
+      birthday_day:
+        type: integer
+        example: 24
+        description: The day value for the contact's birthday. Valid values are from 1 through 31. The <code>birthday_day</code> property is required if you use <code>birthday_month</code>.
+      street_address:
+        type: object
+        properties:
+          kind:
+            type: string
+            example: home
+            description: The type of street address for the contact. Valid values are <code>home</code>, <code>work</code>, or <code>other</code>.
+          street:
+            type: string
+            example: 1601 Trapelo Rd
+            description: The number and street of the contact's address.
+            maxLength: 255
+          city:
+            type: string
+            example: Waltham
+            description: The name of the city for the contact's address.
+            maxLength: 50
+          state:
+            type: string
+            example: Massachusetts
+            description: The name of the state or province for the contact's address.
+            maxLength: 50
+          postal_code:
+            type: string
+            example: '02451'
+            description: The zip or postal code for the contact's address.
+            maxLength: 50
+          country:
+            type: string
+            example: United States
+            description: The name of the country for the contact's address.
+            maxLength: 50
+        required:
+        - kind
+      sms_channel:
+        $ref: '#/definitions/JmmlSmsChannel'
+  StreetAddressPut:
+    type: object
+    required:
+    - kind
+    properties:
+      kind:
+        type: string
+        example: home
+        description: Describes the type of address; valid values are home, work, or other.
+      street:
+        type: string
+        example: 123 Kashmir Valley Road
+        description: Number and street of the address.
+        maxLength: 255
+      city:
+        type: string
+        example: Chicago
+        description: The name of the city where the contact lives.
+        maxLength: 50
+      state:
+        type: string
+        example: Illinois
+        description: The name of the state or province where the contact lives.
+        maxLength: 50
+      postal_code:
+        type: string
+        example: '60609'
+        description: The zip or postal code of the contact.
+        maxLength: 50
+      country:
+        type: string
+        example: United States
+        description: The name of the country where the contact lives.
+        maxLength: 50
+  ContactCreateOrUpdateResponse:
+    type: object
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
+        description: The unique identifier for the contact that the V3 API created or updated.
+      action:
+        type: string
+        description: Identifies if the V3 API created a new contact or updated an existing contact.
+  EmailAddressPut:
+    type: object
+    required:
+    - address
+    properties:
+      address:
+        type: string
+        example: dlang@example.com
+        description: The email address of the contact. The email address must be unique for each contact.
+        maxLength: 80
+      permission_to_send:
+        type: string
+        example: implicit
+        description: 'Identifies the type of permission that the Constant Contact account has to send email to the contact. Types of permission: explicit, implicit, not_set, pending_confirmation, temp_hold, unsubscribed.'
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:53:04-05:00'
+        description: Date and time that the email_address was created, in ISO-8601 format. System generated.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:56:29-05:00'
+        description: Date and time that the email_address was last updated, in ISO-8601 format. System generated.
+        readOnly: true
+      opt_in_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the email_address was opted-in to receive email from the account, in ISO-8601 format. System generated.
+        readOnly: true
+      opt_out_source:
+        type: string
+        example: Contact
+        description: 'Describes the source of the unsubscribed/opt-out action: either Account or Contact. If the Contact opted-out, then the account cannot send any campaigns to this contact until the contact opts back in. If the Account, then the account can add the contact back to any lists and send to them. Displayed only if contact has been unsubscribed/opt-out.'
+        readOnly: true
+      opt_out_date:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: Date and time that the contact unsubscribed/opted-out of receiving email from the account, in ISO-8601 format. Displayed only if contact has been unsubscribed/opt-out. System generated.
+        readOnly: true
+      opt_out_reason:
+        type: string
+        example: I am no longer interested in this service.
+        description: The reason, as provided by the contact, that they unsubscribed/opted-out of receiving email campaigns.
+        maxLength: 255
+      confirm_status:
+        type: string
+        example: confirmed
+        description: 'Indicates if the contact confirmed their email address after they subscribed to receive emails. Possible values: pending, confirmed, off.'
+        readOnly: true
+    description: The contact's email address and related properties.
+  ContactXrefs:
+    type: object
+    properties:
+      xrefs:
+        type: array
+        description: An array of cross-referenced V3 API <code>contact_id</code> and V2 API <code>sequence_id</code> values. Response is sorted ascending by <code>sequence_id</code>.
+        items:
+          $ref: '#/definitions/ContactXref'
+        maxItems: 500
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

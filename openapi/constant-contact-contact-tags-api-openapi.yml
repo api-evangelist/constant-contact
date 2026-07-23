@@ -1,0 +1,451 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Contact Tags API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Contact Tags
+  description: Endpoints and methods to get, create, delete, and update one or more contact tags.
+paths:
+  /contact_tags/{tag_id}:
+    get:
+      tags:
+      - Contact Tags
+      summary: GET Tag Details
+      description: Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see  [Get a Tag's Details](/api_guide/tags_get_single.html).
+      operationId: getTag
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: tag_id
+        in: path
+        description: The ID that uniquely identifies a tag (UUID format).
+        required: true
+        type: string
+        format: uuid
+        x-example: d938260a-af1e-11e9-a540-fa163e595123
+      - name: include_count
+        in: query
+        description: Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.
+        required: false
+        type: boolean
+        default: false
+        x-example: true
+      responses:
+        '200':
+          description: Request Successful
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+        oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+    put:
+      tags:
+      - Contact Tags
+      summary: PUT (Update) a Tag
+      description: Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. [Learn more](/api_guide/tags_update.html)
+      operationId: putTag
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: tag_id
+        in: path
+        description: The system generated ID used to uniquely identify the tag that you want to rename (UUID format).
+        required: true
+        type: string
+        format: uuid
+        x-example: 30c97dd0-332e-11eb-923c-fa163e595327
+      - in: body
+        name: body
+        description: The JSON payload used to update the tag name (`name`).
+        required: true
+        schema:
+          $ref: '#/definitions/TagPut'
+      responses:
+        '200':
+          description: Request Successful
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+    delete:
+      tags:
+      - Contact Tags
+      summary: DELETE a Tag
+      description: Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. [Learn more](/api_guide/tags_delete.html).
+      operationId: deleteTag
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: tag_id
+        in: path
+        description: The ID that uniquely identifies a tag in UUID format.
+        required: true
+        type: string
+        format: uuid
+        x-example: 30c97dd0-332e-11eb-923c-fa163e595327
+      responses:
+        '202':
+          description: The asynchronous request was successfully accepted. To view the results of the activity request, use the href link returned in the response.
+          schema:
+            $ref: '#/definitions/ActivityGeneric'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '406':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+        oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+  /contact_tags:
+    get:
+      tags:
+      - Contact Tags
+      summary: GET Details for All Tags
+      description: 'Use this endpoint to get details for all tags in your account. Use the <code>include_count</code> query parameter to include the total number of contacts assigned each tag. Use the <code>limit</code> query parameter to limit the number of tag results returned per page. To get the next page of results, copy the <code>cursor={the cursor ID}</code> from the resulting href link and add it (<code>&</code>) to the URL. For example:
+
+
+        <p><code>/v3/contact_tags?limit=1&cursor=</code></p><p><code>bGltaXQ9MSZuZXh0PTJjZDgwMjdhLTc4YzAtMTFlOS1iZmQwLWZhMTYzZTZiMDFjMQ=</code></p>
+
+        To learn more, see [Get Tags](/api_guide/tags_get.html).'
+      operationId: getTags
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.
+        required: false
+        type: integer
+        default: 50
+        maxLength: 500
+        minLength: 1
+        x-example: 25
+      - name: include_count
+        in: query
+        description: Returns the total number of contacts (`contacts_count`) to which a tag applies.
+        required: false
+        type: boolean
+        default: false
+        x-example: true
+      responses:
+        '200':
+          description: Request Successful
+          schema:
+            $ref: '#/definitions/Tags'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+        oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+      x-sdk-methodName: getAllTags
+    post:
+      tags:
+      - Contact Tags
+      summary: POST (Create) a Tag
+      description: Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. [Learn more](/api_guide/tags_create.html).
+      operationId: postTag
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The JSON payload to use to create a new tag.
+        required: true
+        schema:
+          $ref: '#/definitions/TagPost'
+      responses:
+        '201':
+          description: Request Successful
+          schema:
+            $ref: '#/definitions/Tag'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+definitions:
+  Next-2:
+    type: object
+    properties:
+      href:
+        type: string
+        description: The next link in the page or null if there are no additional pages.
+  Tag:
+    type: object
+    properties:
+      tag_id:
+        type: string
+        format: uuid
+        example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        description: The ID that uniquely identifies a tag (UUID format)
+      name:
+        type: string
+        example: Gold card member
+        description: The unique tag name.
+      contacts_count:
+        type: integer
+        example: 325
+        description: The total number of contacts who are assigned this tag.
+        readOnly: true
+      created_at:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The system generated date and time when the tag was created (ISO-8601 format).
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: The system generated date and time when the tag was last updated (ISO-8601 format).
+        readOnly: true
+      tag_source:
+        type: string
+        example: ESTY
+        description: The source used to tag contacts.
+        readOnly: true
+  Tags:
+    type: object
+    properties:
+      tags:
+        type: array
+        description: Lists all tags and provides tag details.
+        items:
+          $ref: '#/definitions/Tag'
+      _links:
+        description: HAL property that contains next link if applicable.
+        $ref: '#/definitions/PagingLinks-2'
+  ActivityErrors:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Message describing the error condition.
+        readOnly: true
+  ActivityGenericStatus:
+    type: object
+    properties:
+      items_total_count:
+        type: integer
+        example: 89
+        description: The total number of tags that this activity will delete.
+        readOnly: true
+      items_completed_count:
+        type: integer
+        example: 89
+        description: The number of tags that this activity has currently deleted.
+        readOnly: true
+  TagPut:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: Bronze card member
+        description: The new tag name to use. The tag name must be unique.
+        minLength: 1
+        maxLength: 255
+  ActivityGeneric:
+    type: object
+    required:
+    - activity_id
+    - state
+    properties:
+      activity_id:
+        type: string
+        example: d44ac96c-24f3-11eb-8ae8-fa163e595123
+        description: The ID that uniquely identifies the activity.
+      state:
+        type: string
+        example: completed
+        description: The processing state for the activity.
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: The system generated date and time that the resource was created, in ISO-8601 format.
+        readOnly: true
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: The system generated date and time that the resource was last updated, in ISO-8601 format.
+        readOnly: true
+      percent_done:
+        type: integer
+        example: 25
+        description: The percentage complete for the specified activity.
+        readOnly: true
+      activity_errors:
+        type: array
+        description: An array of error messages if errors occurred for a specified activity. The system returns an empty array if no errors occur.
+        readOnly: true
+        items:
+          $ref: '#/definitions/ActivityErrors'
+      status:
+        $ref: '#/definitions/ActivityGenericStatus'
+      _links:
+        $ref: '#/definitions/ActivityLinks-2'
+  PagingLinks-2:
+    type: object
+    properties:
+      next:
+        description: The link to the next page of results.
+        $ref: '#/definitions/Links-4'
+  Links-4:
+    type: object
+    properties:
+      href:
+        type: string
+      next:
+        description: Contains the next page link, if applicable.
+        $ref: '#/definitions/Next-2'
+  ActivityLinks-2:
+    type: object
+    properties:
+      self:
+        type: object
+        description: The link returned in the response that you use to retrieve the status for the specified activity.
+        properties:
+          href:
+            type: string
+            example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+  TagPost:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: Silver card member
+        description: Specify a unique name to use to identify the tag. Tag names must be at least one character in length and not more than 255 characters.
+        minLength: 1
+        maxLength: 255
+      tag_source:
+        type: string
+        example: ESTY
+        description: The source used to identify the contacts to tag.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

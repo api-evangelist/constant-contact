@@ -1,0 +1,212 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Email Campaigns AB Tests API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Email Campaigns AB Tests
+  description: Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.
+paths:
+  /emails/activities/{campaign_activity_id}/abtest:
+    get:
+      tags:
+      - Email Campaigns AB Tests
+      summary: GET A/B Test Details for an Email Campaign Activity
+      description: Use this method to get A/B test details for a primary email campaign activity, such as the alternate email subject line, the contact test percentage size, and the number of hours to wait to determine the winning subject line to use. Currently, A/B tests support subject line only.
+      operationId: retrieveEmailCampaignABTestUsingGET
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/ABTestData'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getABTestEmailCampaign
+    post:
+      tags:
+      - Email Campaigns AB Tests
+      summary: POST (Create) an A/B Test for an Email Campaign Activity
+      description: Use this method to create a new A/B test for a primary email campaign activity. You must specify an alternative subject line, the percentage of contact to use for the A/B test, and the number of hours to wait after the A/B test is sent before determining the winning subject line. To create an A/B test, the campaign must have a `current_status` of `DRAFT`. When you create an A/B test, the `type` changes from Newsletter (code= `10`) to A/B Test (code= `57`).
+      operationId: createEmailCampaignABTestUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      - in: body
+        name: abtest
+        description: Specify the `alternative_subject` line, `test_size` percentage of contacts (value must from `5` to `50` inclusively), and the `winner_wait_duration` (value must be `6`, `12`, `24`, or `48` hours).
+        required: true
+        schema:
+          $ref: '#/definitions/ABTestData'
+      responses:
+        '201':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/ABTestData'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-sdk-methodName: createABTestEmailCampaign
+    delete:
+      tags:
+      - Email Campaigns AB Tests
+      summary: DELETE an A/B Test for an Email Campaign Activity
+      description: Deletes an A/B Test on an primary email campaign activity. You can only delete A/B tests that have a `current_status` of `Draft`. Deleting an A/B tests reverts the email campaign activity `type` from A/B Test (code= `57`) back to NewsLetter (code= `10`). Constant Contact uses the original subject line, rather than the alternate A/B test subject line, when an A/B test is deleted.
+      operationId: deleteEmailCampaignABTestUsingDELETE
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for the primary email campaign activity.
+        required: true
+        type: string
+        x-example: 91569d46-00e4-4a4d-9a4c-d17d98740d04
+      responses:
+        '204':
+          description: A/B test successfully deleted.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-sdk-methodName: deleteABTestEmailCampaign
+definitions:
+  ABTestData:
+    type: object
+    required:
+    - alternative_subject
+    - test_size
+    - winner_wait_duration
+    properties:
+      alternative_subject:
+        type: string
+        example: 'Reminder: Our Biggest Sale of the Year is Coming Soon!'
+        description: The alternate email subject line to use for A/B testing.
+      test_size:
+        type: integer
+        format: int32
+        example: 30
+        description: The percentage of contact recipients to participate in the A/B Test. For example, if the value is 30, then 30% of contacts will receive the email campaign with subject line A, and 30% of contacts will receive the email campaign with subject line B. Valid values include <code>5</code> to <code>50</code> percent. Currently, A/B tests support subject line only.
+      winner_wait_duration:
+        type: integer
+        format: int32
+        example: 24
+        description: The number of hours Constant Contact waits after the A/B test is sent before determining the winning subject line. The winner is the subject line with the highest number of contact opens. Valid values include <code>6</code>, <code>12</code>, <code>24</code>, and <code>48</code>. After the winner is determined, Constant Contact automatically sends the email campaign with the winning subject line to all the remaining contacts, which did not participate in the A/B test.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

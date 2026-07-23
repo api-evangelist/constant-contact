@@ -1,0 +1,751 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Landing Pages Reporting API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Landing Pages Reporting
+  description: Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted with a campaign activity.
+paths:
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_clicks:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Unique Contacts Clicks Landing Page Report
+      description: Use this method get details about each contact that clicked a link on a landing page campaign activity. Unique contact clicks are identified by both the `contact_id` and `url_id`. The same contact may appear more than once in the results, if they clicked more than one link on the landing page. The resulting contact data is listed with most recent activity first.
+      operationId: getUniqueContactClicks
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactClickTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_opens:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Unique Contacts Opens Landing Page Report
+      description: Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.
+      operationId: getUniqueContactOpens
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactOpensTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_contact_opens:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Contacts Opens Landing Page Report
+      description: Use this method get contact details for each time a contact opens a link on a landing page.  The resulting contact data is listed with most recent activity first.
+      operationId: getContactOpens
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactOpensTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_updates:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Unique Contacts Updates Landing Page Report
+      description: Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.
+      operationId: getUniqueContactUpdates
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactUpdateTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_adds:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Unique Contacts Adds Landing Page Report
+      description: Use this method to get details about each contact added to the account from a specified landing page. Contacts are identified by `contact_id`. The resulting contact data is listed with most recent activity first.
+      operationId: getContactAdds
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactAddTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+  /reports/landing_pages/campaign_details/{campaign_activity_id}/p_unique_contact_sms_optins:
+    get:
+      tags:
+      - Landing Pages Reporting
+      summary: GET a Unique Contacts SMS Opt-In Landing Page Report
+      description: Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``.  The resulting contact data is listed with most recent activity first.
+      operationId: getUniqueContactSMSOptIns
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results.
+        required: true
+        type: string
+        format: uuid
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      - name: limit
+        in: query
+        description: Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      - name: contacts_filter
+        in: query
+        description: 'Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo.'
+        required: false
+        type: string
+        x-example: Jo
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/PContactSMSOptInTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+definitions:
+  PContactSMSOptInTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of landing page contact opt in tracking activities.
+        items:
+          $ref: '#/definitions/PContactSMSOptInTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-6'
+  PContactAddTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The unique ID that identifies the contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The unique ID that identifies of the campaign activity to use.
+      tracking_activity_type:
+        type: string
+        example: p_contact_adds
+        description: The tracked activity event type.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address for the contact and tracking activity.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time the tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: The time the Contact was deleted
+      sms_channel:
+        description: Sms channel info for this contact
+        $ref: '#/definitions/TrackingActivitySmsChannelDTO'
+  PContactSMSOptInTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The unique ID that identifies the contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The unique ID that identifies of the campaign activity to use.
+      tracking_activity_type:
+        type: string
+        example: p_contact_sms_optins
+        description: The tracked activity event type.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address for the contact and tracking activity.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time the tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: The time the Contact was deleted
+      sms_channel:
+        description: Sms channel info for this contact
+        $ref: '#/definitions/TrackingActivitySmsChannelDTO'
+  PContactUpdateTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The unique ID that identifies the contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The unique ID that identifies of the campaign activity to use.
+      tracking_activity_type:
+        type: string
+        example: p_contact_updates
+        description: The tracked activity event type.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address for the contact and tracking activity.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time the tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: The time the Contact was deleted
+      sms_channel:
+        description: Sms channel info for this contact
+        $ref: '#/definitions/TrackingActivitySmsChannelDTO'
+  PContactOpensTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of landing page contact opens tracking activities.
+        items:
+          $ref: '#/definitions/PContactOpenTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-6'
+  PContactAddTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of landing page contact adds tracking activities.
+        items:
+          $ref: '#/definitions/PContactAddTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-6'
+  PContactOpenTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The unique ID that identifies the contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The unique ID that identifies of the campaign activity to use.
+      tracking_activity_type:
+        type: string
+        example: p_contact_opens
+        description: The tracked activity event type.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address for the contact and tracking activity.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      device_type:
+        type: string
+        example: tablet
+        description: The type of device that was used to open the link.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time the tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: The time the Contact was deleted
+      sms_channel:
+        description: Sms channel info for this contact
+        $ref: '#/definitions/TrackingActivitySmsChannelDTO'
+  PContactClickTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - link_url
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The unique ID that identifies the contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The unique ID that identifies of the campaign activity to use.
+      tracking_activity_type:
+        type: string
+        example: p_contact_click
+        description: The tracked activity event type.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address for the contact and tracking activity.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      device_type:
+        type: string
+        example: tablet
+        description: The type of device that was used to click the link.
+      url_id:
+        type: string
+        example: '1100407204171'
+        description: The ID used to uniquely identify the link.
+      link_url:
+        type: string
+        example: http://www.amazon.com
+        description: The URL link text.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time the tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: The time the Contact was deleted
+      sms_channel:
+        description: Sms channel info for this contact
+        $ref: '#/definitions/TrackingActivitySmsChannelDTO'
+  PContactUpdateTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of landing page contact update tracking activities.
+        items:
+          $ref: '#/definitions/PContactUpdateTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-6'
+  Links-6:
+    type: object
+    required:
+    - next
+    properties:
+      next:
+        description: Contains the next link if it is available.
+        $ref: '#/definitions/Next-3'
+  Next-3:
+    type: object
+    required:
+    - href
+    properties:
+      href:
+        type: string
+        description: The next link in the page or null if there are no additional pages
+  TrackingActivitySmsChannelDTO:
+    type: object
+    properties:
+      country_code:
+        type: string
+        example: US
+        description: The ISO country code that is associated with SMS address.
+      state:
+        type: string
+        description: "The SMS channel status:\n  <ul><li><code>N</code>: not_set<li>\n     <li><code>T</code>: temp_hold<li>\n     <li><code>P</code>: pending_confirmation<li>\n     <li><code>I</code>: implicit<li>\n     <li><code>E</code>: explicit<li>\n     <li><code>O</code>: unsubscribed<li>\n     <li><code>D</code>:deprecated<li></ul>"
+      formatted_international:
+        type: string
+        example: +1 234-555-6789
+        description: 'The formatted SMS number returned if the SMS <code>country_code</code> does not match the contacts <code>country_code</code>. '
+      formatted_national:
+        type: string
+        example: (234) 555-6789
+        description: 'The formatted SMS number returned if the SMS <code>country_code</code> matches the contacts <code>country_code</code>. '
+  PContactClickTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of landing page contact click tracking activities.
+        items:
+          $ref: '#/definitions/PContactClickTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-6'
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

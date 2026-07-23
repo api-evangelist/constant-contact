@@ -1,0 +1,221 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services SMS Reporting API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: SMS Reporting
+  description: Use SMS reporting endpoints and methods to get reporting data about SMS campaigns.
+paths:
+  /reports/summary_reports/sms_campaign_summaries:
+    get:
+      tags:
+      - SMS Reporting
+      summary: GET an SMS Campaigns Summary Report
+      description: 'Use this method to get SMS campaign summary details, including the total number of times that each contact uniquely interacted with each tracked campaign activity and aggregate tracking statistics. Results are sorted in descending order by the date the SMS was last sent (`last_sent_date`).
+
+        The `start_at` date is required. Use both the `start_at` and `end_at` date query parameters to return only SMS campaign summary details that occurred within a specified date range.
+
+        Use the `limit` query parameter to limit the number of results returned per page. '
+      operationId: getAllBulkSmsCampaignSummaries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Use to limit the number of results to return on a single page (from 1 to 50). The default setting is 50.
+        required: false
+        type: string
+        default: '50'
+        x-example: '15'
+      - name: start_at
+        in: query
+        description: Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or after the required `start_at` date you specify. ISO 8601 format.
+        required: true
+        type: string
+        x-example: '2023-01-27T21:56:37.011Z'
+      - name: end_at
+        in: query
+        description: Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or before the `end_at` date you specify. ISO 8601 format.
+        required: false
+        type: string
+        x-example: '2024-01-27T21:56:37.011Z'
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/SmsCampaignSummariesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+definitions:
+  Next-4:
+    type: object
+    required:
+    - href
+    properties:
+      href:
+        type: string
+        description: The next link in the page or null if there are no additional pages.
+  BulkCampaignSummary:
+    type: object
+    required:
+    - campaign_id
+    - campaign_name
+    - campaign_type
+    - last_sent_date
+    - unique_counts
+    properties:
+      campaign_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies the campaign.
+      campaign_name:
+        type: string
+        example: Spring Clearance Sale
+        description: The name to associate with this campaign.
+      last_sent_date:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date that the campaign was last sent.
+      unique_counts:
+        description: The total number of times each unique contact interacted with a tracked SMS campaign activity.
+        $ref: '#/definitions/UniqueSmsCounts'
+      campaign_type:
+        type: string
+        example: SMS
+        description: The campaign type.
+  UniqueSmsCounts:
+    type: object
+    required:
+    - clicks
+    - delivers
+    - optouts
+    - sends
+    properties:
+      sends:
+        type: integer
+        format: int32
+        example: 100
+        description: The total number of unique sends.
+      delivers:
+        type: integer
+        format: int32
+        example: 100
+        description: The total number of SMS delivered.
+      opens:
+        type: integer
+        format: int32
+        example: 75
+        description: The total number of unique opens.
+      clicks:
+        type: integer
+        format: int32
+        example: 294
+        description: The total number of unique clicks.
+      optouts:
+        type: integer
+        format: int32
+        example: 0
+        description: The total number of unique opt-outs (unsubscribes).
+  Links-7:
+    type: object
+    properties:
+      next:
+        description: Contains the next link if it is available.
+        $ref: '#/definitions/Next-4'
+  BulkSmsCampaignSummariesPercents:
+    type: object
+    properties:
+      deliver:
+        type: number
+        example: 23.0
+        description: The aggregated SMS delivery rate for all campaigns on the current results page.
+      click:
+        type: number
+        example: 43.0
+        description: The aggregated click rate for all campaigns on the current results page.
+      bounce:
+        type: number
+        example: 0.0
+        description: The aggregated bounce rate for all campaigns on the current results page.
+      unsubscribe:
+        type: number
+        example: 0.0
+        description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
+  SmsCampaignSummariesPage:
+    type: object
+    properties:
+      bulk_sms_campaign_summaries:
+        type: array
+        description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
+        items:
+          $ref: '#/definitions/BulkCampaignSummary'
+      aggregate_percents:
+        description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
+        $ref: '#/definitions/BulkSmsCampaignSummariesPercents'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-7'
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

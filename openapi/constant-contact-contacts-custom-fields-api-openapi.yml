@@ -1,0 +1,475 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Contacts Custom Fields API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Contacts Custom Fields
+  description: Endpoints and methods to get, create, delete, and update on one or more custom fields.
+paths:
+  /contact_custom_fields/{custom_field_id}:
+    get:
+      tags:
+      - Contacts Custom Fields
+      summary: GET a custom_field
+      description: Get details for a specified custom field.
+      operationId: getCustomField
+      produces:
+      - application/json
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: The ID that uniquely identifies the custom field.
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/CustomField'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+    put:
+      tags:
+      - Contacts Custom Fields
+      summary: Update a custom field.
+      description: Update an existing custom field.
+      operationId: putCustomField
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: The ID that uniquely identifies the custom field to update.
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      - in: body
+        name: body
+        description: The JSON payload used to update an existing custom field. Any properties omitted in the PUT request are overwritten with a null value.
+        required: true
+        schema:
+          $ref: '#/definitions/CustomFieldPutRequest'
+      responses:
+        '200':
+          description: Success - custom_field updated
+          schema:
+            $ref: '#/definitions/CustomField'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+      x-sdk-methodName: updateCustomField
+    delete:
+      tags:
+      - Contacts Custom Fields
+      summary: DELETE a custom_field
+      description: Delete a custom field from the user's account.
+      operationId: deleteCustomField
+      consumes:
+      - application/json
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: The ID that uniquely identifies the custom field to delete.
+        required: true
+        type: string
+        x-example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+      responses:
+        '204':
+          description: Request successful; No content returned
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+  /contact_custom_fields:
+    get:
+      tags:
+      - Contacts Custom Fields
+      summary: GET custom_fields Collection
+      description: 'Get all custom fields defined in the user''s account.
+
+        <div class="Msg"><p class="note-text">This method does not currently support filtering results using the custom field update date.</p></div>'
+      operationId: getCustomFields
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Specifies the number of results displayed per page of output, from 1 - 100, default = 50.
+        required: false
+        type: integer
+        default: 50
+        maximum: 100
+        minimum: 1
+      responses:
+        '200':
+          description: Request successful
+          schema:
+            $ref: '#/definitions/CustomFields'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:read
+      x-sdk-methodName: getAllCustomFields
+    post:
+      tags:
+      - Contacts Custom Fields
+      summary: POST (create) a custom_field
+      description: Custom fields are extra data fields you create to store additional information about your contacts, such as preferences, membership levels, and interests. Use custom fields to organize contacts, send personalized email campaigns, and to identify a targeted audience for a specific campaign. Custom fields types include text, number, date, drop-down lists, radio buttons, and checkboxes. A user can configure up to 100 `custom_fields` in their account.
+      operationId: postCustomFields
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The JSON payload required to create a new custom field.
+        required: true
+        schema:
+          $ref: '#/definitions/CustomFieldRequest'
+      responses:
+        '201':
+          description: New custom field successfully created
+          schema:
+            $ref: '#/definitions/CustomField'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type; the payload must be in JSON format, and Content-Type must be application/json.
+        '500':
+          description: There was a problem with our internal service.
+        '503':
+          description: Our internal service is temporarily unavailable.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:write
+      x-sdk-methodName: createCustomFields
+definitions:
+  PagingLinks:
+    type: object
+    properties:
+      next:
+        $ref: '#/definitions/Link'
+  CustomFieldPutRequest:
+    type: object
+    properties:
+      label:
+        type: string
+        example: Favorite color
+        description: The custom field name to display in the UI (free-form text).
+        maxLength: 50
+      choices:
+        type: array
+        description: 'Array of choices for custom fields of type: <code>single_select</code> or <code>multi_select</code>. Maximum number of elements for <code>checkbox</code> and <code>radio</code> display types is 20. Maximum number of elements for a <code>dropdown</code> is 100.'
+        items:
+          $ref: '#/definitions/CustomFieldChoicePutRequest'
+        maxItems: 100
+  CustomField:
+    type: object
+    required:
+    - label
+    - type
+    properties:
+      custom_field_id:
+        type: string
+        format: uuid
+        example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+        description: The system generated ID that uniquely identifies a <code>custom_field</code>.
+        readOnly: true
+      label:
+        type: string
+        example: Vehicle make and model year
+        description: The custom field name to display in the UI (free-form text).
+        maxLength: 50
+      name:
+        type: string
+        example: Vehicle_make_and_model_year
+        description: The unique custom field name constructed from the label by replacing blanks with underscores.
+        readOnly: true
+        maxLength: 50
+      type:
+        type: string
+        example: date
+        description: The data value type the custom field accepts.
+        maxLength: 20
+      metadata:
+        $ref: '#/definitions/CustomFieldMetadata'
+      version:
+        type: integer
+        example: 1
+        description: For <code>datetime</code> data types, this is the version number associated with the custom field.
+      choices:
+        type: array
+        description: Choices available for <code>single_select</code> and <code>multi_select</code> type custom fields. The maximum number of elements for <code>radio</code> or <code>checkbox</code> display types is 20. Maximum number of elements for a <code>dropdown</code> is 100.
+        items:
+          $ref: '#/definitions/CustomFieldChoice'
+        maxItems: 100
+      updated_at:
+        type: string
+        format: date-time
+        example: '2016-01-23T13:48:44.108Z'
+        description: System generated date and time that the resource was updated, in ISO-8601 format.
+        readOnly: true
+      created_at:
+        type: string
+        format: date-time
+        example: '2016-03-03T10:53:04-05:00'
+        description: Date and time that the resource was created, in ISO-8601 format. System generated.
+        readOnly: true
+    description: Custom fields details.
+  CustomFields:
+    type: object
+    properties:
+      custom_fields:
+        type: array
+        items:
+          $ref: '#/definitions/CustomField'
+        maxItems: 100
+      _links:
+        $ref: '#/definitions/PagingLinks'
+  CustomFieldRequest:
+    type: object
+    properties:
+      label:
+        type: string
+        example: Favorite Fruit
+        description: The custom field name to display in the UI (free-form text).
+        maxLength: 50
+      type:
+        type: string
+        example: string
+        description: The type of data to store in the custom field.
+        maxLength: 20
+      metadata:
+        $ref: '#/definitions/CustomFieldMetadata'
+      choices:
+        type: array
+        description: 'Array of choices for custom fields of type: <code>single_select</code> or <code>multi_select</code>. Maximum number of elements for <code>checkbox</code> and <code>radio</code> display types is 20. Maximum number of elements for a <code>dropdown</code> is 100.'
+        items:
+          $ref: '#/definitions/CustomFieldChoiceRequest'
+        maxItems: 100
+      version:
+        type: integer
+        example: 2
+        description: Available if data type is <code>data</code>. Displays <code>1</code> if using legacy date fields where values are stored as strings. Displays <code>2</code> if using new date fields where values are stored as actual dates to support date comparisons and validations.
+  CustomFieldChoice:
+    type: object
+    properties:
+      custom_field_id:
+        type: string
+        format: uuid
+        example: d0737000-afbf-11ee-874a-eaf5d7a2e15d
+        description: The ID that uniquely identifies a custom field.
+      choice_id:
+        type: integer
+        example: 9A63BC
+        description: The ID that uniquely identifies the choice identifier.
+      choice_label:
+        type: string
+        example: Apple
+        description: Label to display for the choice on the user interface.
+        maxLength: 255
+      display_order:
+        type: integer
+        example: 1
+        description: Stores the order for displaying a list of choices.
+      created_at:
+        type: string
+        format: date-time
+        example: '2024-06-27T10:28:09.000Z'
+        description: Date and time that the record was created, in ISO-8601 format. System generated.
+      updated_at:
+        type: string
+        format: date-time
+        example: '2024-06-27T10:28:09.000Z'
+        description: Date and time that the record was updated, in ISO-8601 format. System generated.
+      deleted_at:
+        type: string
+        format: date
+        example: '2023-12-18'
+        description: Date the choice was deleted, in ISO-8601 format. System generated.
+        readOnly: true
+    description: Custom fields <code>single_select</code> and <code>multi_select</code> settings.
+  CustomFieldMetadata:
+    type: object
+    properties:
+      display_type:
+        type: string
+        example: radio
+        description: Determines how Constant Contact renders a <code>single_select</code> or <code> multi_select</code> field.
+      allow_negative:
+        type: boolean
+        example: false
+        description: For type <code>number</code>, determines if a value can be negative. By default, this value is false for the type <code>number</code>.
+      decimal_places:
+        type: integer
+        example: 1
+        description: For types <code>number</code> and <code>currency</code>, determines the number of decimal places possible in the value.
+      currency_code:
+        type: string
+        example: USD
+        description: For type <code>currency</code>, specifies the three-letter currency code to assign.
+      integer:
+        type: boolean
+        example: true
+        description: For types <code>number</code> and <code>currency</code>, determines whether the custom field should store only whole numbers (integers) without decimal values. If the <code>integer</code> is set to <code>false</code>, the <code>decimal_places</code> must be between 1 and 4.
+      display_format:
+        type: string
+        example: MM/DD/YYYY
+        description: Specifies the display format for date fields in the user interface. If not specified for a date type field, defaults to <code>YYYY-MM-DD</code> format. Valid only for version 2 type dates (values are stored as actual dates to support date comparisons and validations).
+    description: Additional details about a custom field in JSON format.
+  CustomFieldChoicePutRequest:
+    type: object
+    properties:
+      choice_id:
+        type: integer
+        example: 111
+        description: The ID that uniquely identifies the choice.
+      choice_label:
+        type: string
+        example: Apple
+        description: Label to display for the choice on the user interface.
+        maxLength: 255
+      display_order:
+        type: integer
+        example: 1
+        description: Stores the order for displaying a list of choices.
+    description: The <code>single_select</code> and <code>multi_select</code> custom field options.
+  Link:
+    type: object
+    properties:
+      href:
+        type: string
+        example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+  CustomFieldChoiceRequest:
+    type: object
+    properties:
+      choice_label:
+        type: string
+        example: Apple
+        description: Label to display for the choice on the user interface.
+        maxLength: 255
+      display_order:
+        type: integer
+        example: 1
+        description: Stores the order for displaying a list of choices.
+    description: The <code>single_select</code> and <code>multi_select</code> custom field options.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

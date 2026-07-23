@@ -1,0 +1,439 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Segments API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Segments
+  description: Use segments to target a subset of your contacts that are most likely to engage with a particular campaign.
+paths:
+  /segments:
+    get:
+      tags:
+      - Segments
+      summary: GET all Segments
+      description: Use this method to get a list of all segments associated with the account. You can sort segment results and limit the number of segments that display per page. Deleted segments are excluded from the results. For more use case information, see [Get All Segments](/api_guide/segment_get_all.html) in the API guide.
+      operationId: getAccountSegments
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: The number of segments to return on a page.
+        required: false
+        type: string
+        default: '1000'
+        x-example: '1000'
+      - name: sort_by
+        in: query
+        description: Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.
+        required: false
+        type: string
+        default: date
+        x-example: sort_by=date
+      responses:
+        '200':
+          description: Request successful.
+          schema:
+            $ref: '#/definitions/SegmentsDTO'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '429':
+          description: Too many requests. You exceeded the request rate limit.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:read
+      x-sdk-methodName: getAllSegments
+    post:
+      tags:
+      - Segments
+      summary: POST (create) a Segment
+      description: "Use this method to create a new segment. You create segments to target a subset of your contacts that meet your specific criteria for a marketing campaign. The segment `name` must be unique. The `segment_criteria` requires single-string escaped JSON. Constant Contact uses the contact data that you specify in the `segment_criteria` to evaluate and identify the contacts you want to target. Contact data can be grouped from different data sources, including:\n\n  -  **`tracking`**: Supports **or** and **and** groups.\n\n\n  -  **`contact`**: Supports **or** and **and** groups.\n\n\n  -  **`list_membership`**: Supports **or** groups.\n\n  -  **`tags`**: Supports **or** groups.\n\nIf you do not specify `list_membership` as criteria, Constant Contact evaluates all contacts in your account. To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated.\n\nFor more use case information, see the [Segments Overview](/api_guide/segments_overview.html) in the API guide."
+      operationId: createSegment
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The segment `name` and `segment_criteria` (requires single-string escaped JSON).
+        required: true
+        schema:
+          $ref: '#/definitions/SegmentData'
+        x-example: test
+      responses:
+        '201':
+          description: Segment successfully created.
+          schema:
+            $ref: '#/definitions/SegmentDetail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:write
+  /segments/{segment_id}:
+    get:
+      tags:
+      - Segments
+      summary: GET a Segment's Details
+      description: Use this method to get details about a segment, including the segment criteria. If you know the `segment_id` You can also use this method to get details about a deleted segment. For more use case information, see [Get a Segment's Details](/api_guide/segment_get.html) in the API guide.
+      operationId: getSegmentDetail
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: segment_id
+        in: path
+        description: The system-generated unique ID that identifies a segment.
+        required: true
+        type: integer
+        format: int32
+        x-example: 14
+      responses:
+        '200':
+          description: The segment was successfully returned.
+          schema:
+            $ref: '#/definitions/SegmentDetail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:read
+      x-sdk-methodName: getSegmentById
+    put:
+      tags:
+      - Segments
+      summary: PUT (update) a Segment
+      description: Use this method to update an existing segment's name (`name`) and/or contact selection criteria (`segment_criteria`). You must specify both the `name` and the `segment_criteria` in the request body, even if you don't plan to update both. The segment's name must be unique and the JSON must be valid (requires single-string escaped JSON). To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated. For more use case information, see [Update Segment Details](/api_guide/segment_update.html) in the API guide.
+      operationId: updateSegment
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: segment_id
+        in: path
+        description: The system generated ID that uniquely identifies the segment that you want to modify.
+        required: true
+        type: integer
+        format: int32
+        x-example: 14
+      - in: body
+        name: body
+        description: Include both the `name` and `segment_criteria` (single-string escaped JSON) in the body request, then make updates to either or both.
+        required: true
+        schema:
+          $ref: '#/definitions/SegmentData'
+      responses:
+        '200':
+          description: The segment was successfully updated.
+          schema:
+            $ref: '#/definitions/SegmentDetail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:write
+    delete:
+      tags:
+      - Segments
+      summary: DELETE a Segment
+      description: 'Use this method to delete a segment from your account. Before deleting a segment, verify that the segment is not associated with a scheduled campaign.
+
+
+        Deleted segments do not display in the results when using the `GET /segments` endpoint. If you know the `segment_id`, you can use the `GET /segments/{segment_id}` endpoint to view the deleted segment''s details. A segment''s details are preserved for external reference purposes, such as displaying the segment name in a campaign''s history. For more use case information, see [Delete a Segment](/api_guide/segment_delete.html) in the API guide.'
+      operationId: deleteSegment
+      produces:
+      - application/json
+      parameters:
+      - name: segment_id
+        in: path
+        description: The system generated ID that uniquely identifies the segment.
+        required: true
+        type: integer
+        format: int32
+        x-example: 14
+      responses:
+        '204':
+          description: The segment was successfully deleted.
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:write
+  /segments/{segment_id}/name:
+    patch:
+      tags:
+      - Segments
+      summary: PATCH (rename) a Segment
+      description: Use this method to update an existing segment `name` with a new unique name in the request body. For more use case information, see [Rename a Segment](/api_guide/segment_rename.html) in the API guide.
+      operationId: updateSegmentName
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: segment_id
+        in: path
+        description: The system generated ID that uniquely identifies the segment that you want to modify.
+        required: true
+        type: integer
+        format: int32
+        x-example: 14
+      - in: body
+        name: body
+        description: Include the existing segment `name` in the body request, then rename the segment using a unique new name.
+        required: true
+        schema:
+          $ref: '#/definitions/SegmentName'
+      responses:
+        '200':
+          description: The segment name was successfully updated.
+          schema:
+            $ref: '#/definitions/SegmentDetail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '409':
+          description: Conflict. The resource you are creating or updating conflicts with an existing resource.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - contacts:lists:write
+definitions:
+  Links-3:
+    type: object
+    required:
+    - next
+    properties:
+      next:
+        description: HAL property that contains next link if applicable.
+        $ref: '#/definitions/Next'
+  SegmentMaster:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Re-engage contacts who did not open the last 5 campaigns.
+        description: The segment's unique descriptive name.
+      segment_id:
+        type: integer
+        format: int32
+        example: 14
+        description: The system generated number that uniquely identifies the segment.
+        readOnly: true
+      created_at:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The system generated date and time that the segment was created (ISO-8601 format).
+        readOnly: true
+      edited_at:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The system generated date and time that the segment's <code>name</code> or <code>segment_criteria</code> was last updated (ISO-8601 format).
+        readOnly: true
+  SegmentData:
+    type: object
+    required:
+    - name
+    - segment_criteria
+    properties:
+      name:
+        type: string
+        example: Re-engage contacts who did not open the last 5 email campaign activities.
+        description: The segment's unique descriptive name.
+      segment_criteria:
+        type: string
+        example: '{"version":"1.0.0","criteria":{"type":"and","group":[{"source":"tracking","field":"not_opened","op":"contains-any","const_value":"last-n-campaigns","param":"5"}]}}'
+        description: The <code>segment_criteria</code> specifies the contact data that Constant Contact uses to evaluate and identify contacts that meet your criteria. The <code>segment_criteria</code> must be formatted as single-string escaped JSON. The top-level <code>group</code> <code>type</code> must be <code>add</code>.
+        maxLength: 20000
+  Next:
+    type: object
+    required:
+    - href
+    properties:
+      href:
+        type: string
+        description: The next link in the page, or null if there are no additional pages.
+  SegmentsDTO:
+    type: object
+    required:
+    - segments
+    properties:
+      segments:
+        type: array
+        description: Lists all segments for the account.
+        items:
+          $ref: '#/definitions/SegmentMaster'
+      _links:
+        description: HAL property that contains next link if applicable.
+        $ref: '#/definitions/Links-3'
+  SegmentName:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        example: Contacts who did not open any email campaign within the last 100 days.
+        description: The segment's unique descriptive name.
+  SegmentDetail:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Re-engage contacts who did not open the last 5 email campaign activities.
+        description: The segment's unique descriptive name.
+      segment_criteria:
+        type: string
+        example: '{"version":"1.0.0","criteria":{"type":"and","group":[{"source":"tracking","field":"not_opened","op":"contains-any","const_value":"last-n-campaigns","param":"5"}]}}'
+        description: The segment's contact selection criteria formatted as single-string escaped JSON.
+        maxLength: 20000
+      segment_id:
+        type: integer
+        format: int32
+        example: 14
+        description: The system generated number that uniquely identifies the segment.
+        readOnly: true
+      created_at:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The system generated date and time (ISO-8601) that the segment was created.
+        readOnly: true
+      edited_at:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The system generated date and time (ISO-8601) that the segment's <code>name</code> or <code> segment_criteria</code> was last updated.
+        readOnly: true
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

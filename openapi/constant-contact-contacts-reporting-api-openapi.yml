@@ -1,0 +1,394 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Contacts Reporting API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Contacts Reporting
+  description: Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.
+paths:
+  /reports/contact_reports/{contact_id}/activity_details:
+    get:
+      tags:
+      - Contacts Reporting
+      summary: GET Contact Activity Details
+      description: "<p>Gets the tracking activity data for a single contact, sorted in descending activity date order.</p> <p>You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.</p>\n      <table><tr><td colspan='2'>Valid tracking activity types</td></tr>\n        <tr><td><b>em_sends</b></td><td>Send activities</td></tr>\n        <tr><td><b>em_opens</b></td><td>Email open tracking activities</td></tr>\n        <tr><td><b>em_clicks</b></td><td>Link click-through tracking activities</td></tr>\n        <tr><td><b>em_bounces</b></td><td>Bounce tracking activities</td></tr>\n        <tr><td><b>em_optouts</b></td><td>Opt-out tracking activities</td></tr><tr>\n        <td><b>em_forwards</b></td><td>Forward to a friend tracking activities</td></tr>\n        <tr><td><b>p_contact_open</b></td><td>Landing page opens</td></tr>\n        <tr><td><b>p_contact_click</b></td><td>Landing page clicks</td></tr>\n        <tr><td><b>p_contact_add</b></td><td>Landing page adds</td></tr>\n        <tr><td><b>p_contact_update </b></td><td> Landing page updates</td></tr>\n      </table>"
+      operationId: getContactTracking
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: The contact's ID for which tracking activity data is requested.
+        required: true
+        type: string
+        x-example: aa9ff7b0-478d-11e6-8059-00163e3c8e19
+      - name: tracking_activities_list
+        in: query
+        description: Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.
+        required: false
+        type: string
+        items:
+          type: string
+          enum:
+          - em_sends
+          - em_opens
+          - em_clicks
+          - em_bounces
+          - em_optouts
+          - em_forwards
+          - p_contact_open
+          - p_contact_click
+          - p_contact_add
+          - p_contact_update
+        collectionFormat: multi
+        format: csv
+        x-example: em_clicks,em_opens
+      - name: tracking_activity_type
+        in: query
+        description: Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.
+        required: false
+        type: array
+        items:
+          type: string
+        x-example: '`tracking_activity_type=em_sends&tracking_activity_type=em_opens`'
+      - name: include_campaign_activity_names
+        in: query
+        description: Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.
+        required: false
+        type: boolean
+        default: true
+        x-example: 'true'
+      - name: limit
+        in: query
+        description: The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.
+        required: false
+        type: string
+        default: '100'
+        maximum: 100
+        minimum: 1
+        x-example: '20'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ContactTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getContactTrackingReport
+  /reports/contact_reports/{contact_id}/open_and_click_rates:
+    get:
+      tags:
+      - Contacts Reporting
+      summary: GET Average Open and Click Rates
+      description: <p>Gets the average open and click rate for a given account and contact.<p>Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.</p><p>Returns the rates and the number of campaign activities that were included in the calculation.</p><p>If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.</p>
+      operationId: getContactOpenClickRate
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)
+        required: true
+        type: string
+        x-example: aa9ff7b0-478d-11e6-8059-00163e3c8e19
+      - name: start
+        in: query
+        description: 'The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.'
+        required: true
+        type: string
+      - name: end
+        in: query
+        description: 'The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.'
+        required: true
+        type: string
+      responses:
+        '200':
+          description: Request Successful
+          schema:
+            $ref: '#/definitions/ContactOpenAndClickRates'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getContactOpenClickRateReport
+  /reports/contact_reports/{contact_id}/activity_summary:
+    get:
+      tags:
+      - Contacts Reporting
+      summary: GET Contact Action Summary
+      description: Get a list of the recent emails (aka, campaign activities) sent to a specific contact and a summary of the actions the contact took on that email for the most recent 200 campaigns.
+      operationId: getContactTrackingCount
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: contact_id
+        in: path
+        description: The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)
+        required: true
+        type: string
+        x-example: aa9ff7b0-478d-11e6-8059-00163e3c8e19
+      - name: start
+        in: query
+        description: 'The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.'
+        required: true
+        type: string
+      - name: end
+        in: query
+        description: 'The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.'
+        required: true
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ContactCampaignActivitiesSummary'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - contact_data
+      - oauth2_access_code:
+        - contact_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getContactTrackingCountReport
+definitions:
+  Next-2:
+    type: object
+    properties:
+      href:
+        type: string
+        description: The next link in the page or null if there are no additional pages.
+  ContactTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: 71600990-908b-11e6-907f-00166bff25
+        description: The contact ID.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 010a0-1234-5678-9012-1100a0c1ab2a
+        description: The unique ID of the activity for an e-mail campaign.
+      created_time:
+        type: string
+        format: date-time
+        example: '2017-04-02T04:08:00.000Z'
+        description: The time the tracking activity occurred
+      tracking_activity_type:
+        type: string
+        example: em_sends
+        description: The types of the tracking activities included in the request. For example, sends, opens, clicks, bounces, opt-outs, or forwards.
+      campaign_activity_name:
+        type: string
+        example: April DLCV Newsletter
+        description: The campaign activity name.
+    description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
+  ContactOpenAndClickRates:
+    type: object
+    required:
+    - average_click_rate
+    - average_open_rate
+    - contact_id
+    - included_activities_count
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: 71600990-908b-11e6-907f-00166bff25
+        description: The unique ID of the contact for which the report is being generated.
+      included_activities_count:
+        type: integer
+        format: int32
+        example: 10
+        description: The number of activities included in the calculation.
+      average_open_rate:
+        type: number
+        format: double
+        example: 0.6
+        description: The average rate the contact opened emails sent to them.
+      average_click_rate:
+        type: number
+        format: double
+        example: 0.6
+        description: The average rate the contact clicked on links in emails sent to them.
+    description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
+  ContactCampaignActivitiesSummary:
+    type: object
+    required:
+    - campaign_activities
+    - contact_id
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: 71600990-908b-11e6-907f-00166bff25
+        description: Unique id of the contact that will have their activity summarized.
+      campaign_activities:
+        type: array
+        description: A summary of all the actions for a contact.
+        items:
+          $ref: '#/definitions/CampaignActivitySummary'
+      _links:
+        description: The next link if more summaries of activities are available.
+        $ref: '#/definitions/Links-5'
+  CampaignActivitySummary:
+    type: object
+    required:
+    - campaign_activity_id
+    - em_bounces
+    - em_clicks
+    - em_forwards
+    - em_opens
+    - em_sends
+    - em_unsubscribes
+    - start_on
+    properties:
+      campaign_activity_id:
+        type: string
+        format: uuid
+        description: The unique id of the activity for an e-mail campaign.
+      start_on:
+        type: string
+        format: date-time
+        description: The last date at which the email was sent to this contact.
+      em_bounces:
+        type: integer
+        format: int32
+        description: The number of times the email has bounced for this contact.
+      em_clicks:
+        type: integer
+        format: int32
+        description: The number of times this contact has clicked a link in this email.
+      em_forwards:
+        type: integer
+        format: int32
+        description: The number of times this contact has forwarded this email.
+      em_opens:
+        type: integer
+        format: int32
+        description: The number of times this contact has opened this email.
+      em_sends:
+        type: integer
+        format: int32
+        description: The number of times the email was sent to this contact.
+      em_unsubscribes:
+        type: integer
+        format: int32
+        description: The number of times this contact has opted out.
+  ContactTrackingActivitiesPage:
+    type: object
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of contact tracking activities in descending date order.
+        items:
+          $ref: '#/definitions/ContactTrackingActivity'
+      _links:
+        description: The next link if more contact tracking activities are available.
+        $ref: '#/definitions/Links-5'
+    description: A page of tracking activities for a contact that can include sends, opens, clicks, bounces, opt-outs and forwards to a friend. If it exists, a link to the next page of tracking activities is provided.
+  Links-5:
+    type: object
+    properties:
+      next:
+        description: Contains the next page link if it is available.
+        $ref: '#/definitions/Next-2'
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header

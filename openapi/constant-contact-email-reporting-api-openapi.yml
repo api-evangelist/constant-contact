@@ -1,0 +1,1646 @@
+swagger: '2.0'
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.149
+  title: AppConnect V3 Account Services Email Reporting API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+host: api.cc.email
+basePath: /v3
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Email Reporting
+  description: Use the email reporting endpoints and methods to get reporting data for email campaigns you sent to contacts.
+paths:
+  /reports/email_reports/{campaign_activity_id}/links:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Links Report
+      description: 'Use this method to return link details, including the number of unique contacts that clicked each link in an email campaign activity, and the type of action associated with clicking each link. To include link details for links that were not clicked, set the `no_clicks` query parameter to `true`.
+
+
+        You can return reporting data for `primary_email` and `resend` role email campaign activities. For more use case information, see [Get an Email Links Report](/api_guide/email_links_report.html) in the API guide.'
+      operationId: getCampaignActivityLinkStats
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity.
+        required: true
+        type: string
+        format: uuid
+        x-example: 8892baf9-970a-4de6-8400-fa4ec461987c
+      - name: no_clicks
+        in: query
+        description: Set this query parameter to `true` to  return details for links that were not clicked in the response results.
+        required: false
+        type: boolean
+        default: false
+        x-example: 'true'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/EmailLinks'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getCampaignActivityLinkReport
+  /reports/email_reports/{campaign_activity_id}/tracking/sends:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Sends Report
+      description: Use this method to get each contact that was sent a specific email campaign activity. This sends report includes general contact data such as the date and time that the email campaign activity was sent to a contact's email address, the contact's first and last name, and unique ID. This report lists the most recent activity first. For more use case information, see [Get an Sends report for an Email Campaign Activity](/api_guide/email_summary_sends_report.html) in the API guide.
+      operationId: getSends
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+        x-example: 8892baf9-970a-4de6-8400-fa4ec461987c
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/SendsTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getEmailSendsReport
+  /reports/email_reports/{campaign_activity_id}/tracking/opens:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Opens Report
+      description: Use this method to get each time a contact opened a specific email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Opens report for an Email Campaign Activity](/api_guide/email_summary_opens_report.html) in the API guide.
+      operationId: getOpens
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The unique ID for an email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+        x-example: 8892baf9-970a-4de6-8400-fa4ec461987c
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/OpensTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getEmailOpensReport
+  /reports/email_reports/{campaign_activity_id}/tracking/unique_opens:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Unique Opens Report
+      description: Use this method to get a unique opens report that provides details about the last time that each contact opened the specified email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Unique Opens Report for an Email Campaign Activity](/api_guide/email_summary_unique_opens_report.html) in the API guide.
+      operationId: getUniqueOpens
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+        x-example: 8892baf9-970a-4de6-8400-fa4ec461987c
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/OpensTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getUniqueOpensReport
+  /reports/email_reports/{campaign_activity_id}/tracking/didnotopens:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Did Not Opens Report
+      description: Use this method to get a report listing each contact that was sent, but did not open the specified email campaign activity. This report lists contact information such as the contact's email address and unique ID, and the date and time that the email campaign activity was sent. This report lists the most recent activity first. For more use case information, see [Get a Did Not Opens Report for an Email Campaign Activity](/api_guide/email_summary_non_opens_report.html) in the API guide.
+      operationId: getDidNotOpens
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+        x-example: 8892baf9-970a-4de6-8400-fa4ec461987c
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DidNotOpensTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getDidNotOpensReport
+  /reports/email_reports/{campaign_activity_id}/tracking/clicks:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Clicks Report
+      description: Use this method to get each time a contact clicked a link, the click date and time, and the device type they used. Use the `url_id` query parameter to get a clicks report for a specific link URL. Clicks report data is sorted with most recent activity listed first.
+      operationId: getClicks
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+        x-example: c8cdf384-15ca-4dcc-9b6f-4c91121fdc23
+      - name: url_id
+        in: query
+        description: The ID that uniquely identifies a single link URL for which you want to get a clicks report.
+        required: false
+        type: integer
+        format: int64
+        x-example: '49920742166'
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/ClicksTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getClicksReport
+  /reports/email_reports/{campaign_activity_id}/tracking/forwards:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Forwards Report
+      description: Use this method to get a report listing each time a contact forwarded the email campaign activity using the forwarding link in the email footer. The report includes general contact information, such as the contact's email address and unique ID, and the date and time that the email campaign activity was forwarded. Forwards report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Forwards Report](/api_guide/email_summary_forwards_report.html) in the API guide.
+      operationId: getForwards
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/ForwardsTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getForwardsReport
+  /reports/email_reports/{campaign_activity_id}/tracking/optouts:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Opt-outs Report
+      description: Use this method to get a report listing each contact that clicked the unsubscribe link in the email campaign activity to opt-out from receiving emails sent from your Constant Contact account. This report includes contact information, such as the contact's email address, unique ID, and the opt-out date and time. Opt-out report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Opt-outs Report](/api_guide/email_summary_optouts_report.html) in the API guide.
+      operationId: getOptouts
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/OptoutsTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getOptoutsReport
+  /reports/email_reports/{campaign_activity_id}/tracking/bounces:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Bounces Report
+      description: 'Use this method to get a report listing contact bounce data for the specified email campaign activity. This report lists the most recent bounce data first and includes contact information, such as the contact''s email address, unique ID, and the email bounce date and time.
+
+        Use the <code>bounce_code</code> query parameter to limit the type of bounce data to return.
+
+
+        For more use case information, see [Get a Bounces Report for an Email Campaign Activity](/api_guide/email_summary_bounces_report.html) in the API guide.'
+      operationId: getBounces
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_id
+        in: path
+        description: The ID that uniquely identifies the email campaign activity to use for this report.
+        required: true
+        type: string
+        format: uuid
+      - name: bounce_code
+        in: query
+        description: To return results for a specific bounce code, select the `bounce_code` from the drop-down list. To return results for multiple codes, repeat the bounce code parameter for each. For example, to return results for bounce codes `B` and `D` use `bounce_code=B&bounce_code=D`.
+        required: false
+        type: array
+        items:
+          type: string
+          enum:
+          - B
+          - D
+          - F
+          - S
+          - V
+          - X
+          - Z
+        collectionFormat: multi
+      - name: limit
+        in: query
+        description: The number of tracking activities to return on a page.
+        required: false
+        type: string
+        default: '500'
+        maximum: 500
+        minimum: 1
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/BouncesTrackingActivitiesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '415':
+          description: Unsupported Media Type.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getBouncesReport
+  /reports/summary_reports/email_campaign_summaries:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Campaigns Summary Report
+      description: "Use this method to get aggregate email campaign statistics for up to five hundred email campaigns. The response results include the total number of times that each contact uniquely interacted with each tracked campaign activity.\n\nResults are sorted in descending order by the date that the email was last sent (<code>last_sent_date</code>). Use the <code>limit</code> query parameter to limit the number of email campaign summary reports listed on each page.\n\n\n\n For more use case information, see \"[Get an Email Campaign Summary Report](/api_guide/email_bulk_campaign_summary_report.html)\""
+      operationId: getAllBulkEmailCampaignSummaries
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: limit
+        in: query
+        description: Use the `limit` query parameter to limit the number of email campaign summaries to return on a single page. The default is `50` and the maximum is `500` per page.
+        required: false
+        type: string
+        default: '50'
+        x-example: '100'
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/BulkEmailCampaignSummariesPage'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getEmailCampaignReport
+  /reports/stats/email_campaigns/{campaign_ids}:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Campaign Stats Report
+      description: 'Use this method to get email campaign performance tracking statistics for one or more campaigns, including the total number of times contacts interacted with your campaigns and how.
+
+
+        For each `campaign_id`, this method returns lists that include total counts (`stats`) for each type of tracked email and relevant campaign-related percentages (`percents`). It also returns the date and time at which the campaign stats were last refreshed.
+
+        If any specified `campaign_id` is invalid, a 404 error response is returned for all campaigns.'
+      operationId: getEmailSummary
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_ids
+        in: path
+        description: A comma-separated list of `campaign_id`s (UUID's).
+        required: true
+        type: string
+        maximum: 150
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/CampaignStatsQueryResultEmail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getEmailStatsReport
+  /reports/stats/email_campaign_activities/{campaign_activity_ids}:
+    get:
+      tags:
+      - Email Reporting
+      summary: GET an Email Campaign Activity Stats Report
+      description: 'Use this method to get performance tracking statistics for up to ten email campaign activities. Statistics include the total number of times contacts interacted with your campaigns and how.
+
+
+        For each `campaign_activity_id`, this method returns the `campaign_id`, the total counts (`stats`) for each type of tracked email activity, and the date and time that Constant Contact last refreshed (`last_refresh_time`) the `stats`.
+
+
+        When requesting statistics for multiple email campaign activities, if one or more of the `campaign_activity_ids` do not exist, were deleted, or do not have any stats associated with it, the `campaign_activity_ids` and error details display under `errors`. If any single specified `campaign_activity_id` is invalid (malformed), a 404 error response is returned for all campaign activities.'
+      operationId: getEmailCampaignActivitySummary
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: campaign_activity_ids
+        in: path
+        description: A comma-separated list of `campaign_activity_id`s (UUID's).
+        required: true
+        type: string
+        maximum: 10
+        x-example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+      responses:
+        '200':
+          description: Request was successful.
+          schema:
+            $ref: '#/definitions/CampaignActivityStatsQueryResultEmail'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - ui:campaign:metrics
+      x-sdk-methodName: getEmailCampaignActivityReport
+definitions:
+  Next-2:
+    type: object
+    properties:
+      href:
+        type: string
+        description: The next link in the page or null if there are no additional pages.
+  CampaignStatsQueryResultEmail:
+    type: object
+    properties:
+      errors:
+        type: array
+        description: An array of errors indicating any partial failures in the query.
+        items:
+          $ref: '#/definitions/StatsError'
+      results:
+        type: array
+        description: An array of results listing statistics for each requested <code>campaign_id</code>.
+        items:
+          $ref: '#/definitions/CampaignStatsResultGenericStatsEmailPercentsEmail'
+  OpensTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies an email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_opens
+        description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address used to send the email campaign activity to a contact.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      device_type:
+        type: string
+        example: computer
+        description: The type of device that the contact used to open the email campaign activity.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that the contact opened the email campaign activity.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, displays the date that the contact was deleted.
+  CampaignStatsResultGenericStatsEmailPercentsEmail:
+    type: object
+    properties:
+      campaign_id:
+        type: string
+        example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+        description: The ID that uniquely identifies the campaign (UUID).
+      stats:
+        description: Key-value pairs of campaign related statistics.
+        $ref: '#/definitions/StatsEmail'
+      percents:
+        description: Key-value pairs of campaign related percentages.
+        $ref: '#/definitions/PercentsEmail'
+      last_refresh_time:
+        type: string
+        format: date-time
+        example: '2015-08-25T22:00:09.908Z'
+        description: The date and time that the campaign stats were last refreshed.
+  OptoutsTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies the email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_optouts
+        description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The contact's email address.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      opt_out_reason:
+        type: string
+        example: The content is not what I expected
+        description: The opt-out reason, if the contact entered a reason.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time that the contact chose to opt-out from receiving future email campaign activities.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, displays the date that the contact was deleted.
+  DidNotOpensTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies an email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_didnotopens
+        description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address used to send the email campaign activity to a contact.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that the contact was sent the email campaign activity.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, displays the date that the contact was deleted.
+  BulkEmailCampaignSummary:
+    type: object
+    required:
+    - campaign_id
+    properties:
+      campaign_id:
+        type: string
+        example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+        description: The ID that uniquely identifies an email campaign.
+      campaign_type:
+        type: string
+        example: Newsletter
+        description: Identifies the email campaign type.
+      last_sent_date:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that the email campaign was last sent.
+      unique_counts:
+        description: The total number of times each unique contact interacted with a tracked email campaign activity.
+        $ref: '#/definitions/UniqueEmailCounts'
+  OptoutsTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of opt-out tracking activities
+        items:
+          $ref: '#/definitions/OptoutsTrackingActivity'
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/Links-5'
+  StatsEmailActivity:
+    type: object
+    properties:
+      em_bounces:
+        type: integer
+        format: int32
+        example: 10
+        description: Number of unique email bounces.
+      em_clicks:
+        type: integer
+        format: int32
+        example: 280
+        description: Number of unique recipients who clicked any link in the email.
+      em_clicks_all:
+        type: integer
+        format: int32
+        example: 387
+        description: Total number of non-unique email clicks.
+      em_clicks_all_computer:
+        type: integer
+        format: int32
+        example: 123
+        description: Number of non-unique email clicks on a standard desktop or laptop computer.
+      em_clicks_all_mobile:
+        type: integer
+        format: int32
+        example: 211
+        description: Number of non-unique email clicks on a mobile phone or similar small mobile device (e.g. iPhone).
+      em_clicks_all_tablet:
+        type: integer
+        format: int32
+        example: 85
+        description: Number of non-unique email clicks on a small tablet type computer (e.g. iPad).
+      em_clicks_all_other:
+        type: integer
+        format: int32
+        example: 4
+        description: Number of non-unique email clicks on an unknown device (e.g. Game Console or Wearable).
+      em_clicks_all_none:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of non-unique email clicks for which the device type was not captured. This will account for any clicks prior to when device type was collected and stored.
+      em_forwards:
+        type: integer
+        format: int32
+        example: 39
+        description: Number of unique recipients who forwarded the email using the forward to a friend feature (not available for all types of emails).
+      em_not_opened:
+        type: integer
+        format: int32
+        example: 25
+        description: 'Number of unique recipients who did not open the email. This is calculated as follows: <code>em_not_opened</code> is equal to <code>em_sends - em_opens - em_bounces</code>. This value is reported as zero if the calculation results in a negative value.'
+      em_opens:
+        type: integer
+        format: int32
+        example: 220
+        description: Number of unique recipients who opened the email.
+      em_opens_all:
+        type: integer
+        format: int32
+        example: 399
+        description: Total number of non-unique email opens.
+      em_opens_all_computer:
+        type: integer
+        format: int32
+        example: 65
+        description: Number of non-unique email opens on a standard desktop or laptop computer.
+      em_opens_all_mobile:
+        type: integer
+        format: int32
+        example: 270
+        description: Number of non-unique email opens on a mobile phone or similar small mobile device (e.g. iPhone).
+      em_opens_all_tablet:
+        type: integer
+        format: int32
+        example: 199
+        description: Number of non-unique email opens on a small tablet type computer (e.g. iPad).
+      em_opens_all_other:
+        type: integer
+        format: int32
+        example: 10
+        description: Number of non-unique email opens on an unknown device (e.g. Game Console or Wearable).
+      em_opens_all_none:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of non-unique email opens for which the device type was not captured. This will account for any opens prior to when device type was collected and stored.
+      em_optouts:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of unique recipients who unsubscribed due to this email.
+      em_sends:
+        type: integer
+        format: int32
+        example: 308
+        description: Number of unique email sends.
+      em_abuse:
+        type: integer
+        format: int32
+        example: 1
+        description: Number of abuse (spam) complaints received.
+      em_bounces_blocked:
+        type: integer
+        format: int32
+        example: 1
+        description: Unique number bounced because as blocked by the receiving system.
+      em_bounces_mailbox_full:
+        type: integer
+        format: int32
+        example: 2
+        description: Unique number that bounced back with a mailbox full message.
+      em_bounces_nonexistent_address:
+        type: integer
+        format: int32
+        example: 3
+        description: Unique number that bounced as a non-existent address.
+      em_bounces_other:
+        type: integer
+        format: int32
+        example: 2
+        description: Unique number that bounced without an identifiable cause.
+      em_bounces_suspended:
+        type: integer
+        format: int32
+        example: 1
+        description: Unique number that bounced as suspended. Email address bounces as suspended when multiple non-existent bounces have been received for the same address.
+      em_bounces_undeliverable:
+        type: integer
+        format: int32
+        example: 19
+        description: Unique number that bounced as undeliverable.
+      em_bounces_vacation:
+        type: integer
+        format: int32
+        example: 2
+        description: Unique number that bounced back with a vacation or out of office autoreply.
+  SendsTrackingActivitiesPage:
+    type: object
+    required:
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: Lists the contacts to which the email campaign activity (<code>campaign_activity_id</code>) was sent.
+        items:
+          $ref: '#/definitions/SendsTrackingActivity'
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/Links-5'
+  BulkEmailCampaignSummariesPercents:
+    type: object
+    properties:
+      click:
+        type: number
+        example: 43.0
+        description: Aggregated click rate for campaigns on the current page.
+      open:
+        type: number
+        example: 12.0
+        description: Aggregated open rate for campaigns on the current page.
+      did_not_open:
+        type: number
+        example: 23.0
+        description: Aggregated did-not-open rate for campaigns on the current page.
+      bounce:
+        type: number
+        example: 21.0
+        description: Aggregated bounce rate for campaigns on the current page.
+      unsubscribe:
+        type: number
+        example: 2.0
+        description: Aggregated unsubscribe (optout) rate for campaigns on the current page.
+  UniqueEmailCounts:
+    type: object
+    properties:
+      sends:
+        type: integer
+        format: int32
+        example: 3129
+        description: The total number of unique sends.
+      opens:
+        type: integer
+        format: int32
+        example: 1672
+        description: The total number of unique opens.
+      clicks:
+        type: integer
+        format: int32
+        example: 256
+        description: The total number of unique clicks.
+      forwards:
+        type: integer
+        format: int32
+        example: 21
+        description: The total number of unique forwards.
+      optouts:
+        type: integer
+        format: int32
+        example: 3
+        description: The total number of unique optouts (unsubscribes).
+      abuse:
+        type: integer
+        format: int32
+        example: 1
+        description: The total number of unique abuse count (spam).
+      bounces:
+        type: integer
+        format: int32
+        example: 210
+        description: The total number of unique bounce count.
+      not_opened:
+        type: integer
+        format: int32
+        example: 1211
+        description: The total number of unique non-opens
+  StatsEmail:
+    type: object
+    properties:
+      em_bounces:
+        type: integer
+        format: int32
+        example: 10
+        description: Number of unique email bounces.
+      em_clicks:
+        type: integer
+        format: int32
+        example: 280
+        description: Number of unique recipients who clicked any link in the email.
+      em_clicks_all:
+        type: integer
+        format: int32
+        example: 387
+        description: Total number of non-unique email clicks.
+      em_clicks_all_computer:
+        type: integer
+        format: int32
+        example: 123
+        description: Number of non-unique email clicks on a standard desktop or laptop computer.
+      em_clicks_all_mobile:
+        type: integer
+        format: int32
+        example: 211
+        description: Number of non-unique email clicks on a mobile phone or similar small mobile device (e.g. iPhone).
+      em_clicks_all_tablet:
+        type: integer
+        format: int32
+        example: 85
+        description: Number of non-unique email clicks on a small tablet type computer (e.g. iPad).
+      em_clicks_all_other:
+        type: integer
+        format: int32
+        example: 4
+        description: Number of non-unique email clicks on an unknown device (e.g. Game Console or Wearable).
+      em_clicks_all_none:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of non-unique email clicks for which the device type was not captured. This will account for any clicks prior to when device type was collected and stored.
+      em_forwards:
+        type: integer
+        format: int32
+        example: 39
+        description: Number of unique recipients who forwarded the email using the forward to a friend feature (not available for all types of emails).
+      em_not_opened:
+        type: integer
+        format: int32
+        example: 25
+        description: 'Number of unique recipients who did not open the email. This is calculated as follows: <code>em_not_opened</code> is equal to <code>em_sends - em_opens - em_bounces</code>. This value is reported as zero if the calculation results in a negative value.'
+      em_opens:
+        type: integer
+        format: int32
+        example: 220
+        description: Number of unique recipients who opened the email.
+      em_opens_all:
+        type: integer
+        format: int32
+        example: 399
+        description: Total number of non-unique email opens.
+      em_opens_all_computer:
+        type: integer
+        format: int32
+        example: 65
+        description: Number of non-unique email opens on a standard desktop or laptop computer.
+      em_opens_all_mobile:
+        type: integer
+        format: int32
+        example: 270
+        description: Number of non-unique email opens on a mobile phone or similar small mobile device (e.g. iPhone).
+      em_opens_all_tablet:
+        type: integer
+        format: int32
+        example: 199
+        description: Number of non-unique email opens on a small tablet type computer (e.g. iPad).
+      em_opens_all_other:
+        type: integer
+        format: int32
+        example: 10
+        description: Number of non-unique email opens on an unknown device (e.g. Game Console or Wearable).
+      em_opens_all_none:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of non-unique email opens for which the device type was not captured. This will account for any opens prior to when device type was collected and stored.
+      em_optouts:
+        type: integer
+        format: int32
+        example: 2
+        description: Number of unique recipients who unsubscribed due to this email.
+      em_sends:
+        type: integer
+        format: int32
+        example: 308
+        description: Number of unique email sends.
+  ForwardsTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies the email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_forwards
+        description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The contact's email address.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The time that the contact forwarded the email campaign activity.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, displays the date that the contact was deleted.
+  PercentsEmail:
+    type: object
+    properties:
+      bounce:
+        type: number
+        example: 0.0
+        description: Percentage of emails sent to unique recipients that bounced.
+      click:
+        type: number
+        example: 40.0
+        description: Percentage of recipients who opened the email who also clicked one or more links in it.
+      desktop_click:
+        type: number
+        example: 10.0
+        description: Percentage of clicks that came from a standard desktop or laptop computer.
+      desktop_open:
+        type: number
+        example: 20.0
+        description: Percentage of opens that came from a standard desktop or laptop computer.
+      did_not_open:
+        type: number
+        example: 30.0
+        description: Percentage of recipients that received the email (did not bounce) but did not open it.
+      mobile_click:
+        type: number
+        example: 40.0
+        description: Percentage of clicks that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
+      mobile_open:
+        type: number
+        example: 10.0
+        description: Percentage of opens that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
+      open:
+        type: number
+        example: 70.0
+        description: Percentage of recipients that received the email (did not bounce) and opened it.
+      unsubscribe:
+        type: number
+        example: 0.0
+        description: Percentage of recipients that received the email (did not bounce) and chose to unsubscribe.
+  EmailLinks:
+    type: object
+    properties:
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 8892baf9-970a-4de6-8400-fa4ec461987c
+        description: The unique ID for an email campaign activity.
+      link_click_counts:
+        type: array
+        description: An array of objects that contain the contact click count and link metadata for each unique link URL in an email campaign activity. By default, this method combines results for duplicate link URLs.
+        items:
+          $ref: '#/definitions/EmailLinkClickCount'
+  CampaignActivityStatsQueryResultEmail:
+    type: object
+    properties:
+      errors:
+        type: array
+        description: Array of errors indicating any partial failures in the query
+        items:
+          $ref: '#/definitions/StatsError'
+      results:
+        type: array
+        description: An array of results containing statistics for each requested campaign activity
+        items:
+          $ref: '#/definitions/CampaignActivityStatsResultGenericStatsEmailActivity'
+  SendsTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies an email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_sends
+        description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address used to send the email campaign activity to a contact.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that you sent the email campaign to the contact.
+      deleted_at:
+        type: string
+        format: date
+        example: '2019-04-10'
+        description: If applicable, displays the date that the contact was deleted.
+  ForwardsTrackingActivitiesPage:
+    type: object
+    required:
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: 'The list of contacts that forwarded the specified email campaign activity. '
+        items:
+          $ref: '#/definitions/ForwardsTrackingActivity'
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/Links-5'
+  OpensTrackingActivitiesPage:
+    type: object
+    required:
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: Lists contacts that opened the specified <code>campaign_activity_id</code>.
+        items:
+          $ref: '#/definitions/OpensTrackingActivity'
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/Links-5'
+  EmailLinkClickCount:
+    type: object
+    properties:
+      link_url:
+        type: string
+        example: https://www.constantcontact.com/
+        description: The URL of a link in an email campaign activity. This URL is not normalized and appears the same as the URL in the email campaign activity.
+      url_id:
+        type: string
+        example: '1100577727321'
+        description: The ID for a unique link URL in an email campaign activity.
+      unique_clicks:
+        type: integer
+        format: int32
+        example: 99
+        description: The number of unique contacts that clicked the link.
+      list_action:
+        type: string
+        example: add
+        description: If the link uses the click segmentation feature, this property contains the action that contacts trigger when they click the link. Currently the only available action is <code>add</code>, which adds contacts that click the link to a contact list.
+      list_id:
+        type: string
+        format: uuid
+        example: 3377aefd-970a-4de6-8400-ab4ec491624c
+        description: If the link uses the click segmentation feature, this property contains the contact list linked with the <code>list_action</code> property.
+      link_tag:
+        type: string
+        example: google-link-1
+        description: Link tags are not currently available in email campaigns. By default, this method combines results for duplicate link URLs. Link tags will allow users to get a separate link click report for each unique <code>link_tag</code> value they use, even if URLs are not unique.
+  ClicksTrackingActivitiesPage:
+    type: object
+    required:
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of click tracking activities
+        items:
+          $ref: '#/definitions/ClicksTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable.
+        $ref: '#/definitions/Links-5'
+  Links-5:
+    type: object
+    properties:
+      next:
+        description: Contains the next page link if it is available.
+        $ref: '#/definitions/Next-2'
+  DidNotOpensTrackingActivitiesPage:
+    type: object
+    required:
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: Lists contacts that did not open the specified <code>campaign_activity_id</code>.
+        items:
+          $ref: '#/definitions/DidNotOpensTrackingActivity'
+      _links:
+        description: HAL property that contains the next link, if applicable.
+        $ref: '#/definitions/Links-5'
+  BouncesTrackingActivitiesPage:
+    type: object
+    required:
+    - _links
+    - tracking_activities
+    properties:
+      tracking_activities:
+        type: array
+        description: The list of email bounce tracking activities associated with a given `campaign_activity_id'.
+        items:
+          $ref: '#/definitions/BouncesTrackingActivity'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-5'
+  BouncesTrackingActivity:
+    type: object
+    required:
+    - bounce_code
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - tracking_activity_type
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies the email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_bounces
+        description: The type of email tracking activity, <code>em_bounces</code>, that this report includes.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The contact's email address that was used when the email campaign activity bounced.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      bounce_code:
+        type: string
+        example: B
+        description: 'The one-character string used to specify the reason for the email bounce. Valid codes include:
+
+
+          <ul><li><code>B</code> - Non-existent address; the contact''s Internet Service Provider (ISP) indicates that the email address doesn''t exist.</li>
+
+
+          <li><code>D</code> - Undeliverable; after repeated delivery attempts, no response was received from the contact''s ISP.</li>
+
+
+          <li><code>F</code> - Full; the contact''s mailbox is full.</li>
+
+
+          <li><code>S</code> - Suspended; the contact''s address was reported as non-existent by the ISP and is suspended from delivery.</li>
+
+
+          <li><code>V</code> - Vacation/autoreply; the contact set an autoreply, but the message was delivered.</li>
+
+
+          <li><code>X</code> - Other; the contact''s ISP specified another reason that the message cannot be delivered.</li>
+
+
+          <li><code>Z</code> - Blocked; the recipient''s ISP chose not to deliver the email. For example, the ISP may have flagged the email as spam.</li></ul>'
+      current_email_address:
+        type: string
+        example: maddie_brown@yahoo.com
+        description: The contact's most current email address. If <code>email_address</code> was updated after the email bounce activity occurred, <code>current_ email_address</code> displays the updated address. If updates were not made to <code>email_address</code>, the <code>email_address</code> and <code>current_email_address</code> are the same.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that the email bounce tracking activity occurred.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, the date when the contact was deleted.
+  BulkEmailCampaignSummariesPage:
+    type: object
+    properties:
+      bulk_email_campaign_summaries:
+        type: array
+        description: Lists and provides details about each bulk email campaign activity including total unique counts for tracked activities.
+        items:
+          $ref: '#/definitions/BulkEmailCampaignSummary'
+      aggregate_percents:
+        description: Lists aggregate percents for  `click`, `open`, `did_not_open`, `bounce`, and  `unsubscribe` activities for all campaigns included on a page of results.
+        $ref: '#/definitions/BulkEmailCampaignSummariesPercents'
+      _links:
+        description: HAL property that contains next link if applicable
+        $ref: '#/definitions/Links-5'
+  CampaignActivityStatsResultGenericStatsEmailActivity:
+    type: object
+    properties:
+      campaign_id:
+        type: string
+        description: The unique ID used to identify the campaign (UUID).
+      campaign_activity_id:
+        type: string
+        description: The unique ID used to identify the campaign activity (UUID).
+      stats:
+        description: Key-value pairs of campaign activity statistics.
+        $ref: '#/definitions/StatsEmailActivity'
+      last_refresh_time:
+        type: string
+        description: The time at which the campaign activity stats were last refreshed in ISO 8601 format (e.g. '2015-08-25T22:00:09.908Z').
+  StatsError:
+    type: object
+    properties:
+      error_key:
+        type: string
+        example: reportingsvc.not_found.invalid_path_param.campaign_ids.
+        description: The unique error key.
+      error_message:
+        type: string
+        example: Could not find any campaign stats for all requested campaigns.
+        description: A error description.
+  ClicksTrackingActivity:
+    type: object
+    required:
+    - campaign_activity_id
+    - contact_id
+    - created_time
+    - email_address
+    - link_url
+    - tracking_activity_type
+    - url_id
+    properties:
+      contact_id:
+        type: string
+        format: uuid
+        example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+        description: The ID that uniquely identifies a contact.
+      campaign_activity_id:
+        type: string
+        format: uuid
+        example: 98edac88-f4bc-408c-9e64-acd890384231
+        description: The ID that uniquely identifies the email campaign activity.
+      tracking_activity_type:
+        type: string
+        example: em_clicks
+        description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+      email_address:
+        type: string
+        example: maddieb@gmail.com
+        description: The email address used to send the email campaign activity to a contact.
+      first_name:
+        type: string
+        example: Maddie
+        description: The first name of the contact.
+      last_name:
+        type: string
+        example: Brown
+        description: The last name of the contact.
+      device_type:
+        type: string
+        example: computer
+        description: The type of device that the contact was using when they clicked the URL link for the email campaign activity.
+      url_id:
+        type: string
+        example: '1100407204171'
+        description: The ID used to uniquely identify the URL link.
+      link_url:
+        type: string
+        example: http://www.yoursite.com
+        description: The text used for the URL link.
+      created_time:
+        type: string
+        format: date-time
+        example: '2019-04-25T11:08:00.000Z'
+        description: The date and time that the contact clicked the specified URL link for the email campaign activity.
+      deleted_at:
+        type: string
+        format: date
+        example: '2015-08-10'
+        description: If applicable, displays the date that the contact was deleted.
+securityDefinitions:
+  oauth2_implicit:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    flow: implicit
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  oauth2_access_code:
+    type: oauth2
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    flow: accessCode
+    scopes:
+      contact_data: Read or modify contact data.
+      campaign_data: Read or modify email campaign data.
+      account_read: Read account data.
+      account_update: Modify account data.
+  ctctPartnerAuthorizer:
+    description: Partner Authentication
+    type: oauth2
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+    flow: implicit
+    scopes:
+      v3api/general.partner: Access to general partner API methods
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header
