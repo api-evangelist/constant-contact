@@ -10,7 +10,20 @@ tags:
 - SMS
 - Surveys
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/constant-contact.png
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2026-05-19'
@@ -25,38 +38,323 @@ description: Constant Contact is a small-business email and digital marketing pl
   export, list and tag mutations), events with registration and check-in, reporting,
   and partner provisioning.
 apis:
-- aid: constant-contact:v3
-  name: Constant Contact V3 API
-  tags:
-  - Campaigns
-  - Contacts
-  - Email Marketing
-  - Events
-  - OAuth2
-  - REST
-  - SMS
+- aid: constant-contact:constant-contact-account-services-api
+  name: Constant Contact Account Services API
+  description: Use the account endpoints and methods to get account information.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
+  tags:
+  - Account Services
   properties:
-  - url: https://developer.constantcontact.com/
-    type: Documentation
-  - url: https://developer.constantcontact.com/api_guide/index.html
-    type: GettingStarted
-  - url: https://developer.constantcontact.com/api_guide/auth_overview.html
-    type: Authentication
-  - url: https://api.cc.email/v3/swagger.yaml
-    type: OpenAPI
-  - url: openapi/constant-contact-v3-openapi.yml
-    type: OpenAPI
-  - url: graphql/constant-contact-graphql.md
-    type: GraphQL
-  description: Production REST API for Constant Contact's email marketing, SMS, and
-    events platform. OAuth2 authorization (auth code, PKCE, and JWT-bearer flows)
-    gates all endpoints across account services, contacts, contact lists, tags, custom
-    fields, segments, email campaigns and activities (with A/B tests, schedules, and
-    tests), bulk activities for high-volume mutations, events (registrations, tracks,
-    check-in, payment status), contact reporting, landing pages, and partner technology-account
-    provisioning.
+  - type: OpenAPI
+    url: openapi/constant-contact-account-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-bulk-activities-api
+  name: Constant Contact Bulk Activities API
+  description: Bulk activities endpoints are used to manage large numbers of contacts, lists, and tags.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Bulk Activities
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-bulk-activities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-contact-lists-api
+  name: Constant Contact Contact Lists API
+  description: Endpoints and methods to get, create, delete, and update one or more contact lists.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Contact Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-contact-lists-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-contact-tags-api
+  name: Constant Contact Contact Tags API
+  description: Endpoints and methods to get, create, delete, and update one or more contact tags.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Contact Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-contact-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-contacts-api
+  name: Constant Contact Contacts API
+  description: Endpoints and methods to get, create, delete, and update one or more contacts.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-contacts-custom-fields-api
+  name: Constant Contact Contacts Custom Fields API
+  description: Endpoints and methods to get, create, delete, and update on one or more custom fields.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Contacts Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-contacts-reporting-api
+  name: Constant Contact Contacts Reporting API
+  description: >-
+    Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Contacts Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-email-campaigns-ab-tests-api
+  name: Constant Contact Email Campaigns AB Tests API
+  description: >-
+    Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Email Campaigns AB Tests
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-email-campaigns-api
+  name: Constant Contact Email Campaigns API
+  description: Use email campaign endpoints and methods to get, create, and update email campaigns.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Email Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-email-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-email-reporting-api
+  name: Constant Contact Email Reporting API
+  description: >-
+    Use the email reporting endpoints and methods to get reporting data for email campaigns you sent to
+    contacts.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Email Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-email-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-email-scheduling-api
+  name: Constant Contact Email Scheduling API
+  description: >-
+    Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule an email
+    campaign activity, and GET schedule information.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Email Scheduling
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-email-scheduling-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-events-api
+  name: Constant Contact Events API
+  description: Endpoints and methods used to create and manage events.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-landing-pages-reporting-api
+  name: Constant Contact Landing Pages Reporting API
+  description: >-
+    Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted
+    with a campaign activity.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Landing Pages Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-segments-api
+  name: Constant Contact Segments API
+  description: >-
+    Use segments to target a subset of your contacts that are most likely to engage with a particular
+    campaign.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-segments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-sms-reporting-api
+  name: Constant Contact SMS Reporting API
+  description: Use SMS reporting endpoints and methods to get reporting data about SMS campaigns.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - SMS Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-sms-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-technology-partners-api
+  name: Constant Contact Technology Partners API
+  description: >-
+    Use partner endpoints to manage client Constant Contact accounts under your partner account.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Technology Partners
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-technology-partners-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-technology-partners-webhooks-api
+  name: Constant Contact Technology Partners Webhooks API
+  description: Use partner webhooks to subscribe to billing event notifications from Constant Contact.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Technology Partners Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.constantcontact.com/
+  - type: GettingStarted
+    url: https://developer.constantcontact.com/api_guide/index.html
+  - type: Authentication
+    url: https://developer.constantcontact.com/api_guide/auth_overview.html
+  - type: GraphQL
+    url: graphql/constant-contact-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/constant-contact-agentic-access.yml
