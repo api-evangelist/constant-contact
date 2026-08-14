@@ -26,7 +26,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/constant-contact.png
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-05-19'
+modified: '2026-08-13'
 position: Consumer
 specificationVersion: '0.19'
 kind: company
@@ -48,6 +48,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-account-services-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-account-services-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -66,6 +68,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-bulk-activities-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-bulk-activities-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -84,6 +88,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-contact-lists-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-contact-lists-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -102,6 +108,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-contact-tags-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-contact-tags-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -120,6 +128,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-contacts-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-contacts-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -138,6 +148,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-contacts-custom-fields-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -157,6 +169,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-contacts-reporting-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -176,6 +190,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-email-campaigns-ab-tests-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -194,6 +210,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-email-campaigns-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-email-campaigns-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -214,6 +232,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-email-reporting-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-email-reporting-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -234,6 +254,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-email-scheduling-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-email-scheduling-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -252,6 +274,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-events-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-events-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -272,6 +296,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-landing-pages-reporting-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -292,6 +318,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-segments-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-segments-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -310,6 +338,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-sms-reporting-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-sms-reporting-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -329,6 +359,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-technology-partners-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-technology-partners-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -347,6 +379,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  - type: Overlay
+    url: overlays/constant-contact-technology-partners-webhooks-api-overlay.yaml
   - type: Documentation
     url: https://developer.constantcontact.com/
   - type: GettingStarted
@@ -356,6 +390,8 @@ apis:
   - type: GraphQL
     url: graphql/constant-contact-graphql.md
 common:
+- type: OAuthScopes
+  url: scopes/constant-contact-scopes.yml
 - type: AgenticAccess
   url: agentic-access/constant-contact-agentic-access.yml
 - type: DomainSecurity
@@ -398,6 +434,38 @@ common:
   url: json-schema/constant-contact-campaign-schema.json
 - type: Spectral
   url: rules/constant-contact-rules.yml
+- type: Packages
+  url: packages/constant-contact-packages.yml
+- type: SDKs
+  url: packages/constant-contact-packages.yml
+- type: LLMsTxt
+  url: llms/constant-contact-llms.txt
+- type: Conventions
+  url: conventions/constant-contact-conventions.yml
+- type: ErrorCatalog
+  url: errors/constant-contact-problem-types.yml
+- type: Conformance
+  url: conformance/constant-contact-conformance.yml
+- type: Lifecycle
+  url: lifecycle/constant-contact-lifecycle.yml
+- type: ChangeLog
+  url: changelog/constant-contact-changelog.yml
+- type: DataModel
+  url: data-model/constant-contact-data-model.yml
+- type: Webhooks
+  url: asyncapi/constant-contact-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: RateLimits
+  url: rate-limits/constant-contact-rate-limits.yml
+- type: Plans
+  url: plans/constant-contact-plans-pricing.yml
+- type: Pricing
+  url: https://www.constantcontact.com/pricing
+- type: HelpCenter
+  url: https://knowledgebase.constantcontact.com/
+- type: Documentation
+  url: https://developer.constantcontact.com/api_guide/index.html
 - type: Features
   data:
   - 'Lite: $12/mo for 500 contacts (jumps to $50/mo at 1K)'
@@ -422,3 +490,8 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1
