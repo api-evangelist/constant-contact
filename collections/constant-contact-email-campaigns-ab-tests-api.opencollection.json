@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Email Campaigns AB Tests API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Campaigns AB Tests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET A/B Test Details for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to get A/B test details for a primary email campaign activity, such as the alternate email subject line, the contact test percentage size, and the number of hours to wait to determine the winning subject line to use. Currently, A/B tests support subject line only."
+        },
+        {
+          "info": {
+            "name": "POST (Create) an A/B Test for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Use this method to create a new A/B test for a primary email campaign activity. You must specify an alternative subject line, the percentage of contact to use for the A/B test, and the number of hours to wait after the A/B test is sent before determining the winning subject line. To create an A/B test, the campaign must have a `current_status` of `DRAFT`. When you create an A/B test, the `type` changes from Newsletter (code= `10`) to A/B Test (code= `57`)."
+        },
+        {
+          "info": {
+            "name": "DELETE an A/B Test for an Email Campaign Activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for the primary email campaign activity."
+              }
+            ]
+          },
+          "docs": "Deletes an A/B Test on an primary email campaign activity. You can only delete A/B tests that have a `current_status` of `Draft`. Deleting an A/B tests reverts the email campaign activity `type` from A/B Test (code= `57`) back to NewsLetter (code= `10`). Constant Contact uses the original subject line, rather than the alternate A/B test subject line, when an A/B test is deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

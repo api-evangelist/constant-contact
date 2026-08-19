@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Landing Pages Reporting API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Landing Pages Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Unique Contacts Clicks Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_clicks",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about each contact that clicked a link on a landing page campaign activity. Unique contact clicks are identified by both the `contact_id` and `url_id`. The same contact may appear more than once in the results, if they clicked more than one link on the landing page. The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Opens Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Contacts Opens Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_contact_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get contact details for each time a contact opens a link on a landing page.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Updates Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_updates",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts Adds Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_adds",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about each contact added to the account from a specified landing page. Contacts are identified by `contact_id`. The resulting contact data is listed with most recent activity first."
+        },
+        {
+          "info": {
+            "name": "GET a Unique Contacts SMS Opt-In Landing Page Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/landing_pages/campaign_details/:campaign_activity_id/p_unique_contact_sms_optins",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+              },
+              {
+                "name": "contacts_filter",
+                "value": "",
+                "type": "query",
+                "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+              }
+            ]
+          },
+          "docs": "Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``.  The resulting contact data is listed with most recent activity first."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

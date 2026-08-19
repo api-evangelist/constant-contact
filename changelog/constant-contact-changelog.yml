@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.constantcontact.com/api_guide/index.html
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Constant Contact publishes dated V3 API release notes as the landing page of its API guide
+  (developer.constantcontact.com/api_guide/index.html — the page title is "Release Notes").
+  Entries are month-granular prose, not semantic versions, and there is no feed.
+scheme: dated-prose
+machine_readable: false
+feed: null
+current_version: v3 (contract build 3.0.149 in the harvested Swagger; 3.0.161 in the July 2026 SDK cut)
+url: https://developer.constantcontact.com/api_guide/index.html
+window: 2024-11 through 2026-04 (most recent entries at time of harvest)
+entries:
+- date: '2026-04'
+  breaking: false
+  additions:
+  - New Social endpoints — Get Social Profiles, Get Social Network Connections, Get Hashtag
+    Groups, Create Social Media Post.
+  note: >-
+    Confirmed live: /social/profiles, /social/connections, /social/hashtags/groups and
+    /social/posts are all present in the current published Swagger (build 3.0.178, re-harvested
+    2026-08-13). They arrived alongside an undocumented Automations tag
+    (/automations/workflows) and a ten-path Billing surface.
+- date: '2026-03'
+  breaking: false
+  additions:
+  - New Events endpoints — Create Event, Update Event, Copy Event, Check In Tickets, Undo
+    Check-In Tickets, Update Registration Status, Update Payment Status.
+  note: >-
+    These DID land in the contract — addDefaultEvent, patchEvent, copyEvent, checkInTickets,
+    undoCheckInTickets, updateRegistrationStatusUsingPUT and
+    updateRegistrationPaymentStatusUsingPUT are all present in
+    openapi/constant-contact-events-api-openapi.yml.
+- date: '2026-02'
+  breaking: false
+  additions:
+  - 'Partner unsubscribe endpoint: POST /partner/accounts/{encoded_account_id}/contacts/unsubscribe.'
+  note: Present in the contract as operationId partnerUnsubscribeContacts.
+- date: '2025-12'
+  breaking: false
+  additions:
+  - Four new Events endpoints for retrieving event and registration details.
+- date: '2025-09'
+  breaking: true
+  additions:
+  - Optional prompt=login parameter on the authorization endpoint to force re-authentication.
+  - Custom Fields expanded with datetime, currency, text_area, number, boolean, single_select
+    and multi_select data types plus richer metadata.
+  - New Quick Start Guides for Contacts and Email Campaigns.
+  - New open-source SDKs for PHP and C#.
+  breaking_changes:
+  - 'Partner authorization URL changed to https://authz.constantcontact.com/partners/oauth2/default/v1/token.'
+- date: '2025-05'
+  breaking: false
+  additions:
+  - SMS-only contacts — contacts can be created and managed without an email address.
+  - V3 API Reference Tester redesigned.
+- date: '2025-02'
+  breaking: false
+  additions:
+  - Import and export of SMS data for contacts.
+- date: '2024-11'
+  breaking: false
+  additions:
+  - SMS Reports endpoint for campaign summaries (getAllBulkSmsCampaignSummaries).
+notes:
+- >-
+  Release notes are HTML prose on a static S3-hosted page with no RSS/Atom feed, no JSON, and
+  no per-entry anchors — an agent cannot subscribe to API change, only re-scrape.
+- >-
+  The release notes UNDER-report what shipped. The 2026-08-13 re-harvest of
+  https://api.cc.email/v3/swagger.yaml moved the contract from build 3.0.149 (86 paths, 120
+  operations) to 3.0.178 (100 paths, 128 operations). Fourteen new paths appeared, none removed.
+  The Social four are announced in the release notes; the Automations workflows surface
+  (/automations/workflows, /automations/workflows/{automation_flow_id}, a new Automations tag)
+  and the entire ten-path Billing surface (/billing/plan, /billing/transactions,
+  /billing/next-payment, /billing/add-ons, /billing/branding/logo, /billing/statement/email,
+  /billing/prepayment-invoice/email and friends) are NOT mentioned in any release note. The spec
+  is the more truthful changelog here.
+- >-
+  See openapi/_original/HARVEST.yml for the full path-level diff.

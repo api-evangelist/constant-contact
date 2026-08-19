@@ -1,0 +1,3102 @@
+{
+  "item": [
+    {
+      "id": "daadcd2d-0de7-49fa-9376-61585b75dfad",
+      "name": "Account Services",
+      "description": {
+        "content": "Use the account endpoints and methods to get account information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dbddbb59-5301-4841-a078-cb3c918f16a6",
+          "name": "GET User Privileges",
+          "request": {
+            "name": "GET User Privileges",
+            "description": {
+              "content": "Use this method to return the user privileges associated with your access token as an array of objects. This method returns all user privileges, including privileges the V3 API does not currently use. Constant Contact requires specific user privileges to make requests using the V3 API. For more information, see the [User Privileges and Roles Overview](/api_guide/user_privileges.html).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "user",
+                "privileges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5a49f64-ddaa-4a4f-9289-351ac594dee3",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "user",
+                    "privileges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"privilege_id\": 30,\n    \"privilege_name\": \"campaign:create\"\n  },\n  {\n    \"privilege_id\": 30,\n    \"privilege_name\": \"campaign:create\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d041cee-95c7-43e4-9771-cbd1c4eeafc7",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "user",
+                    "privileges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed2d4612-d6c1-4661-9bd6-8e8e05e905fd",
+              "name": "Forbidden request. Your application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "user",
+                    "privileges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f764dae1-e677-435f-b20f-c418fc8f45e5",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "user",
+                    "privileges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad981ad2-987d-4ca1-a066-6cfd60190c56",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "user",
+                    "privileges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b86ff33e-1c60-47fa-9ac5-fcc30ab61123",
+          "name": "GET a Summary of Account Details",
+          "request": {
+            "name": "GET a Summary of Account Details",
+            "description": {
+              "content": "Get account related details for a Constant Contact user account. Use the `extra_fields` query parameter to include the `company_logo` and/or `physical_address` details in the response body. For more details, see [Get Account Summary Details](/api_guide/account_details_get.html).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "extra_fields",
+                  "value": "<csv>",
+                  "description": "Use the `extra_fields` query parameter to include the `physical_address` and/or `company_logo` details in the response body. Use a comma separated list to include both (physical_address, company logo)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ebcb9870-6310-403d-8996-fc1c4b946f83",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"encoded_account_id\": \"p07e1l8cdif9dl\",\n  \"encoded_partner_id\": \"a37cranviy95el\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\",\n  \"physical_address\": {\n    \"address_line1\": \"123 Maple Street\",\n    \"city\": \"Boston\",\n    \"country_code\": \"US\",\n    \"address_line2\": \"Unit 1\",\n    \"address_line3\": \"Apartment 234\",\n    \"state_code\": \"MA\",\n    \"state_name\": \"EXCLUDE if country_code is US.\",\n    \"postal_code\": \"02451\"\n  },\n  \"company_logo\": {\n    \"url\": \"https://files.constantcontact.com/3a20c2f5701/780c1ff3-7fc6-4712-a862-ad5b6af57d38.jpg.\",\n    \"external_url\": \"https://www.google.com/images/logos/google_logo_41.png.\",\n    \"internal_id\": \"ACCOUNT.IMAGE.5\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65dc63ad-1441-4130-84d0-1d7940f19e99",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4708c1a5-45e2-4bed-943c-248843ff684b",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e1b7b4f-2b71-4833-a338-c2e7cb30c0ee",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4dcd0fb2-cc64-4f32-a100-1142b0e190e0",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a3de923b-513d-43ea-be14-97a9b2b50dd1",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "extra_fields",
+                      "value": "company_logo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13dec6fb-3d7e-4bc3-9ed7-f9d50eb0324f",
+          "name": "PUT (update) Account Details",
+          "request": {
+            "name": "PUT (update) Account Details",
+            "description": {
+              "content": "Use this method to update account details for a Constant Contact account, such as the email address or phone number. This PUT method provides a partial update where only valid properties that you include in the request body are updated and excluded properties are not overwritten. For more details, see [Put (update) Account Summary Details](/api_guide/account_details_put.html).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact_email\": \"<string>\",\n  \"contact_phone\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"organization_name\": \"<string>\",\n  \"organization_phone\": \"<string>\",\n  \"state_code\": \"<string>\",\n  \"time_zone_id\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d695c2e-55c3-4c57-bdd7-1efe1eb26239",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"encoded_account_id\": \"p07e1l8cdif9dl\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e07afe30-cb48-4fb1-868a-5b1009d06bd0",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66d62534-643f-4026-9946-db99bbd26d4b",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f9051861-8210-46bf-9dc0-4f6be983a617",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74d1c461-5ca0-4690-812a-a75a50de46a1",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d596630e-dd79-41b4-b078-485329bf486f",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"InstaPrinz@gmail.com\",\n  \"contact_phone\": \"5081111212\",\n  \"country_code\": \"US\",\n  \"first_name\": \"Lola\",\n  \"last_name\": \"Zang\",\n  \"organization_name\": \"InstaPrinz\",\n  \"organization_phone\": \"333-333-3335\",\n  \"state_code\": \"MA\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://InstaPriz4me.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8854cf6-b76b-4d21-a494-c25d4183a0ab",
+          "name": "GET the Physical Address for the Account",
+          "request": {
+            "name": "GET the Physical Address for the Account",
+            "description": {
+              "content": "Use this method to get the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "summary",
+                "physical_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9037fbd-9483-4d36-9268-1bbf4bae2251",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa3c3b83-f9c7-4a67-9199-55c2cc2a3505",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70142a1a-bd7a-480f-b5a1-a8af2871f5a7",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "46348125-46b8-404b-93b3-358e4600d559",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9fb6cfac-8680-403a-9d4c-522dc1411f8a",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "429298a7-3020-4c45-99c8-67befad582b7",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdbbb041-a63a-48a8-86bb-9dc1116ddd28",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "652e2e18-ece0-4d3d-99d2-fe4ffe6e2a04",
+          "name": "POST the Physical Address for the Account",
+          "request": {
+            "name": "POST the Physical Address for the Account",
+            "description": {
+              "content": "Use this method to add the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Canada (<code>CA</code>) addresses, or use the <code>state_name</code> to specify all other countries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "summary",
+                "physical_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_line1\": \"<string>\",\n  \"city\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"address_line2\": \"<string>\",\n  \"address_line3\": \"<string>\",\n  \"state_code\": \"<string>\",\n  \"state_name\": \"<string>\",\n  \"postal_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6672a302-1066-45c3-a115-c9e8773740a8",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbbc0eab-e63e-4863-aa5a-5ad3a9912854",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee58bb2a-04c4-4edd-b2b7-23ceed87c9f5",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96e78d6d-5974-4cd9-ac35-ad43faf96900",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bfc07a9e-e782-48ea-b008-f0c0257cfab4",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "689da52e-8f22-4cc5-8987-4cc6fde24ff4",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98b5ca9a-97de-4f6e-811d-bbc768ae0f27",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b6eabe8-2381-479d-8c95-8e672164c82c",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eca0c87f-3223-4d27-ac58-bc1fa17dc360",
+          "name": "PUT (update) the Physical Address for an Account",
+          "request": {
+            "name": "PUT (update) the Physical Address for an Account",
+            "description": {
+              "content": "Use this method to update the organization's physical address for the Constant Contact user account. The physical address is required to send emails and displays on the footer of every email that is sent from the account. To get the current physical address, make a GET call to `/account/summary/physical_address`. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Canada (<code>CA</code>) addresses, or use the <code>state_name</code> to specify all other countries. For more details, see [Put (update) the Physical Address for the Account](/api_guide/account_address_put.html). You must have the role of Account Owner assigned to update account level details. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "summary",
+                "physical_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_line1\": \"<string>\",\n  \"city\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"address_line2\": \"<string>\",\n  \"address_line3\": \"<string>\",\n  \"state_code\": \"<string>\",\n  \"state_name\": \"<string>\",\n  \"postal_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92836a43-55e7-415f-8424-a067103cfec4",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a51000d1-755b-45e6-aadf-00eaea1b0d95",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6523e06-ceda-4e80-a0d2-9f72b420522e",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc501508-9bed-4636-968f-968b863b0a66",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01b8da48-413a-48e7-8da8-5a146453a03b",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d68a197d-089b-4220-82e6-be246601f96a",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2fcfd868-d378-4ca5-8b91-4927d7a3e189",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "summary",
+                    "physical_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_line1\": \"123 Maple Street\",\n  \"city\": \"Boston\",\n  \"country_code\": \"US\",\n  \"address_line2\": \"Unit 1\",\n  \"address_line3\": \"Apartment 234\",\n  \"state_code\": \"MA\",\n  \"state_name\": \"EXCLUDE if country_code is US.\",\n  \"postal_code\": \"02451\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1eb6b428-86da-4fed-98f8-f2fed3363063",
+          "name": "GET a Collection of Account Email Addresses",
+          "request": {
+            "name": "GET a Collection of Account Email Addresses",
+            "description": {
+              "content": "Use this method to return a collection of email addresses for the account associated with your access token. When you <a href=\"https://v3.developer.constantcontact.com/api_reference/index.html#!/Email_Campaigns/createEmailCampaignUsingPOST\" target=\"_blank\">Create an Email Campaign<a/>, you must use an account email address with a `CONFIRMED` status in the email campaign `from_email` and `reply_to_email` headers.\n      \n\nUse the query parameters to filter results. You can filter using `confirm_status`, `role_code`, or `email_address`. For example, searching with `confirm_status=CONFIRMED` returns all confirmed email addresses in the account. This method only supports one query parameter at a time.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "confirm_status",
+                  "value": "<string>",
+                  "description": "Use the `confirm_status` query parameter to search for account emails using the email status. Possible values are `CONFIRMED` or `UNCONFIRMED`. You can also abbreviate the values of this query parameter and use `C` or `U`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "role_code",
+                  "value": "<string>",
+                  "description": "Use the `role_code` query parameter to search for account emails that have a specific role. Each each email address in an account can have multiple roles or no role. Possible values are `CONTACT`, `BILLING`, `REPLY_TO`, `JOURNALING`, or `OTHER`. You can also abbreviate the value of this query parameter and use `C`,`B`,`R`,`J`, or `O`."
+                },
+                {
+                  "disabled": false,
+                  "key": "email_address",
+                  "value": "<string>",
+                  "description": "Use the `email_address` query parameter to search for a specific account email address."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "026a50af-15c3-4d6d-93c8-2082914caab5",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"email_address\": \"string\",\n    \"email_id\": 2141,\n    \"confirm_status\": \"string\",\n    \"confirm_time\": \"1999-07-09T14:39:14.370Z\",\n    \"confirm_source_type\": \"string\",\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pending_roles\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"email_address\": \"string\",\n    \"email_id\": 6259,\n    \"confirm_status\": \"string\",\n    \"confirm_time\": \"1969-10-14T12:29:25.243Z\",\n    \"confirm_source_type\": \"string\",\n    \"roles\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pending_roles\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "177924ce-ac3c-4638-9c86-67fd1cb5cb95",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "efe01a71-0b28-40c9-9584-827a4eba8145",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7eb1f0e-6390-4348-947c-e9dbea5882f6",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4239526b-a0ba-46d0-a767-21e54f17c868",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d1bd8c2a-bff1-49f8-9d66-cecae0630790",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "705a263d-58cd-48f4-936f-30d2cf1ecb8d",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirm_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email_address",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2f8d376-bb5c-4d55-a808-4453f2134ce3",
+          "name": "POST Add an Account Email Address",
+          "request": {
+            "name": "POST Add an Account Email Address",
+            "description": {
+              "content": "Use this method to add a new email address to a Constant Contact account. If the email address you are adding already exists in the account the API will return a 409 conflict error. \n\nWhen you add a new email address to an account, Constant Contact automatically sends an email to that address with a link to confirm it. After a user clicks that link, the account email status changes from `UNCONFIRMED` to `CONFIRMED`. You can use confirmed account email addresses in the email campaign `from_email` and `reply_to_email` headers. For more use case information, see [Add an Account Email Address](/api_guide/account_post_emails.html) in the API guide. \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "account",
+                "emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email_address\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf6ccf94-08e4-4314-b1e0-f9c7d2be5b17",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email_address\": \"dlang@example.com\",\n  \"email_id\": 2,\n  \"confirm_status\": \"UNCONFIRMED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71eb0f4d-82ef-4c81-bdb0-38dddcf34039",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26f2c4fd-311e-41ed-9f7b-3dd8d3d2a435",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "73e9d1b9-bd02-4ced-84ec-af4c27a404ad",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4cd9a85-8916-4b13-bb68-33ae605160d9",
+              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8a828b0-5f03-4adc-aae6-fab23608ec39",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ccab62c-c042-42a5-9e69-c7f4d26af107",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8ed667a-3ac1-4f7e-9595-26f15dcbcd11",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "account",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email_address\": \"dlang@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8001c8c4-d2a7-40ed-8bfc-cec91a8545f7",
+    "name": "AppConnect V3 Account Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

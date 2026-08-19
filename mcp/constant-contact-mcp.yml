@@ -1,0 +1,208 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/*.yml (17 refined AppConnect V3 specs, 120 operations)
+provider: Constant Contact
+providerId: constant-contact
+status: candidate
+description: >-
+  Constant Contact ships NO Model Context Protocol server. This is a DERIVED candidate tool
+  surface computed from the 120 operations in the repo's OpenAPI files — a proposal for what a
+  Constant Contact MCP server would expose, not something an agent can call today.
+deployment:
+  mode: none
+  auth: oauth
+  verified: derived
+  note: >-
+    No hosted endpoint and no installable package exists. mcp.constantcontact.com and
+    mcp.cc.email are NXDOMAIN; https://api.cc.email/mcp returns 403 Forbidden (the gateway's
+    catch-all for any non-/v3 path); https://developer.constantcontact.com/mcp returns 403
+    AccessDenied (the S3 docs site's catch-all). The npm registry carries no first-party
+    Constant Contact MCP package — the only Constant Contact CLI on npm, @mattmaynes/ctct-cli,
+    is explicitly self-described as unofficial. Any real server would authenticate with the
+    same OAuth2 authorization-code/PKCE flow the V3 API uses against
+    https://authz.constantcontact.com/oauth2/default/v1/authorize.
+probes:
+- url: https://mcp.constantcontact.com/mcp
+  status: NXDOMAIN
+- url: https://mcp.cc.email/mcp
+  status: NXDOMAIN
+- url: https://api.cc.email/mcp
+  status: 403
+- url: https://developer.constantcontact.com/mcp
+  status: 403
+surface:
+  openapi_specs: 17
+  operations: 120
+  base_url: https://api.cc.email/v3
+  auth: OAuth2 (authorization code, PKCE, device, implicit) — scopes contact_data, campaign_data,
+    account_read, account_update, offline_access
+candidate_tools:
+- name: list_contacts
+  category: contacts
+  rest: getContacts
+  description: List contacts in the account, filterable by list, segment, email, status and update date.
+- name: get_contact
+  category: contacts
+  rest: getContact
+  description: Retrieve a single contact by contact_id.
+- name: create_contact
+  category: contacts
+  rest: createContact
+  description: Create a contact record.
+- name: update_contact
+  category: contacts
+  rest: putContact
+  description: Replace a contact record. PUT semantics — omitted fields are cleared.
+- name: delete_contact
+  category: contacts
+  rest: deleteContact
+  description: Delete a contact.
+- name: upsert_signup_contact
+  category: contacts
+  rest: createOrUpdateContact
+  description: Create or update a contact through the sign-up-form endpoint (opt-in path).
+- name: count_contacts
+  category: contacts
+  rest: countContact
+  description: Return contact counts by status.
+- name: resubscribe_contact
+  category: contacts
+  rest: resubscribeContact
+  description: Re-subscribe a previously unsubscribed contact.
+- name: list_contact_lists
+  category: lists
+  rest: getLists
+  description: List contact lists.
+- name: create_contact_list
+  category: lists
+  rest: createList
+  description: Create a contact list.
+- name: update_contact_list
+  category: lists
+  rest: putList
+  description: Update a contact list.
+- name: delete_contact_list
+  category: lists
+  rest: deleteListActivity
+  description: Delete a contact list (asynchronous — returns an activity).
+- name: list_tags
+  category: tags
+  rest: getTags
+  description: List contact tags.
+- name: create_tag
+  category: tags
+  rest: postTag
+  description: Create a contact tag.
+- name: list_custom_fields
+  category: custom-fields
+  rest: getCustomFields
+  description: List contact custom fields.
+- name: create_custom_field
+  category: custom-fields
+  rest: postCustomFields
+  description: Create a contact custom field.
+- name: list_segments
+  category: segments
+  rest: getAccountSegments
+  description: List segments defined on the account.
+- name: create_segment
+  category: segments
+  rest: createSegment
+  description: Create a segment from a criteria expression.
+- name: list_email_campaigns
+  category: campaigns
+  rest: retrieveEmailCampaignsUsingGET
+  description: List email campaigns.
+- name: create_email_campaign
+  category: campaigns
+  rest: createEmailCampaignUsingPOST
+  description: Create an email campaign and its primary_email campaign activity.
+- name: get_email_campaign
+  category: campaigns
+  rest: retrieveEmailCampaignUsingGET
+  description: Retrieve an email campaign and its activity references.
+- name: update_campaign_activity
+  category: campaigns
+  rest: updateEmailCampaignActivityUsingPUT
+  description: Update the content, subject, from address and physical address of a campaign activity.
+- name: schedule_campaign
+  category: scheduling
+  rest: scheduleEmailCampaignActivityUsingPOST
+  description: Schedule an email campaign activity to send.
+- name: unschedule_campaign
+  category: scheduling
+  rest: unscheduleEmailCampaignActivityUsingDELETE
+  description: Cancel a scheduled send.
+- name: test_send_campaign
+  category: scheduling
+  rest: testSendCampaignActivityUsingPOST
+  description: Send a test copy of a campaign activity to named recipients.
+- name: get_campaign_send_history
+  category: scheduling
+  rest: retrieveEmailSendHistoryUsingGET
+  description: Retrieve the send history for a campaign activity.
+- name: get_email_stats
+  category: reporting
+  rest: getEmailSummary
+  description: Aggregate open/click/bounce/optout stats for one or more campaigns.
+- name: get_campaign_activity_stats
+  category: reporting
+  rest: getEmailCampaignActivitySummary
+  description: Aggregate stats for one or more campaign activities.
+- name: get_link_stats
+  category: reporting
+  rest: getCampaignActivityLinkStats
+  description: Per-link click counts for a campaign activity.
+- name: get_contact_activity
+  category: reporting
+  rest: getContactTracking
+  description: Per-contact campaign activity detail.
+- name: get_sms_campaign_summaries
+  category: reporting
+  rest: getAllBulkSmsCampaignSummaries
+  description: Bulk SMS campaign summary reporting.
+- name: import_contacts_json
+  category: bulk
+  rest: bulkImportContactsJSON
+  description: Asynchronous bulk contact import from a JSON payload; returns an activity_id.
+- name: import_contacts_csv
+  category: bulk
+  rest: contactsCSVImport
+  description: Asynchronous bulk contact import from a CSV file upload.
+- name: export_contacts
+  category: bulk
+  rest: postContactsExport
+  description: Asynchronous contact export; poll the activity then fetch the file.
+- name: get_activity_status
+  category: bulk
+  rest: getActivity
+  description: Poll the status of any asynchronous bulk activity.
+- name: list_events
+  category: events
+  rest: findEvents
+  description: List events.
+- name: create_event
+  category: events
+  rest: addDefaultEvent
+  description: Create an event from the default template.
+- name: check_in_tickets
+  category: events
+  rest: checkInTickets
+  description: Check in event tickets.
+- name: get_account_summary
+  category: account
+  rest: getAccountById
+  description: Retrieve account profile, plan and organization address.
+- name: manage_partner_webhooks
+  category: partner
+  rest: putWebhooksTopic
+  description: Subscribe a callback URI to a partner billing webhook topic.
+notes:
+- >-
+  This list is a proposal derived from operationIds that exist in openapi/. It has NOT been
+  published by Constant Contact and MUST NOT be read as an available agent surface.
+- >-
+  Any real server should treat the write tools (create/update/delete contact, schedule_campaign,
+  import/export, cancelAccount, setPlan) as consequential — see
+  agentic-access/constant-contact-agentic-access.yml, which already classifies all 120
+  operations by action-class and consequence.

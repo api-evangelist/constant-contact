@@ -1,0 +1,58 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.cc.email/v3/swagger.yaml
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Provenance record for the verbatim Constant Contact AppConnect V3 contract archived in this
+  directory.
+harvest:
+  url: https://api.cc.email/v3/swagger.yaml
+  http_status: 200
+  bytes: 707055
+  fetched: '2026-08-13'
+  format: Swagger 2.0
+  info_version: 3.0.178
+  host: api.cc.email
+  base_path: /v3
+  paths: 100
+  operations: 128
+  definitions: 286
+  tags: 18
+ownership_check:
+  verdict: owned
+  evidence:
+  - 'info.title: AppConnect V3'
+  - 'info.contact.name: webservices@constantcontact.com'
+  - 'info.license.url: https://www.constantcontact.com/legal/terms-of-use'
+  - 'host: api.cc.email — the base URL named in apis.yml and in developer.constantcontact.com'
+  - 'securityDefinitions authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize'
+  note: >-
+    Every self-describing field in the contract points at Constant Contact. No sibling-brand
+    contamination risk.
+drift:
+  previous_info_version: 3.0.149
+  previous_paths: 86
+  previous_operations: 120
+  added_paths:
+  - /automations/workflows
+  - /automations/workflows/{automation_flow_id}
+  - /billing/add-ons
+  - /billing/add-ons/{service_id}/cancel
+  - /billing/branding/logo
+  - /billing/next-payment
+  - /billing/plan
+  - /billing/prepayment-invoice/email
+  - /billing/statement/email
+  - /billing/transactions
+  - /social/connections
+  - /social/hashtags/groups
+  - /social/posts
+  - /social/profiles
+  removed_paths: []
+  added_tag: Automations
+  note: >-
+    The 17 refined per-tag specs in openapi/ were split from build 3.0.149 and therefore do NOT
+    yet describe the Automations, Social or Billing surfaces. A refine-openapis run is needed to
+    bring them level with this archive; until then apis.yml lists 17 APIs where the contract now
+    supports at least 18 tag groups.

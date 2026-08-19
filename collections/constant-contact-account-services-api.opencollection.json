@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET User Privileges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/user/privileges"
+          },
+          "docs": "Use this method to return the user privileges associated with your access token as an array of objects. This method returns all user privileges, including privileges the V3 API does not currently use. Constant Contact requires specific user privileges to make requests using the V3 API. For more information, see the [User Privileges and Roles Overview](/api_guide/user_privileges.html)."
+        },
+        {
+          "info": {
+            "name": "GET a Summary of Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/summary",
+            "params": [
+              {
+                "name": "extra_fields",
+                "value": "",
+                "type": "query",
+                "description": "Use the `extra_fields` query parameter to include the `physical_address` and/or `company_logo` details in the response body. Use a comma separated list to include both (physical_address, company logo)."
+              }
+            ]
+          },
+          "docs": "Get account related details for a Constant Contact user account. Use the `extra_fields` query parameter to include the `company_logo` and/or `physical_address` details in the response body. For more details, see [Get Account Summary Details](/api_guide/account_details_get.html)."
+        },
+        {
+          "info": {
+            "name": "PUT (update) Account Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/account/summary"
+          },
+          "docs": "Use this method to update account details for a Constant Contact account, such as the email address or phone number. This PUT method provides a partial update where only valid properties that you include in the request body are updated and excluded properties are not overwritten. For more details, see [Put (update) Account Summary Details](/api_guide/account_details_put.html)."
+        },
+        {
+          "info": {
+            "name": "GET the Physical Address for the Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to get the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account."
+        },
+        {
+          "info": {
+            "name": "POST the Physical Address for the Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to add the address where the account's organization physically resides. The physical address is required to send emails and displays on the footer of every email that is sent from the account. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Canada (<code>CA</code>) addresses, or use the <code>state_name</code> to specify all other countries."
+        },
+        {
+          "info": {
+            "name": "PUT (update) the Physical Address for an Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/account/summary/physical_address"
+          },
+          "docs": "Use this method to update the organization's physical address for the Constant Contact user account. The physical address is required to send emails and displays on the footer of every email that is sent from the account. To get the current physical address, make a GET call to `/account/summary/physical_address`. The country (<code>country_code</code>) where the account organization resides determines whether you use the <code>state_code</code> to specify United States (<code>US</code>) and Cana"
+        },
+        {
+          "info": {
+            "name": "GET a Collection of Account Email Addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/account/emails",
+            "params": [
+              {
+                "name": "confirm_status",
+                "value": "",
+                "type": "query",
+                "description": "Use the `confirm_status` query parameter to search for account emails using the email status. Possible values are `CONFIRMED` or `UNCONFIRMED`. You can also abbreviate the values of this query parameter and use `C` or `U`.\n"
+              },
+              {
+                "name": "role_code",
+                "value": "",
+                "type": "query",
+                "description": "Use the `role_code` query parameter to search for account emails that have a specific role. Each each email address in an account can have multiple roles or no role. Possible values are `CONTACT`, `BILLING`, `REPLY_TO`, `JOURNALING`, or `OTHER`. You can also abbreviate the value of this query parameter and use `C`,`B`,`R`,`J`, or `O`."
+              },
+              {
+                "name": "email_address",
+                "value": "",
+                "type": "query",
+                "description": "Use the `email_address` query parameter to search for a specific account email address."
+              }
+            ]
+          },
+          "docs": "Use this method to return a collection of email addresses for the account associated with your access token. When you <a href=\"https://v3.developer.constantcontact.com/api_reference/index.html#!/Email_Campaigns/createEmailCampaignUsingPOST\" target=\"_blank\">Create an Email Campaign<a/>, you must use an account email address with a `CONFIRMED` status in the email campaign `from_email` and `reply_to_email` headers.\n      \n\nUse the query parameters to filter results. You can filter using `confirm_st"
+        },
+        {
+          "info": {
+            "name": "POST Add an Account Email Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/account/emails"
+          },
+          "docs": "Use this method to add a new email address to a Constant Contact account. If the email address you are adding already exists in the account the API will return a 409 conflict error. \n\nWhen you add a new email address to an account, Constant Contact automatically sends an email to that address with a link to confirm it. After a user clicks that link, the account email status changes from `UNCONFIRMED` to `CONFIRMED`. You can use confirmed account email addresses in the email campaign `from_email`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

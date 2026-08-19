@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every Constant Contact host named in apis.yml and the OpenAPI host block
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Constant Contact serves NO /.well-known/ document on any of its hosts. Every path below was
+  probed anonymously and every one missed. api.cc.email is an API gateway that answers a flat
+  403 {"message":"Forbidden"} for any path outside /v3; developer.constantcontact.com is an S3
+  static site that answers 403 AccessDenied for any missing key (its 403 is a 404 in disguise);
+  www.constantcontact.com answers a Next.js 404 shell; authz.constantcontact.com — the OAuth2
+  authorization server named in every securityScheme — returns an empty 404 for both
+  /.well-known/openid-configuration and /.well-known/oauth-authorization-server, and also for
+  the /oauth2/default/ prefixed variants an Okta-shaped issuer would normally serve.
+  Because nothing returned a real document, this repo emits NO WellKnown and NO SecurityTxt
+  pointer in apis.yml. That absence is the finding.
+hit_count: 0
+files: []
+hosts:
+- host: api.cc.email
+  note: API gateway; non-/v3 paths return 403 {"message":"Forbidden"}
+  probes:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+- host: developer.constantcontact.com
+  note: S3-backed static docs site; a missing key returns 403 AccessDenied rather than 404
+  probes:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+- host: www.constantcontact.com
+  note: Next.js marketing site; missing paths return an HTML 404 shell
+  probes:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: authz.constantcontact.com
+  note: >-
+    OAuth2 authorization server for every V3 securityScheme. Serves no discovery metadata:
+    both the root and the /oauth2/default/ Okta-style prefixes return an empty 404. Clients
+    must hard-code the authorize/token URLs from the docs.
+  probes:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /oauth2/default/.well-known/openid-configuration
+    status: 404
+  - path: /oauth2/default/.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404

@@ -1,0 +1,2577 @@
+{
+  "item": [
+    {
+      "id": "7c9da199-3dbe-48ad-9c53-0337b872f898",
+      "name": "Contact Lists",
+      "description": {
+        "content": "Endpoints and methods to get, create, delete, and update one or more contact lists.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5aaa78f9-eba1-4443-abeb-eb1ff16c04c5",
+          "name": "GET a List",
+          "request": {
+            "name": "GET a List",
+            "description": {
+              "content": "Use this method to get details about a specific contact list (`list_id`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists",
+                ":list_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_membership_count",
+                  "value": "<string>",
+                  "description": "Returns the total number of contacts per list that meet your selection criteria. Set the `include_membership_count` to `active`, to count only active contacts, or `all` to include all contacts in the count."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "list_id",
+                  "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1b74c7f9-d29c-4da1-b1fb-4b5b2a42a2c4",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"list_id\": \"06526938-56dd-11e9-932a-fa163ea075fa\",\n  \"name\": \"Multiple purchases\",\n  \"description\": \"List of repeat customers.\",\n  \"favorite\": false,\n  \"created_at\": \"2016-01-23T13:48:44.108Z\",\n  \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n  \"deleted_at\": \"2016-03-03T10:56:29-05:00\",\n  \"membership_count\": 327\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27fa0246-ed58-4371-99dd-db8c222200af",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7449da75-f6db-4dc6-ae9b-55adf373da25",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87a17e2f-b60c-4438-aa1c-0973988c15dc",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a9493cb-27bc-497f-9051-b92cb29d235e",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb74a61b-bb2d-457a-9d0f-f79deeac062e",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) The system generated ID that uniquely identifies a contact list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32ae64dd-ef8d-4855-b5e8-368cfd6ae2a9",
+          "name": "PUT (update) a List",
+          "request": {
+            "name": "PUT (update) a List",
+            "description": {
+              "content": "Updates an existing contact list resource, specified by `list_id`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists",
+                ":list_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "list_id",
+                  "description": "(Required) Unique ID of the contact list to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"favorite\": false,\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "264c7ac8-137e-4130-a3fb-5d0b676f3455",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"list_id\": \"06526938-56dd-11e9-932a-fa163ea075fa\",\n  \"name\": \"Multiple purchases\",\n  \"description\": \"List of repeat customers.\",\n  \"favorite\": false,\n  \"created_at\": \"2016-01-23T13:48:44.108Z\",\n  \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n  \"deleted_at\": \"2016-03-03T10:56:29-05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79b10ffa-7a31-4b75-8bd9-74f1d97745e6",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2342891b-38e7-49fe-adb3-1c71af5aa8e5",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22c2d871-6bfd-45b2-b771-eb840e925ff5",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "55477cf6-dfdb-465d-9358-51d0c9e3adf1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7da4cc9f-4676-473c-bf0e-7b3627508c5a",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d6fc926-4a50-41bc-9809-065729da330d",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the contact list to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1e8161f-286d-4d3f-befe-cc16202be4e4",
+          "name": "DELETE a List",
+          "request": {
+            "name": "DELETE a List",
+            "description": {
+              "content": "Deletes the specified contact list and its membership. DELETE List requests are processed asynchronously, and you can track the status of the request by making a GET call to the URI shown in the `_links` property in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists",
+                ":list_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "list_id",
+                  "description": "(Required) Unique ID of the list to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10d7d2a2-ba22-4c4f-a413-14e45346c35f",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "URL to retrieve the delete activity status",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activity_id\": \"65d6dc86-592a-fe4e-d6d2-cc3b2f873c83\",\n  \"state\": \"initialized\",\n  \"created_at\": \"2016-03-03T10:53:04-05:00\",\n  \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n  \"percent_done\": 1,\n  \"activity_errors\": [\n    \"Message describing the error condition.\",\n    \"Message describing the error condition.\"\n  ],\n  \"_links\": {\n    \"self\": {\n      \"href\": \"/v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b983cd92-965f-44f3-bd08-59e7d4493e25",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb3c9394-b703-4bd3-acb1-9c3729b93037",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb9b7166-faa9-412c-8a61-1c774612138d",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc8410e6-25fb-49ee-a0b0-de631a1ca772",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15b44027-c5d6-43a1-890b-13d033d12f31",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af01588b-0150-4e37-871d-f0bc8aca2ab5",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    ":list_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "list_id",
+                      "description": "(Required) Unique ID of the list to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "264d64b4-97e2-4a0d-b737-e805bda6f6b7",
+          "name": "GET Lists Collection",
+          "request": {
+            "name": "GET Lists Collection",
+            "description": {
+              "content": "Use this method to return details about all contact lists for the account.\n<div class=\"Msg\"><p class=\"note-text\">This method does not currently support filtering results using the contact list update date.</p></div>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to specify the number of results displayed per page of output, from 1 - 500, default = 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_count",
+                  "value": "false",
+                  "description": "Set `include_count` to `true` to return the total number of contact lists that meet your selection criteria."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_membership_count",
+                  "value": "<string>",
+                  "description": "Use to include the total number of contacts per list. Set to  `active`, to count only active (mailable) contacts, or `all` to count all contacts."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Use to get details for a single list by entering the full name of the list."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Use to get lists by status. Accepts comma-separated status values."
+                },
+                {
+                  "disabled": false,
+                  "key": "channel_type",
+                  "value": "<string>",
+                  "description": "Use to return lists by channel type. The default value is `email`."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_sms_membership_count",
+                  "value": "<boolean>",
+                  "description": "Set to `true` to return the total number of SMS members in each list. Only applicable when `channel_type` is `sms`. Default is `false`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "055582e5-2b99-481f-8f58-0e305120a9fc",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lists\": [\n    {\n      \"list_id\": \"06526938-56dd-11e9-932a-fa163ea075fa\",\n      \"name\": \"Multiple purchases\",\n      \"description\": \"List of repeat customers.\",\n      \"favorite\": false,\n      \"created_at\": \"2016-01-23T13:48:44.108Z\",\n      \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n      \"deleted_at\": \"2016-03-03T10:56:29-05:00\",\n      \"membership_count\": 327\n    },\n    {\n      \"list_id\": \"06526938-56dd-11e9-932a-fa163ea075fa\",\n      \"name\": \"Multiple purchases\",\n      \"description\": \"List of repeat customers.\",\n      \"favorite\": false,\n      \"created_at\": \"2016-01-23T13:48:44.108Z\",\n      \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n      \"deleted_at\": \"2016-03-03T10:56:29-05:00\",\n      \"membership_count\": 327\n    }\n  ],\n  \"lists_count\": 249,\n  \"_links\": {\n    \"next\": {\n      \"href\": \"/v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "209883e2-7086-4d39-930d-f01380746bcf",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6eb9a5ac-8129-467b-a92b-095e9ed932b4",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b2b7174-0848-4b9e-bce8-802fe75575e1",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb94ff37-ca41-4079-a7e7-f2447408d050",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6d94d50-2d2d-4620-9716-96d6a5be12ff",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_count",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_membership_count",
+                      "value": "all"
+                    },
+                    {
+                      "key": "name",
+                      "value": "TopTier"
+                    },
+                    {
+                      "key": "status",
+                      "value": "all"
+                    },
+                    {
+                      "key": "channel_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_sms_membership_count",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45fe3f3b-8d21-4e96-aa04-fc41b7e3d7ba",
+          "name": "POST (create) a List",
+          "request": {
+            "name": "POST (create) a List",
+            "description": {
+              "content": "Create a new contact list resource",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"favorite\": false,\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f7bc5e2-3ac6-467f-bce6-a663e5bf02e7",
+              "name": "New list successfully created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"list_id\": \"06526938-56dd-11e9-932a-fa163ea075fa\",\n  \"name\": \"Multiple purchases\",\n  \"description\": \"List of repeat customers.\",\n  \"favorite\": false,\n  \"created_at\": \"2016-01-23T13:48:44.108Z\",\n  \"updated_at\": \"2016-03-03T10:56:29-05:00\",\n  \"deleted_at\": \"2016-03-03T10:56:29-05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "707433e7-eaa5-4a40-886b-5240ef7dba36",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8343309c-3a18-4c0c-863a-e1ed14d1d76c",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "09388d85-63a9-43eb-9258-9274bd0ec909",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5e128da0-912e-4def-ac7f-2c151325a866",
+              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18105464-c5f8-4004-b144-51daee16858a",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b0cd2c6d-e501-4c50-a088-fbae41be6cb9",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Multiple purchases\",\n  \"favorite\": true,\n  \"description\": \"List of repeat customers\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86b5b5d9-e29d-4e6c-9f9b-6864d8356d44",
+          "name": "GET a collection of V2 and V3 API List IDs",
+          "request": {
+            "name": "GET a collection of V2 and V3 API List IDs",
+            "description": {
+              "content": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 contact list data to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nThis GET call retrieves a collection of cross-referenced list sequence IDs (`id` used in the V2 API) and UUIDs (`list_id` used in the V3 API). This endpoint is intended for developers who have an existing V2 API integration, and are migrating their users to a new V3 API integration. The V2 and V3 APIs use different resource ID formats. Use the `sequence_ids` query parameter to specify a set of comma delimited V2 list ids to cross-reference. See [Migrating Apps and Data to V3](/api_guide/migration_overview.html) to learn more.\"",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_lists",
+                "list_id_xrefs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sequence_ids",
+                  "value": "<csv>",
+                  "description": "(Required) Comma delimited list of V2 API list `ids` to cross-reference with the V3 API `list_id` value. Endpoint accepts a maximum of 500 ids at a time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ba4c2333-ea12-4f24-b37f-27f7f50727ba",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"xrefs\": [\n    {\n      \"sequence_id\": \"0016633325\",\n      \"list_id\": \"71600990-908b-11e6-907f-1200166bff25\"\n    },\n    {\n      \"sequence_id\": \"0016633325\",\n      \"list_id\": \"71600990-908b-11e6-907f-1200166bff25\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97eb8f88-31b6-42c3-9632-0dd7ab59395c",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "949f9e95-cf6c-46c8-9bf5-179b857526c3",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a77ad7fc-14ea-435c-8c0e-c6cca6e7f50b",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ef03088-b971-45db-a32e-6ea8d51c9110",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35782022-8c44-4010-8664-6d76273bf648",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b258d486-6493-49a2-b9da-fcd21bf614fb",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_lists",
+                    "list_id_xrefs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sequence_ids",
+                      "value": "1995998026,1882999944,1775099999"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bd7451d9-c84b-40c9-a9e8-166dbba5e28e",
+    "name": "AppConnect V3 Account Services Contact Lists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

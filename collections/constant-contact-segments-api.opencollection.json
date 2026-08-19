@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Segments API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET all Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/segments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of segments to return on a page."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first."
+              }
+            ]
+          },
+          "docs": "Use this method to get a list of all segments associated with the account. You can sort segment results and limit the number of segments that display per page. Deleted segments are excluded from the results. For more use case information, see [Get All Segments](/api_guide/segment_get_all.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "POST (create) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/segments"
+          },
+          "docs": "Use this method to create a new segment. You create segments to target a subset of your contacts that meet your specific criteria for a marketing campaign. The segment `name` must be unique. The `segment_criteria` requires single-string escaped JSON. Constant Contact uses the contact data that you specify in the `segment_criteria` to evaluate and identify the contacts you want to target. Contact data can be grouped from different data sources, including:\n\n  -  **`tracking`**: Supports **or** and"
+        },
+        {
+          "info": {
+            "name": "GET a Segment's Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system-generated unique ID that identifies a segment."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about a segment, including the segment criteria. If you know the `segment_id` You can also use this method to get details about a deleted segment. For more use case information, see [Get a Segment's Details](/api_guide/segment_get.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment that you want to modify."
+              }
+            ]
+          },
+          "docs": "Use this method to update an existing segment's name (`name`) and/or contact selection criteria (`segment_criteria`). You must specify both the `name` and the `segment_criteria` in the request body, even if you don't plan to update both. The segment's name must be unique and the JSON must be valid (requires single-string escaped JSON). To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 day"
+        },
+        {
+          "info": {
+            "name": "DELETE a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/segments/:segment_id",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment."
+              }
+            ]
+          },
+          "docs": "Use this method to delete a segment from your account. Before deleting a segment, verify that the segment is not associated with a scheduled campaign.\n\nDeleted segments do not display in the results when using the `GET /segments` endpoint. If you know the `segment_id`, you can use the `GET /segments/{segment_id}` endpoint to view the deleted segment's details. A segment's details are preserved for external reference purposes, such as displaying the segment name in a campaign's history. For more "
+        },
+        {
+          "info": {
+            "name": "PATCH (rename) a Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/segments/:segment_id/name",
+            "params": [
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the segment that you want to modify."
+              }
+            ]
+          },
+          "docs": "Use this method to update an existing segment `name` with a new unique name in the request body. For more use case information, see [Rename a Segment](/api_guide/segment_rename.html) in the API guide."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

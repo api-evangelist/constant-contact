@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: "The Constant Contact, Inc. V3 public API, for building integrations\
     \ with Constant Contact, the leading small-business email marketing platform."
-  version: "3.0.149"
+  version: "3.0.178"
   title: "AppConnect V3"
   contact:
     name: "webservices@constantcontact.com"
@@ -15,6 +15,8 @@ basePath: "/v3"
 tags:
 - name: "Account Services"
   description: "Use the account endpoints and methods to get account information."
+- name: "Automations"
+  description: "Use the automation endpoints and methods to manage automation campaigns"
 - name: "Bulk Activities"
   description: "Bulk activities endpoints are used to manage large numbers of contacts,\
     \ lists, and tags."
@@ -1298,6 +1300,14 @@ paths:
         - "contact_data"
       x-authorization-privileges:
       - "contacts:write"
+  /billing/transactions: {}
+  /billing/statement/email: {}
+  /billing/branding/logo: {}
+  /billing/add-ons/{service_id}/cancel: {}
+  /billing/plan: {}
+  /billing/add-ons: {}
+  /billing/prepayment-invoice/email: {}
+  /billing/next-payment: {}
   /events:
     get:
       tags:
@@ -2011,6 +2021,214 @@ paths:
         - "campaign_data"
       x-authorization-privileges:
       - "campaign:write"
+  /social/profiles:
+    get:
+      tags:
+      - "Social"
+      summary: "GET social media profiles"
+      description: "Retrieves all social media profiles connected to the account.\
+        \ A profile represents a single account on a social network (such as a Facebook\
+        \ Business Page, a LinkedIn Company Page, or an Instagram Business account)\
+        \ that the user has connected to Constant Contact.\n\nUse the `include=accessible`\
+        \ query parameter to additionally check whether each profile is currently\
+        \ accessible for posting. Profiles that are not currently accessible will\
+        \ fail if used to publish a post.\n"
+      operationId: "getSocialProfilesUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "include"
+        in: "query"
+        description: "Optional sub-resources to include. Use `accessible` to check\
+          \ if profiles are accessible on the network."
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        enum:
+        - "accessible"
+        x-example: "accessible"
+      responses:
+        "200":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/Profiles"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "404":
+          description: "The requested resource was not found."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "campaign:read"
+      x-sdk-methodName: "getSocialProfiles"
+  /social/connections:
+    get:
+      tags:
+      - "Social"
+      summary: "GET social network connections"
+      description: "Retrieves all social network accounts connected to the Constant\
+        \ Contact account, with support for multiple accounts per social network.\n\
+        \nA connection represents the authorization link between a Constant Contact\
+        \ account and a single account on a social network (Facebook, Instagram, LinkedIn,\
+        \ TikTok, etc.). Each connection includes account information about the connected\
+        \ user on that network (display name, username, image, etc.) and the current\
+        \ status of the connection (whether it's active, rate-limited, or has any\
+        \ errors).\n\nNote that a single connection may have multiple profiles (pages)\
+        \ associated with it — use `GET /social/profiles` to retrieve the individual\
+        \ profiles.\n"
+      operationId: "getSocialConnectionsUsingGET"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/ConnectionResponseDto"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "404":
+          description: "The requested resource was not found."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "campaign:read"
+      x-sdk-methodName: "getSocialConnections"
+  /social/hashtags/groups:
+    get:
+      tags:
+      - "Social"
+      summary: "GET hashtag groups"
+      description: "Retrieves a paginated list of saved hashtag groups for the account.\
+        \ Hashtag groups allow users to save and organize reusable collections of\
+        \ hashtags that can be applied to social posts.\n\nUse the `limit` and `page`\
+        \ query parameters to paginate through results. Navigate to the next page\
+        \ using the `_links.next` link in the response.\n"
+      operationId: "getSocialHashtagGroupsUsingGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Maximum number of hashtag groups to retrieve per page. Default\
+          \ and maximum is `5`."
+        required: false
+        type: "integer"
+        default: 5
+        maximum: 5
+        minimum: 1
+        x-example: "5"
+      - name: "page"
+        in: "query"
+        description: "Page number to retrieve (0-based)."
+        required: false
+        type: "integer"
+        default: 0
+        minimum: 0
+        x-example: "0"
+      responses:
+        "200":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/PagedHashtagGroupsDto"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "404":
+          description: "The requested resource was not found."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "campaign:read"
+      x-sdk-methodName: "getHashtagGroups"
+  /social/posts:
+    post:
+      tags:
+      - "Social"
+      summary: "POST (create) a social media post"
+      description: "Creates a new social media post that can be published immediately\
+        \ or scheduled for later publication. A post can target one or more social\
+        \ profiles, and can include text, images, and network-specific settings.\n\
+        \nSet `status` to `DRAFT` to save without publishing, or `SCHEDULED` to schedule\
+        \ for publication. Scheduled posts require a `scheduled_time` in ISO-8601\
+        \ format.\n\nPost content and settings can vary per profile — each `profile_posts`\
+        \ entry can have its own text, images, and network-specific settings (e.g.,\
+        \ TikTok-specific settings like `disable_comment`).\n"
+      operationId: "createSocialPostUsingPOST"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The social post content and configuration."
+        required: true
+        schema:
+          $ref: "#/definitions/PostCreateDto"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/PostDto"
+        "201":
+          description: "Post created successfully"
+          schema:
+            $ref: "#/definitions/PostDto"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "404":
+          description: "The requested resource was not found."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "campaign:write"
+      x-sdk-methodName: "createSocialPost"
   /segments:
     get:
       tags:
@@ -4025,18 +4243,15 @@ paths:
       tags:
       - "Email Campaigns"
       summary: "POST (Create) a New Email Campaign"
-      description: "Use this method to create a new email campaign. You must include\
-        \ a tracking image (`[[trackingImage]]`) in the email body in order for Constant\
-        \ Contact to report on the email performance. This method also creates new\
-        \ `primary_email` and `permalink` email campaign activities and associates\
-        \ them with the new email campaign.\nThe request body must contain the `name`\
+      description: "Use this method to create a new email campaign. The API supports\
+        \ custom HTML campaigns (format type 5). Custom HTML must include a tracking\
+        \ image (`[[trackingImage]]`) in the email body in order for Constant Contact\
+        \ to report on the email performance.\nThe request body must contain the `name`\
         \ property and the `email_campaign_activities` array. The `name` must be unique.\
         \ The `email_campaign_activities` array contains the main content of your\
         \ email campaign and must include `format_type`, `from_name`, `from_email`,\
         \ `reply_to_email`, `subject`, and `html_content` properties. The `from_email`\
-        \ address you use must use a verified email address for your account.\nNOTE:\
-        \ If you create an email campaign using a legacy (V7) format, Constant Contact\
-        \ automatically converts it to the newer custom code format.\n"
+        \ address you use must use a verified email address for your account.\n"
       operationId: "createEmailCampaignUsingPOST"
       consumes:
       - "application/json"
@@ -4089,34 +4304,9 @@ paths:
         \ the main content of your email campaign and must include `format_type`,\
         \ `from_name`, `from_email`, `reply_to_email`, `subject`, and `html_content`\
         \ properties. The `from_email` address you use must use a verified email address\
-        \ for the account.\nBefore creating an email campaign, first retrieve the\
-        \ current account physical mailing address using the getPhysicalAddress tool.\
-        \ If the address is missing or incomplete, do not assume values; ask the user\
-        \ for the missing fields or update the address only with user-provided information.\n\
-        Compliance and sender preflight requirements:\n  Before creating an email\
-        \ campaign, the assistant must verify two separate account requirements:\n\
-        \n  1. Physical mailing address requirement\n  - First retrieve the current\
-        \ account physical mailing address using the `getPhysicalAddress` tool.\n\
-        \  - A physical mailing address is required to send emails and displays in\
-        \ the footer of every email sent from the account.\n  - If the address is\
-        \ missing or incomplete, do not assume values.\n  - Ask the user for the missing\
-        \ fields, or update the address only with user-provided information.\n\n \
-        \ 2. Sender email requirement\n  - Then retrieve account email addresses using\
-        \ `retrieveEmailAddresses`.\n  - Do not assume that a confirmed email alone\
-        \ is the best choice for sender headers.\n  - The assistant must verify which\
-        \ confirmed account emails are eligible for campaign headers and should inspect\
-        \ returned email roles.\n  - `from_email` must be a confirmed account email\
-        \ and should prefer an email with the `DEFAULT_FROM` role when available.\n\
-        \  - `reply_to_email` must be a confirmed account email and should prefer\
-        \ an email with the `REPLY_TO` role when available.\n  - If the same confirmed\
-        \ account email has both roles, it is the preferred default for both fields.\n\
-        \  - If no role-qualified email exists, the assistant must clearly say so\
-        \ and either ask the user which confirmed account email to use or use a confirmed\
-        \ fallback only if the API allows it and the user accepts.\n  - The assistant\
-        \ must not present sender details as validated until it has actually checked\
-        \ confirmed account emails.\n\nQuality requirement for default output: when\
-        \ the user asks to create an email campaign and does not explicitly request\
-        \ a plain or minimal draft, default to a polished, production-ready HTML marketing\
+        \ for the account.\nQuality requirement for default output: when the user\
+        \ asks to create an email campaign and does not explicitly request a plain\
+        \ or minimal draft, default to a polished, production-ready HTML marketing\
         \ email, not a schema-valid stub. Treat any included HTML example as the minimum\
         \ visual quality bar, not just a valid payload sample.\nStrong preference:\
         \ generate professionally styled HTML with substantial inline CSS and a clear\
@@ -4151,31 +4341,7 @@ paths:
         \ If any of these are missing, ask first. Do not use generic filler strategy\
         \ or copy as a substitute for the brief.\nTool Requirement: After creating\
         \ an email campaign, always use the html preview tool get_campaign_html_preview\
-        \ inspect the rendered result. Example HTML below is illustrative, but the\
-        \ assistant should generally produce HTML that is at least as polished as\
-        \ this example unless the user requests otherwise: This is an example of the\
-        \ html content `<html><body style=\"margin:0;padding:0;background-color:#f6f3ee;font-family:Arial,Helvetica,sans-serif;color:#2b2118;\"\
-        >[[trackingImage]]<table role=\"presentation\" width=\"100%\" cellpadding=\"\
-        0\" cellspacing=\"0\" border=\"0\" style=\"background-color:#f6f3ee;margin:0;padding:24px\
-        \ 0;\"><tr><td align=\"center\"><table role=\"presentation\" width=\"600\"\
-        \ cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:600px;max-width:600px;background-color:#fffaf3;border-collapse:collapse;border:1px\
-        \ solid #eadfce;\"><tr><td style=\"padding:18px 40px 8px 40px;text-align:center;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#8a6d4b;\"\
-        >The crumb report</td></tr><tr><td style=\"padding:0 40px 12px 40px;text-align:center;\"\
-        ><h1 style=\"margin:0;font-size:34px;line-height:42px;color:#3a2817;\">Big\
-        \ bread news</h1></td></tr><tr><td style=\"padding:0 40px 20px 40px;text-align:center;font-size:17px;line-height:26px;color:#5c4735;\"\
-        >A very important update from the world of bread, delivered fresh to the bread\
-        \ enjoyer list.</td></tr><tr><td style=\"padding:0 24px 24px 24px;\"><img\
-        \ src=\"https://files.constantcontact.com/bde0a25f401/845f0a70-3610-448e-a493-0aba03ef9e9d.png\"\
-        \ width=\"552\" style=\"display:block;width:100%;max-width:552px;height:auto;border:0;border-radius:12px;\"\
-        ></td></tr><tr><td style=\"padding:0 40px 10px 40px;font-size:18px;line-height:28px;font-weight:bold;color:#3a2817;\"\
-        >Today’s loaf highlight</td></tr><tr><td style=\"padding:0 40px 12px 40px;font-size:16px;line-height:26px;color:#4c3b2d;\"\
-        >This edition celebrates one excellent loaf and the simple joy of admiring\
-        \ good bread. Crispy crust, strong crumb, no notes.</td></tr><tr><td style=\"\
-        padding:0 40px 32px 40px;\"><table role=\"presentation\" cellpadding=\"0\"\
-        \ cellspacing=\"0\" border=\"0\"><tr><td style=\"border-radius:999px;border:1px\
-        \ solid #3a2817;padding:12px 22px;font-size:15px;\"><a href=\"https://i.imgur.com/pzNV90U.jpeg\"\
-        \ style=\"color:#3a2817;text-decoration:none;font-weight:bold;\">View the\
-        \ bread</a></td></tr></table></td></tr></table></td></tr></table></body></html>`\n"
+        \ inspect the rendered result.\n"
       x-ctctmcp-allow: true
   /emails/{campaign_id}:
     get:
@@ -5003,6 +5169,210 @@ paths:
       x-authorization-privileges:
       - "campaign:send"
       x-sdk-methodName: "deleteResendEmailCampaign"
+  /automations/workflows:
+    get:
+      tags:
+      - "Automations"
+      summary: "List All Automations"
+      description: "Use this method to list all available automation workflows.\n"
+      operationId: "listAutomations"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "channel"
+        in: "query"
+        description: "Filter by channel"
+        required: false
+        type: "string"
+        x-example: "email"
+      - name: "sort_direction"
+        in: "query"
+        description: "Sort direction, ASC or DESC. Defaults to DESC"
+        required: false
+        type: "string"
+        enum:
+        - "ASC"
+        - "DESC"
+        x-example: "DESC"
+      - name: "created_from"
+        in: "query"
+        description: "Filter by how the workflow was created"
+        required: false
+        type: "string"
+        enum:
+        - "SCRATCH"
+        - "TEMPLATE"
+      - name: "goals"
+        in: "query"
+        description: "Filter by goal tags (e.g. post_purchase_followup, up_sell_and_cross_sell)"
+        required: false
+        type: "string"
+        x-example: "post_purchase_followup"
+      - name: "name"
+        in: "query"
+        description: "Find by workflow name (exact match)"
+        required: false
+        type: "string"
+        x-example: "My Workflow 123"
+      responses:
+        "209":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/ListAutomationFlowsResponseDto"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "customer-journey:read"
+    post:
+      tags:
+      - "Automations"
+      summary: "Create an Automation"
+      description: "Use this method to create a new automation campaign workflow from\
+        \ scratch by providing trigger information. For example, an automation that\
+        \ triggers when contacts join a list or an automation that triggers for a\
+        \ contact birthday.\n\nSome common automation examples are included in the\
+        \ request body example dropdown menu.\n"
+      operationId: "createAutomationCampaignUsingPost"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "workflowName"
+        in: "query"
+        description: "Use this query parameter to provide a workflow name and override\
+          \ the default name."
+        required: false
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Automation trigger definition (type, action_name, parameters,\
+          \ optional trigger_date and bounds)."
+        required: true
+        schema:
+          $ref: "#/definitions/TriggerDefDto"
+      responses:
+        "201":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/AutomationCampaign"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "customer-journey:create"
+  /automations/workflows/{automation_flow_id}:
+    get:
+      tags:
+      - "Automations"
+      summary: "Retrieve an Automation"
+      description: "Use this endpoint to retrieve an automation workflow by its workflow\
+        \ id."
+      operationId: "retrieveAutomationCampaignUsingGet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "automation_flow_id"
+        in: "path"
+        description: "Automation workflow identifier."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/AutomationCampaign"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "customer-journey:read"
+    put:
+      tags:
+      - "Automations"
+      summary: "Update an Automation"
+      description: "Use this method to update an automation workflow."
+      operationId: "updateAutomationCampaignUsingPut"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "automation_flow_id"
+        in: "path"
+        description: "Automation workflow identifier."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Automation trigger definition (type, action_name, parameters,\
+          \ optional trigger_date and bounds)."
+        required: true
+        schema:
+          $ref: "#/definitions/AutomationCampaignUpdate"
+      responses:
+        "200":
+          description: "Request successful"
+          schema:
+            $ref: "#/definitions/AutomationCampaign"
+        "400":
+          description: "Bad request. Either the JSON was malformed or there was a\
+            \ data validation error."
+        "401":
+          description: "The Access Token used is invalid."
+        "403":
+          description: "Forbidden request. You lack the necessary scopes, you lack\
+            \ the necessary user privileges, or the application is deactivated."
+        "500":
+          description: "There was a problem with our internal service."
+      security:
+      - oauth2_implicit:
+        - "campaign_data"
+      - oauth2_access_code:
+        - "campaign_data"
+      x-authorization-privileges:
+      - "customer-journey:update"
   /emails/activities/{campaign_activity_id}/abtest:
     get:
       tags:
@@ -7328,6 +7698,7 @@ securityDefinitions:
       campaign_data: "Read or modify email campaign data."
       account_read: "Read account data."
       account_update: "Modify account data."
+      billing_data: "Read or modify billing data."
   oauth2_access_code:
     type: "oauth2"
     authorizationUrl: "https://authz.constantcontact.com/oauth2/default/v1/authorize"
@@ -7338,6 +7709,7 @@ securityDefinitions:
       campaign_data: "Read or modify email campaign data."
       account_read: "Read account data."
       account_update: "Modify account data."
+      billing_data: "Read or modify billing data."
   ctctPartnerAuthorizer:
     description: "Partner Authentication"
     type: "oauth2"
@@ -7350,6 +7722,565 @@ securityDefinitions:
     name: "x-api-key"
     in: "header"
 definitions:
+  EditorBlock:
+    type: "object"
+    properties:
+      background:
+        type: "object"
+        properties:
+          color:
+            type: "string"
+            example: "#FFFFFF"
+            description: "Background color hex code or block."
+      margin:
+        $ref: "#/definitions/EditorMarginProperties"
+      border:
+        $ref: "#/definitions/EditorBorderProperties"
+      corner_radius:
+        $ref: "#/definitions/EditorRadiusProperties"
+  EditorText:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "text"
+        description: "Name of component (`text`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      align:
+        type: "string"
+        example: "center"
+        description: "Text alignment."
+      valign:
+        type: "string"
+        description: "Text vertical alignment."
+      content:
+        type: "string"
+        example: "<p>Hello World</p>"
+        description: "HTML content of the text block."
+      line_height:
+        type: "number"
+        description: "Text line height."
+      font_family:
+        type: "string"
+        description: "Text font family."
+      color:
+        type: "string"
+        description: "Text color hex code."
+      font_size:
+        type: "integer"
+        description: "Text font size."
+      font_weight:
+        type: "string"
+        description: "Text font weight."
+      font_style:
+        type: "string"
+        description: "Text font style."
+      text_decoration:
+        type: "string"
+        description: "Text decoration. Used to underline the text."
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorImage:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "image"
+        description: "Name of component."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      src:
+        type: "string"
+        example: "https://example.com/image.png"
+        description: "URL of the image."
+      alt:
+        type: "string"
+        description: "Image alternate text"
+      width:
+        type: "integer"
+        example: 650
+        description: "Display width in pixels."
+      height:
+        type: "integer"
+        description: "Display height in pixels."
+      width_unit:
+        type: "string"
+        description: "Unit for width (e.g., px, %)."
+      align:
+        type: "string"
+        example: "center"
+        description: "Image alignment."
+      valign:
+        type: "string"
+        description: "Image vertical alignment."
+      link:
+        $ref: "#/definitions/EditorLink"
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      corner_radius:
+        $ref: "#/definitions/EditorRadiusProperties"
+      border:
+        $ref: "#/definitions/EditorBorderProperties"
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorSpacer:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "spacer"
+        description: "Name of component (`spacer`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+      height:
+        type: "integer"
+        example: 15
+        description: "Height of the spacer in pixels."
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorColumn:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "column"
+        description: "Name of component (`column`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorDocumentChildrenDocument"
+      position:
+        type: "integer"
+        example: 1
+        description: "1-based position of this column within a multi-column layout."
+      width:
+        type: "integer"
+        example: 50
+        description: "Percentage width of this column within its layout."
+      columns:
+        type: "integer"
+        description: "Number of columns in parent layout."
+      divided:
+        type: "boolean"
+        description: "Whether a divider is rendered between columns."
+      divider:
+        type: "object"
+        properties:
+          modifier:
+            type: "string"
+            example: "verticalDivider"
+            description: "Optional modifier for divider."
+          width:
+            type: "integer"
+            description: "Width for column divider."
+          color:
+            type: "string"
+            description: "Color hex code for divider."
+      border:
+        type: "object"
+        properties:
+          color:
+            type: "string"
+            description: "Color hex code for border"
+          width:
+            type: "integer"
+            description: "Border width"
+          style:
+            type: "string"
+            description: "Column border line style."
+          corner_radius:
+            type: "integer"
+            description: "Column border corner radius"
+      align:
+        type: "string"
+        description: "Column alignment."
+      valign:
+        type: "string"
+        description: "Column vertical alignment."
+      background:
+        type: "object"
+        properties:
+          color:
+            type: "string"
+            description: "Column background color."
+      corner_radius:
+        $ref: "#/definitions/EditorRadiusProperties"
+  EditorLayout:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "layout"
+        description: "Name of component (`layout`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorColumn"
+      columns:
+        type: "integer"
+        example: 1
+        description: "Number of columns in this layout block."
+      reverse_stack:
+        type: "boolean"
+        description: "Whether columns stack in reverse order."
+      divided:
+        type: "boolean"
+        description: "Indicates if a divider is rendered in the column."
+      background:
+        type: "object"
+        properties:
+          color:
+            type: "string"
+            description: "Background color hex code."
+          image:
+            type: "object"
+            properties:
+              src:
+                type: "string"
+              display:
+                type: "object"
+                properties:
+                  tile:
+                    type: "string"
+                  center:
+                    type: "string"
+                  cover:
+                    type: "string"
+      corner_radius:
+        $ref: "#/definitions/EditorRadiusProperties"
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorShellPanel:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "shellPanel"
+        description: "Name of component (`shellPanel`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        example: "footer"
+        description: "Optional role descriptor for this panel (e.g. footer)."
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorLayout"
+      render:
+        type: "boolean"
+        description: "Whether panel is rendered."
+      width:
+        type: "object"
+        properties:
+          unit:
+            type: "string"
+            description: "Width unit of measurement. Can be % or px."
+          value:
+            type: "integer"
+            description: "Width value."
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      background:
+        type: "object"
+        properties:
+          outer:
+            type: "string"
+            description: "Outer background color"
+          inner:
+            type: "string"
+            description: "Inner background color"
+      border:
+        type: "object"
+        properties:
+          style:
+            type: "string"
+          color:
+            type: "string"
+            description: "Border color hex code."
+          top:
+            type: "integer"
+            description: "Border top width."
+          right:
+            type: "integer"
+            description: "Border right width."
+          bottom:
+            type: "integer"
+            description: "Border bottom width."
+          left:
+            type: "integer"
+            description: "Border left width."
+      corner_radius:
+        type: "integer"
+        description: "Corner radius property for the shell panel. Controls if the\
+          \ component renders with rounded corners."
+  EditorShell:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "shell"
+        description: "Name of component (`shell`)."
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorShellPanel"
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+  EditorBody:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "body"
+        description: "Name of component (`body`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      purpose:
+        type: "string"
+        description: "Email body purpose/type."
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorShell"
+  EditorPaddingProperties:
+    type: "object"
+    properties:
+      top:
+        type: "integer"
+        description: "Top padding in px."
+      bottom:
+        type: "integer"
+        description: "Bottom padding in px."
+      left:
+        type: "integer"
+        description: "Left padding in px."
+      right:
+        type: "integer"
+        description: "Right padding in px."
+  EditorLink:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        description: "Describes how the link is used inside its component."
+      uri:
+        type: "string"
+        description: "Link uri."
+      text:
+        type: "string"
+        description: "Link text."
+      trackable:
+        type: "boolean"
+  EditorButton:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "button"
+        description: "Name of component (`button`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      content:
+        type: "string"
+        description: "Button label text."
+      link:
+        $ref: "#/definitions/EditorLink"
+      color:
+        type: "string"
+        description: "Text color."
+      font_size:
+        type: "integer"
+        description: "Button font size."
+      font_family:
+        type: "string"
+        description: "Button font family."
+      font_weight:
+        type: "string"
+        description: "Button font weight."
+      font_style:
+        type: "string"
+        description: "Button font style."
+      text_decoration:
+        type: "string"
+        description: "Button text decoration. Used to underline the button text."
+      background:
+        type: "string"
+        description: "Button background color."
+      corner_radius:
+        type: "integer"
+        description: "Button corner radius. Controls how rounded the buttons appears."
+      align:
+        type: "string"
+        description: "Button alignment. Can be left, center, or right."
+      width:
+        type: "object"
+        properties:
+          value:
+            type: "string"
+            description: "Width value or 'auto'."
+          unit:
+            type: "string"
+            description: "Unit of measurement for button width. Can be % or px."
+      border:
+        $ref: "#/definitions/EditorBorderProperties"
+      inner_padding:
+        type: "object"
+        properties:
+          horizontal:
+            type: "integer"
+          vertical:
+            type: "integer"
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorDivider:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "divider"
+        description: "Name of component (`divider`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      height:
+        type: "object"
+        properties:
+          solid:
+            type: "integer"
+            description: "Divider height for solid divider style."
+          bordered:
+            type: "integer"
+            description: "Divider height for bordered divider style."
+      width:
+        type: "integer"
+        description: "Width as percentage."
+      color:
+        type: "string"
+        description: "Color hex code."
+      format:
+        type: "object"
+        properties:
+          solid:
+            type: "boolean"
+            description: "Boolean indicating that the divider uses a solid line."
+          bordered:
+            type: "object"
+            properties:
+              dashed:
+                type: "boolean"
+                description: "Boolean indicating that the divider uses a dashed line."
+              dotted:
+                type: "boolean"
+                description: "Boolean indicating that the divider uses a dotted line."
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      align:
+        type: "string"
+      block:
+        $ref: "#/definitions/EditorBlock"
+  EditorSocialFollow:
+    type: "object"
+    properties:
+      component:
+        type: "string"
+        example: "socialFollow"
+        description: "Name of component (`socialFollow`)."
+      cpeid:
+        type: "string"
+        example: "w-001"
+        description: "Component id."
+      modifier:
+        type: "string"
+        description: "Optional role descriptor for component."
+      icon:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "facebook"
+              description: "Identifies a social media platform in the social follow\
+                \ block."
+            name:
+              type: "string"
+              example: "Facebook"
+              description: "Name of social media platform. Rendered in the editor\
+                \ UI."
+            src:
+              type: "string"
+              description: "Image source for social media platform icon."
+            link:
+              $ref: "#/definitions/EditorLink"
+            width:
+              type: "integer"
+              description: "Social media block width"
+      icon_style:
+        type: "object"
+        properties:
+          shape:
+            type: "string"
+            description: "Social media icon shape."
+          color:
+            type: "string"
+      align:
+        type: "string"
+        description: "Alignment of social link component."
+      width:
+        type: "integer"
+      padding:
+        $ref: "#/definitions/EditorPaddingProperties"
+      block:
+        $ref: "#/definitions/EditorBlock"
   UserPrivilegesResource:
     type: "array"
     items:
@@ -10483,15 +11414,6 @@ definitions:
           $ref: "#/definitions/RegistrationTicketDto"
       order_summary:
         $ref: "#/definitions/OrderDetailsDto"
-  Links-2:
-    type: "object"
-    properties:
-      next:
-        $ref: "#/definitions/Href"
-      prev:
-        $ref: "#/definitions/Href"
-      self:
-        $ref: "#/definitions/Href"
   RegistrantInformationLiteDto:
     type: "object"
     properties:
@@ -10562,7 +11484,7 @@ definitions:
     type: "object"
     properties:
       _links:
-        $ref: "#/definitions/Links-2"
+        $ref: "#/definitions/registrationsLinks"
       next_cursor:
         type: "string"
         description: "Use to get the next page of results."
@@ -10640,39 +11562,42 @@ definitions:
       display_name:
         type: "string"
         example: "John Doe"
-        description: "Display name of the connected user"
+        description: "Display name of the connected user."
         readOnly: true
       image_url:
         type: "string"
         example: "https://example.com/avatar.jpg"
-        description: "URL of the connected user's avatar or image"
+        description: "URL of the connected user's avatar or image."
         readOnly: true
       network:
         type: "string"
         example: "facebook"
-        description: "The social network this account belongs to"
+        description: "The social network this account belongs to."
         readOnly: true
       network_account_id:
         type: "string"
         description: "The user identifier on the given network. Note: this is the\
-          \ network _account_ id not the _profile_ id."
+          \ network <em>account</em> id, not the <em>profile</em> id."
         readOnly: true
       username:
         type: "string"
         example: "johndoe"
-        description: "Username of the connected user on the social network"
+        description: "Username of the connected user on the social network."
         readOnly: true
+    description: "Account information for a connected social network user."
   ProfileDto:
     type: "object"
     required:
     - "connected"
+    - "network"
+    - "profile_id"
     properties:
       accessible:
         type: "boolean"
         example: false
         description: "Whether the profile is currently accessible for posting. Publishing\
           \ a post will fail if its profile is not currently accessible. Only populated\
-          \ when the request includes the query parameter include=accessible."
+          \ when the GET request includes the query parameter <code>include=accessible</code>."
         readOnly: true
       account_info:
         readOnly: true
@@ -10682,20 +11607,28 @@ definitions:
         example: true
         description: "Whether this profile is currently connected. You can only create\
           \ and publish posts with connected profiles."
+        readOnly: true
+      handle:
+        type: "string"
+        example: "mybusinesspage"
+        description: "The profile's handle on the social network (for example, an\
+          \ Instagram or TikTok username). May be <code>null</code> if the network\
+          \ does not expose a separate handle (for example, Facebook)."
+        readOnly: true
       image_url:
         type: "string"
         example: "https://example.com/profile-image.jpg"
-        description: "URL of the profile's image or avatar"
+        description: "URL of the profile's image or avatar."
         readOnly: true
       name:
         type: "string"
         example: "My Business Page"
-        description: "Display name or handle of the profile"
+        description: "Display name of the profile."
         readOnly: true
       network:
         type: "string"
         example: "facebook"
-        description: "The social network this profile belongs to"
+        description: "The social network this profile belongs to."
         readOnly: true
       network_profile_id:
         type: "string"
@@ -10708,15 +11641,16 @@ definitions:
         readOnly: true
       profile_id:
         type: "string"
-        description: "Unique identifier for this profile"
+        description: "Unique identifier for this profile. Use this value in the <code>profile_id</code>\
+          \ field of a <code>ProfilePost</code> when creating a post."
         readOnly: true
       settings:
         type: "object"
-        description: "Network-specific settings for the profile. <p> Only populated\
-          \ when request specifies accessible and settings are available for network.\
-          \ Currently only TikTok has the following available settings: </p><pre>\"\
-          content\": {\n\t\"comment_disabled\": Boolean,\n\t\"duet_disabled\": Boolean,\n\
-          \t\"stitch_disabled\": Boolean,\n\t\"max_video_post_duration_sec\": Integer\n\
+        description: "Network-specific settings for the profile. Only populated when\
+          \ the request includes <code>include=accessible</code> and settings are\
+          \ available for the network. Currently, only TikTok provides settings: <pre>\"\
+          content\": {\n  \"comment_disabled\": Boolean,\n  \"duet_disabled\": Boolean,\n\
+          \  \"stitch_disabled\": Boolean,\n  \"max_video_post_duration_sec\": Integer\n\
           }</pre>"
         readOnly: true
         additionalProperties:
@@ -10725,12 +11659,12 @@ definitions:
       url:
         type: "string"
         example: "https://www.facebook.com/mybusinesspage"
-        description: "URL to the profile on the social network"
+        description: "URL to the profile on the social network."
         readOnly: true
     description: "Describes a social network profile (Business Page, Company Page/Organization,\
-      \ etc.)<br><strong>Note:</strong>Due to performance and/or rate-limit issues,\
+      \ etc.). <br><strong>Note:</strong> Due to performance and/or rate-limit issues,\
       \ some properties <em>may</em> be cached. Where possible, caching will be limited\
-      \ to 15 minutes"
+      \ to 15 minutes."
   Profiles:
     type: "array"
     items:
@@ -10740,57 +11674,89 @@ definitions:
     properties:
       error:
         type: "string"
-        description: "There was an unexpected error accessing the account."
+        description: "A message indicating that there was an unexpected error accessing\
+          \ the social network account."
+        readOnly: true
       has_token:
         type: "boolean"
-        example: false
-        description: "True if there is a token for this network type in the token-svc\
-          \ db"
+        example: true
+        description: "<code>true</code> if the integration has an authorization token\
+          \ for this social network account."
+        readOnly: true
       is_active_user:
         type: "boolean"
-        example: false
-        description: "At this time, a user is considered active if the user has any\
-          \ connected Profiles"
+        example: true
+        description: "A user is considered active if the user has any connected profiles\
+          \ for the social network account."
+        readOnly: true
       rate_limited:
         type: "boolean"
         example: false
-        description: "Whether this account or our app is currently rate-limited"
+        description: "Whether this social network account or the Constant Contact\
+          \ application is currently rate-limited by the social network provider."
+        readOnly: true
       status:
         type: "integer"
         format: "int32"
         description: "The status returned from the given network's API when retrieving\
-          \ the account. Can also beour own internal error"
+          \ the account. This is typically only set when <code>error</code> is set."
+        readOnly: true
       token_has_scopes:
         type: "boolean"
-        example: false
-        description: "Whether or not the token associated with this user has the scopes\
-          \ necessary to utilize social-reach-svc"
+        example: true
+        description: "Whether the token associated with this user's social account\
+          \ integration has the scopes necessary to use Constant Contact social functionality."
+        readOnly: true
       token_is_valid:
         type: "boolean"
-        example: false
-        description: "True if the token marked valid in token-svc and can be successfully\
-          \ used to fetch basic user data from the network"
-    description: "Data pertaining to the established social network connection"
-  ConnectionV2Dto:
+        example: true
+        description: "<code>true</code> if the token for this social network is currently\
+          \ valid and can be successfully used to fetch data from the network."
+        readOnly: true
+    description: "Data indicating the status of a social network connection's integration."
+  ConnectionDto:
     type: "object"
     properties:
       account_info:
-        description: "DTO containing account info for the connection"
+        description: "Account information for this connection."
+        readOnly: true
         $ref: "#/definitions/AccountInfoDto"
       connection_status:
-        description: "DTO containing connection information for the connection"
+        description: "Status details for this connection."
+        readOnly: true
         $ref: "#/definitions/ConnectionStatusDto"
-    description: "A combination of account information and connection information\
-      \ pertaining to the establishedsocial network connection."
+    description: "A combination of account information and connection status for an\
+      \ established social network connection."
   ConnectionResponseDto:
     type: "object"
     properties:
       connections:
         type: "array"
+        description: "List of established social network connections for the account."
+        readOnly: true
         items:
-          $ref: "#/definitions/ConnectionV2Dto"
-    description: "A wrapper to house the list of established social network connections\
-      \ for a given CTCT user."
+          $ref: "#/definitions/ConnectionDto"
+    description: "A wrapper containing the list of established social network connections\
+      \ for a given Constant Contact account."
+  PagedResponseLinkRelDto:
+    type: "object"
+    required:
+    - "href"
+    properties:
+      href:
+        type: "string"
+        description: "The URI of a page of results."
+        readOnly: true
+    description: "Represents a link to a page of results."
+  PagedResponseLinksDto:
+    type: "object"
+    properties:
+      next:
+        description: "Link to retrieve the next page of results. This will be absent\
+          \ for the last page."
+        readOnly: true
+        $ref: "#/definitions/PagedResponseLinkRelDto"
+    description: "Pagination links for navigating through pages of results."
   HashtagGroupDto:
     type: "object"
     required:
@@ -10799,129 +11765,84 @@ definitions:
     properties:
       hashtag_group_id:
         type: "string"
-        description: "The database id for this hashtag group.<p>This should always\
-          \ be <code>null</code> when creating a new hashtag group. When updating\
-          \ a hashtag group, this should either be set to <code>null</code>, or be\
-          \ the same value as when the group was retrieved.</p>"
+        description: "Unique identifier for this hashtag group. Automatically generated\
+          \ on creation and returned in all responses."
         readOnly: true
       hashtag_group_name:
         type: "string"
-        description: "The human-readable name for this group.<p>This name will be\
+        description: "The human-readable name for this group. <p>This name will be\
           \ sanitized before saving, which may include trimming whitespace, truncation,\
           \ and/or removing invalid characters. If the sanitized name results in a\
           \ blank string, it will not be able to be saved, and any create or update\
-          \ operation will fail.<br>The name is currently limited to a maximum of\
-          \ 150 \"characters\", but the effective length may be shorter, depending\
-          \ on whether some special characters, such as emoji, are used.</p>"
+          \ operation will fail.</p><p>The name is currently limited to a maximum\
+          \ of 150 characters, but the effective length may be shorter, depending\
+          \ on whether special characters (such as emoji) are used.</p>"
       hashtag_names:
         type: "array"
-        description: "The list of hashtag names for this group.<p>Hashtag <em>names</em>\
-          \ do not include any leading '#' character. They cannot consist of any characters\
-          \ other than alphanumeric characters and '_' (underscore). The hashtag name\
-          \ cannot begin or end with an underscore. Hashtag names may begin with a\
-          \ letter or a number, and may consist of only numbers. Hashtag names are\
-          \ currently limited to a maximum of 30 characters.<br>The list will maintain\
-          \ its order when persisted and retrieved. If duplicates exist in the list,\
-          \ they will be removed when saving, and the first of the duplicates will\
+        description: "The list of hashtag names for this group. <p>Hashtag <em>names</em>\
+          \ do not include any leading '#' character. They can only consist of alphanumeric\
+          \ characters and '_' (underscore). The hashtag name cannot begin or end\
+          \ with an underscore. Hashtag names may begin with a letter or a number,\
+          \ and may consist of only numbers. Hashtag names are currently limited to\
+          \ a maximum of 30 characters.</p><p>The list order is preserved. If duplicates\
+          \ exist, they will be removed when saving, and the first occurrence will\
           \ retain its position.</p>"
         items:
           type: "string"
-    description: "Represents a named collection of hashtags."
-  EmbeddedResources:
+    description: "Represents a named collection of hashtags that can be reused when\
+      \ creating social posts."
+  PageMetadataDto:
     type: "object"
     required:
-    - "hashtag_groups"
-    properties:
-      hashtag_groups:
-        type: "array"
-        readOnly: true
-        items:
-          $ref: "#/definitions/HashtagGroupDto"
-    description: "Resources embedded in this response."
-  ResourcePageLink:
-    type: "object"
-    required:
-    - "href"
-    properties:
-      href:
-        type: "string"
-        description: "The URI of a page of results.<p>This link does not include the\
-          \ scheme or origin of the full URL.</p>"
-        readOnly: true
-    description: "Represents a link to a page of results."
-  ResourcePageLinks:
-    type: "object"
-    properties:
-      next:
-        description: "The URI for the next page of results. If the current page is\
-          \ the last page, this link may not be present."
-        readOnly: true
-        $ref: "#/definitions/ResourcePageLink"
-      previous:
-        description: "The URI for the previous page of results. If the current page\
-          \ is the first page, this link may not be present."
-        readOnly: true
-        $ref: "#/definitions/ResourcePageLink"
-    description: "Pagination links for navigating through pages of results."
-  ResourcePageMetadata:
-    type: "object"
-    required:
-    - "number"
+    - "page"
     - "size"
-    - "totalElements"
-    - "totalPages"
+    - "total_elements"
+    - "total_pages"
     properties:
-      number:
+      page:
         type: "integer"
-        format: "int32"
-        description: "The number of items included in this response (in <code>_embedded.hashtag_groups</code>).<p>The\
-          \ maximum items that can be returned in a single call is currently limited\
-          \ to the lesser of the <code>limit</code> argument and 5.</p>"
+        format: "int64"
+        description: "The current 0-based page number."
         readOnly: true
       size:
         type: "integer"
-        format: "int32"
-        description: "The size of the page of results requested, either via the <code>limit</code>\
-          \ argument or the default of 5."
+        format: "int64"
+        description: "The page size (the number of results returned in this response)."
         readOnly: true
-      totalElements:
+      total_elements:
         type: "integer"
-        format: "int32"
-        description: "The total number of results available.<p>If the <code>totalElements</code>\
-          \ is greater than <code>size</code>, then it is necessary to make multiple\
-          \ requests for all of the available <em>pages</em> of results.</p>"
+        format: "int64"
+        description: "The total number of results available across all pages."
         readOnly: true
-      totalPages:
+      total_pages:
         type: "integer"
-        format: "int32"
-        description: "The total number of pages available.<p>The pages can be iterated\
-          \ through using the <code>next</code> and <code>prev</code> links, or by\
-          \ manually calling the endpoint and iterating through the pages using the\
-          \ <code>page</code> argument.</p>"
+        format: "int64"
+        description: "The total number of pages available based on the current page\
+          \ size."
         readOnly: true
-    description: "Metadata describing the paging of results.<p>This may be more useful\
-      \ for some user experience implementations. This is not necessarily a standard\
-      \ HAL element, but it <em>is</em> included in the response by default.</p>"
-  PagedResourcesResourceHashtagGroupDto:
+    description: "Pagination metadata describing the current page of results."
+  PagedHashtagGroupsDto:
     type: "object"
     required:
-    - "_embedded"
     - "_links"
+    - "hashtag_groups"
     - "page"
     properties:
-      _embedded:
-        description: "The embedded resource(s)."
-        readOnly: true
-        $ref: "#/definitions/EmbeddedResources"
       _links:
-        description: "The pageable links."
+        description: "Pagination links for navigating through pages of results."
         readOnly: true
-        $ref: "#/definitions/ResourcePageLinks"
+        $ref: "#/definitions/PagedResponseLinksDto"
+      hashtag_groups:
+        type: "array"
+        description: "The current page of hashtag group results."
+        readOnly: true
+        items:
+          $ref: "#/definitions/HashtagGroupDto"
       page:
-        description: "The page metadata."
+        description: "Pagination metadata for the current response."
         readOnly: true
-        $ref: "#/definitions/ResourcePageMetadata"
-    description: "A paged response containing a page of HashtagGroupDto objects."
+        $ref: "#/definitions/PageMetadataDto"
+    description: "A paginated response containing a page of hashtag groups."
   ImageDto:
     type: "object"
     required:
@@ -10929,83 +11850,15 @@ definitions:
     properties:
       image_id:
         type: "string"
+        description: "Unique identifier for this image. Generated by the server on\
+          \ creation."
         readOnly: true
       url:
         type: "string"
-        description: "The url of the image. Each component of the image url must be\
-          \ appropriately encoded such that it does not include any illegal characters.\
-          \ Example: https://www.host.com/path+with%20space?q=query%20with+space#fragment+with%20space"
-  LinkMetadata:
-    type: "object"
-    properties:
-      createdAt:
-        type: "string"
-        format: "date-time"
-      description:
-        type: "string"
-        description: "Description or summary of the linked page"
-      image:
-        type: "string"
-        description: "URL of the preview image for the link"
-      linkId:
-        type: "string"
-        description: "Identifier of the parent link this metadata belongs to"
-        readOnly: true
-      linkMetaDataId:
-        type: "string"
-        description: "Unique identifier for this link metadata record"
-        readOnly: true
-      network:
-        type: "string"
-        description: "The social network this link metadata is associated with"
-      title:
-        type: "string"
-        description: "Title of the linked page"
-      updatedAt:
-        type: "string"
-        format: "date-time"
-    description: "Metadata for a link preview associated with a post"
-  LinkDto:
-    type: "object"
-    required:
-    - "url"
-    properties:
-      is_preview:
-        type: "boolean"
-        example: false
-        description: "Whether or not the linkMetadata has to be fetched for this particular\
-          \ link "
-      link_id:
-        type: "string"
-        readOnly: true
-      link_metadata:
-        type: "array"
-        description: "Metadata like text, description, image associated with the link.\
-          \ Writing to this stores a placeholder value for link metadata. Supporting\
-          \ networks will store their own link metadata upon publishing the link. "
-        items:
-          $ref: "#/definitions/LinkMetadata"
-      linked_activity_id:
-        type: "string"
-        description: "If the link url is related to another activity (i.e. URL of\
-          \ a sign up landing page, shoppable landing page, email permalink, etc)\
-          \ this is the activity id of the related activity."
-      long_url:
-        type: "string"
-        description: "the long version of the url by the UrlShortener service. Each\
-          \ component of the long link url must be appropriately encoded such that\
-          \ it does not include any illegal characters. Example: https://www.host.com/path+with%20space?q=query%20with+space#fragment+with%20space"
-      short_url:
-        type: "string"
-        description: "the shortened url by the UrlShortener service. Each component\
-          \ of the shortened link url must be appropriately encoded such that it does\
-          \ not include any illegal characters. Example: https://www.host.com/path+with%20space?q=query%20with+space#fragment+with%20space"
-      url:
-        type: "string"
-        description: "The url as entered by the user. May or may not include the protocol:\
-          \ 'google.com', 'www.google.com', 'http://google.com', 'http://google.com/'.\
-          \ Each component of the link url must be appropriately encoded such that\
-          \ it does not include any illegal characters. Example: https://www.host.com/path+with%20space?q=query%20with+space#fragment+with%20space"
+        example: "https://www.host.com/path+with%20space?q=query%20with+space"
+        description: "The URL of the image. Each component of the URL must be appropriately\
+          \ encoded to avoid illegal characters."
+    description: "An image to include in a social post."
   ProfilePostProfileDto:
     type: "object"
     required:
@@ -11013,176 +11866,65 @@ definitions:
     properties:
       account_username:
         type: "string"
-        description: "The human-readable name of the account-owner of this profile"
+        description: "The human-readable username of the account that owns this profile."
         readOnly: true
       campaign_activity_id:
         type: "string"
-        description: "the post's campaign activity id. This maps both to the activity\
-          \ in campaign-api and the post entity in the social-reach-svc database.\
-          \ Although it is optional, it <em>should</em> be included when updating\
-          \ a post"
+        description: "The campaign activity ID for this post on the specified profile.\
+          \ Generated by the server on creation. When updating a post, existing profile\
+          \ entries should include their original <code>campaign_activity_id</code>."
         readOnly: true
       campaign_activity_status:
         type: "string"
-        description: "the status of the post activity"
+        description: "The status of the post activity for this profile."
         readOnly: true
       campaign_activity_status_date:
         type: "string"
         format: "date-time"
-        description: "The activity's date. If the activity is <code>SCHEDULED</code>,\
-          \ this will typically be the same as the scheduled date, if set. Otherwise,\
-          \ it is the last-modified timestamp"
+        description: "The activity's timestamp. For <code>SCHEDULED</code> activities,\
+          \ this is typically the same as the scheduled publish time; otherwise, it\
+          \ is the last-modified timestamp."
         readOnly: true
       campaign_activity_status_message:
         type: "string"
-        description: "A human-readable message related to the current status of the\
-          \ post activity. This could be a generic message set by social-reach-svc\
-          \ or a specific, detailed message reported by the social network"
+        description: "A human-readable message describing the current status of the\
+          \ post activity. Can be a generic Constant Contact message or a specific\
+          \ message reported by the social network."
         readOnly: true
       image_url:
         type: "string"
-        description: "the url for the profile's image. This image can sometimes become\
-          \ stale, and is only refreshed when getting profiles with <code>include=accessible</code>"
+        description: "The URL of the profile's image. This image may become stale\
+          \ and is only refreshed when retrieving profiles with <code>include=accessible</code>."
         readOnly: true
       network:
         type: "string"
         example: "facebook"
-        description: "The social network this profile belongs to"
+        description: "The social network this profile belongs to."
         readOnly: true
       network_post_id:
         type: "string"
-        description: "the social network's reference for this post. Only set/valid\
-          \ if the status is <code>DONE</code>."
+        description: "The social network's reference for this post. Only set when\
+          \ the status is <code>DONE</code>."
         readOnly: true
       post_url:
         type: "string"
-        description: "the permalink url to the post on the social network. This is\
-          \ only set/valid if the status is <code>DONE</code>."
+        description: "The permalink URL to the published post on the social network.\
+          \ Only set when the status is <code>DONE</code>."
         readOnly: true
       profile_id:
         type: "string"
+        description: "The unique identifier for the profile to post to. Use the <code>profile_id</code>\
+          \ from <code>GET /social/profiles</code>."
       profile_name:
         type: "string"
+        description: "The display name of the profile."
         readOnly: true
-    description: "Describes the details of a post to a particular profile"
+    description: "Describes a post to a single social profile, including the target\
+      \ profile and its current status on that network."
   MapOfstringAndstring:
     type: "object"
     additionalProperties:
       type: "string"
-  VideoSourceDto:
-    type: "object"
-    required:
-    - "source"
-    properties:
-      profile_id:
-        type: "string"
-        description: "The profile id this source is associated with. This may be <code>null</code>\
-          \ if this source has not been published yet."
-        readOnly: true
-      profile_post_id:
-        type: "string"
-        description: "The profile post id this source is associated with. This may\
-          \ be <code>null</code> if this source has not been published yet."
-        readOnly: true
-      source:
-        type: "string"
-        description: "The source type indicating where the video is hosted. Values\
-          \ include the social network name (e.g. <code>facebook</code>, <code>instagram</code>,\
-          \ <code>linkedin</code>, <code>tiktok</code>) for published videos, <code>s3</code>\
-          \ for pending uploads, or <code>public</code> for publicly accessible URLs."
-      thumbnail_url:
-        type: "string"
-        description: "The URL of a thumbnail image for the video, if available."
-      video_source_id:
-        type: "string"
-        description: "The unique (database) id for this object. It should only ever\
-          \ be <code>null</code> for an un-saved object. It is automatically generated\
-          \ by the database, and should be considered read-only. When re-saving a\
-          \ video post, any <code>VideoSourceDto</code> objects should include their\
-          \ original <code>videoSourceId</code>."
-        readOnly: true
-      video_url:
-        type: "string"
-        description: "The URL of the video source. Unless the <code>source</code>\
-          \ is <code>public</code>, this should only be set by the back-end."
-    description: "Describes where the source for a video is located. A single video\
-      \ can eventually have multiple sources. While a post is in its <code>DRAFT</code>\
-      \ or <code>SCHEDULED</code> phases, there will be a single source, which will\
-      \ typically be either \"local\" (it is still in the browser, and the video is\
-      \ being rendered from a local <code>File</code> object), or \"s3\" (the file\
-      \ has been uploaded to S3, and if not set, the URL for that video can be automatically\
-      \ generated). As the video is uploaded and posted to each social profile, a\
-      \ new source object will be created that includes the appropriate references\
-      \ to the uploaded media and the related post."
-  VideoDto:
-    type: "object"
-    required:
-    - "duration_seconds"
-    - "file_name"
-    - "file_size_bytes"
-    - "object_id"
-    - "upload_elapsed_ms"
-    - "video_sources"
-    properties:
-      duration_seconds:
-        type: "number"
-        format: "double"
-        description: "The duration (or play time) of the video (in seconds). This\
-          \ should be set once by the client, and never change."
-      file_name:
-        type: "string"
-        description: "The original file name of the video file. This should be set\
-          \ once by the client, and never change."
-      file_size_bytes:
-        type: "integer"
-        format: "int64"
-        description: "The original file size of the video file in bytes. This should\
-          \ be set once by the client, and never change."
-      object_id:
-        type: "string"
-        description: "The id of the video \"object\". This should be unique for each\
-          \ video that is uploaded to S3, and should be the same as the <code>object_id</code>\
-          \ returned from the endpoint to retrieve the upload URL. Typically, the\
-          \ URL of the video, when its <code>source</code> is <code>\"s3\"</code>\
-          \ will be a combination of an AWS base URL, the S3 bucket name, and this\
-          \ id. It should only ever be <code>null</code> for an uninitialized <code>VideoDto</code>.\
-          \ Once set, it should never change for a given <code>VideoDto</code>."
-      upload_elapsed_ms:
-        type: "integer"
-        format: "int64"
-        description: "The amount of time it took to upload the video from the front-end\
-          \ app to S3 (in milliseconds). This is included for potential diagnostic\
-          \ and/or analytics purposes. This should be set once by the client, and\
-          \ never change. If {@code source} is set to {@code public}, this should\
-          \ be set to 0."
-      video_id:
-        type: "string"
-        description: "The unique id for this video entry. This is generated automatically\
-          \ by the database and should be considered read-only. It should only ever\
-          \ be <code>null</code> for an un-saved <code>VideoDto</code>."
-        readOnly: true
-      video_sources:
-        type: "array"
-        description: "Data indicating location(s) of the \"source\" of the video,\
-          \ and its \"status\". Initially, there should be a single entry, with the\
-          \ <code>source</code> set to <code>s3</code>. The URL will be generated\
-          \ based on the known bucket name and the S3 object id before persisting.\
-          \ As this video is posted to the target profile(s), additional metadata\
-          \ items will be added, indicating the \"source\" as the target network,\
-          \ and the URLs for the video and thumbnail as the uploaded resource, and\
-          \ then populating the profile id and profile post id. Once all posts have\
-          \ been complete, the \"original\" <code>source: \"s3\"</code> data will\
-          \ be removed, since the S3 object may no longer be available. <strong>The\
-          \ client should initially only set a single source of type <code>\"s3\"\
-          </code> before saving, and this field should be considered read-only after\
-          \ that.</strong>"
-        items:
-          $ref: "#/definitions/VideoSourceDto"
-    description: "Represents a video file that has been uploaded for posting as part\
-      \ of a PostContent entity (text, images, links, videos). Contains information\
-      \ about the original file and its identity in S3, as well as links to video\
-      \ source information that indicate the potential various locations of the video,\
-      \ its thumbnail image, and potential post-related information after upload."
   ProfilePostDto:
     type: "object"
     required:
@@ -11190,99 +11932,111 @@ definitions:
     properties:
       images:
         type: "array"
+        description: "Images to include in the post. Each image must be accessible\
+          \ via a public URL."
         items:
           $ref: "#/definitions/ImageDto"
-      links:
-        type: "array"
-        items:
-          $ref: "#/definitions/LinkDto"
       post_content_id:
         type: "string"
-        description: "Although this is optional, it <em>should</em> be included when\
-          \ updating a post."
+        description: "Identifier for this post content. Generated by the server on\
+          \ creation. When updating a post, existing profile posts must include their\
+          \ original <code>post_content_id</code> unchanged."
         readOnly: true
       profiles:
         type: "array"
-        description: "This can be an empty list, as long as the post is in DRAFT status."
+        description: "The list of profiles to post to. Can be an empty list only when\
+          \ the post is in <code>DRAFT</code> status."
         items:
           $ref: "#/definitions/ProfilePostProfileDto"
       settings:
         type: "object"
         description: "Network-specific post settings. If no settings are provided,\
-          \ this field will be omitted in the JSON response.\n\nAll values will be\
-          \ persisted as <code>string</code>s.\n\nCurrently, only TikTok has the following\
-          \ available settings:\nExample:\n<pre>{\n\t\"settings\": {\n\t\t\"tiktok\"\
-          : {\n\t\t\t\"disable_comment\": \"true\",\n\t\t\t\"disable_duet\": \"false\"\
-          ,\n\t\t\t\"disable_stitch\": \"true\",\n\t\t\t\"auto_add_music\": \"false\"\
-          \n\t\t}\n\t}\n}</pre>"
+          \ this field will be omitted in the JSON response. All values are persisted\
+          \ as strings.\nCurrently, only TikTok has available settings:\n<pre>{\n\
+          \  \"settings\": {\n    \"tiktok\": {\n      \"disable_comment\": \"true\"\
+          ,\n      \"disable_duet\": \"false\",\n      \"disable_stitch\": \"true\"\
+          ,\n      \"auto_add_music\": \"false\"\n    }\n  }\n}</pre>\n"
         additionalProperties:
           $ref: "#/definitions/MapOfstringAndstring"
       text:
         type: "string"
-        description: "The requirement of text content depends on the network being\
-          \ posted to. In DRAFT status, this is always optional."
-      videos:
-        type: "array"
-        description: "videos to be included in the post. Note that the presence of\
-          \ images, videos, and link previews in a post are mutually exclusive. Also\
-          \ note that currently, only a single video is supported."
-        items:
-          $ref: "#/definitions/VideoDto"
-  PostDto:
+        description: "The text/caption content for the post. Whether text is required\
+          \ depends on the target social network. In <code>DRAFT</code> status, this\
+          \ is always optional."
+    description: "The content to post to one or more social profiles as part of a\
+      \ social post campaign."
+  PostCreateDto:
     type: "object"
     required:
     - "profile_posts"
+    - "status"
     properties:
-      campaign_id:
-        type: "string"
-        description: "The campaign Id for this post. When creating a post, if this\
-          \ is not specified, a new campaign object will be created. If <code>campaign_id</code>\
-          \ is specified, then it must be the id of an existing campaign for the specified\
-          \ <code>accountId</code>, and that campaign <em>must</em> be in <code>PLACEHOLDER</code>\
-          \ status, and <em>must</em> be of <code>SOCIAL_POSTS</code> type, otherwise\
-          \ the request will fail"
-      campaign_properties:
-        type: "object"
-        description: "Additional campaign properties associated to a social post.This\
-          \ is only honored at post create time and not available to be updated."
-        additionalProperties:
-          type: "string"
-      marketing_plan_id:
-        type: "string"
-        description: "The UUID of the marketing plan that this post is associated\
-          \ with.This is only honored at post create time and not available to be\
-          \ updated."
       name:
         type: "string"
         example: "My Social Post"
-        description: "The name of the post campaign. If not provided during creation,\
-          \ a default campaign name will be used. When creating or updating the post,\
-          \ this value will be sanitized to be appropriate for campaign-api, and the\
-          \ value returned may not match what was sent."
+        description: "Campaign name for this post. Optional on creation. If not provided,\
+          \ a default name will be generated. The value provided will be sanitized\
+          \ before saving, so the value returned may not exactly match what was sent."
       profile_posts:
         type: "array"
+        description: "The list of per-profile posts that make up this campaign. Each\
+          \ entry specifies the content to post and the profiles to post it to."
         items:
           $ref: "#/definitions/ProfilePostDto"
       scheduled_time:
         type: "string"
         example: "2026-03-15T14:30:00.000Z"
-        description: "The date and time to publish the post in ISO-8601 format. For\
-          \ example, 2026-03-15T14:30:00.000Z. If not specified, the publish job is\
-          \ scheduled to execute immediately."
-      shared_campaign_ids:
-        type: "array"
-        description: "The ids of campaigns which this social post is shared from.\
-          \ Expected at this time to be null or list of one. Only honored at post\
-          \ create time and not available to be updated."
-        readOnly: true
-        items:
-          type: "string"
+        description: "The date and time to publish the post, in ISO-8601 format. Only\
+          \ applies when <code>status</code> is <code>SCHEDULED</code>. If not specified\
+          \ for a scheduled post, the publish job is scheduled to execute immediately."
       status:
         type: "string"
         example: "SCHEDULED"
-        description: "The status of the post. For create requests, only DRAFT and\
-          \ SCHEDULED are valid."
-    description: "Represents a social media post campaign, which can include multiple\
+        description: "The status of the post on creation. Valid values are <code>DRAFT</code>\
+          \ (save without publishing) or <code>SCHEDULED</code> (schedule for publication)."
+    description: "Request body for creating a social media post campaign that can\
+      \ include multiple posts to multiple social profiles."
+  PostDto:
+    type: "object"
+    required:
+    - "profile_posts"
+    - "status"
+    properties:
+      campaign_id:
+        type: "string"
+        description: "Unique identifier for the post campaign. Generated by the server\
+          \ on creation. Use this value to reference the post in subsequent requests."
+        readOnly: true
+      name:
+        type: "string"
+        example: "My Social Post"
+        description: "Campaign name for this post. The value provided on creation\
+          \ is sanitized before saving, so the returned value may not exactly match\
+          \ what was sent."
+      profile_posts:
+        type: "array"
+        description: "The list of per-profile posts that make up this campaign."
+        items:
+          $ref: "#/definitions/ProfilePostDto"
+      scheduled_time:
+        type: "string"
+        example: "2026-03-15T14:30:00.000Z"
+        description: "The date and time to publish the post, in ISO-8601 format. Only\
+          \ set when <code>status</code> is <code>SCHEDULED</code>."
+      status:
+        type: "string"
+        example: "SCHEDULED"
+        description: "The current status of the post. Possible values include:\n<ul>\n\
+          \  <li><code>DRAFT</code> — saved without being scheduled for publication</li>\n\
+          \  <li><code>SCHEDULED</code> — scheduled for future publication at <code>scheduled_time</code></li>\n\
+          \  <li><code>EXECUTING</code> — currently being published</li>\n  <li><code>ACTIVE</code>\
+          \ — the post has been published and is active on the social network</li>\n\
+          \  <li><code>PAUSED</code> — publication has been paused</li>\n  <li><code>SUSPENDED</code>\
+          \ — publication has been suspended</li>\n  <li><code>REMOVED</code> — the\
+          \ post has been removed</li>\n  <li><code>DONE</code> — publication has\
+          \ completed</li>\n  <li><code>ERROR</code> — publication encountered an\
+          \ error</li>\n</ul>\n"
+    description: "Represents a social media post campaign that can include multiple\
       \ posts to multiple social profiles, with either identical or network-specific\
       \ content."
   SegmentMaster:
@@ -11321,14 +12075,6 @@ definitions:
         type: "string"
         description: "The next link in the page, or null if there are no additional\
           \ pages."
-  Links-3:
-    type: "object"
-    required:
-    - "next"
-    properties:
-      next:
-        description: "HAL property that contains next link if applicable."
-        $ref: "#/definitions/Next"
   SegmentsDTO:
     type: "object"
     required:
@@ -11341,7 +12087,7 @@ definitions:
           $ref: "#/definitions/SegmentMaster"
       _links:
         description: "HAL property that contains next link if applicable."
-        $ref: "#/definitions/Links-3"
+        $ref: "#/definitions/segmentsLinks"
   SegmentData:
     type: "object"
     required:
@@ -13117,17 +13863,6 @@ definitions:
         example: 89
         description: "The number of tags that this activity has currently deleted."
         readOnly: true
-  ActivityLinks-2:
-    type: "object"
-    properties:
-      self:
-        type: "object"
-        description: "The link returned in the response that you use to retrieve the\
-          \ status for the specified activity."
-        properties:
-          href:
-            type: "string"
-            example: "/v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a"
   ActivityGeneric:
     type: "object"
     required:
@@ -13171,28 +13906,7 @@ definitions:
       status:
         $ref: "#/definitions/ActivityGenericStatus"
       _links:
-        $ref: "#/definitions/ActivityLinks-2"
-  Next-2:
-    type: "object"
-    properties:
-      href:
-        type: "string"
-        description: "The next link in the page or null if there are no additional\
-          \ pages."
-  Links-4:
-    type: "object"
-    properties:
-      href:
-        type: "string"
-      next:
-        description: "Contains the next page link, if applicable."
-        $ref: "#/definitions/Next-2"
-  PagingLinks-2:
-    type: "object"
-    properties:
-      next:
-        description: "The link to the next page of results."
-        $ref: "#/definitions/Links-4"
+        $ref: "#/definitions/tagsActivityLinks"
   Tags:
     type: "object"
     properties:
@@ -13203,7 +13917,7 @@ definitions:
           $ref: "#/definitions/Tag"
       _links:
         description: "HAL property that contains next link if applicable."
-        $ref: "#/definitions/PagingLinks-2"
+        $ref: "#/definitions/tagsPagingLinks"
   TagPost:
     type: "object"
     required:
@@ -13220,16 +13934,6 @@ definitions:
         type: "string"
         example: "ESTY"
         description: "The source used to identify the contacts to tag."
-  Link-2:
-    type: "object"
-    properties:
-      href:
-        type: "string"
-  PagingLinks-3:
-    type: "object"
-    properties:
-      next:
-        $ref: "#/definitions/Link-2"
   EmailCampaigns:
     type: "object"
     properties:
@@ -13293,7 +13997,7 @@ definitions:
     type: "object"
     properties:
       _links:
-        $ref: "#/definitions/PagingLinks-3"
+        $ref: "#/definitions/emailsPagingLinks"
       campaigns:
         type: "array"
         items:
@@ -13377,7 +14081,7 @@ definitions:
         example: 5
         description: "The email format you are using to create the email campaign\
           \ activity. The V3 API supports creating emails using <code>format_type</code>\
-          \ 5 (custom code emails).\n"
+          \ 4 (email editor) and 5 (custom code emails).\n"
       from_name:
         type: "string"
         example: "Jake Dodge"
@@ -13468,6 +14172,11 @@ definitions:
           \ to contacts that did not open the email campaign.</li>\n</ul> Constant\
           \ Contact creates a <code>primary_email</code> and a <code>permalink</code>\
           \ role campaign activity when you create an email campaign.\n"
+      document_id:
+        type: "string"
+        example: "21babb03-8385-4739-b9cc-n6cce44633a7"
+        description: "Identifies the email document used in an email editor (format_type\
+          \ 4) email campaign."
   EmailCampaign:
     type: "object"
     properties:
@@ -13687,12 +14396,6 @@ definitions:
         description: "The HTML or XHTML content for the email campaign activity. Only\
           \ <code>format_type</code> 1 and 5 (legacy custom code emails or modern\
           \ custom code emails) can contain <code>html_content</code>."
-      template_id:
-        type: "string"
-        example: "1000755366001"
-        description: "Identifies the email layout and design template that the email\
-          \ campaign activity is using as a base."
-        readOnly: true
       permalink_url:
         type: "string"
         example: "https://conta.cc/2GaQ8AY"
@@ -13710,6 +14413,11 @@ definitions:
           \ email campaign. Constant Contact displays this information to contacts\
           \ in the email message footer."
         $ref: "#/definitions/EmailPhysicalAddress"
+      document_id:
+        type: "string"
+        example: "21babb03-8385-4739-b9cc-n6cce44633a7"
+        description: "Identifies the email document used in an email editor (format_type\
+          \ 4) email campaign."
       document_properties:
         type: "object"
         description: "An object that contains optional properties for legacy format\
@@ -14278,38 +14986,423 @@ definitions:
         format: "email"
         example: "InstaPrinz@gmail.com"
         description: "Default reply-to email address"
+  StructuredTagDto:
+    type: "object"
+    properties:
+      display_value:
+        type: "string"
+        example: "All from-scratch paths"
+        description: "Human-readable display value"
+      key:
+        type: "string"
+        example: "GOAL"
+        description: "Tag key"
+      value:
+        type: "string"
+        example: "goal_undefined"
+        description: "Tag value"
+    description: "A structured tag with key, value, and display value"
+  AutomationFlowSummaryDto:
+    type: "object"
+    properties:
+      active_state:
+        type: "string"
+        example: "ACTIVE"
+        description: "State of the active definition"
+      created_by_id:
+        type: "string"
+        example: "123456789"
+        description: "User ID who created the flow"
+      created_date:
+        type: "string"
+        example: "2025-09-25T20:06:50.020+00:00"
+        description: "Date the flow was created"
+      description:
+        type: "string"
+        example: "Automation flow for contact signups"
+        description: "Description of the automation flow"
+      draft_state:
+        type: "string"
+        example: "PROMOTED"
+        description: "State of the draft definition"
+      id:
+        type: "string"
+        example: "83345850-144a-4dcf-b4dc-88aa1287cffe"
+        description: "Automation flow ID"
+      name:
+        type: "string"
+        example: "Welcome series"
+        description: "Display name of the automation flow"
+      promoted_by_id:
+        type: "string"
+        example: "123456789"
+        description: "User ID who promoted the flow"
+      promoted_date:
+        type: "string"
+        example: "2025-09-25T20:06:50.970+00:00"
+        description: "Date the flow was promoted"
+      status:
+        type: "string"
+        example: "ACTIVE"
+        description: "Computed display status of the workflow"
+      structured_tags:
+        type: "array"
+        description: "Structured tags associated with the automation flow"
+        items:
+          $ref: "#/definitions/StructuredTagDto"
+      template_id:
+        type: "string"
+        example: "17f58023-559a-41e5-84b7-0e9e213f7aef"
+        description: "Template ID the flow was created from"
+      update_date:
+        type: "string"
+        example: "2025-09-25T20:06:50.970+00:00"
+        description: "Date the flow was last updated"
+    description: "Summary of an automation flow"
+  ListAutomationFlowsResponseDto:
+    type: "object"
+    properties:
+      flow_summaries:
+        type: "array"
+        description: "List of automation flow summaries for the current page"
+        items:
+          $ref: "#/definitions/AutomationFlowSummaryDto"
+    description: "Paginated list of automation flow summaries"
+  ParameterDto:
+    type: "object"
+    properties:
+      operator:
+        type: "string"
+        description: "Comparison operator for the parameter (e.g. EQUALS, CONTAINS,\
+          \ NOT_EQUALS)."
+      parameter_name:
+        type: "string"
+        description: "Name of the parameter (e.g., list_ids, create_source, url)."
+      parameter_list_value:
+        type: "array"
+        description: "[DEPRECATED] List of string values for the parameter when type\
+          \ is LIST. Supported for backwards compatibility; prefer parameter_value."
+        items:
+          type: "string"
+        x-deprecated: true
+      parameter_string_value:
+        type: "string"
+        description: "[DEPRECATED] String value for the parameter when type is STRING.\
+          \ Supported for backwards compatibility; prefer parameter_value."
+        x-deprecated: true
+      parameter_value:
+        type: "object"
+        description: "The parameter value: a string or array of strings depending\
+          \ on type (e.g., STRING → single value, LIST → array of list IDs). Use this\
+          \ instead of parameter_string_value / parameter_list_value moving forward."
+        properties: {}
+      rule:
+        type: "object"
+        description: "Rule structure for RULE-type parameters (e.g., engagement level\
+          \ triggers)."
+        properties: {}
+      type:
+        type: "string"
+        description: "Parameter type. Common trigger types: STRING (single value),\
+          \ LIST (array), WEB_TRACKING (page visit)."
+    description: "A single trigger parameter used to filter or configure the trigger\
+      \ (e.g., list IDs). Use parameter_value (preferred); parameter_string_value\
+      \ and parameter_list_value are supported for backwards compatibility."
+  TriggerDefDto:
+    type: "object"
+    properties:
+      parameters:
+        type: "array"
+        description: "List of parameters that filter or configure the trigger (e.g.,\
+          \ list IDs for list_join)."
+        items:
+          $ref: "#/definitions/ParameterDto"
+      action_name:
+        type: "string"
+        example: "list_join"
+        description: "Action name. Required for type Action or Date. Identifies the\
+          \ specific trigger (e.g., list_join, calendar_date, visits_page)."
+      bounds:
+        type: "object"
+        description: "Time window for Date-type triggers. Sets when the trigger runs\
+          \ relative to\nthe contact's date. Uses ISO 8601 period format (e.g., P0D,\
+          \ P7D, P-7D).\n| Example Scenario | after  | before |\n|----------|--------|--------|\n\
+          | On the day | `P0D`  | `P1D` |\n| 7 days before | `P-7D` | `P-6D` |\n|\
+          \ 7 days after | `P7D`  | `P8D` |\n"
+        properties:
+          after:
+            type: "string"
+            description: "Start of the window relative to the contact date in ISO\
+              \ 8601 period format (e.g., P0D = on the day, P-7D = 7 days before)."
+          before:
+            type: "string"
+            description: "End of the window relative to the contact date in ISO 8601\
+              \ period format (e.g., P1D = 1 day after, P0D = on the day)."
+      engagement_level:
+        type: "string"
+        example: "SOMEWHAT"
+        description: "Engagement level for engagement_level triggers (e.g., SOMEWHAT,\
+          \ LEAST)."
+      segment_id:
+        type: "string"
+        description: "Segment ID for segment_join triggers."
+      trigger_date:
+        type: "object"
+        description: "Date configuration for Date-type triggers (e.g., birthday, anniversary).\
+          \ Specifies which contact fields supply the date."
+        properties:
+          date_field:
+            type: "string"
+            description: "Contact field that contains the full date. Must include\
+              \ 'record.' prefix (e.g., record.anniversary)."
+          day_field:
+            type: "string"
+            description: "Contact field that contains the day-of-month value. Must\
+              \ include 'record.' prefix (e.g., record.birthday_day)."
+          month_field:
+            type: "string"
+            description: "Contact field that contains the month value. Must include\
+              \ 'record.' prefix (e.g., record.birthday_month)."
+          type:
+            type: "string"
+            description: "Where the date is represented (e.g., Profile)."
+      type:
+        type: "string"
+        example: "Action"
+        description: "Trigger type. Determines how the trigger is evaluated (e.g.,\
+          \ Action, Date, segment_join)."
+      unique_by:
+        type: "string"
+        example: "list_ids"
+        description: "Deduplication key: run the workflow at most once per contact\
+          \ per this value (e.g., list_ids, contact_id)."
+    description: "Defines when the workflow starts (e.g., list join, date-based)."
   AutomationStructuredTag:
     type: "object"
     properties:
-      key:
-        type: "string"
-      value:
-        type: "string"
       display_value:
         type: "string"
+        example: "All from-scratch paths"
+        description: "Human-readable display value"
+      key:
+        type: "string"
+        example: "GOAL"
+        description: "Tag key"
+      value:
+        type: "string"
+        example: "goal_undefined"
+        description: "Tag value"
+    description: "A structured tag with key, value, and display value"
+  TriggerFilterRuleDto:
+    type: "object"
+    properties:
+      compound_rule_type:
+        type: "string"
+      left:
+        $ref: "#/definitions/TriggerFilterRuleDto"
+      property_comparison:
+        $ref: "#/definitions/PropertyComparisonDto"
+      right:
+        $ref: "#/definitions/TriggerFilterRuleDto"
+      rule:
+        $ref: "#/definitions/TriggerFilterRuleDto"
+      target:
+        type: "string"
+      target_type:
+        type: "string"
+      type:
+        type: "string"
+  PropertyComparisonDto:
+    type: "object"
+    properties:
+      argument:
+        type: "string"
+      array_argument:
+        type: "array"
+        items:
+          type: "string"
+      operator:
+        type: "string"
+      property_name:
+        type: "string"
+      string_map_argument:
+        type: "object"
+        properties:
+          custom_field_Id:
+            type: "string"
+          value:
+            type: "string"
+      type:
+        type: "string"
+  TriggerFilterDto:
+    type: "object"
+    properties:
+      rule:
+        $ref: "#/definitions/TriggerFilterRuleDto"
+      version:
+        type: "string"
+        description: "Version number for the trigger filter."
+  TriggerDto:
+    type: "object"
+    properties:
+      trigger_def:
+        $ref: "#/definitions/TriggerDefDto"
+      trigger_filter:
+        $ref: "#/definitions/TriggerFilterDto"
+      trigger_version:
+        type: "string"
+        example: "1.0.0"
+      workflow_filter:
+        type: "string"
+  WorkflowParametersDto:
+    type: "object"
+    properties:
+      automation_flow_id:
+        type: "string"
+        example: "9a5982f0-26d8-4e74-b2f5-f415af434fa4"
+        description: "Automation flow identifier"
+      automation_flow_name:
+        type: "string"
+        example: "Autogenerated Birthday: Basic"
+        description: "Automation flow name"
+      campaign_id:
+        type: "string"
+        example: "861dd493-540a-4e3e-b457-44cfde28a5f0"
+        description: "Automation campaign identifier"
+      discount_code:
+        type: "string"
+        description: "Discount code used in discount block"
+  CorrelationMetadataDto:
+    type: "object"
+    properties:
+      automation_flow_id:
+        type: "string"
+        example: "9a5982f0-26d8-4e74-b2f5-f415af434fa4"
+        description: "Automation flow identifier"
+      automation_template_id:
+        type: "string"
+        example: "17f58023-559a-41e5-84b7-0e9e213f7aef"
+        description: "Automation template identifier"
+      campaign_id:
+        type: "string"
+        example: "861dd493-540a-4e3e-b457-44cfde28a5f0"
+        description: "Automation campaign identifier"
+  TaskDto:
+    type: "object"
+    properties:
+      child_tasks:
+        type: "array"
+        items:
+          $ref: "#/definitions/TaskDto"
+      correlation_metadata:
+        $ref: "#/definitions/TaskCorrelationMetadataDto"
+      else:
+        type: "array"
+        items:
+          $ref: "#/definitions/TaskDto"
+      event_condition:
+        type: "string"
+      id:
+        type: "string"
+        example: "79bydf92-rr48-4765-83cb-0e8a8f63ay0"
+      input:
+        type: "object"
+        description: "Task input object"
+        additionalProperties:
+          type: "string"
+      json_condition:
+        type: "object"
+        properties: {}
+      kind:
+        type: "string"
+        description: "Task type."
+      metadata:
+        type: "object"
+        description: "Task metadata object."
+        properties:
+          action:
+            type: "string"
+          create_from_scratch:
+            type: "boolean"
+          kind:
+            type: "string"
+          list:
+            type: "string"
+      name:
+        type: "string"
+        description: "Task name."
+      output:
+        type: "object"
+        properties: {}
+      queue_name:
+        type: "string"
+      retry_options:
+        type: "object"
+        properties:
+          backoff_coefficient:
+            type: "integer"
+            format: "int32"
+          initial_interval:
+            type: "integer"
+            format: "int32"
+          maximum_attempts:
+            type: "integer"
+            format: "int32"
+      script:
+        type: "string"
+      task_provider_reference_key:
+        type: "string"
+      task_skip_condition:
+        type: "string"
+      then:
+        type: "array"
+        items:
+          $ref: "#/definitions/TaskDto"
+      timeout:
+        $ref: "#/definitions/TimeoutDto"
+  TaskCorrelationMetadataDto:
+    properties:
+      campaign_activity_id:
+        type: "string"
+        example: "0434c0ee-bdd2-47ee-8634-fa163e6b01c1"
+        description: "Campaign activity identifier"
+  TimeoutDto:
+    type: "object"
+    properties:
+      amount:
+        type: "number"
+        format: "float"
+        example: 10.0
+        description: "Amount of time for startup timeout."
+      time_unit:
+        type: "string"
+        example: "HOURS"
+        description: "Unit of time for startup timeout."
   AutomationWorkflowDef:
     type: "object"
     properties:
+      parameters:
+        $ref: "#/definitions/WorkflowParametersDto"
+      correlation_metadata:
+        $ref: "#/definitions/CorrelationMetadataDto"
       tasks:
         type: "array"
         items:
-          type: "object"
-          properties: {}
+          $ref: "#/definitions/TaskDto"
       status:
         type: "string"
-      namespace:
-        type: "string"
+        example: "SCHEDULED"
+        description: "Workflow definition status."
       metadata:
         type: "object"
+        description: "Workflow metadata."
         properties: {}
       timeout:
-        type: "object"
-        properties: {}
+        $ref: "#/definitions/TimeoutDto"
       upgradable:
         type: "boolean"
-    description: "The workflow definition containing tasks, status, and metadata.\
-      \ Internal fields such as correlationMetadata and parameters are excluded to\
-      \ prevent leaking accountId."
+        description: "Indicates if the workflow can be upgraded after it is activated."
+    description: "The workflow definition containing tasks, status, and metadata."
   AutomationFlow:
     type: "object"
     properties:
@@ -14321,14 +15414,13 @@ definitions:
     properties:
       state:
         type: "string"
+        example: "DRAFT"
         description: "The current state of the workflow definition (e.g. DRAFT, ACTIVE)."
       trigger:
-        type: "object"
-        description: "The trigger configuration for the automation workflow."
-        properties: {}
+        $ref: "#/definitions/TriggerDto"
       workflow:
         $ref: "#/definitions/AutomationFlow"
-    description: "A workflow definition containing state, trigger, and workflow details."
+    description: "A workflow definition containing state, trigger, and workflow structure."
   AutomationCampaign:
     type: "object"
     properties:
@@ -14337,22 +15429,33 @@ definitions:
         description: "The unique identifier for the automation campaign workflow."
       name:
         type: "string"
+        example: "Autogenerated Birthday: Basic"
         description: "The name of the automation campaign."
       description:
         type: "string"
+        example: "Send a greeting or special offer to your contacts on or before their\
+          \ birthday"
         description: "The description of the automation campaign."
       structured_tags:
         type: "array"
         items:
           $ref: "#/definitions/AutomationStructuredTag"
+      status:
+        type: "string"
+        description: "Computed display status of the workflow"
       active_definition:
         $ref: "#/definitions/AutomationWorkflowDefinition"
       draft_definition:
         $ref: "#/definitions/AutomationWorkflowDefinition"
-      is_name_explicitly_set:
+      name_explicitly_set:
         type: "boolean"
         description: "Indicates whether the automation campaign name was explicitly\
           \ set."
+  AutomationCampaignUpdate:
+    type: "object"
+    properties:
+      automation_flow:
+        $ref: "#/definitions/AutomationCampaign"
   ABTestData:
     type: "object"
     required:
@@ -14418,12 +15521,6 @@ definitions:
     description: "The base contact tracking activity representing sends, opt-outs\
       \ and forwards to a friend. The basic information provided includes the campaign\
       \ activity ID, tracking activity type, and time the tracking activity occurred."
-  Links-5:
-    type: "object"
-    properties:
-      next:
-        description: "Contains the next page link if it is available."
-        $ref: "#/definitions/Next-2"
   ContactTrackingActivitiesPage:
     type: "object"
     properties:
@@ -14434,7 +15531,7 @@ definitions:
           $ref: "#/definitions/ContactTrackingActivity"
       _links:
         description: "The next link if more contact tracking activities are available."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
     description: "A page of tracking activities for a contact that can include sends,\
       \ opens, clicks, bounces, opt-outs and forwards to a friend. If it exists, a\
       \ link to the next page of tracking activities is provided."
@@ -14533,7 +15630,7 @@ definitions:
           $ref: "#/definitions/CampaignActivitySummary"
       _links:
         description: "The next link if more summaries of activities are available."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   EmailLinkClickCount:
     type: "object"
     properties:
@@ -14646,7 +15743,7 @@ definitions:
           $ref: "#/definitions/SendsTrackingActivity"
       _links:
         description: "HAL property that contains the next link, if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   OpensTrackingActivity:
     type: "object"
     required:
@@ -14712,7 +15809,7 @@ definitions:
           $ref: "#/definitions/OpensTrackingActivity"
       _links:
         description: "HAL property that contains the next link, if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   DidNotOpensTrackingActivity:
     type: "object"
     required:
@@ -14773,7 +15870,7 @@ definitions:
           $ref: "#/definitions/DidNotOpensTrackingActivity"
       _links:
         description: "HAL property that contains the next link, if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   ClicksTrackingActivity:
     type: "object"
     required:
@@ -14849,7 +15946,7 @@ definitions:
           $ref: "#/definitions/ClicksTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   ForwardsTrackingActivity:
     type: "object"
     required:
@@ -14909,7 +16006,7 @@ definitions:
           $ref: "#/definitions/ForwardsTrackingActivity"
       _links:
         description: "HAL property that contains the next link, if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   OptoutsTrackingActivity:
     type: "object"
     required:
@@ -14974,7 +16071,7 @@ definitions:
           $ref: "#/definitions/OptoutsTrackingActivity"
       _links:
         description: "HAL property that contains the next link, if applicable."
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   BouncesTrackingActivity:
     type: "object"
     required:
@@ -15061,7 +16158,7 @@ definitions:
           $ref: "#/definitions/BouncesTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   UniqueEmailCounts:
     type: "object"
     properties:
@@ -15167,7 +16264,7 @@ definitions:
         $ref: "#/definitions/BulkEmailCampaignSummariesPercents"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-5"
+        $ref: "#/definitions/reportingLinks"
   StatsError:
     type: "object"
     properties:
@@ -15642,23 +16739,6 @@ definitions:
       sms_channel:
         description: "Sms channel info for this contact"
         $ref: "#/definitions/TrackingActivitySmsChannelDTO"
-  Next-3:
-    type: "object"
-    required:
-    - "href"
-    properties:
-      href:
-        type: "string"
-        description: "The next link in the page or null if there are no additional\
-          \ pages"
-  Links-6:
-    type: "object"
-    required:
-    - "next"
-    properties:
-      next:
-        description: "Contains the next link if it is available."
-        $ref: "#/definitions/Next-3"
   PContactClickTrackingActivitiesPage:
     type: "object"
     required:
@@ -15672,7 +16752,7 @@ definitions:
           $ref: "#/definitions/PContactClickTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-6"
+        $ref: "#/definitions/lpreportingLinks"
   PContactOpenTrackingActivity:
     type: "object"
     required:
@@ -15738,7 +16818,7 @@ definitions:
           $ref: "#/definitions/PContactOpenTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-6"
+        $ref: "#/definitions/lpreportingLinks"
   PContactUpdateTrackingActivity:
     type: "object"
     required:
@@ -15800,7 +16880,7 @@ definitions:
           $ref: "#/definitions/PContactUpdateTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-6"
+        $ref: "#/definitions/lpreportingLinks"
   PContactAddTrackingActivity:
     type: "object"
     required:
@@ -15862,7 +16942,7 @@ definitions:
           $ref: "#/definitions/PContactAddTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-6"
+        $ref: "#/definitions/lpreportingLinks"
   PContactSMSOptInTrackingActivity:
     type: "object"
     required:
@@ -15924,7 +17004,7 @@ definitions:
           $ref: "#/definitions/PContactSMSOptInTrackingActivity"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-6"
+        $ref: "#/definitions/lpreportingLinks"
   UniqueSmsCounts:
     type: "object"
     required:
@@ -16012,21 +17092,6 @@ definitions:
         example: 0.0
         description: "The aggregated unsubscribe (opt-out) rate for all campaigns\
           \ on the current results page."
-  Next-4:
-    type: "object"
-    required:
-    - "href"
-    properties:
-      href:
-        type: "string"
-        description: "The next link in the page or null if there are no additional\
-          \ pages."
-  Links-7:
-    type: "object"
-    properties:
-      next:
-        description: "Contains the next link if it is available."
-        $ref: "#/definitions/Next-4"
   SmsCampaignSummariesPage:
     type: "object"
     properties:
@@ -16043,13 +17108,13 @@ definitions:
         $ref: "#/definitions/BulkSmsCampaignSummariesPercents"
       _links:
         description: "HAL property that contains next link if applicable"
-        $ref: "#/definitions/Links-7"
+        $ref: "#/definitions/reportingsmsLinks"
   PaginationLinks:
     type: "object"
     properties:
       next:
         description: "Contains the next page link, if applicable."
-        $ref: "#/definitions/Link-2"
+        $ref: "#/definitions/partnersLink"
   PartnerAccount:
     type: "object"
     required:
@@ -16736,6 +17801,183 @@ definitions:
         file_id:
           type: "integer"
           description: "Identifies the file in MyLibrary."
+  EditorMarginProperties:
+    type: "object"
+    properties:
+      display:
+        type: "boolean"
+        description: "Boolean indicating if the margin is rendered"
+      top:
+        type: "integer"
+        description: "Top margin in px."
+      right:
+        type: "integer"
+        description: "Right margin in px."
+      bottom:
+        type: "integer"
+        description: "Bottom margin in px."
+      left:
+        type: "integer"
+        description: "Left margin in px."
+  EditorPadding:
+    type: "object"
+    properties:
+      top:
+        type: "integer"
+        description: "Top padding in px."
+      bottom:
+        type: "integer"
+        description: "Bottom padding in px."
+      left:
+        type: "integer"
+        description: "Left padding in px."
+      right:
+        type: "integer"
+        description: "Right padding in px."
+    description: "Object containing padding information for a component."
+  EditorBorderProperties:
+    type: "object"
+    properties:
+      display:
+        type: "boolean"
+        description: "Boolean indicating if the border is rendered"
+      width:
+        type: "integer"
+        description: "Border width in px as an integer"
+      color:
+        type: "string"
+        example: "#000000"
+        description: "Border color hex code"
+      padding:
+        $ref: "#/definitions/EditorPadding"
+      corner_radius:
+        type: "integer"
+        description: "Corner radius of border. Applies to button components."
+      style:
+        type: "string"
+  EditorRadiusProperties:
+    type: "object"
+    properties:
+      top_left:
+        type: "integer"
+      top_right:
+        type: "integer"
+      bottom_right:
+        type: "integer"
+      bottom_left:
+        type: "integer"
+  EditorDocumentChildrenDocument:
+    type: "object"
+    properties:
+      children:
+        type: "array"
+        items:
+          $ref: "#/definitions/EditorDocumentChildrenDocument"
+    additionalProperties:
+      description: "Each email editor child document can contain additional properties\
+        \ corresponding to its type."
+  tagsActivityLinks:
+    type: "object"
+    properties:
+      self:
+        type: "object"
+        description: "The link returned in the response that you use to retrieve the\
+          \ status for the specified activity."
+        properties:
+          href:
+            type: "string"
+            example: "/v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a"
+  registrationsLinks:
+    type: "object"
+    properties:
+      next:
+        $ref: "#/definitions/Href"
+      prev:
+        $ref: "#/definitions/Href"
+      self:
+        $ref: "#/definitions/Href"
+  reportingNext:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+        description: "The next link in the page or null if there are no additional\
+          \ pages."
+  partnersLink:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+  reportingsmsLinks:
+    type: "object"
+    properties:
+      next:
+        description: "Contains the next link if it is available."
+        $ref: "#/definitions/reportingsmsNext"
+  lpreportingLinks:
+    type: "object"
+    required:
+    - "next"
+    properties:
+      next:
+        description: "Contains the next link if it is available."
+        $ref: "#/definitions/lpreportingNext"
+  tagsPagingLinks:
+    type: "object"
+    properties:
+      next:
+        description: "The link to the next page of results."
+        $ref: "#/definitions/tagsLinks"
+  emailsLink:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+  reportingLinks:
+    type: "object"
+    properties:
+      next:
+        description: "Contains the next page link if it is available."
+        $ref: "#/definitions/reportingNext"
+  tagsLinks:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+      next:
+        description: "Contains the next page link, if applicable."
+        $ref: "#/definitions/reportingNext"
+  segmentsLinks:
+    type: "object"
+    required:
+    - "next"
+    properties:
+      next:
+        description: "HAL property that contains next link if applicable."
+        $ref: "#/definitions/Next"
+  emailsPagingLinks:
+    type: "object"
+    properties:
+      next:
+        $ref: "#/definitions/emailsLink"
+  lpreportingNext:
+    type: "object"
+    required:
+    - "href"
+    properties:
+      href:
+        type: "string"
+        description: "The next link in the page or null if there are no additional\
+          \ pages"
+  reportingsmsNext:
+    type: "object"
+    required:
+    - "href"
+    properties:
+      href:
+        type: "string"
+        description: "The next link in the page or null if there are no additional\
+          \ pages."
 responses:
   Standard405ErrorResponse:
     description: "Unsupported method used."

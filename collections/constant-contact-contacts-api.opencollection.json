@@ -1,0 +1,282 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Contacts API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to GET"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `phone_numbers`, `street_addresses`, `notes`, and `taggings`."
+              }
+            ]
+          },
+          "docs": "This endpoint GETs a specific contact resource (contact_id). Use the `include` query parameter to add any of the available contact sub-resources to the response payload."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to update"
+              }
+            ]
+          },
+          "docs": "The PUT method updates an existing contact. You must include the `update_source` property in the PUT request payload. To restore  a deleted contact you must specify the `update_source` as `Account`. When updating any resource using PUT, all properties are updated, overwriting all previous values. Any properties left blank or not included in the request are overwritten with null value - however this does not apply to contact subresources. \n\nAdd or change any of the subresources by including them "
+        },
+        {
+          "info": {
+            "name": "DELETE a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contacts/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of contact to DELETE"
+              }
+            ]
+          },
+          "docs": "Deletes the contact identified by the contact_id path parameter. Deleted contacts won't receive email from you, and they don't count as active contacts. Unlike unsubscribed contacts, deleted contacts can be revived, or added back to an account. Learn how to [revive deleted contacts](/api_guide/contacts_delete.html#revive)."
+        },
+        {
+          "info": {
+            "name": "GET Contacts Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Use the `status` query parameter to search for contacts by status. This parameter accepts one or more comma separated values: `all`, `active`, `deleted`, `not_set`, `pending_confirmation`, `temp_hold`, and `unsubscribed`."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Use the `email` query parameter to search for a contact using a specific email address."
+              },
+              {
+                "name": "lists",
+                "value": "",
+                "type": "query",
+                "description": "Use the `lists` query parameter to search for contacts that are members of one or more specified lists. Use a comma to separate multiple `list_id` values, up to a maximum of 25."
+              },
+              {
+                "name": "segment_id",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contacts that meet the segment criteria for a single specified `segment_id`. This query parameter can only be combined with the limit query parameter. When using the `segment_id` query parameter, the V3 API may return a 202 response code instead of a 200 response. The 202 response code indicates that your request has been accepted, but not fully completed. Retry sending your API request to return the completed results and a 200 response code."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contact details for up to 50 specified tags. Use a comma to separate each `tag_id`."
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `updated_after` to search for contacts that have been updated after the date you specify. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "updated_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `updated_before` to search for contacts that have been updated before a specified date. To search for updated contacts within a date range, specify both `updated_after` and `updated_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `created_after` to search for contacts created after a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "created_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `created_before` to search for contacts created before a specified date. To search for contacts created within a date range, specify both `created_after` and `created_before` dates. Accepts ISO-8601 formatted dates."
+              },
+              {
+                "name": "optout_after",
+                "value": "",
+                "type": "query",
+                "description": "Use `optout_after` to search for contacts that unsubscribed after a specified date."
+              },
+              {
+                "name": "optout_before",
+                "value": "",
+                "type": "query",
+                "description": "Use `optout_before` to search for contacts that unsubscribed before a specified date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use `include` to specify which contact sub-resources to include in the response. Use a comma to separate multiple sub-resources. Valid values: `custom_fields`, `list_memberships`, `taggings`, `notes`,`phone_numbers`, `street_addresses`."
+              },
+              {
+                "name": "sms_status",
+                "value": "",
+                "type": "query",
+                "description": "Use to get contacts by their SMS status. This parameter accepts one or more comma separated values: `all`, `explicit`, `unsubscribed`, `pending_confirmation`, `not_set`."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set `include_count=true` to include the total number of contacts (`contacts_count`) that meet all search criteria in the response body."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results displayed per page of output in the response, from 1 - 500, default = 50."
+              }
+            ]
+          },
+          "docs": "Use this method to return a collection of contacts. Use the query parameters to search for contacts that match specific contact properties and sub-resource properties as criteria. For example, you can search using the contact's `email` address, `lists` memberships, and by the date range that a contact was created or updated. Use the `limit` query parameter to limit the number of results returned per page. Use the `include` query parameter to include contact sub-resources in the response and `inc"
+        },
+        {
+          "info": {
+            "name": "POST (create) a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contacts"
+          },
+          "docs": "\nCreates a new contact resource. You must include the `create_source` property and at least one of the following properties: `first_name`, `last_name`, a unique `email_address` (specified using the `EmailAddress` object), or the `sms_channel` property (specified using the `ContactSmsChannel` object).\n\n<div class=\"Msg\"><p class=\"note-text\">If `email_address` is specified: **Only use this method when a contact gives you their explicit permission to send them an email. It is a violation of anti-spa"
+        },
+        {
+          "info": {
+            "name": "Create or Update a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contacts/sign_up_form"
+          },
+          "docs": "Use this method to create a new contact or update an existing contact. In the request body, this method requires including the `list_memberships` array as well as either the contact's `email_address` string or `sms_channel` object which includes the contact's SMS number. The information you specify determines if a new contact is either created (the email address or SMS number does not already exist in the account), or if an existing contact is updated (the email address or SMS number already exi"
+        },
+        {
+          "info": {
+            "name": "GET a collection of V2 and V3 API contact IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/contact_id_xrefs",
+            "params": [
+              {
+                "name": "sequence_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma delimited list of V2 API contact `ids` to cross-reference with the V3 API `contact_id` value. Endpoint accepts a maximum of 500 ids at a time."
+              }
+            ]
+          },
+          "docs": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 contact ids to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nThis GET call retrieves a collection of cross-referenced contact sequence IDs (`id` used in the V2 API) and UUIDs (`contact_id` used in the V3 API). This endpoint is in"
+        },
+        {
+          "info": {
+            "name": "GET SMS Engagement History for a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/sms_engagement_history/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact's unique ID."
+              }
+            ]
+          },
+          "docs": "Use this method to return SMS engagement details for a contact, such as SMS consent and advertising frequency details."
+        },
+        {
+          "info": {
+            "name": "GET Contact Consent Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contacts/counts",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use to return the total number of contacts that subscribed within the last 30 days in the results."
+              }
+            ]
+          },
+          "docs": "Use to get the total contacts count for the account and the total contact-consent counts for each consent state. Optionally, to include the total number of contacts that subscribed within the last 30 days in the results, use `new_subscribers` in the `include` query parameter. To optimize open rates, reduce spam reports, and help grow your business,  you must value your contact's consent to receive or to not receive your emails."
+        },
+        {
+          "info": {
+            "name": "PUT Resubscribe a Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contacts/resubscribe/:contact_id",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the contact to resubscribe."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to send a confirmation resubscribe email to a contact in order to get their confirmation to resubscribe. This endpoint also adds the resubscribed contact to the contact lists you specify in the request body. You can only send a resubscribe email to the unsubscribed contact once. The contact is not resubscribed until after you receive their confirmation. "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,312 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Email Reporting API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET an Email Links Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/links",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity."
+              },
+              {
+                "name": "no_clicks",
+                "value": "",
+                "type": "query",
+                "description": "Set this query parameter to `true` to  return details for links that were not clicked in the response results."
+              }
+            ]
+          },
+          "docs": "Use this method to return link details, including the number of unique contacts that clicked each link in an email campaign activity, and the type of action associated with clicking each link. To include link details for links that were not clicked, set the `no_clicks` query parameter to `true`.\n\nYou can return reporting data for `primary_email` and `resend` role email campaign activities. For more use case information, see [Get an Email Links Report](/api_guide/email_links_report.html) in the A"
+        },
+        {
+          "info": {
+            "name": "GET an Email Sends Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/sends",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each contact that was sent a specific email campaign activity. This sends report includes general contact data such as the date and time that the email campaign activity was sent to a contact's email address, the contact's first and last name, and unique ID. This report lists the most recent activity first. For more use case information, see [Get an Sends report for an Email Campaign Activity](/api_guide/email_summary_sends_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID for an email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each time a contact opened a specific email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Opens report for an Email Campaign Activity](/api_guide/email_summary_opens_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Unique Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/unique_opens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a unique opens report that provides details about the last time that each contact opened the specified email campaign activity. This report includes general contact information such as the contact's email address and unique ID, the date and time they opened the email campaign activity, and the type of device they used to open it. This report lists the most recent activity first. For more use case information, see [Get an Unique Opens Report for an Email Campaign Activity]("
+        },
+        {
+          "info": {
+            "name": "GET an Email Did Not Opens Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/didnotopens",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each contact that was sent, but did not open the specified email campaign activity. This report lists contact information such as the contact's email address and unique ID, and the date and time that the email campaign activity was sent. This report lists the most recent activity first. For more use case information, see [Get a Did Not Opens Report for an Email Campaign Activity](/api_guide/email_summary_non_opens_report.html) in the API guide."
+        },
+        {
+          "info": {
+            "name": "GET an Email Clicks Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/clicks",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "url_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID that uniquely identifies a single link URL for which you want to get a clicks report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get each time a contact clicked a link, the click date and time, and the device type they used. Use the `url_id` query parameter to get a clicks report for a specific link URL. Clicks report data is sorted with most recent activity listed first."
+        },
+        {
+          "info": {
+            "name": "GET an Email Forwards Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/forwards",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each time a contact forwarded the email campaign activity using the forwarding link in the email footer. The report includes general contact information, such as the contact's email address and unique ID, and the date and time that the email campaign activity was forwarded. Forwards report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Forwards Report](/api_guide/email_summary_forwards_report.htm"
+        },
+        {
+          "info": {
+            "name": "GET an Email Opt-outs Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/optouts",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing each contact that clicked the unsubscribe link in the email campaign activity to opt-out from receiving emails sent from your Constant Contact account. This report includes contact information, such as the contact's email address, unique ID, and the opt-out date and time. Opt-out report data is sorted with the most recent activity listed first. For more use case information, see [Get an Email Opt-outs Report](/api_guide/email_summary_optouts_report.html) i"
+        },
+        {
+          "info": {
+            "name": "GET an Email Bounces Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/email_reports/:campaign_activity_id/tracking/bounces",
+            "params": [
+              {
+                "name": "campaign_activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the email campaign activity to use for this report."
+              },
+              {
+                "name": "bounce_code",
+                "value": "",
+                "type": "query",
+                "description": "To return results for a specific bounce code, select the `bounce_code` from the drop-down list. To return results for multiple codes, repeat the bounce code parameter for each. For example, to return results for bounce codes `B` and `D` use `bounce_code=B&bounce_code=D`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return on a page."
+              }
+            ]
+          },
+          "docs": "Use this method to get a report listing contact bounce data for the specified email campaign activity. This report lists the most recent bounce data first and includes contact information, such as the contact's email address, unique ID, and the email bounce date and time.\nUse the <code>bounce_code</code> query parameter to limit the type of bounce data to return.\n\nFor more use case information, see [Get a Bounces Report for an Email Campaign Activity](/api_guide/email_summary_bounces_report.html"
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaigns Summary Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/summary_reports/email_campaign_summaries",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use the `limit` query parameter to limit the number of email campaign summaries to return on a single page. The default is `50` and the maximum is `500` per page."
+              }
+            ]
+          },
+          "docs": "Use this method to get aggregate email campaign statistics for up to five hundred email campaigns. The response results include the total number of times that each contact uniquely interacted with each tracked campaign activity.\n\nResults are sorted in descending order by the date that the email was last sent (<code>last_sent_date</code>). Use the <code>limit</code> query parameter to limit the number of email campaign summary reports listed on each page.\n\n\n\n For more use case information, see \"["
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaign Stats Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/stats/email_campaigns/:campaign_ids",
+            "params": [
+              {
+                "name": "campaign_ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma-separated list of `campaign_id`s (UUID's)."
+              }
+            ]
+          },
+          "docs": "Use this method to get email campaign performance tracking statistics for one or more campaigns, including the total number of times contacts interacted with your campaigns and how.\n\nFor each `campaign_id`, this method returns lists that include total counts (`stats`) for each type of tracked email and relevant campaign-related percentages (`percents`). It also returns the date and time at which the campaign stats were last refreshed.\nIf any specified `campaign_id` is invalid, a 404 error respon"
+        },
+        {
+          "info": {
+            "name": "GET an Email Campaign Activity Stats Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/stats/email_campaign_activities/:campaign_activity_ids",
+            "params": [
+              {
+                "name": "campaign_activity_ids",
+                "value": "",
+                "type": "path",
+                "description": "A comma-separated list of `campaign_activity_id`s (UUID's)."
+              }
+            ]
+          },
+          "docs": "Use this method to get performance tracking statistics for up to ten email campaign activities. Statistics include the total number of times contacts interacted with your campaigns and how.\n\nFor each `campaign_activity_id`, this method returns the `campaign_id`, the total counts (`stats`) for each type of tracked email activity, and the date and time that Constant Contact last refreshed (`last_refresh_time`) the `stats`.\n\nWhen requesting statistics for multiple email campaign activities, if one "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

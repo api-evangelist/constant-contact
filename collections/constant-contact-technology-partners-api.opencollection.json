@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Technology Partners API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Technology Partners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Partner Client Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/accounts",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of client accounts to return on each page of results. The default value is `50`. Entering a `limit` value less than the minimum (`10`) or greater than the maximum (`50`) is ignored and the system uses the default values. Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results."
+              },
+              {
+                "name": "account_type",
+                "value": "",
+                "type": "query",
+                "description": "Filters client account results by account type: `all` (default), `managed`, or `unmanaged`. Excluding the `account_type` query parameter returns all client accounts for the partner."
+              }
+            ]
+          },
+          "docs": "Get all Constant Contact client accounts managed under your technology partner account. Use the `limit` query parameter to set the number of accounts to return on each results page. Use the `account_type` query parameter to filter client account results by type: `all` (default), `managed`, or `unmanaged`.\nOnly technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get all Partner Client Accounts]"
+        },
+        {
+          "info": {
+            "name": "POST (create) a Partner Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts"
+          },
+          "docs": "Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.\n\nNewly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.\n\nIf a field validation error occurs, a 400 response message is returned.\n\nIf provisioning does not complete successfully d"
+        },
+        {
+          "info": {
+            "name": "GET Billing Plan Details for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/plan",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Specify the client's unique `encoded_account_id`."
+              }
+            ]
+          },
+          "docs": "Use this GET method to return billing plan details for a client's Constant Contact account.\nIf you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported. Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get Billing Plan Details for a Client Account](/api_guide/partners_plans_"
+        },
+        {
+          "info": {
+            "name": "PUT (update) Billing Plan Details for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/plan",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Specify the client's unique `encoded_account_id`."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to update the type of billing plan to assign to the Constant Contact client account. The type of billing plan determines which Constant Contact product features that the client account can access. The billing plan that you specify in the request body (`plan_type`) must already exist in the plan group. Attempting to change to a plan that is currently not available within your partner plan group results in a 400 error response code.\n\nWhen you create a new client account, the `p"
+        },
+        {
+          "info": {
+            "name": "PUT Cancel the Billing Plan for a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/status/cancel",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies the client account."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to cancel a client's Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.\n\n\n  To get a list of all canceled client accounts (`\"billing_status\": \"Canceled\"`), make a `GET` call to the `/partner/accounts` endpoint.\n\n  Only technology partners can access partner endpoints an"
+        },
+        {
+          "info": {
+            "name": "POST Send an API request on Behalf of a Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/account_operations/sync",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "An encoded account id for a managed account in your partnership."
+              }
+            ]
+          },
+          "docs": "Use this API method to send an API request on behalf of a managed client account in your partnership.\n\nThe request body properties you use in this partner API call determine the structure of the API request that Constant Contact sends on behalf of the managed client account. This includes the HTTP url, HTTP method type, request body, request url parameters, request query parameters, and headers that for the request. You can use this `/partner/accounts/{encoded_account_id}/account_operations/sync"
+        },
+        {
+          "info": {
+            "name": "POST a User Under a Partner's SSO-Enabled Client Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/users/sso",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The encoded account ID that identifies the partner's client account to which to add the new user. "
+              }
+            ]
+          },
+          "docs": "Use this endpoint to create a new user under a partner client account that has the Single Sign On (SSO) for all users feature enabled."
+        },
+        {
+          "info": {
+            "name": "POST Unsubscribe Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/accounts/:encoded_account_id/contacts/unsubscribe",
+            "params": [
+              {
+                "name": "encoded_account_id",
+                "value": "",
+                "type": "path",
+                "description": "The encoded account ID that uniquely identifies the partner's client account."
+              }
+            ]
+          },
+          "docs": "Use to unsubscribe contacts from partner client accounts. Identify the contacts to unsubscribe using the `email_address` parameter. To unsubscribe a single contact from all partner client accounts, specify the contacts `email_address` and set the `global_unsubscribe` parameter to `true`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

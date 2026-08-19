@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Technology Partners Webhooks API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Technology Partners Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a Collection of Webhook Topic Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions"
+          },
+          "docs": "Use this GET method to return a collection containing your application's webhook subscriptions."
+        },
+        {
+          "info": {
+            "name": "GET Webhook Topic Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n  * `1` - Billing tier upgrade.\n  * `2` - Billing tier downgrade.\n  * `3` - Account cancelled.\n  * `4` - Account disabled."
+        },
+        {
+          "info": {
+            "name": "PUT Webhook Topic Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request "
+        },
+        {
+          "info": {
+            "name": "DELETE Webhook Topic Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled."
+        },
+        {
+          "info": {
+            "name": "POST Test Send Webhook Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+            "params": [
+              {
+                "name": "topic_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifies a webhook topic."
+              }
+            ]
+          },
+          "docs": "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

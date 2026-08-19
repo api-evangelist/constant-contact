@@ -1,6 +1,7 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/constant-contact-v3-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.constantcontact.com/api_guide/auth_overview.html + https://developer.constantcontact.com/api_guide/scopes.html
+  + openapi/_original/constant-contact-v3-openapi.yml (build 3.0.178)
 summary:
   types:
   - apiKey
@@ -18,7 +19,23 @@ schemes:
     authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
     scopes: 4
   sources:
-  - openapi/constant-contact-v3-openapi.yml
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
 - name: oauth2_access_code
   type: oauth2
   flows:
@@ -27,10 +44,119 @@ schemes:
     tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
     scopes: 4
   sources:
-  - openapi/constant-contact-v3-openapi.yml
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
 - name: api_key
   type: apiKey
   in: header
   parameter: x-api-key
   sources:
-  - openapi/constant-contact-v3-openapi.yml
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+docs: https://developer.constantcontact.com/api_guide/auth_overview.html
+provider: Constant Contact
+providerId: constant-contact
+description: 'Constant Contact V3 authenticates every request with an OAuth2 JWT bearer access token.
+  There is no API-key-only path to the API: the value the developer portal calls an "API key" IS the OAuth2
+  client_id, not a standalone credential.'
+profile:
+  primary: oauth2
+  header: 'Authorization: Bearer <access_token>'
+  token_format: JWT (1,000-1,200 characters)
+  authorization_url: https://authz.constantcontact.com/oauth2/default/v1/authorize
+  token_url: https://authz.constantcontact.com/oauth2/default/v1/token
+  device_authorization_url: https://authz.constantcontact.com/oauth2/default/v1/device/authorize
+  partner_token_url: https://authz.constantcontact.com/partners/oauth2/default/v1/token
+  discovery: none — /.well-known/openid-configuration and /.well-known/oauth-authorization-server both
+    404 on authz.constantcontact.com
+flows:
+- flow: authorization_code
+  recommended_for: Traditional server-rendered web applications
+  client_secret_required: true
+  refresh_token: true
+  access_token_ttl_seconds: 86400
+  access_token_ttl_note: 1440 minutes; 24 hours is the maximum
+- flow: authorization_code_pkce
+  recommended_for: Native and single-page applications (public clients)
+  client_secret_required: false
+  refresh_token: true
+  access_token_ttl_seconds: 86400
+- flow: device
+  recommended_for: Input-constrained clients that cannot present a browser
+  client_secret_required: false
+  refresh_token: false
+  access_token_ttl_seconds: 86400
+- flow: implicit
+  recommended_for: Legacy public clients without Web Crypto support
+  client_secret_required: false
+  refresh_token: false
+  access_token_ttl_seconds: 28800
+  access_token_ttl_note: 480 minutes — shorter than the other flows
+  caution: Implicit is discouraged by OAuth 2.1 / RFC 9700. It remains declared in the contract as securityScheme
+    oauth2_implicit.
+refresh:
+  supported: true
+  scope_required: offline_access
+  lifetime: 180 days if never used
+  flows:
+  - authorization_code
+  - authorization_code_pkce
+  note: Not available in the implicit or device flows — those clients must re-authorize the user.
+credentials:
+  client_id: The value the developer portal labels the "API key" for your integration.
+  client_secret: Required for the authorization-code flow; not used by public clients.
+  note: There is no request-signing scheme and no mTLS option.
+scopes:
+  documented:
+  - account_read
+  - account_update
+  - contact_data
+  - campaign_data
+  - offline_access
+  spec_only:
+  - v3api/general.partner
+  delimiter: space
+  see: scopes/constant-contact-scopes.yml
+partner_auth:
+  scheme: ctctPartnerAuthorizer
+  authorization_url_in_spec: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  documented_url: https://authz.constantcontact.com/partners/oauth2/default/v1/token
+  conflict_note: The contract still points the partner authorizer at an AWS Cognito host (v3api-partner.auth.us-east-1.amazoncognito.com)
+    while the September 2025 release notes moved partner token issuance to authz.constantcontact.com/partners/oauth2/default/v1/token.
+    The spec is stale on this point; follow the release notes.
+findings:
+- A 403 conflates three unrelated causes — missing scope, missing user privilege, and a deactivated application
+  — so an agent cannot tell a permission problem from an account problem without calling getUserPrivileges.
+- No authorization-server metadata is published, so every endpoint must be hard-coded by the client.
+- Token TTL is long (24h) and refresh tokens live 180 days, which raises the blast radius of a leaked
+  token on an API whose contact_data scope permits bulk deletion.

@@ -1,0 +1,98 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/constant-contact-technology-partners-webhooks-api-openapi.yml +
+  openapi/_original/constant-contact-v3-openapi.yml (build 3.0.178)
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Constant Contact's only event surface: four partner BILLING webhook topics, managed through
+  the V3 REST API. There is no AsyncAPI document, no contact- or campaign-event webhook, and no
+  streaming surface. This catalog is derived from the operation descriptions in the published
+  Swagger, which are the provider's own words.
+asyncapi_published: false
+asyncapi_note: >-
+  No AsyncAPI document is served on any Constant Contact host. The event surface is small enough
+  and REST-managed enough that none is expected; recorded as absent rather than fabricated.
+transport: HTTPS POST callback
+audience: technology partners only
+scope_required: v3api/general.partner
+management:
+  base_url: https://api.cc.email/v3
+  operations:
+  - operationId: getWebhooksCollection
+    method: GET
+    path: /partner/webhooks/subscriptions
+    description: List your application's webhook topic subscriptions.
+  - operationId: getWebhooksTopic
+    method: GET
+    path: /partner/webhooks/subscriptions/{topic_id}
+    description: Get the subscription for one topic.
+  - operationId: putWebhooksTopic
+    method: PUT
+    path: /partner/webhooks/subscriptions/{topic_id}
+    description: Subscribe to a topic, or update the callback URI of an existing subscription.
+  - operationId: deleteWebhooksSubscriptions
+    method: DELETE
+    path: /partner/webhooks/subscriptions/{topic_id}
+    description: Delete a topic subscription.
+  - operationId: testSendWebhooksTopic
+    method: POST
+    path: /partner/webhooks/subscriptions/{topic_id}/tests
+    description: Trigger a test notification to your callback URI for that topic.
+subscription_body:
+  hook_uri: The callback URI Constant Contact POSTs notifications to.
+topics:
+- topic_id: 1
+  name: Billing Tier Upgrade
+  description: Executes when an account's billing tier is upgraded.
+- topic_id: 2
+  name: Billing Tier Downgrade
+  description: Executes when an account's billing tier is downgraded.
+- topic_id: 3
+  name: Account Cancelled
+  description: Executes when a partner-managed account is cancelled.
+- topic_id: 4
+  name: Account Disabled
+  description: Executes when a partner-managed account is disabled.
+payload:
+  media_type: application/json
+  example: |
+    {"url":"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan",
+     "api_key":"REDACTED_EXAMPLE_UUID",
+     "event_type":"tier.increase"}
+  fields:
+  - name: url
+    description: A V3 API URL the partner should call to read the account's new state.
+  - name: api_key
+    description: The partner application API key associated with the notification.
+  - name: event_type
+    description: 'The event discriminator, e.g. tier.increase.'
+  note: >-
+    The notification is a POINTER, not a state payload — it tells the partner which resource
+    changed and expects a follow-up GET. The example payload in the provider's own spec carries
+    an api_key value in the body; the placeholder above is redacted.
+delivery:
+  retry: >-
+    "If your application does not return a success response after receiving a notification,
+    Constant Contact will retry sending the POST notification at 1 minute intervals for up to an
+    hour." — verbatim from the putWebhooksTopic description.
+  max_retry_window: 1 hour
+  retry_interval: 60 seconds
+  ordering: not documented
+  deduplication: not documented
+  signature_verification: none documented
+  security_note: >-
+    No HMAC signature header, no shared secret, and no mTLS is documented for the callback. The
+    only thing distinguishing a genuine notification is the api_key value carried in the body,
+    which is a bearer-style secret in a request body rather than a verifiable signature. A
+    receiver should treat the payload as untrusted and re-read state from the API using its own
+    credentials.
+gaps:
+- >-
+  No webhooks exist for the surfaces most integrations want: contact created/updated/
+  unsubscribed, campaign sent, bounce, open, click. Those are poll-only through the reporting
+  endpoints, and the reporting endpoints are subject to the same 4 req/sec, 10,000 req/day cap.
+- >-
+  Webhook docs pages (api_guide/webhooks.html, webhooks_overview.html) return 403; everything
+  recorded here comes from the OpenAPI operation descriptions.

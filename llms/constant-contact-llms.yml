@@ -1,0 +1,37 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.constantcontact.com/llms.txt
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Constant Contact publishes a real llms.txt at the root of its marketing host. It was fetched
+  verbatim (HTTP 200, 3,272 bytes, UTF-8 BOM stripped) and saved to
+  llms/constant-contact-llms.txt without edits.
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://www.constantcontact.com/llms.txt
+  http_status: 200
+  bytes: 3272
+file: llms/constant-contact-llms.txt
+shape:
+  h1: Constant Contact
+  blockquote: true
+  sections:
+  - Platform Overview
+  - Core Features & Capabilities
+  - Marketing Tools
+  - Solutions
+  - Documentation & API
+  link_count: 17
+notes:
+- >-
+  The file is marketing-first: 15 of its 17 links point at constantcontact.com feature and
+  solution pages. Only two are developer-facing — knowledgebase.constantcontact.com and
+  developer.constantcontact.com — and neither names api.cc.email, the OpenAPI at
+  https://api.cc.email/v3/swagger.yaml, the OAuth2 authorization server, or any SDK. An agent
+  reading only this file would not learn the API exists as a callable surface.
+- >-
+  No llms-full.txt is served: https://www.constantcontact.com/llms-full.txt returns 404.
+- >-
+  developer.constantcontact.com/llms.txt returns 403 (S3 AccessDenied), so the docs host
+  publishes no llms.txt of its own.

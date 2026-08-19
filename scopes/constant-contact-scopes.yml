@@ -1,0 +1,446 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.constantcontact.com/api_guide/scopes.html (documented scope reference) + openapi/*.yml
+  securityDefinitions (derived baseline)
+docs: https://developer.constantcontact.com/api_guide/scopes.html
+provider: Constant Contact
+providerId: constant-contact
+description: OAuth2 scopes for the Constant Contact V3 API. The five consumer scopes are documented on
+  the provider's own scopes page and match the securityDefinitions in the published Swagger; offline_access
+  appears only in the docs, not in the contract, and v3api/general.partner appears only in the contract,
+  not on the docs page.
+scope_count: 6
+delimiter: space
+authorization_url: https://authz.constantcontact.com/oauth2/default/v1/authorize
+token_url: https://authz.constantcontact.com/oauth2/default/v1/token
+granularity_note: Scope granularity is COARSE and read/write are not separable on the two scopes that
+  matter. contact_data covers reading AND writing every contact, list, tag, custom field and segment in
+  the account, plus bulk import, export and delete; campaign_data covers reading AND writing every campaign,
+  schedule and send. Only the account pair splits read from update. An agent granted contact_data to read
+  a list can also delete every contact in it, and there is no narrower scope to request.
+scopes:
+- scope: account_read
+  description: Grants your application permission to read account data.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  evidence: docs+spec
+- scope: account_update
+  description: Grants your application permission to update account data.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  evidence: docs+spec
+- scope: campaign_data
+  description: Grants your application permission to read or write campaign data and to read campaign
+    reports.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  evidence: docs+spec
+- scope: contact_data
+  description: Grants your application permission to read or write contact data and to read contact reports.
+  flows:
+  - authorizationCode
+  - implicit
+  sources:
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  evidence: docs+spec
+- scope: v3api/general.partner
+  description: Access to general partner API methods. Declared on the ctctPartnerAuthorizer securityScheme
+    in the contract; NOT listed on the public scopes page.
+  flows:
+  - implicit
+  sources:
+  - openapi/constant-contact-account-services-api-openapi.yml
+  - openapi/constant-contact-bulk-activities-api-openapi.yml
+  - openapi/constant-contact-contact-lists-api-openapi.yml
+  - openapi/constant-contact-contact-tags-api-openapi.yml
+  - openapi/constant-contact-contacts-api-openapi.yml
+  - openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  - openapi/constant-contact-contacts-reporting-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  - openapi/constant-contact-email-campaigns-api-openapi.yml
+  - openapi/constant-contact-email-reporting-api-openapi.yml
+  - openapi/constant-contact-email-scheduling-api-openapi.yml
+  - openapi/constant-contact-events-api-openapi.yml
+  - openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  - openapi/constant-contact-segments-api-openapi.yml
+  - openapi/constant-contact-sms-reporting-api-openapi.yml
+  - openapi/constant-contact-technology-partners-api-openapi.yml
+  - openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  evidence: spec-only
+- scope: offline_access
+  description: Required to receive a refresh token from the Authorization Refresh Token Endpoint. Without
+    it the application must re-authorize the user when the access token expires.
+  evidence: docs-only
+  flows:
+  - authorizationCode
+  sources:
+  - https://developer.constantcontact.com/api_guide/scopes.html
+schemes:
+- name: oauth2_implicit
+  source: openapi/constant-contact-account-services-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-account-services-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-account-services-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-bulk-activities-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-bulk-activities-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-bulk-activities-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-contact-lists-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-contact-lists-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-contact-lists-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-contact-tags-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-contact-tags-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-contact-tags-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-contacts-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-contacts-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-contacts-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-contacts-custom-fields-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-contacts-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-contacts-reporting-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-contacts-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-email-campaigns-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-email-campaigns-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-email-campaigns-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-email-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-email-reporting-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-email-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-email-scheduling-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-email-scheduling-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-email-scheduling-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-events-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-events-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-events-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-landing-pages-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-segments-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-segments-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-segments-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-sms-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-sms-reporting-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-sms-reporting-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-technology-partners-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-technology-partners-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-technology-partners-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+- name: oauth2_implicit
+  source: openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+- name: oauth2_access_code
+  source: openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+- name: ctctPartnerAuthorizer
+  source: openapi/constant-contact-technology-partners-webhooks-api-openapi.yml
+  flows:
+  - flow: implicit
+    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+  description: Partner Authentication
+notes:
+- Scopes are space-delimited in the authorize query string, e.g. scope=contact_data%20campaign_data%20offline_access.
+- 'No scope discovery document is served: authz.constantcontact.com returns 404 for both /.well-known/openid-configuration
+  and /.well-known/oauth-authorization-server.'
+- The five documented scopes are entirely vendor-defined; no OIDC scopes (openid, profile, email) are
+  supported.

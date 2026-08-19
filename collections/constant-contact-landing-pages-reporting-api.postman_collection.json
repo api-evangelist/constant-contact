@@ -1,0 +1,3032 @@
+{
+  "item": [
+    {
+      "id": "36528587-a0d9-4e2b-a655-2a815566e729",
+      "name": "Landing Pages Reporting",
+      "description": {
+        "content": "Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted with a campaign activity.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac3552de-5a85-4bfa-9c64-3ff19295f36a",
+          "name": "GET a Unique Contacts Clicks Landing Page Report",
+          "request": {
+            "name": "GET a Unique Contacts Clicks Landing Page Report",
+            "description": {
+              "content": "Use this method get details about each contact that clicked a link on a landing page campaign activity. Unique contact clicks are identified by both the `contact_id` and `url_id`. The same contact may appear more than once in the results, if they clicked more than one link on the landing page. The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_unique_contact_clicks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a4a12e6-8227-4e04-929e-debd3e77e610",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"link_url\": \"http://www.amazon.com\",\n      \"tracking_activity_type\": \"p_contact_click\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"url_id\": \"1100407204171\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"link_url\": \"http://www.amazon.com\",\n      \"tracking_activity_type\": \"p_contact_click\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"url_id\": \"1100407204171\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa9cfa74-c07a-4017-aef2-ce99b94fe986",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b63612b1-ea2d-467f-890e-2ebe8587701a",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "751869a4-a444-43a9-8d43-26d92f92bfc3",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d257fb1-f779-4022-bd17-d58cfaef2171",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b651e82-4980-40e1-b439-f1732629a3b5",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa0e468a-7117-4bd2-8057-c18d18c1c731",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_clicks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e76f5a6-9f7e-4d74-9785-174cf357eb8c",
+          "name": "GET a Unique Contacts Opens Landing Page Report",
+          "request": {
+            "name": "GET a Unique Contacts Opens Landing Page Report",
+            "description": {
+              "content": "Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_unique_contact_opens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a26794d7-0792-4d38-bc47-7135970cd19b",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_opens\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_opens\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d31df8eb-8ec1-45b1-88d8-c707c1e750cf",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8719e0c-be76-4243-9397-23d57305a3b2",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc534003-dbe4-43cb-a47e-3bc1a4087cfe",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e541bd9e-a45f-4895-973f-c2ef7d2fa7d7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec2612e5-027b-41d3-988b-42f20a11839c",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a744c1a7-b322-444c-84e9-69a6628b7957",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9e3d2ef-86fb-4a69-a9c2-01704e1c2b4b",
+          "name": "GET a Contacts Opens Landing Page Report",
+          "request": {
+            "name": "GET a Contacts Opens Landing Page Report",
+            "description": {
+              "content": "Use this method get contact details for each time a contact opens a link on a landing page.  The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_contact_opens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "66dcb434-c121-4147-b2e4-98333dfc13fc",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_opens\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_opens\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"device_type\": \"tablet\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40d174b7-abbe-457d-a71e-51ef37d41b76",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a2d7618-a9d0-43fc-b5f8-8e006116a4a1",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1187ef15-e729-4fc6-a3c2-9fe5e87f5694",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bf9972c-9fb3-4c8a-a0b5-ed17b95119c7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "476c5a6e-181f-4bbb-8bfe-bfe80e924cf9",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad148fad-159d-4194-985a-90188705ba7e",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_contact_opens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c352a35-4fb4-4848-bf3c-7a05dfc7a4da",
+          "name": "GET a Unique Contacts Updates Landing Page Report",
+          "request": {
+            "name": "GET a Unique Contacts Updates Landing Page Report",
+            "description": {
+              "content": "Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_unique_contact_updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9d73a709-781b-47d6-baca-03d85768318d",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_updates\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_updates\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e513a43c-baff-4d58-a1cc-bcddf0133d65",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5138c3ba-4d0b-4519-82bb-a558d4bcd3df",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d25485cf-e761-4ad0-a38d-038b31349b5a",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8e44f98-a9f6-4d6b-a636-7149090b83ab",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab84649f-0bd8-49e0-bce8-bacecf934bc9",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bd07e54-d802-49f4-94ae-2c82fee9db2a",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact open results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87f24ed2-39cc-4da0-8f8d-7d67478841b4",
+          "name": "GET a Unique Contacts Adds Landing Page Report",
+          "request": {
+            "name": "GET a Unique Contacts Adds Landing Page Report",
+            "description": {
+              "content": "Use this method to get details about each contact added to the account from a specified landing page. Contacts are identified by `contact_id`. The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_unique_contact_adds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to only include contacts that contain a certain value. This parameter does full and partial matches and applies to the contact first name, last name, and email fields. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2dc5d497-add2-4d28-8621-75e63a4b6288",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_adds\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_adds\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c63165d6-78ec-4398-9f5a-671347fc27bf",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5219850-170b-467a-84c0-79fea682ff9d",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c17bd49c-71b7-4b78-9802-080222d65a9c",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "575ef687-a998-4a24-83d1-99f6eca3a40a",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85f6f5fe-dc92-4554-9b6b-1e4c88be30f0",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2cfdfd3-96e6-489f-ba9f-64564a1fb089",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_adds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccb9d7fb-2a73-41a6-850d-eb415a2fa876",
+          "name": "GET a Unique Contacts SMS Opt-In Landing Page Report",
+          "request": {
+            "name": "GET a Unique Contacts SMS Opt-In Landing Page Report",
+            "description": {
+              "content": "Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``.  The resulting contact data is listed with most recent activity first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "landing_pages",
+                "campaign_details",
+                ":campaign_activity_id",
+                "p_unique_contact_sms_optins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of contact tracking activities to return on a single page. The default is `50` and the maximum is `500` per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "contacts_filter",
+                  "value": "<string>",
+                  "description": "Use to filter the results to return only contacts that match a contacts full or partial first or last name, or email. For example: Josie or Jo."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "campaign_activity_id",
+                  "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44e91d25-ff8b-4ab1-bf9a-05b06f78997e",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  },\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_sms_optins\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    },\n    {\n      \"campaign_activity_id\": \"98edac88-f4bc-408c-9e64-acd890384231\",\n      \"contact_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"created_time\": \"2019-04-25T11:08:00.000Z\",\n      \"email_address\": \"maddieb@gmail.com\",\n      \"tracking_activity_type\": \"p_contact_sms_optins\",\n      \"first_name\": \"Maddie\",\n      \"last_name\": \"Brown\",\n      \"deleted_at\": \"2015-08-10\",\n      \"sms_channel\": {\n        \"country_code\": \"US\",\n        \"state\": \"string\",\n        \"formatted_international\": \"+1 234-555-6789\",\n        \"formatted_national\": \"(234) 555-6789\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7db16a6-e5af-479e-ba39-95ffa9abcc5e",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d75ec61-f1b4-4ba1-9012-284e3d3ddf08",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "02055544-083f-41f4-9916-5b0bd8d8ea35",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9733de13-8728-4563-9a25-5aa3701f45c6",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0891e826-800b-4311-a62d-618bf5fd7ec7",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1fd771a1-1b9e-422c-bdea-342dbd01f0a1",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "landing_pages",
+                    "campaign_details",
+                    ":campaign_activity_id",
+                    "p_unique_contact_sms_optins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "contacts_filter",
+                      "value": "Jo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "campaign_activity_id",
+                      "description": "(Required) The landing page `campaign_activity_id` (UUID's) to use to get unique contact click results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7d8fc00c-b7df-40d7-be03-ca258faa6c1f",
+    "name": "AppConnect V3 Account Services Landing Pages Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

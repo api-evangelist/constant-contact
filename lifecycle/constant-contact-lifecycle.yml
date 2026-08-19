@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.constantcontact.com/api_guide/index.html
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Versioning, deprecation and operational-status posture for the Constant Contact V3
+  (AppConnect) API.
+versioning:
+  style: uri-path
+  current_version: v3
+  base_url: https://api.cc.email/v3
+  contract_version: 3.0.149
+  contract_note: >-
+    info.version in the published Swagger is a build number (3.0.149 in the harvested copy;
+    3.0.161 in the Ruby SDK header), not a consumer-facing API version. Only the /v3 path
+    segment is stable and consumer-visible.
+  header_negotiation: false
+  policy_page: null
+  policy_note: >-
+    No written versioning policy is published. developer.constantcontact.com/api_guide/
+    api_versioning.html and /versioning.html both return 403 (S3 AccessDenied). What is
+    observable: new capability arrives as new paths inside /v3 rather than as a new version,
+    and no /v4 exists.
+deprecation:
+  policy_page: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: 0
+  deprecated_note: >-
+    No operation in any of the 17 OpenAPI files carries `deprecated: true`, and the API returns
+    neither a Sunset nor a Deprecation header. Deprecations are announced only in prose on the
+    release-notes page.
+  history:
+  - date: '2022-02'
+    what: >-
+      "REQUIRED UPDATE" notice — as of 2022-03-31 support ended for applications using the
+      legacy authorization URLs. The replacement OAuth2 service introduced JWT access tokens
+      and deprecated the /token_info endpoint.
+    breaking: true
+  - date: '2025-09'
+    what: >-
+      Partner authorization URL moved to
+      https://authz.constantcontact.com/partners/oauth2/default/v1/token.
+    breaking: true
+  - date: legacy
+    what: >-
+      The V2 API and its SDKs (php-sdk, ruby-sdk, java-sdk, .net-sdk, ios-sdk,
+      ctct_php_library) are retired; all five repos are archived on GitHub. V3 is the only
+      supported surface.
+    breaking: true
+support:
+  status_page: https://status.constantcontact.com/
+  status_platform: Atlassian Statuspage
+  status_api: https://status.constantcontact.com/api/v2/status.json
+  status_api_status: 200
+  status_note: >-
+    A real Statuspage instance (page id g83kktkx21mx) with the standard machine-readable
+    /api/v2/ endpoints — status.json, components.json, incidents.json, summary.json — all
+    reachable anonymously. This is the only automated operational signal Constant Contact
+    publishes.
+  support_url: https://www.constantcontact.com/help
+  community_url: https://community.constantcontact.com/
+  knowledge_base: https://knowledgebase.constantcontact.com/
+  developer_contact: webservices@constantcontact.com
+sla:
+  published: false
+  note: No public uptime SLA or error-budget commitment was found for the V3 API.
+release_notes:
+  url: https://developer.constantcontact.com/api_guide/index.html
+  cadence: irregular, roughly monthly to quarterly
+  see: changelog/constant-contact-changelog.yml
+sdk_lifecycle:
+  active: 5
+  languages: [TypeScript, Python, Ruby, PHP, C#]
+  last_release: '2026-07-16'
+  note: >-
+    All five V3 SDKs were re-cut in July 2026 against contract build 3.0.161, so the client
+    fleet is current with the API rather than trailing it. See
+    packages/constant-contact-packages.yml.

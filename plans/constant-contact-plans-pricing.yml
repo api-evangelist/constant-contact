@@ -4,6 +4,9 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Constant Contact
 providerId: constant-contact
 created: '2026-05-04'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+method: generated
 modified: '2026-05-04'
 reconciled: true
 tags:
@@ -106,3 +109,16 @@ plans:
       - name: Dynamic content
       - name: Lead scoring
       - name: 24x contact-volume email allotment
+x-refresh-attempt:
+  date: '2026-08-13'
+  outcome: blocked
+  note: >-
+    Re-harvest of the live pricing page failed. https://www.constantcontact.com/pricing sits
+    behind a Cloudflare interstitial ("Just a moment...") that returns HTTP 403 to curl with a
+    browser User-Agent and to WebFetch alike, so the tier figures below remain those of the
+    2026-05-04 generated sweep and have NOT been confirmed against the current page. Constant
+    Contact's own llms.txt names this URL as the canonical pricing source, so the page is
+    intended to be readable — it just is not machine-readable in practice.
+  probes:
+  - url: https://www.constantcontact.com/pricing
+    status: 403

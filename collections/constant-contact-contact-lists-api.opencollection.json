@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Contact Lists API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID that uniquely identifies a contact list."
+              },
+              {
+                "name": "include_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the total number of contacts per list that meet your selection criteria. Set the `include_membership_count` to `active`, to count only active contacts, or `all` to include all contacts in the count."
+              }
+            ]
+          },
+          "docs": "Use this method to get details about a specific contact list (`list_id`)."
+        },
+        {
+          "info": {
+            "name": "PUT (update) a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the contact list to update"
+              }
+            ]
+          },
+          "docs": "Updates an existing contact list resource, specified by `list_id`"
+        },
+        {
+          "info": {
+            "name": "DELETE a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contact_lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the list to delete"
+              }
+            ]
+          },
+          "docs": "Deletes the specified contact list and its membership. DELETE List requests are processed asynchronously, and you can track the status of the request by making a GET call to the URI shown in the `_links` property in the response."
+        },
+        {
+          "info": {
+            "name": "GET Lists Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify the number of results displayed per page of output, from 1 - 500, default = 50."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set `include_count` to `true` to return the total number of contact lists that meet your selection criteria."
+              },
+              {
+                "name": "include_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Use to include the total number of contacts per list. Set to  `active`, to count only active (mailable) contacts, or `all` to count all contacts."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Use to get details for a single list by entering the full name of the list."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Use to get lists by status. Accepts comma-separated status values."
+              },
+              {
+                "name": "channel_type",
+                "value": "",
+                "type": "query",
+                "description": "Use to return lists by channel type. The default value is `email`."
+              },
+              {
+                "name": "include_sms_membership_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to `true` to return the total number of SMS members in each list. Only applicable when `channel_type` is `sms`. Default is `false`."
+              }
+            ]
+          },
+          "docs": "Use this method to return details about all contact lists for the account.\n<div class=\"Msg\"><p class=\"note-text\">This method does not currently support filtering results using the contact list update date.</p></div>"
+        },
+        {
+          "info": {
+            "name": "POST (create) a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contact_lists"
+          },
+          "docs": "Create a new contact list resource"
+        },
+        {
+          "info": {
+            "name": "GET a collection of V2 and V3 API List IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_lists/list_id_xrefs",
+            "params": [
+              {
+                "name": "sequence_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma delimited list of V2 API list `ids` to cross-reference with the V3 API `list_id` value. Endpoint accepts a maximum of 500 ids at a time."
+              }
+            ]
+          },
+          "docs": "<div class=\"Msg Msg--warning\"><p class=\"note-text\">Use this endpoint to migrate your locally stored V2 contact list data to the new V3 format. Developers are expected to use this endpoint sparingly. This endpoint is NOT intended for regular or repeated use. Constant Contact will eventually deprecate and remove this endpoint.</p></div>\n\nThis GET call retrieves a collection of cross-referenced list sequence IDs (`id` used in the V2 API) and UUIDs (`list_id` used in the V3 API). This endpoint is in"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

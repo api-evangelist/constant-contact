@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Contacts Reporting API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Contact Activity Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact's ID for which tracking activity data is requested."
+              },
+              {
+                "name": "tracking_activities_list",
+                "value": "",
+                "type": "query",
+                "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
+              },
+              {
+                "name": "tracking_activity_type",
+                "value": "",
+                "type": "query",
+                "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
+              },
+              {
+                "name": "include_campaign_activity_names",
+                "value": "",
+                "type": "query",
+                "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100."
+              }
+            ]
+          },
+          "docs": "<p>Gets the tracking activity data for a single contact, sorted in descending activity date order.</p> <p>You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.</p>\n      <table><tr><td colspan='2'>Valid tracking activity types</td></tr>\n        <tr><td><b>em_sends</"
+        },
+        {
+          "info": {
+            "name": "GET Average Open and Click Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
+              }
+            ]
+          },
+          "docs": "<p>Gets the average open and click rate for a given account and contact.<p>Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.</p><p>Returns the rates and the number of campaign activities that were included in the calculation.</p><p>If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.</p>"
+        },
+        {
+          "info": {
+            "name": "GET Contact Action Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path",
+                "description": "The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
+              }
+            ]
+          },
+          "docs": "Get a list of the recent emails (aka, campaign activities) sent to a specific contact and a summary of the actions the contact took on that email for the most recent 200 campaigns."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

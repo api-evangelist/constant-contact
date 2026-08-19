@@ -1,0 +1,153 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/*.yml (17 refined AppConnect V3 specs) + https://developer.constantcontact.com/api_guide/rate_limits.html
+provider: Constant Contact
+providerId: constant-contact
+format: vendor-json
+rfc9457: false
+description: >-
+  Constant Contact V3 does NOT use RFC 9457 / application/problem+json. Errors are returned as
+  application/json with a two-field vendor envelope — error_key and error_message. Most
+  endpoints return an ARRAY of those objects (definition APIErrorSchema, "type: array"); the
+  authorization and reporting paths return a single OBJECT (AuthorizationErrorSchema,
+  StatsError). A client therefore cannot assume the error body shape from the status code
+  alone and must tolerate both a bare object and a one-element array.
+envelope:
+  media_type: application/json
+  fields:
+  - name: error_key
+    description: Machine-readable error identifier, dot-namespaced by service.
+    example: contacts.api.validation.error
+  - name: error_message
+    description: Human-readable description of the failure.
+    example: include_membership_count does not have a valid value
+  shapes:
+  - schema: APIErrorSchema
+    json: '[{"error_key": "...", "error_message": "..."}]'
+    note: Array form. Used by the contacts, lists, tags, custom fields, segments, campaigns,
+      scheduling, events, bulk activities and partner endpoints.
+  - schema: AuthorizationErrorSchema
+    json: '{"error_key": "unauthorized", "error_message": "Unauthorized"}'
+    note: Single-object form. Used on authorization failures.
+  - schema: StatsError
+    json: '{"error_key": "reportingsvc.not_found.invalid_path_param.campaign_ids.", "error_message": "..."}'
+    note: Single-object form. Used by the reporting/stats endpoints.
+  - schema: ActivityErrors
+    json: '{"message": "..."}'
+    note: >-
+      Bulk-activity result errors use a DIFFERENT field name — "message", not "error_message" —
+      inside the activity status payload. A third shape on the same API.
+status_codes:
+- code: 400
+  title: Bad Request
+  description: Either the JSON was malformed or there was a data validation error.
+  operations: 116
+  retryable: false
+  remediation: Fix the payload. The error_message names the offending field.
+- code: 401
+  title: Unauthorized
+  description: The Access Token used is invalid.
+  operations: 119
+  retryable: false
+  remediation: >-
+    Refresh the access token against
+    https://authz.constantcontact.com/oauth2/default/v1/token using the refresh token obtained
+    with the offline_access scope, then retry once.
+- code: 403
+  title: Forbidden
+  description: >-
+    Forbidden request. You lack the necessary scopes, you lack the necessary user privileges,
+    or the application is deactivated.
+  operations: 118
+  retryable: false
+  remediation: >-
+    Three distinct causes share one code. Check the granted scope set
+    (contact_data / campaign_data / account_read / account_update), then the account user
+    privileges via getUserPrivileges, then the application state in the developer portal.
+- code: 404
+  title: Not Found
+  description: The requested resource was not found.
+  operations: 98
+  retryable: false
+  remediation: >-
+    On partner endpoints a 404 can also mean the encoded_account_id is invalid rather than the
+    resource being absent.
+- code: 405
+  title: Method Not Allowed
+  description: Unsupported method used.
+  operations: 2
+  retryable: false
+- code: 406
+  title: Not Acceptable
+  description: Unsupported Media Type (as described by the spec on this path).
+  operations: 2
+  retryable: false
+- code: 409
+  title: Conflict
+  description: >-
+    The resource you are creating or updating conflicts with an existing resource. On the
+    contacts path it also signals simultaneous requests attempting to modify the same contact.
+  operations: 22
+  retryable: true
+  remediation: >-
+    The concurrent-modification variant is the closest thing this API has to an optimistic
+    concurrency signal. Serialize writes per contact_id and retry with backoff. No idempotency
+    key is offered.
+- code: 415
+  title: Unsupported Media Type
+  description: >-
+    The payload must be in JSON format and Content-Type must be application/json. Two bulk
+    endpoints invert this — contactsCSVImport requires Content-Type to be UNSPECIFIED and the
+    upload to be a .csv file.
+  operations: 41
+  retryable: false
+- code: 429
+  title: Too Many Requests
+  description: >-
+    Two different exhaustion conditions share this code and are distinguished only by
+    error_key.
+  operations: 33
+  retryable: true
+  variants:
+  - error_key: throttled
+    error_message: Too Many Requests
+    meaning: Per-second threshold exceeded (4 req/sec).
+  - error_key: quota_exceeded
+    error_message: Limit Exceeded
+    meaning: Daily quota exceeded (10,000 req/day, resets 00:00:00 UTC).
+  - error_key: null
+    error_message: You exceeded 1,000 queued activities for this user account.
+    meaning: >-
+      Bulk-activity queue depth exceeded — a third, resource-specific 429 documented on 12 of
+      the bulk endpoints.
+  remediation: >-
+    No Retry-After and no RateLimit-* headers are returned; the client must branch on error_key
+    and back off on its own. throttled clears within the second; quota_exceeded does not clear
+    until 00:00 UTC.
+- code: 500
+  title: Internal Server Error
+  description: There was a problem with our internal service.
+  operations: 120
+  retryable: true
+  remediation: Retry with exponential backoff. Declared on every single operation.
+- code: 503
+  title: Service Unavailable
+  description: Our internal service is temporarily unavailable.
+  operations: 47
+  retryable: true
+error_key_namespaces:
+- prefix: contacts.api.
+  service: Contacts
+- prefix: reportingsvc.
+  service: Reporting / stats
+- prefix: unauthorized
+  service: Authorization
+gaps:
+- >-
+  The provider publishes no consolidated error-code reference page:
+  developer.constantcontact.com/api_guide/error_codes.html and /errors.html both return 403
+  (S3 AccessDenied). Every error_key value recorded here comes from the OpenAPI examples or
+  the rate-limits guide, not from an error catalog, so this list is not exhaustive.
+- >-
+  No error type URIs, no documentation links inside error bodies, no request/trace id in the
+  envelope.

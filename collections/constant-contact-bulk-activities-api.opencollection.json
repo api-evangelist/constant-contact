@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Bulk Activities API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Activities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Activity Status Collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/activities",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results displayed per page of output, from 1 - 500, default = 50."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Use this parameter to filter the response to include only activities in one of the following states: cancelled, completed, failed, processing, or timed_out."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a collection of activities. Use the state query parameter to include only activities with a specific status (processing, completed, cancelled, failed, or time_out). Use the limit query parameter to define the number of activities returned per page. Learn [more](/api_guide/activity_status.html)."
+        },
+        {
+          "info": {
+            "name": "GET an Activity Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/activities/:activity_id",
+            "params": [
+              {
+                "name": "activity_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the activity to GET"
+              }
+            ]
+          },
+          "docs": "This endpoint returns an activity status report."
+        },
+        {
+          "info": {
+            "name": "Export Contacts to a File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contact_exports"
+          },
+          "docs": "Use this method to create an activity that exports contacts and contact details to a CSV file.  You can choose to export all contacts in your account (default) or you can use parameters to filter on which contacts to export. After Constant Contact finishes processing the activity, use the `results` link in the response body to retrieve the CSV file."
+        },
+        {
+          "info": {
+            "name": "Retrieve Exported Contacts File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_exports/:file_export_id",
+            "params": [
+              {
+                "name": "file_export_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the exported file provided in the results: section of the export contacts activity response."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to retrieve (GET) a CSV file containing exported contacts by providing the `activity_id` of a completed CSV export activity. \n"
+        },
+        {
+          "info": {
+            "name": "Delete Contacts in Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contact_delete"
+          },
+          "docs": "Use this endpoint to bulk delete contacts in an account. Contacts to delete are specified by contact_id (up to 500), or by list_id (up to 50 lists); all contacts that are members of the list_ids are deleted. Deleted contacts won’t receive email from you, and they don’t count as active contacts. Unlike unsubscribed contacts, deleted contacts can be added back to an account. [Learn how to revive deleted contacts](/api_guide/contacts_delete.html#revive)."
+        },
+        {
+          "info": {
+            "name": "Import Contacts using a CSV File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_file_import"
+          },
+          "docs": "This multipart method creates an asynchronous background job that adds or updates contacts by importing a CSV file containing contact information. Do not use a Content-Type header value with this method.\n\nImporting a new contact email address automatically sets the contact's `permission_to_send` property as `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request.\nImporting contacts with `sms_number`s r"
+        },
+        {
+          "info": {
+            "name": "Import Contacts using a JSON Payload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_json_import"
+          },
+          "docs": "Use this method to create an asynchronous background job that adds new contacts or updates existing contacts by importing a JSON payload. This method requires a request body that contains the contact data you are importing and the contact lists to which you want to add the imported contacts. A contact's data must include an `email` address and/or `sms_number`. The `sms_number` must be a US phone number to associate with the contact's SMS-enabled phone. Valid formats are <code>1231231234</code> o"
+        },
+        {
+          "info": {
+            "name": "Remove Contacts from Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/remove_list_memberships"
+          },
+          "docs": "Use this method to create an activity that removes contacts from one or more contact lists. Use the properties in the `source` object to remove specific contacts from your lists. Use the `list_ids` array to specify the target lists from which contacts are removed. Optionally, if the source is  `all_active_contacts` (billable) or `list_ids`, use the `exclude` object to exclude specific contacts from being removed from the destination lists."
+        },
+        {
+          "info": {
+            "name": "Add Contacts to Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/add_list_memberships"
+          },
+          "docs": "Use this method to create an activity that adds contacts to one or more lists. Each contact can be a member of up to 50 lists. Use the properties in the `source` object to specify the contacts you want to add to lists. Use the `list_ids` array to specify which lists you want to add your source contacts to."
+        },
+        {
+          "info": {
+            "name": "Delete Contact Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/list_delete"
+          },
+          "docs": "Use this endpoint to delete up to 100 contact lists in an account. "
+        },
+        {
+          "info": {
+            "name": "Remove Tags from Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_taggings_remove"
+          },
+          "docs": "Use this method to create an asynchronous activity that removes one or more tags from all contacts meeting your contact filtering criteria. Filtering criteria must include the `source` type used to identify contacts from which the specified tags (`tag_id`) are removed.\nSource types are mutually exclusive. If the specified source is either `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` specified contacts by `contact_id`. Use the activity link in the results to check t"
+        },
+        {
+          "info": {
+            "name": "Add Tags to Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_taggings_add"
+          },
+          "docs": "Use this method to create an asynchronous activity that adds one or more tags to all contacts meeting your contact filtering criteria. Use the `source` type to identify contacts from which the specified tags (`tag_id`) are added.\nSource criteria are mutually exclusive. If the source is `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` contacts by `contact_id`. Use the activity link in the results to check the status of your request.\nFor more use case information, see \"["
+        },
+        {
+          "info": {
+            "name": "Delete Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/contacts_tags_delete"
+          },
+          "docs": "Use this method to create an asynchronous activity that deletes up to 500 tags. Deleted tags are automatically removed from tagged contacts. Use the `tag_ids` array of string values in the request body to specify which tags to delete."
+        },
+        {
+          "info": {
+            "name": "Delete Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/activities/custom_fields_delete"
+          },
+          "docs": "Use this endpoint to delete up to 100 custom fields for an account. "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3714 @@
+{
+  "item": [
+    {
+      "id": "d3afb5c1-8841-4832-b4b7-5b7be3352250",
+      "name": "Technology Partners",
+      "description": {
+        "content": "Use partner endpoints to manage client Constant Contact accounts under your partner account.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf5e8263-ffd7-4a50-9bce-df6aacd3d121",
+          "name": "GET Partner Client Accounts",
+          "request": {
+            "name": "GET Partner Client Accounts",
+            "description": {
+              "content": "Get all Constant Contact client accounts managed under your technology partner account. Use the `limit` query parameter to set the number of accounts to return on each results page. Use the `account_type` query parameter to filter client account results by type: `all` (default), `managed`, or `unmanaged`.\nOnly technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get all Partner Client Accounts](/api_guide/partners_accts_get.html) in the API guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The number of client accounts to return on each page of results. The default value is `50`. Entering a `limit` value less than the minimum (`10`) or greater than the maximum (`50`) is ignored and the system uses the default values. Depending on the `limit` you specify, the system determines the `offset` parameter to use (number of records to skip) and includes it in the link used to get the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_type",
+                  "value": "all",
+                  "description": "Filters client account results by account type: `all` (default), `managed`, or `unmanaged`. Excluding the `account_type` query parameter returns all client accounts for the partner."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47db8b3e-8a0f-4a30-9785-86fd8daebe86",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"site_owner_list\": [\n    {\n      \"encoded_account_id\": \"a08e1izvh8t9\",\n      \"subscriber_count\": 65,\n      \"organization_name\": \"Zenomatic\",\n      \"site_owner_name\": \"Zen1016153\",\n      \"billing_status\": \"Open\",\n      \"last_login_date\": \"2019-04-25T11:08:00.000Z\"\n    },\n    {\n      \"encoded_account_id\": \"a08e1izvh8t9\",\n      \"subscriber_count\": 65,\n      \"organization_name\": \"Zenomatic\",\n      \"site_owner_name\": \"Zen1016153\",\n      \"billing_status\": \"Open\",\n      \"last_login_date\": \"2019-04-25T11:08:00.000Z\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48e51f64-1ba6-4d8d-8a05-93b4ebe6594d",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9694c015-3229-43ae-9647-d6e7041debb6",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59e2f7d0-97c6-49b5-8e9e-07ede23af6ce",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cf70c27d-f6bf-4fcc-a606-2d7101c668fb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a208c313-2a57-42f1-bd94-326032391dc1",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "account_type",
+                      "value": "managed"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec7ea137-dbb7-4670-9518-46dea4a107bc",
+          "name": "POST (create) a Partner Client Account",
+          "request": {
+            "name": "POST (create) a Partner Client Account",
+            "description": {
+              "content": "Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.\n\nNewly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.\n\nIf a field validation error occurs, a 400 response message is returned.\n\nIf provisioning does not complete successfully due to unavailable dependencies, such as database or dependent services, a 503 response message is returned. By default, the client account provision data is stored and processed when provisioning becomes available.\n\nIf the partner client account has the Single Sign On (SSO) for all users feature enabled, all users in the client account can sign into the account using SSO. This feature must be set up through the Constant Contact Partner team. For feature details, see [Configuring Identity Provider Initiated SSO](/api_guide/partner_sso_config.html). Some client account features will be supported in future releases. \n\nFor more use case information, see [Create a new Partner Client Account](/api_guide/partners_accts_create.html) in the API guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact_email\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"login_name\": \"<string>\",\n  \"state_code\": \"<string>\",\n  \"contact_phone\": \"<string>\",\n  \"organization_name\": \"<string>\",\n  \"organization_phone\": \"<string>\",\n  \"time_zone_id\": \"<string>\",\n  \"website\": \"<string>\",\n  \"password\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"partner_account_id\": \"<string>\",\n  \"billing_locale\": \"<string>\",\n  \"managed_site_owner\": \"<boolean>\",\n  \"enable_single_billing\": \"<boolean>\",\n  \"gdpr_opt_out\": \"<boolean>\",\n  \"external_id\": \"<string>\",\n  \"external_provider\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc647dd2-455c-4b99-8251-090348a7a25d",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"encoded_account_id\": \"a08e1izzh8t9\",\n  \"provision_uuid\": \"x9xx2ede-5a58-4e23-8168-25930c5x7bxb\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "799df0dd-52a7-482d-9a71-7f09da1002c1",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa1febec-f1da-4d48-a914-9b8ed23d2470",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "589af857-10ba-4ea4-b982-d26156925316",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ad40f7e-6c33-452c-bb21-8f4522b71830",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9fd81e6-a0b8-4509-bf1d-798df31e84a3",
+              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b23de98c-dee7-4b32-a4a2-303cf54b7313",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db1cbd19-382d-46f3-b287-3525ad7455da",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "84c651c6-1614-4319-a568-c9019148bcab",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"clients_email@gmail.com\",\n  \"country_code\": \"US\",\n  \"login_name\": \"hank_smith\",\n  \"state_code\": \"MA\",\n  \"contact_phone\": \"588-768-6868\",\n  \"organization_name\": \"Hanks Fresh Fruit Delivery\",\n  \"organization_phone\": \"401-244-1000\",\n  \"time_zone_id\": \"US/Eastern\",\n  \"website\": \"http://your.company.website\",\n  \"password\": \"123456789\",\n  \"first_name\": \"Hank\",\n  \"last_name\": \"Smith\",\n  \"partner_account_id\": \"partner1234\",\n  \"billing_locale\": \"en_US.\",\n  \"managed_site_owner\": true,\n  \"enable_single_billing\": true,\n  \"gdpr_opt_out\": true,\n  \"external_id\": \"123456789123456789\",\n  \"external_provider\": \"Yahoo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e652858e-a6d1-44a4-972e-73e5cd2359a0",
+          "name": "GET Billing Plan Details for a Client Account",
+          "request": {
+            "name": "GET Billing Plan Details for a Client Account",
+            "description": {
+              "content": "Use this GET method to return billing plan details for a client's Constant Contact account.\nIf you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported. Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\nFor more use case information, see [Get Billing Plan Details for a Client Account](/api_guide/partners_plans_get.html) in the API guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "plan"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) Specify the client's unique `encoded_account_id`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "78160518-cef5-4caa-a15a-4ca2d1ba2d44",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan_type\": \"GOLD\",\n  \"current_tiers\": [\n    {\n      \"usage_type\": \"CONTACTS\",\n      \"current_usage\": 10,\n      \"tier\": 1,\n      \"tier_min\": 0,\n      \"tier_max\": 500,\n      \"price\": 20,\n      \"currency_code\": \"USD\"\n    },\n    {\n      \"usage_type\": \"CONTACTS\",\n      \"current_usage\": 10,\n      \"tier\": 1,\n      \"tier_min\": 0,\n      \"tier_max\": 500,\n      \"price\": 20,\n      \"currency_code\": \"USD\"\n    }\n  ],\n  \"billing_status\": \"Open\",\n  \"billing_day_of_month\": 15\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "252bb88d-dc3a-439d-8642-bee9f1bc3d32",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba76bf6a-9803-4c54-a464-58c152f4a64b",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "80b74a2c-8921-4506-8674-c85e1e9d94cc",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53b1b3f3-be51-4a18-a47d-30f8f03a5191",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be34b33f-61ee-4238-91e9-9eb9852adc7b",
+              "name": "Unsupported method used.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61d7f7f0-80e7-4474-bc02-6250a98a0d9f",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7905d3ef-4a21-4362-8be4-b907790e088c",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95e2aac8-b831-4151-abbb-71f6c6c5a723",
+          "name": "PUT (update) Billing Plan Details for a Client Account",
+          "request": {
+            "name": "PUT (update) Billing Plan Details for a Client Account",
+            "description": {
+              "content": "Use this PUT method to update the type of billing plan to assign to the Constant Contact client account. The type of billing plan determines which Constant Contact product features that the client account can access. The billing plan that you specify in the request body (`plan_type`) must already exist in the plan group. Attempting to change to a plan that is currently not available within your partner plan group results in a 400 error response code.\n\nWhen you create a new client account, the `plan_type` defaults to `TRIAL` and the `billing_day_of_month` defaults to `null`. The `billing_day_of_month` property is required if a client account is not set up to use single billing. You can change the day of month (`billing_day_of_month`) in which to bill a client account only when changing the `plan_type` value from `TRIAL` to a different `plan_type`, otherwise the `billing_day_of_month` value you enter is ignored. You can choose to enter a specific day of the month or accept the default value, which is the day on which the `plan_type` value changes from a `TRIAL` plan to a different `plan_type`. Changing the `plan_type` from `TRIAL` to another `plan_type` automatically changes the `billing_status` from `Trial` to `Open`.\n\nOnly technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported.\n\nFor more use case information, see [PUT Billing Plan Details for a Client Account](/api_guide/partners_plans_update.html) in the API guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "plan"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) Specify the client's unique `encoded_account_id`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plan_type\": \"<string>\",\n  \"plan_group_id\": \"<integer>\",\n  \"billing_day_of_month\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eed641fb-8707-482e-a9aa-1cffc231c595",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plan_type\": \"GOLD\",\n  \"current_tiers\": [\n    {\n      \"usage_type\": \"CONTACTS\",\n      \"current_usage\": 10,\n      \"tier\": 1,\n      \"tier_min\": 0,\n      \"tier_max\": 500,\n      \"price\": 20,\n      \"currency_code\": \"USD\"\n    },\n    {\n      \"usage_type\": \"CONTACTS\",\n      \"current_usage\": 10,\n      \"tier\": 1,\n      \"tier_min\": 0,\n      \"tier_max\": 500,\n      \"price\": 20,\n      \"currency_code\": \"USD\"\n    }\n  ],\n  \"billing_status\": \"Open\",\n  \"billing_day_of_month\": 15\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3422f19-5b49-40d6-8509-cf04a5f4e755",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a557500a-2bb1-41cb-8f63-22228d6cadab",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01e21d2f-e825-4d1b-8684-678e95c134d2",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbe33b68-0189-43ea-b479-b6ba5af437c0",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6460ce9-c9b5-4685-9856-5005f823237f",
+              "name": "Unsupported method used.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eaf176c9-9bd7-4fc8-b23d-886c480e99d2",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da6dd01a-e9e2-4e53-8e36-404ea2025e95",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "plan"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) Specify the client's unique `encoded_account_id`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_type\": \"GOLD\",\n  \"plan_group_id\": 152,\n  \"billing_day_of_month\": 15\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a940b85-8591-4780-9ea0-5b8e43b3695b",
+          "name": "PUT Cancel the Billing Plan for a Client Account",
+          "request": {
+            "name": "PUT Cancel the Billing Plan for a Client Account",
+            "description": {
+              "content": "Use this PUT method to cancel a client's Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.\n\n\n  To get a list of all canceled client accounts (`\"billing_status\": \"Canceled\"`), make a `GET` call to the `/partner/accounts` endpoint.\n\n  Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\n\n  For more use case information, see [Cancel the Billing Plan for a Client Account](/api_guide/partners_plans_cancel.html) in the API guide.\"",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "status",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) The system generated ID that uniquely identifies the client account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason_id\": \"<integer>\",\n  \"effective_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3afed93-4140-4a7e-a383-03b3af116dcf",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7dc495b-2cba-4e8c-a9f8-d61e96c3a02b",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "198eefc4-d6a8-42ed-83e8-0a45d52a4661",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4d652b5-b22f-4882-9c2c-e6259807e859",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "965e17c1-a561-4b9f-85d5-9b40cf142128",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3b4c63af-b424-4265-8455-476d7799d19f",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "status",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The system generated ID that uniquely identifies the client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason_id\": 1,\n  \"effective_date\": \"2020-02-06T22:09:15.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac81e157-3161-47ea-b09e-daecbb728591",
+          "name": "POST Send an API request on Behalf of a Client Account",
+          "request": {
+            "name": "POST Send an API request on Behalf of a Client Account",
+            "description": {
+              "content": "Use this API method to send an API request on behalf of a managed client account in your partnership.\n\nThe request body properties you use in this partner API call determine the structure of the API request that Constant Contact sends on behalf of the managed client account. This includes the HTTP url, HTTP method type, request body, request url parameters, request query parameters, and headers that for the request. You can use this `/partner/accounts/{encoded_account_id}/account_operations/sync` API method to send a request using non-partner v3 API methods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "account_operations",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) An encoded account id for a managed account in your partnership."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_operation_method\": \"<string>\",\n  \"account_operation_url\": \"<string>\",\n  \"account_operation_payload\": \"<string>\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"<string>\",\n      \"query_param_value\": \"<string>\"\n    },\n    {\n      \"query_param_key\": \"<string>\",\n      \"query_param_value\": \"<string>\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"<string>\",\n      \"path_param_value\": \"<string>\"\n    },\n    {\n      \"path_param_key\": \"<string>\",\n      \"path_param_value\": \"<string>\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"<string>\",\n      \"header_value\": \"<string>\"\n    },\n    {\n      \"header_key\": \"<string>\",\n      \"header_value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "801fbf89-e295-4b33-975d-9e151f295471",
+              "name": "Request successful. The response body schema returned by this method corresponds to the specific API request you provided in the request body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9c62ef1-01cc-46d1-8d61-9ac6fc34a1a0",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "803a2245-21a0-4117-a326-0202bb02ba4e",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "660f43bb-5207-4d00-8f90-5bc2f7801b4a",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "409a9421-2566-4ac7-8817-b84874336e2b",
+              "name": "Not found. This may indicate that the encoded_account_id you provided is invalid, or the API request you are sending on behalf of an account returned a 404.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "57f38cac-4921-490f-9cba-99f2c41d71e9",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "account_operations",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) An encoded account id for a managed account in your partnership."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_operation_method\": \"GET\",\n  \"account_operation_url\": \"/contacts/{contact_id}\",\n  \"account_operation_payload\": \"\",\n  \"account_operation_query_parameters\": [\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    },\n    {\n      \"query_param_key\": \"include\",\n      \"query_param_value\": \"list_memberships\"\n    }\n  ],\n  \"account_operation_path_parameters\": [\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    },\n    {\n      \"path_param_key\": \"contact_id\",\n      \"path_param_value\": \"04fe9a-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  ],\n  \"account_operation_headers\": [\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    },\n    {\n      \"header_key\": \"Accept\",\n      \"header_value\": \"application/json\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cd8f3e9-e2a5-469e-bcee-87409212bbb9",
+          "name": "POST a User Under a Partner's SSO-Enabled Client Account",
+          "request": {
+            "name": "POST a User Under a Partner's SSO-Enabled Client Account",
+            "description": {
+              "content": "Use this endpoint to create a new user under a partner client account that has the Single Sign On (SSO) for all users feature enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "users",
+                "sso"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact_email\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"external_provider\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"login_name\": \"<string>\",\n  \"role_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ad95729-fd50-4729-ada9-eb23140cf2e1",
+              "name": "Request successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3cf47416-2023-4c35-9261-60dc7f7be0d9",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9e01981a-6806-4ebc-b957-f07611d6bbc7",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ae34518a-bd06-4b68-ac5d-a7fd117141c0",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0480bc4e-5a63-4269-8817-015efcb27fc5",
+              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef659d2a-a00b-4b3e-87c5-ce8210ae529f",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "users",
+                    "sso"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that identifies the partner's client account to which to add the new user. "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"josie.lang@gmail.com\",\n  \"external_id\": \"23378234122161121\",\n  \"external_provider\": \"Yahoo\",\n  \"first_name\": \"Josie\",\n  \"last_name\": \"Lang\",\n  \"login_name\": \"josie.lang\",\n  \"role_name\": \"campaign_creator\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc18b227-be63-4783-ae9a-64b3a935b3c8",
+          "name": "POST Unsubscribe Contacts",
+          "request": {
+            "name": "POST Unsubscribe Contacts",
+            "description": {
+              "content": "Use to unsubscribe contacts from partner client accounts. Identify the contacts to unsubscribe using the `email_address` parameter. To unsubscribe a single contact from all partner client accounts, specify the contacts `email_address` and set the `global_unsubscribe` parameter to `true`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "partner",
+                "accounts",
+                ":encoded_account_id",
+                "contacts",
+                "unsubscribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "encoded_account_id",
+                  "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "v3api/general.partner"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f35edfb-836f-41ac-9c77-59e6ececf828",
+              "name": "Contacts were successfully unsubscribed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"unsubscribed_count\": 5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ff35c84-1bb6-4beb-9469-35059d71d163",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "837571cc-0f7d-4f15-85b4-01e120939556",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a7836c9-43f4-48c1-82f0-e684a80f8234",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1143bb2-bade-4d5c-b1e8-f436a740863f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa8c952f-478f-480f-8728-ff975d142dbb",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5dc0f339-fed6-4afe-905d-a89729aa5a01",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "partner",
+                    "accounts",
+                    ":encoded_account_id",
+                    "contacts",
+                    "unsubscribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "encoded_account_id",
+                      "description": "(Required) The encoded account ID that uniquely identifies the partner's client account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"update_source\": \"<string>\",\n  \"email_addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"opt_out_reason\": \"<string>\",\n  \"delete_contacts\": false,\n  \"global_unsubscribe\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "23b60d99-8bd4-45b1-adc0-ea6059a2feb4",
+    "name": "AppConnect V3 Account Services Technology Partners API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

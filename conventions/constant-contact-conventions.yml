@@ -1,0 +1,173 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/*.yml (17 refined AppConnect V3 specs) +
+  https://developer.constantcontact.com/api_guide/rate_limits.html +
+  https://developer.constantcontact.com/api_guide/scopes.html +
+  https://developer.constantcontact.com/api_guide/auth_overview.html
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  Cross-cutting runtime semantics for the Constant Contact V3 (AppConnect) API — what an agent
+  needs to know that no single endpoint tells it.
+base_url: https://api.cc.email/v3
+media_type: application/json
+authentication:
+  style: OAuth2 bearer
+  header: 'Authorization: Bearer <access_token>'
+  flows:
+  - authorization_code
+  - authorization_code_pkce
+  - device
+  - implicit
+  authorization_url: https://authz.constantcontact.com/oauth2/default/v1/authorize
+  token_url: https://authz.constantcontact.com/oauth2/default/v1/token
+  partner_token_url: https://authz.constantcontact.com/partners/oauth2/default/v1/token
+  scopes: [contact_data, campaign_data, account_read, account_update, offline_access]
+  scope_delimiter: space
+  refresh: Requires the offline_access scope; without it no refresh token is issued.
+  discovery: >-
+    None. authz.constantcontact.com serves no /.well-known/openid-configuration and no
+    /.well-known/oauth-authorization-server (both 404) — endpoints must be hard-coded.
+  see: authentication/constant-contact-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    The V3 API defines NO idempotency key on any of its 120 operations and documents none. The
+    only concurrency signal is a 409 on the contacts path, described as "you sent simultaneous
+    requests that are attempting to modify the same contact". Retrying a POST after a timeout
+    is not safe: creating a contact twice will produce a 409 rather than returning the original
+    resource, and bulk activity POSTs will enqueue a second job. Callers must serialize writes
+    per resource id and reconcile by polling rather than by replaying.
+pagination:
+  style: cursor
+  request_params:
+  - name: limit
+    description: >-
+      Page size. Declared on 27 collection operations. Ceilings are NOT uniform — 1-500 on
+      contacts, lists, tags and the reporting trackers; 1-100 on custom fields, contact
+      tracking and events; 1-50 on SMS campaign summaries.
+  - name: next
+    description: >-
+      Cursor for the next page, echoed from next_cursor. Declared as an explicit query
+      parameter on only two operations (findEvents, findRegistrationsUsingGET); every other
+      collection carries the cursor inside the opaque _links.next.href URL instead.
+  - name: prev
+    description: Cursor for the previous page (findEvents, findRegistrationsUsingGET). Mutually
+      exclusive with next.
+  - name: page_size
+    description: Alternative to limit on findRegistrationsUsingGET only. If both are sent, the
+      spec notes they interact — prefer limit.
+  - name: offset
+    description: >-
+      Offset paging on getPartnerSiteOwners only — the one operation in the API that does not
+      use cursors. The server computes the offset and returns it in the next link.
+  response_fields:
+  - name: _links.next.href
+    description: >-
+      HAL-style link to the next page. Path-relative — the spec states explicitly that it "does
+      not include the scheme or origin of the full URL", so a client must prepend
+      https://api.cc.email.
+  - name: _links.prev.href
+    description: Previous page link, where the endpoint supports it.
+  - name: next_cursor
+    description: >-
+      Raw cursor token, returned INSTEAD of _links on the Events and Registrations collections
+      (PaginationDtoEventListingDto, PaginatedRegistrations).
+  - name: prev_cursor
+    description: Raw previous cursor on those same Events collections.
+  - name: total_records
+    description: Total count, returned only by the Events/Registrations pagination envelopes.
+  note: >-
+    Pagination is NOT uniform. The spec carries at least nine distinct link wrapper definitions
+    (Links, Links-2 … Links-7, PagingLinks, PagingLinks-2, PagingLinks-3, PaginationLinks,
+    ResourcePageLinks). Some expose next only, some next+prev+self, some a raw cursor string.
+    An agent should follow whichever of _links.next.href or next_cursor is present rather than
+    constructing page URLs.
+  termination: The next link / next_cursor is absent or _links is null on the last page.
+field_selection:
+  supported: partial
+  params:
+  - name: include
+    description: >-
+      Comma-delimited sub-resource expansion on contact and list reads
+      (e.g. include=custom_fields,list_memberships,taggings,notes,phone_numbers,street_addresses).
+  - name: include_count
+    description: Boolean; adds a total count to the response envelope.
+  - name: include_membership_count
+    description: Boolean; adds list membership counts on contact list reads.
+  - name: extra_fields
+    description: Additional computed fields on selected reads.
+  sparse_fieldsets: false
+filtering_and_sorting:
+  params:
+  - name: contacts_filter
+    description: Filter contacts by list, segment or tag membership.
+  - name: status
+    description: Filter by resource status.
+  - name: sort_by
+    description: Sort key.
+  - name: sort_order
+    description: asc | desc.
+  - name: search_text
+    description: Free-text search on selected collections.
+  - name: start
+    description: ISO-8601 window start on reporting endpoints.
+  - name: end
+    description: ISO-8601 window end on reporting endpoints.
+metadata:
+  custom_fields: >-
+    Account-defined contact custom fields are first-class resources (/contact_custom_fields) and
+    are attached to a contact via custom_fields[]; as of September 2025 they support datetime,
+    currency, text_area, number, boolean, single_select and multi_select types. There is no
+    generic key/value metadata bag on other resources.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation-id header is documented or declared, and error bodies carry no
+    trace identifier. Support cases cannot be tied to a specific request from the response
+    alone.
+versioning:
+  style: uri-path
+  current: v3
+  path_prefix: /v3
+  spec_version: 3.0.149 (info.version of the harvested contract)
+  header_versioning: false
+  see: lifecycle/constant-contact-lifecycle.yml
+error_envelope:
+  rfc9457: false
+  media_type: application/json
+  shape: '[{"error_key": "...", "error_message": "..."}] — or a bare object on auth and reporting paths'
+  see: errors/constant-contact-problem-types.yml
+rate_limits:
+  per_second: 4
+  per_day: 10000
+  reset: 00:00:00 UTC
+  exhausted_status: 429
+  headers: none
+  note: >-
+    No X-RateLimit-*, no RateLimit-*, no Retry-After. The only runtime signal is the 429 status
+    plus the error_key discriminator (throttled vs quota_exceeded).
+  see: rate-limits/constant-contact-rate-limits.yml
+async_operations:
+  pattern: activity polling
+  description: >-
+    Every bulk mutation (contact import from JSON or CSV, contact export, contact delete, list
+    add/remove/delete, tag add/remove/delete, custom field delete) is asynchronous. The POST
+    returns 202 with an activity_id and a _links.self.href; the caller polls GET
+    /activities/{activity_id} until state is completed, then follows _links.results.href to the
+    output. Per-account queue depth is capped at 1,000 queued activities — exceeding it returns
+    429.
+  operations: [postContactsExport, contactsCSVImport, bulkImportContactsJSON, postContactDelete,
+    postListAddContact, postListRemoveContact, postListDelete, postTagAddContact,
+    postTagRemoveContact, postTagDelete, postCustomFieldDelete, getActivity,
+    getActivityStatusCollection]
+hateoas:
+  supported: partial
+  note: >-
+    Collections and activities return HAL-shaped _links (self, next, prev, results). Individual
+    resources generally do not.
+webhooks:
+  supported: partner-only
+  see: asyncapi/constant-contact-webhooks.yml

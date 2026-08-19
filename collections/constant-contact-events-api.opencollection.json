@@ -1,0 +1,389 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Events API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET a collection of events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events",
+            "params": [
+              {
+                "name": "event_status",
+                "value": "",
+                "type": "query",
+                "description": "Use to return only events that meet the specified status. Acceptable values include `ACTIVE`,`DRAFT`, `COMPLETE`, `DELETED`,`CANCELLED`, and `ERROR`."
+              },
+              {
+                "name": "search_text",
+                "value": "",
+                "type": "query",
+                "description": "Use to return only events that include the specified text."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Use to sort resulting events by one of the following properties: `name`, `start_time`, `end_time`, `created_time`, or `updated_time`."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for the `sort_by parameter`. Accepted values include `ASC` (ascending) or `DESC` (descending). Defaults to `ASC` if `sort_by` is provided."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of results to return per page. Default and maximum is `100`."
+              },
+              {
+                "name": "prev",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for retrieving the previous page of results. This value is obtained from the `prev_cursor` field in a previous response."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for retrieving the next page of results. This value is obtained from the `next_cursor` field in a previous response."
+              }
+            ]
+          },
+          "docs": "Retrieve a collection of events with event details."
+        },
+        {
+          "info": {
+            "name": "POST (create) a new event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/default",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name for the new event. If not provided, a default name will be generated."
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Event start time in ISO 8601 format. If not provided, defaults to a future date."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "Event end time in ISO 8601 format. If not provided, defaults to one hour after start time."
+              },
+              {
+                "name": "placeholder_campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Placeholder campaign ID for the event."
+              }
+            ]
+          },
+          "docs": "Creates a new event with default settings, registration form, and landing page. The event will be created in DRAFT status."
+        },
+        {
+          "info": {
+            "name": "GET details for a single event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Use to include (`true`) or exclude (`false`) event setting properties in the results."
+              }
+            ]
+          },
+          "docs": "Specify the `event_id` path parameter to retrieve the event's details."
+        },
+        {
+          "info": {
+            "name": "PATCH (update) an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/events/:event_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event to update."
+              }
+            ]
+          },
+          "docs": "Partially updates an event with the provided fields. Only the specified fields will be updated. This endpoint only works for events in DRAFT or ACTIVE status. Events in COMPLETE, CANCELED, or DELETED status cannot be updated."
+        },
+        {
+          "info": {
+            "name": "POST (copy) an existing event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/copy",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event to copy."
+              }
+            ]
+          },
+          "docs": "Creates a deep copy of an existing event with all its settings, registration forms, and landing pages. The copied event is created in DRAFT status. Events in DRAFT, ACTIVE, COMPLETE, or CANCELED status can be copied. DELETED events cannot be copied."
+        },
+        {
+          "info": {
+            "name": "Check in event tickets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/check_in/tickets",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to mark one or more tickets as checked in. The event must be in `ACTIVE` or `COMPLETE` status. Tickets with `CANCELLED` status cannot be checked in (returns HTTP 400)."
+        },
+        {
+          "info": {
+            "name": "Undo event ticket check-in.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/events/:event_id/undo_check_in/tickets",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to undo check-in for one or more tickets, marking them as not checked in. The event must be in `ACTIVE` or `COMPLETE` status."
+        },
+        {
+          "info": {
+            "name": "Get registration details for an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations/:registration_id",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              },
+              {
+                "name": "registration_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the registration."
+              }
+            ]
+          },
+          "docs": "Use the `event_id`, `registration_id`, and `track_id` path parameters to get registration details."
+        },
+        {
+          "info": {
+            "name": "Get a list of registrations for an event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track ID that uniquely identifies the event track."
+              },
+              {
+                "name": "registration_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by status."
+              },
+              {
+                "name": "payment_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by payment status."
+              },
+              {
+                "name": "search_text",
+                "value": "",
+                "type": "query",
+                "description": "Filter registration results by first name, last name, or email address."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify the field to use to sort the results."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify how you want the results sorted."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Alternative to the <code>limit</code> parameter to limit the number of results returned per page. If specifying both the <code>limit</code> and <code>page_size</code> query parameters, they must be the same value."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of results returned per page. If specifying both the <code>limit</code> and <code>page_size</code> query parameters, they must be the same value."
+              },
+              {
+                "name": "prev",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination used to get the previous page of results (mutually exclusive with <code>next</code>)."
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination used to get the next page of results (mutually exclusive with <code>prev</code>)."
+              }
+            ]
+          },
+          "docs": "Use the `event_id` and `track_id` path parameters to get a list of registrations for an event. Use optional query parameters to limit the number of results returned per page, the sort order, or to filter results by specific criteria; such as registration `status`."
+        },
+        {
+          "info": {
+            "name": "Update status for event registrations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              },
+              {
+                "name": "increase_count",
+                "value": "",
+                "type": "query",
+                "description": "Override count flag."
+              },
+              {
+                "name": "increase_item_count",
+                "value": "",
+                "type": "query",
+                "description": "Override item count flag."
+              },
+              {
+                "name": "return_items_to_inventory",
+                "value": "",
+                "type": "query",
+                "description": "Return items to inventory flag. Defaults to `true`."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to update the registration status for one or more registrations within an event track."
+        },
+        {
+          "info": {
+            "name": "Update payment status for event registrations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/events/:event_id/tracks/:track_id/registrations/payment_status",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies the event."
+              },
+              {
+                "name": "track_id",
+                "value": "",
+                "type": "path",
+                "description": "The track key that uniquely identifies the event track."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to update the payment status for one or more registrations. This endpoint only processes registrations with a payment method (PAYPAL, WEPAY, STRIPE, DOOR, or CHECK). Free registrations without a payment method are silently excluded."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

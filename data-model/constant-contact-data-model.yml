@@ -1,0 +1,268 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/constant-contact-v3-openapi.yml (Swagger 2.0 build 3.0.178, 286 definitions)
+provider: Constant Contact
+providerId: constant-contact
+description: >-
+  The entity-relationship graph of the Constant Contact V3 API, derived from the $ref links and
+  the *_id / *_ids reference fields in the published contract. Constant Contact is a
+  contact-centric model: everything either describes a contact, groups contacts, or reports on
+  what was sent to contacts.
+id_style:
+  format: UUID for most resources; opaque short strings for accounts
+  prefixed: false
+  note: >-
+    Identifiers carry NO type prefix — a bare UUID gives an agent no clue whether it is a
+    contact_id, a campaign_id or a campaign_activity_id, and the three are frequently adjacent
+    in the same payload. The one exception is encoded_account_id (a short opaque token such as
+    a07e1my9tbw0) used on partner endpoints.
+  examples:
+    contact_id: 4c1e2b60-3c1f-11ee-9a4e-fa163e6d5b3a
+    campaign_activity_id: 8892baf9-970a-4de6-8400-fa4ec461987c
+    activity_id: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+    encoded_account_id: a07e1my9tbw0
+entities:
+- name: Account
+  schema: AccountInfoDto
+  key: null
+  description: The Constant Contact account itself — profile, organization address, plan, usage.
+  operations: [getAccountById, putCustomerById, getPhysicalAddress, putPhysicalAddress,
+    addPhysicalAddress, retrieveEmailAddresses, addAccountEmailAddress, getUserPrivileges]
+- name: Contact
+  schema: ContactResource
+  key: contact_id
+  description: The central entity. Carries email, name, company, dates and consent state.
+  fields: [contact_id, email_address, first_name, last_name, job_title, company_name,
+    birthday_month, birthday_day, anniversary, create_source, update_source, created_at,
+    updated_at, deleted_at, custom_fields, phone_numbers, street_addresses, list_memberships,
+    taggings, notes, sms_channel]
+  operations: [getContacts, getContact, createContact, putContact, deleteContact,
+    createOrUpdateContact, countContact, resubscribeContact, getContactIdXrefs,
+    getSmsEngagementHistory]
+- name: ContactList
+  schema: ContactList
+  key: list_id
+  description: A named list of contacts.
+  fields: [list_id, name, description, favorite, created_at, updated_at, deleted_at,
+    membership_count]
+  operations: [getLists, getList, createList, putList, deleteListActivity, getListIdXrefs]
+- name: Tag
+  schema: Tag
+  key: tag_id
+  description: A label applied to contacts. Carries a denormalized contacts_count.
+  fields: [tag_id, name, contacts_count, tag_source, created_at, updated_at]
+  operations: [getTags, getTag, postTag, putTag, deleteTag]
+- name: CustomField
+  schema: CustomField
+  key: custom_field_id
+  description: >-
+    Account-defined contact attribute. Since 2025-09 supports datetime, currency, text_area,
+    number, boolean, single_select and multi_select in addition to string, with a choices[] list
+    for the select types.
+  fields: [custom_field_id, label, name, type, metadata, version, choices, created_at, updated_at]
+  operations: [getCustomFields, getCustomField, postCustomFields, putCustomField,
+    deleteCustomField]
+- name: Segment
+  schema: Segment
+  key: segment_id
+  description: A saved criteria expression that resolves to a dynamic subset of contacts.
+  operations: [getAccountSegments, getSegmentDetail, createSegment, updateSegment,
+    updateSegmentName, deleteSegment]
+- name: EmailCampaign
+  schema: EmailCampaign
+  key: campaign_id
+  description: >-
+    The campaign container. Holds no content itself — content lives on its campaign_activities.
+  fields: [campaign_id, name, type, type_code, current_status, campaign_activities, created_at,
+    updated_at]
+  operations: [retrieveEmailCampaignsUsingGET, retrieveEmailCampaignUsingGET,
+    createEmailCampaignUsingPOST, renameEmailCampaignUsingPATCH, removeEmailCampaignUsingDELETE,
+    retrieveXrefMappingsUsingGET]
+- name: EmailCampaignActivity
+  schema: EmailCampaignActivity
+  key: campaign_activity_id
+  description: >-
+    The sendable unit — subject, from/reply-to, HTML content, footer address, and the audience
+    (contact_list_ids + segment_ids). Every reporting endpoint is keyed on this, not on
+    campaign_id.
+  fields: [campaign_activity_id, campaign_id, role, contact_list_ids, segment_ids,
+    current_status, format_type, from_email, from_name, reply_to_email, subject, html_content,
+    preheader, permalink_url, physical_address_in_footer, document_id, document_properties]
+  operations: [retrieveEmailCampaignActivityUsingGET, updateEmailCampaignActivityUsingPUT,
+    retrieveEmailCampaignActivityPreviewUsingGET]
+- name: EmailSchedule
+  key: campaign_activity_id
+  description: The scheduled send of a campaign activity.
+  operations: [retrieveEmailSchedulesUsingGET, scheduleEmailCampaignActivityUsingPOST,
+    unscheduleEmailCampaignActivityUsingDELETE, testSendCampaignActivityUsingPOST,
+    retrieveEmailSendHistoryUsingGET]
+- name: ABTest
+  schema: ABTestData
+  key: campaign_activity_id
+  description: An A/B test bound to a campaign activity.
+  operations: [retrieveEmailCampaignABTestUsingGET, createEmailCampaignABTestUsingPOST,
+    deleteEmailCampaignABTestUsingDELETE]
+- name: Activity
+  schema: ActivityStatus
+  key: activity_id
+  description: >-
+    The asynchronous job record produced by every bulk mutation. Poll it; then follow
+    _links.results.href to the output.
+  operations: [getActivityStatusCollection, getActivity, postContactsExport, getContactsExport,
+    contactsCSVImport, bulkImportContactsJSON, postContactDelete, postListAddContact,
+    postListRemoveContact, postListDelete, postTagAddContact, postTagRemoveContact, postTagDelete,
+    postCustomFieldDelete]
+- name: Event
+  key: event_id
+  description: An event with tracks, tickets and registrations.
+  operations: [findEvents, getEvent_2, addDefaultEvent, patchEvent, copyEvent, checkInTickets,
+    undoCheckInTickets]
+- name: Registration
+  key: registration_id
+  description: A registrant on an event track.
+  operations: [findRegistrationsUsingGET, getRegistrationInfo, updateRegistrationStatusUsingPUT,
+    updateRegistrationPaymentStatusUsingPUT]
+- name: AutomationWorkflow
+  schema: AutomationWorkflowDefinition
+  key: automation_flow_id
+  description: >-
+    Automation workflow definition. NEW in contract build 3.0.178 — not yet described by any
+    refined per-tag spec in openapi/.
+  operations: ['GET /automations/workflows', 'GET /automations/workflows/{automation_flow_id}']
+- name: SocialPost
+  key: profile_id
+  description: >-
+    Social profiles, network connections, hashtag groups and posts. NEW in build 3.0.178 —
+    announced in the April 2026 release notes, not yet split into a refined spec.
+  operations: ['GET /social/profiles', 'GET /social/connections', 'GET /social/hashtags/groups',
+    'POST /social/posts']
+- name: PartnerAccount
+  key: encoded_account_id
+  description: A client account provisioned and billed under a technology-partner account.
+  operations: [getPartnerSiteOwners, provision, getPlan, setPlan, cancelAccount,
+    partnerAccountOperationsPostSync, createSSOUser, partnerUnsubscribeContacts]
+- name: WebhookSubscription
+  schema: WebhooksSubscriptionResponse
+  key: topic_id
+  description: A partner billing webhook topic subscription (topic_id 1-4).
+  operations: [getWebhooksCollection, getWebhooksTopic, putWebhooksTopic,
+    deleteWebhooksSubscriptions, testSendWebhooksTopic]
+relationships:
+- from: Account
+  to: Contact
+  type: has_many
+  via: implicit (account scope of the access token)
+- from: Contact
+  to: ContactList
+  type: has_many
+  via: list_memberships[] / list_ids[]
+  note: Many-to-many. Written on the contact, and in bulk via postListAddContact.
+- from: Contact
+  to: Tag
+  type: has_many
+  via: taggings[] / tag_ids[]
+  note: Many-to-many.
+- from: Contact
+  to: CustomField
+  type: has_many
+  via: custom_fields[].custom_field_id
+  note: Value objects — the contact holds a value keyed by custom_field_id.
+- from: Contact
+  to: ContactPhoneNumber
+  type: has_many
+  via: phone_numbers[]
+- from: Contact
+  to: ContactStreetAddress
+  type: has_many
+  via: street_addresses[]
+- from: Contact
+  to: Note
+  type: has_many
+  via: notes[]
+- from: Contact
+  to: ContactSmsChannel
+  type: has_one
+  via: sms_channel
+  note: Carries SMS consent state; a contact may now exist with sms_channel and no email_address.
+- from: Segment
+  to: Contact
+  type: has_many
+  via: criteria expression (dynamic; not a stored join)
+- from: EmailCampaign
+  to: EmailCampaignActivity
+  type: has_many
+  via: campaign_activities[].campaign_activity_id
+  note: >-
+    The most important relationship in the API. Content, audience and reporting all hang off the
+    ACTIVITY; the campaign is a shell. Agents that key on campaign_id will not find stats.
+- from: EmailCampaignActivity
+  to: EmailCampaign
+  type: belongs_to
+  via: campaign_id
+- from: EmailCampaignActivity
+  to: ContactList
+  type: has_many
+  via: contact_list_ids[]
+- from: EmailCampaignActivity
+  to: Segment
+  type: has_many
+  via: segment_ids[]
+- from: EmailCampaignActivity
+  to: EmailSchedule
+  type: has_many
+  via: /emails/activities/{campaign_activity_id}/schedules
+- from: EmailCampaignActivity
+  to: ABTest
+  type: has_one
+  via: /emails/activities/{campaign_activity_id}/abtest
+- from: EmailCampaignActivity
+  to: EmailTrackingActivity
+  type: has_many
+  via: /reports/email_reports/{campaign_activity_id}/tracking/*
+  note: sends, opens, unique_opens, didnotopens, clicks, forwards, optouts, bounces.
+- from: Contact
+  to: ContactTrackingActivity
+  type: has_many
+  via: /reports/contact_reports/{contact_id}/activity_details
+- from: Event
+  to: EventTrack
+  type: has_many
+  via: /events/{event_id}/tracks/{track_id}
+- from: EventTrack
+  to: Registration
+  type: has_many
+  via: /events/{event_id}/tracks/{track_id}/registrations
+- from: Registration
+  to: Ticket
+  type: has_many
+  via: ticket_id
+- from: PartnerAccount
+  to: Account
+  type: has_one
+  via: encoded_account_id
+- from: PartnerAccount
+  to: WebhookSubscription
+  type: has_many
+  via: topic_id
+- from: Activity
+  to: Contact
+  type: has_many
+  via: contact_ids[] / the activity result file
+cross_reference:
+  description: >-
+    Three xref endpoints exist purely to translate legacy V2 identifiers into V3 UUIDs —
+    getContactIdXrefs, getListIdXrefs and retrieveXrefMappingsUsingGET
+    (v2_email_campaign_ids). They are the migration seam between the retired V2 API and V3.
+notes:
+- >-
+  There is no generic search endpoint. Discovery is per-collection with resource-specific query
+  parameters (contacts_filter, lists, segment_id, tags, status, email, updated_after/before,
+  created_after/before, optout_after/before, sms_status).
+- >-
+  Deletion is soft on the core entities — ContactResource, ContactList and CustomField all carry
+  a deleted_at field.
+- >-
+  The Billing surface added in build 3.0.178 (/billing/plan, /billing/transactions,
+  /billing/next-payment, /billing/add-ons, /billing/branding/logo, and the statement and
+  prepayment-invoice email endpoints) is not yet modelled here; it is undocumented in the
+  release notes and unsplit in openapi/.

@@ -3,32 +3,81 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Constant Contact
 providerId: constant-contact
+generated: '2026-08-13'
+method: searched
+source: https://developer.constantcontact.com/api_guide/rate_limits.html
+docs: https://developer.constantcontact.com/api_guide/rate_limits.html
 created: '2026-05-04'
-modified: '2026-05-04'
-reconciled: true
+modified: '2026-08-13'
 tags:
-  - Rate Limiting
-  - Email
-description: Constant Contact v3 API rate limits per app.
-sources:
-  - https://www.constantcontact.com/pricing
-  - https://developer.constantcontact.com/api_guide/rate_limits.html
+- Rate Limiting
+- Email
+description: >-
+  Published Constant Contact V3 API rate limits, read from the provider's own rate-limits guide
+  on 2026-08-13. Two application-wide ceilings apply — a per-second throttle and a daily quota —
+  plus a third, resource-specific cap on queued bulk activities that is documented only in the
+  OpenAPI. All three surface as HTTP 429 and are distinguishable ONLY by the error_key value in
+  the response body.
+limit_count: 3
 headers:
-  retryAfter: Retry-After
+  rate_limit: none
+  retry_after: none
+  note: >-
+    Constant Contact returns NO rate-limit headers. There is no X-RateLimit-Limit,
+    X-RateLimit-Remaining, X-RateLimit-Reset, no RFC 9331 RateLimit-* family, and no
+    Retry-After. A client has no runtime signal of how much budget is left and no server-supplied
+    backoff hint — it must count its own requests and infer the wait from which error_key it got.
+    For an agent, this is the single most consequential gap in the profile: the 10,000/day quota
+    can be exhausted with no warning before the 429 arrives.
 responseCodes:
   throttled: 429
+  quota_exceeded: 429
 limits:
-  - name: REST API v3
-    scope: app
-    metric: requests_per_second
-    limit: 4
-    timeFrame: second
-  - name: REST API v3 daily
-    scope: app
-    metric: requests_per_day
-    limit: 10000
-    timeFrame: day
-  - name: Bulk activities
-    scope: app
-    metric: concurrent
-    limit: 5
+- name: Per-second throttle
+  scope: application
+  metric: requests_per_second
+  limit: 4
+  timeFrame: second
+  status: 429
+  error_key: throttled
+  error_message: Too Many Requests
+  recovery: Clears within the same second; retry with a short backoff.
+- name: Daily quota
+  scope: application
+  metric: requests_per_day
+  limit: 10000
+  timeFrame: day
+  reset: 00:00:00 UTC
+  status: 429
+  error_key: quota_exceeded
+  error_message: Limit Exceeded
+  recovery: >-
+    Does NOT clear on backoff — the budget resets at 00:00:00 UTC. A client that retries a
+    quota_exceeded 429 as if it were a throttle will burn the rest of the day failing.
+- name: Queued bulk activities
+  scope: user account
+  metric: queued_activities
+  limit: 1000
+  timeFrame: concurrent
+  status: 429
+  error_message: You exceeded 1,000 queued activities for this user account.
+  source: openapi/constant-contact-bulk-activities-api-openapi.yml (declared on 12 operations)
+  recovery: Wait for queued activities to drain; poll getActivityStatusCollection.
+tiers:
+  differentiated: false
+  note: >-
+    No tier-based variation is documented. The Lite / Standard / Premium subscription plans
+    affect product features and contact volume, not API request budget — every application shares
+    the same 4/sec and 10,000/day ceiling regardless of what the account pays.
+notes:
+- >-
+  Limits are per APPLICATION (per API key), not per user account, so a partner integration
+  serving many client accounts consumes one shared budget across all of them.
+- >-
+  The reporting endpoints are the practical pressure point: because there are no
+  contact/campaign event webhooks (only four partner billing topics), engagement data must be
+  polled, and polling competes with writes for the same 10,000 requests.
+- >-
+  These limits are documented, not observed. No unauthenticated live response was available to
+  confirm header behaviour, since every /v3 path requires a bearer token and the gateway returns
+  a flat 403 otherwise.

@@ -1,0 +1,432 @@
+{
+  "item": [
+    {
+      "id": "dd4dbd5b-46b9-43da-aa7d-083e00796ed8",
+      "name": "SMS Reporting",
+      "description": {
+        "content": "Use SMS reporting endpoints and methods to get reporting data about SMS campaigns.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d2d2b31-996c-4923-ad2f-ed22ebf54d8a",
+          "name": "GET an SMS Campaigns Summary Report",
+          "request": {
+            "name": "GET an SMS Campaigns Summary Report",
+            "description": {
+              "content": "Use this method to get SMS campaign summary details, including the total number of times that each contact uniquely interacted with each tracked campaign activity and aggregate tracking statistics. Results are sorted in descending order by the date the SMS was last sent (`last_sent_date`).\nThe `start_at` date is required. Use both the `start_at` and `end_at` date query parameters to return only SMS campaign summary details that occurred within a specified date range.\nUse the `limit` query parameter to limit the number of results returned per page. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "summary_reports",
+                "sms_campaign_summaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Use to limit the number of results to return on a single page (from 1 to 50). The default setting is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_at",
+                  "value": "<string>",
+                  "description": "(Required) Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or after the required `start_at` date you specify. ISO 8601 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_at",
+                  "value": "<string>",
+                  "description": "Use to limit the results to include SMS campaign summary details for SMS campaigns sent on or before the `end_at` date you specify. ISO 8601 format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8a1f7dfe-50fc-47f4-a189-34f08b11a29a",
+              "name": "Request was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bulk_sms_campaign_summaries\": [\n    {\n      \"campaign_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"campaign_name\": \"Spring Clearance Sale\",\n      \"campaign_type\": \"SMS\",\n      \"last_sent_date\": \"2019-04-25T11:08:00.000Z\",\n      \"unique_counts\": {\n        \"clicks\": 294,\n        \"delivers\": 100,\n        \"optouts\": 0,\n        \"sends\": 100,\n        \"opens\": 75\n      }\n    },\n    {\n      \"campaign_id\": \"a2fdc285-f4bc-408c-9e64-f3f89038ec82\",\n      \"campaign_name\": \"Spring Clearance Sale\",\n      \"campaign_type\": \"SMS\",\n      \"last_sent_date\": \"2019-04-25T11:08:00.000Z\",\n      \"unique_counts\": {\n        \"clicks\": 294,\n        \"delivers\": 100,\n        \"optouts\": 0,\n        \"sends\": 100,\n        \"opens\": 75\n      }\n    }\n  ],\n  \"aggregate_percents\": {\n    \"deliver\": 23,\n    \"click\": 43,\n    \"bounce\": 0,\n    \"unsubscribe\": 0\n  },\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b99cd79-fef7-4165-bfcf-b88e2481bd99",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f24cc4f2-d85f-4d17-bae1-736920f623e9",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b342c6b-b1a7-4e85-9c08-717617c6e39c",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2558e8a6-b71f-4540-9ac2-8ec07fa38e73",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "880ef1a9-1d14-4be1-bbea-03854fe1a63e",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "summary_reports",
+                    "sms_campaign_summaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "15"
+                    },
+                    {
+                      "key": "start_at",
+                      "value": "2023-01-27T21:56:37.011Z"
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "2024-01-27T21:56:37.011Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "80d771b9-e6f6-4dc7-baa8-16edb7777fa2",
+    "name": "AppConnect V3 Account Services SMS Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2061 @@
+{
+  "item": [
+    {
+      "id": "48ae51bc-48cf-41f7-ab25-1334170b0351",
+      "name": "Contacts Custom Fields",
+      "description": {
+        "content": "Endpoints and methods to get, create, delete, and update on one or more custom fields.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdefc116-0bd3-4b2b-b1f3-5115b1b5ebdc",
+          "name": "GET a custom_field",
+          "request": {
+            "name": "GET a custom_field",
+            "description": {
+              "content": "Get details for a specified custom field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_custom_fields",
+                ":custom_field_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "custom_field_id",
+                  "description": "(Required) The ID that uniquely identifies the custom field."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b98241a0-b971-486f-8699-cc09355d1adb",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label\": \"Vehicle make and model year\",\n  \"type\": \"date\",\n  \"custom_field_id\": \"1618ae62-4752-11e9-9c8a-fa163e6b01c1\",\n  \"name\": \"Vehicle_make_and_model_year\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"version\": 1,\n  \"choices\": [\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 7755,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    },\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 4652,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    }\n  ],\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"created_at\": \"2016-03-03T10:53:04-05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6a6788a-e562-4347-bc09-ad1a927478ed",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7cfcad3c-2735-469d-b4cc-6ea42771a15f",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f2bab40-578f-4cec-9656-07b5d69f467b",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e77f3ad2-028e-458a-b7a6-adcc6776d143",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "31ea0f8a-882d-4760-a80e-873d10a84a6b",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "774af596-c0e6-4bd2-97bb-d28e04764264",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea1cedbb-6156-4311-accb-c6022e6d1fa7",
+          "name": "Update a custom field.",
+          "request": {
+            "name": "Update a custom field.",
+            "description": {
+              "content": "Update an existing custom field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_custom_fields",
+                ":custom_field_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "custom_field_id",
+                  "description": "(Required) The ID that uniquely identifies the custom field to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"<string>\",\n  \"choices\": [\n    {\n      \"choice_id\": \"<integer>\",\n      \"choice_label\": \"<string>\",\n      \"display_order\": \"<integer>\"\n    },\n    {\n      \"choice_id\": \"<integer>\",\n      \"choice_label\": \"<string>\",\n      \"display_order\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad362e6e-9f0e-4885-83de-bd9f82626acb",
+              "name": "Success - custom_field updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label\": \"Vehicle make and model year\",\n  \"type\": \"date\",\n  \"custom_field_id\": \"1618ae62-4752-11e9-9c8a-fa163e6b01c1\",\n  \"name\": \"Vehicle_make_and_model_year\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"version\": 1,\n  \"choices\": [\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 7755,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    },\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 4652,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    }\n  ],\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"created_at\": \"2016-03-03T10:53:04-05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4c3596e-0693-40b3-90d9-bc149c2c6590",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94630342-795a-4e0e-a4d6-e1474f6024eb",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "056d3976-82a2-4ec6-8229-ca8463d357bf",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e00a284-4491-4629-bb1c-4c322d0031db",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05b48db3-ee5f-476b-8e6a-21d962d0bb8a",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36c7da12-b363-4a7b-bfc6-8bc21300f54c",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite color\",\n  \"choices\": [\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_id\": 111,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77fa2070-532a-447f-8e34-63af9712b0aa",
+          "name": "DELETE a custom_field",
+          "request": {
+            "name": "DELETE a custom_field",
+            "description": {
+              "content": "Delete a custom field from the user's account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_custom_fields",
+                ":custom_field_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "custom_field_id",
+                  "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "402f6150-84be-4619-92ef-97d41442cc31",
+              "name": "Request successful; No content returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acc38385-4c12-4713-8b76-feed5162a705",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a4e71a0-6c70-4061-b762-22206968fc98",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "768da5b3-2e18-42d1-882f-d28b5261fd42",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7184bbd8-693a-45b2-b255-f1b7b3db65e0",
+              "name": "Unsupported Media Type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8542e0ef-f97f-43a9-8319-f3a458696382",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff6b6ad3-d535-43eb-9202-b3acd45b0d86",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields",
+                    ":custom_field_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "custom_field_id",
+                      "description": "(Required) The ID that uniquely identifies the custom field to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3dbd49a-e7a4-429d-a910-7fb55bf1e379",
+          "name": "GET custom_fields Collection",
+          "request": {
+            "name": "GET custom_fields Collection",
+            "description": {
+              "content": "Get all custom fields defined in the user's account.\n<div class=\"Msg\"><p class=\"note-text\">This method does not currently support filtering results using the custom field update date.</p></div>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_custom_fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Specifies the number of results displayed per page of output, from 1 - 100, default = 50."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31befded-d7ff-4080-9ae5-33e653226f3f",
+              "name": "Request successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"custom_fields\": [\n    {\n      \"label\": \"Vehicle make and model year\",\n      \"type\": \"date\",\n      \"custom_field_id\": \"1618ae62-4752-11e9-9c8a-fa163e6b01c1\",\n      \"name\": \"Vehicle_make_and_model_year\",\n      \"metadata\": {\n        \"display_type\": \"radio\",\n        \"allow_negative\": false,\n        \"decimal_places\": 1,\n        \"currency_code\": \"USD\",\n        \"integer\": true,\n        \"display_format\": \"MM/DD/YYYY\"\n      },\n      \"version\": 1,\n      \"choices\": [\n        {\n          \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n          \"choice_id\": 7184,\n          \"choice_label\": \"Apple\",\n          \"display_order\": 1,\n          \"created_at\": \"2024-06-27T10:28:09.000Z\",\n          \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n          \"deleted_at\": \"2023-12-18\"\n        },\n        {\n          \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n          \"choice_id\": 5712,\n          \"choice_label\": \"Apple\",\n          \"display_order\": 1,\n          \"created_at\": \"2024-06-27T10:28:09.000Z\",\n          \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n          \"deleted_at\": \"2023-12-18\"\n        }\n      ],\n      \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n      \"created_at\": \"2016-03-03T10:53:04-05:00\"\n    },\n    {\n      \"label\": \"Vehicle make and model year\",\n      \"type\": \"date\",\n      \"custom_field_id\": \"1618ae62-4752-11e9-9c8a-fa163e6b01c1\",\n      \"name\": \"Vehicle_make_and_model_year\",\n      \"metadata\": {\n        \"display_type\": \"radio\",\n        \"allow_negative\": false,\n        \"decimal_places\": 1,\n        \"currency_code\": \"USD\",\n        \"integer\": true,\n        \"display_format\": \"MM/DD/YYYY\"\n      },\n      \"version\": 1,\n      \"choices\": [\n        {\n          \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n          \"choice_id\": 5425,\n          \"choice_label\": \"Apple\",\n          \"display_order\": 1,\n          \"created_at\": \"2024-06-27T10:28:09.000Z\",\n          \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n          \"deleted_at\": \"2023-12-18\"\n        },\n        {\n          \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n          \"choice_id\": 7176,\n          \"choice_label\": \"Apple\",\n          \"display_order\": 1,\n          \"created_at\": \"2024-06-27T10:28:09.000Z\",\n          \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n          \"deleted_at\": \"2023-12-18\"\n        }\n      ],\n      \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n      \"created_at\": \"2016-03-03T10:53:04-05:00\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"/v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3a11b43-bdaa-407d-9680-ffed39f9952d",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eff6ce3f-0a22-43cd-8a3f-efc38eddb555",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15714173-e982-4945-bfb2-925d8e5ef08c",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "023f6cef-a80e-40bd-bd32-5c00bc56b329",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2b904458-37e9-4af2-b68f-32cf04e0e4ad",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8e2fbbf-e79c-4a02-b888-a7c8aaf41e24",
+          "name": "POST (create) a custom_field",
+          "request": {
+            "name": "POST (create) a custom_field",
+            "description": {
+              "content": "Custom fields are extra data fields you create to store additional information about your contacts, such as preferences, membership levels, and interests. Use custom fields to organize contacts, send personalized email campaigns, and to identify a targeted audience for a specific campaign. Custom fields types include text, number, date, drop-down lists, radio buttons, and checkboxes. A user can configure up to 100 `custom_fields` in their account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contact_custom_fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"<string>\",\n  \"type\": \"<string>\",\n  \"metadata\": {\n    \"display_type\": \"<string>\",\n    \"allow_negative\": \"<boolean>\",\n    \"decimal_places\": \"<integer>\",\n    \"currency_code\": \"<string>\",\n    \"integer\": \"<boolean>\",\n    \"display_format\": \"<string>\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"<string>\",\n      \"display_order\": \"<integer>\"\n    },\n    {\n      \"choice_label\": \"<string>\",\n      \"display_order\": \"<integer>\"\n    }\n  ],\n  \"version\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa9700f4-bba7-4d54-9007-d76b7c0cc759",
+              "name": "New custom field successfully created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label\": \"Vehicle make and model year\",\n  \"type\": \"date\",\n  \"custom_field_id\": \"1618ae62-4752-11e9-9c8a-fa163e6b01c1\",\n  \"name\": \"Vehicle_make_and_model_year\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"version\": 1,\n  \"choices\": [\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 802,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    },\n    {\n      \"custom_field_id\": \"d0737000-afbf-11ee-874a-eaf5d7a2e15d\",\n      \"choice_id\": 3393,\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1,\n      \"created_at\": \"2024-06-27T10:28:09.000Z\",\n      \"updated_at\": \"2024-06-27T10:28:09.000Z\",\n      \"deleted_at\": \"2023-12-18\"\n    }\n  ],\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"created_at\": \"2016-03-03T10:53:04-05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e128a0ac-0125-4192-bfad-1fa8f8763a3d",
+              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0462c1e7-f00e-42ae-8b3b-745aaab65464",
+              "name": "The Access Token used is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "36a2445b-83e5-4b83-bdc3-eb22b34ce80c",
+              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23321f81-7a87-48b9-bc1e-8c8c4355385d",
+              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5350b694-c87b-45d4-9d8b-2d952e81d2e7",
+              "name": "Unsupported Media Type; the payload must be in JSON format, and Content-Type must be application/json.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "33169aac-1575-4d40-a6df-61ee0c4775cb",
+              "name": "There was a problem with our internal service.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbcaf572-5b20-410c-ab9c-dea5120e7042",
+              "name": "Our internal service is temporarily unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contact_custom_fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"Favorite Fruit\",\n  \"type\": \"string\",\n  \"metadata\": {\n    \"display_type\": \"radio\",\n    \"allow_negative\": false,\n    \"decimal_places\": 1,\n    \"currency_code\": \"USD\",\n    \"integer\": true,\n    \"display_format\": \"MM/DD/YYYY\"\n  },\n  \"choices\": [\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    },\n    {\n      \"choice_label\": \"Apple\",\n      \"display_order\": 1\n    }\n  ],\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.cc.email/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "09ec18fa-a5d4-4197-8993-7aab01e31fa9",
+    "name": "AppConnect V3 Account Services Contacts Custom Fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppConnect V3 Account Services Contact Tags API",
+    "version": "3.0.149"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET Tag Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies a tag (UUID format)."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results."
+              }
+            ]
+          },
+          "docs": "Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see  [Get a Tag's Details](/api_guide/tags_get_single.html)."
+        },
+        {
+          "info": {
+            "name": "PUT (Update) a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
+              }
+            ]
+          },
+          "docs": "Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. [Learn more](/api_guide/tags_update.html)"
+        },
+        {
+          "info": {
+            "name": "DELETE a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/contact_tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID that uniquely identifies a tag in UUID format."
+              }
+            ]
+          },
+          "docs": "Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. [Learn more](/api_guide/tags_delete.html)."
+        },
+        {
+          "info": {
+            "name": "GET Details for All Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/contact_tags",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies."
+              }
+            ]
+          },
+          "docs": "Use this endpoint to get details for all tags in your account. Use the <code>include_count</code> query parameter to include the total number of contacts assigned each tag. Use the <code>limit</code> query parameter to limit the number of tag results returned per page. To get the next page of results, copy the <code>cursor={the cursor ID}</code> from the resulting href link and add it (<code>&</code>) to the URL. For example:\n\n<p><code>/v3/contact_tags?limit=1&cursor=</code></p><p><code>bGltaXQ9"
+        },
+        {
+          "info": {
+            "name": "POST (Create) a Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/contact_tags"
+          },
+          "docs": "Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. [Learn more](/api_guide/tags_create.html)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
