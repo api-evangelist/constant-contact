@@ -5,6 +5,14 @@ tags:
 - Campaigns
 - Contacts
 - Email Marketing
+- Event
+- Reporting
+- SMS
+- Surveys
+tags_raw:
+- Campaigns
+- Contacts
+- Email Marketing
 - Events
 - Reporting
 - SMS
@@ -270,6 +278,8 @@ apis:
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
