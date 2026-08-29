@@ -1,21 +1,15 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
   description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
-  version: 3.0.149
-  title: AppConnect V3 Account Services Contact Lists API
+  version: 3.0.178
+  title: AppConnect V3 Contact Lists API
   contact:
     name: webservices@constantcontact.com
   license:
     name: Private
     url: https://www.constantcontact.com/legal/terms-of-use
-host: api.cc.email
-basePath: /v3
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://api.cc.email/v3
 tags:
 - name: Contact Lists
   description: Endpoints and methods to get, create, delete, and update one or more contact lists.
@@ -27,30 +21,32 @@ paths:
       summary: GET a List
       description: Use this method to get details about a specific contact list (`list_id`).
       operationId: getList
-      produces:
-      - application/json
       parameters:
       - name: list_id
         in: path
         description: The system generated ID that uniquely identifies a contact list.
         required: true
-        type: string
-        format: uuid
         x-example: cbc05bac-6a41-46fa-a063-79961763bf4b
+        schema:
+          type: string
+          format: uuid
       - name: include_membership_count
         in: query
         description: Returns the total number of contacts per list that meet your selection criteria. Set the `include_membership_count` to `active`, to count only active contacts, or `all` to include all contacts in the count.
         required: false
-        type: string
-        enum:
-        - all
-        - active
         x-example: all
+        schema:
+          type: string
+          enum:
+          - all
+          - active
       responses:
         '200':
           description: Request successful
-          schema:
-            $ref: '#/definitions/ContactList'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactList'
         '401':
           description: The Access Token used is invalid.
         '403':
@@ -74,29 +70,22 @@ paths:
       summary: PUT (update) a List
       description: Updates an existing contact list resource, specified by `list_id`
       operationId: putList
-      consumes:
-      - application/json
-      produces:
-      - application/json
       parameters:
       - name: list_id
         in: path
         description: Unique ID of the contact list to update
         required: true
-        type: string
-        format: uuid
         x-example: cbc05bac-6a41-46fa-a063-79961763bf4b
-      - in: body
-        name: JSON PUT body
-        description: JSON payload containing updates to the specified contact list
-        required: true
         schema:
-          $ref: '#/definitions/ListInput'
+          type: string
+          format: uuid
       responses:
         '200':
           description: Request successful
-          schema:
-            $ref: '#/definitions/ContactListPutPost'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListPutPost'
         '400':
           description: Bad request. Either the JSON was malformed or there was a data validation error.
         '401':
@@ -118,33 +107,40 @@ paths:
       - contacts:lists:write
       x-ctctmcp-allow: true
       x-sdk-methodName: updateList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListInput'
+        description: JSON payload containing updates to the specified contact list
+        required: true
     delete:
       tags:
       - Contact Lists
       summary: DELETE a List
       description: Deletes the specified contact list and its membership. DELETE List requests are processed asynchronously, and you can track the status of the request by making a GET call to the URI shown in the `_links` property in the response.
       operationId: deleteListActivity
-      consumes:
-      - application/json
-      produces:
-      - application/json
       parameters:
       - name: list_id
         in: path
         description: Unique ID of the list to delete
         required: true
-        type: string
-        format: uuid
         x-example: cbc05bac-6a41-46fa-a063-79961763bf4b
+        schema:
+          type: string
+          format: uuid
       responses:
         '202':
           description: Accepted
           headers:
             Location:
-              type: string
               description: URL to retrieve the delete activity status
-          schema:
-            $ref: '#/definitions/ActivityDeleteListResponse'
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityDeleteListResponse'
         '401':
           description: The Access Token used is invalid.
         '403':
@@ -174,69 +170,76 @@ paths:
 
         <div class="Msg"><p class="note-text">This method does not currently support filtering results using the contact list update date.</p></div>'
       operationId: getLists
-      produces:
-      - application/json
       parameters:
       - name: limit
         in: query
         description: Use to specify the number of results displayed per page of output, from 1 - 500, default = 50.
         required: false
-        type: integer
-        default: 50
-        maximum: 1000
-        minimum: 1
+        schema:
+          type: integer
+          default: 50
+          maximum: 1000
+          minimum: 1
       - name: include_count
         in: query
         description: Set `include_count` to `true` to return the total number of contact lists that meet your selection criteria.
         required: false
-        type: boolean
-        default: false
         x-example: true
+        schema:
+          type: boolean
+          default: false
       - name: include_membership_count
         in: query
         description: Use to include the total number of contacts per list. Set to  `active`, to count only active (mailable) contacts, or `all` to count all contacts.
         required: false
-        type: string
-        enum:
-        - all
-        - active
         x-example: all
+        schema:
+          type: string
+          enum:
+          - all
+          - active
       - name: name
         in: query
         description: Use to get details for a single list by entering the full name of the list.
         required: false
-        type: string
         x-example: TopTier
+        schema:
+          type: string
       - name: status
         in: query
         description: Use to get lists by status. Accepts comma-separated status values.
         required: false
-        type: string
-        enum:
-        - all
-        - active
-        - deleted
         x-example: all
+        schema:
+          type: string
+          enum:
+          - all
+          - active
+          - deleted
       - name: channel_type
         in: query
         description: Use to return lists by channel type. The default value is `email`.
         required: false
-        type: string
-        enum:
-        - email
-        - sms
         x-example: all
+        schema:
+          type: string
+          enum:
+          - email
+          - sms
       - name: include_sms_membership_count
         in: query
         description: Set to `true` to return the total number of SMS members in each list. Only applicable when `channel_type` is `sms`. Default is `false`.
         required: false
-        type: boolean
         x-example: 'false'
+        schema:
+          type: boolean
       responses:
         '200':
           description: Request successful
-          schema:
-            $ref: '#/definitions/ContactListArray'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListArray'
         '400':
           description: Bad request. Either the JSON was malformed or there was a data validation error.
         '401':
@@ -261,22 +264,13 @@ paths:
       summary: POST (create) a List
       description: Create a new contact list resource
       operationId: createList
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: body
-        description: JSON payload defining the new contact list
-        required: true
-        schema:
-          $ref: '#/definitions/ListInput'
       responses:
         '201':
           description: New list successfully created
-          schema:
-            $ref: '#/definitions/ContactListPutPost'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactListPutPost'
         '400':
           description: Bad request. Either the JSON was malformed or there was a data validation error.
         '401':
@@ -297,6 +291,13 @@ paths:
       x-authorization-privileges:
       - contacts:lists:write
       x-ctctmcp-allow: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListInput'
+        description: JSON payload defining the new contact list
+        required: true
   /contact_lists/list_id_xrefs:
     get:
       tags:
@@ -307,22 +308,23 @@ paths:
 
         This GET call retrieves a collection of cross-referenced list sequence IDs (`id` used in the V2 API) and UUIDs (`list_id` used in the V3 API). This endpoint is intended for developers who have an existing V2 API integration, and are migrating their users to a new V3 API integration. The V2 and V3 APIs use different resource ID formats. Use the `sequence_ids` query parameter to specify a set of comma delimited V2 list ids to cross-reference. See [Migrating Apps and Data to V3](/api_guide/migration_overview.html) to learn more."'
       operationId: getListIdXrefs
-      produces:
-      - application/json
       parameters:
       - name: sequence_ids
         in: query
         description: Comma delimited list of V2 API list `ids` to cross-reference with the V3 API `list_id` value. Endpoint accepts a maximum of 500 ids at a time.
         required: true
-        type: string
-        maxItems: 500
-        format: csv
         x-example: 1995998026,1882999944,1775099999
+        schema:
+          type: string
+          format: csv
+          maxItems: 500
       responses:
         '200':
           description: Request successful
-          schema:
-            $ref: '#/definitions/ListXrefs'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListXrefs'
         '400':
           description: Bad request. Either the JSON was malformed or there was a data validation error.
         '401':
@@ -342,232 +344,238 @@ paths:
         - contact_data
       x-authorization-privileges:
       - contacts:lists:read
-definitions:
-  ListXrefs:
-    type: object
-    properties:
-      xrefs:
-        type: array
-        description: An array of cross-referenced V3 API <code>list_id</code> and V2 API <code>sequence_id</code> properties. Response is sorted ascending by <code>sequence_id</code>.
-        items:
-          $ref: '#/definitions/ListXref'
-        maxItems: 500
-  PagingLinks:
-    type: object
-    properties:
-      next:
-        $ref: '#/definitions/Link'
-  ContactListPutPost:
-    type: object
-    required:
-    - list_id
-    - name
-    properties:
-      list_id:
-        type: string
-        format: uuid
-        example: 06526938-56dd-11e9-932a-fa163ea075fa
-        description: Unique ID for the contact list
-        readOnly: true
-      name:
-        type: string
-        example: Multiple purchases
-        description: The name given to the contact list
-      description:
-        type: string
-        example: List of repeat customers.
-        description: Text describing the list.
-      favorite:
-        type: boolean
-        description: Identifies whether or not the account has favorited the contact list.
-        default: false
-      created_at:
-        type: string
-        format: date-time
-        example: '2016-01-23T13:48:44.108Z'
-        description: System generated date and time that the resource was created, in ISO-8601 format.
-        readOnly: true
-      updated_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:56:29-05:00'
-        description: Date and time that the list was last updated, in ISO-8601 format. System generated.
-        readOnly: true
-      deleted_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:56:29-05:00'
-        description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
-        readOnly: true
-  ListXref:
-    type: object
-    properties:
-      sequence_id:
-        type: string
-        example: '0016633325'
-        description: The V2 API list unique identifier
-      list_id:
-        type: string
-        format: uuid
-        example: 71600990-908b-11e6-907f-1200166bff25
-        description: The V3 API list unique identifier
-    description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
-  ContactListArray:
-    type: object
-    properties:
-      lists:
-        type: array
-        items:
-          $ref: '#/definitions/ContactList'
-      lists_count:
-        type: integer
-        example: 249
-        description: The total number of contact lists.
-      _links:
-        $ref: '#/definitions/PagingLinks'
-  ListInput:
-    type: object
-    required:
-    - name
-    properties:
-      name:
-        type: string
-        example: Multiple purchases
-        description: The name given to the contact list
-        maxLength: 255
-      favorite:
-        type: boolean
-        example: true
-        description: Identifies whether or not the account has favorited the contact list.
-        default: false
-      description:
-        type: string
-        example: List of repeat customers
-        description: Text describing the list.
-  ContactList:
-    type: object
-    required:
-    - list_id
-    - name
-    properties:
-      list_id:
-        type: string
-        format: uuid
-        example: 06526938-56dd-11e9-932a-fa163ea075fa
-        description: Unique ID for the contact list
-        readOnly: true
-      name:
-        type: string
-        example: Multiple purchases
-        description: The name given to the contact list
-      description:
-        type: string
-        example: List of repeat customers.
-        description: Text describing the list.
-      favorite:
-        type: boolean
-        description: Identifies whether or not the account has favorited the contact list.
-        default: false
-      created_at:
-        type: string
-        format: date-time
-        example: '2016-01-23T13:48:44.108Z'
-        description: System generated date and time that the resource was created, in ISO-8601 format.
-        readOnly: true
-      updated_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:56:29-05:00'
-        description: Date and time that the list was last updated, in ISO-8601 format. System generated.
-        readOnly: true
-      deleted_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:56:29-05:00'
-        description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
-        readOnly: true
-      membership_count:
-        type: integer
-        example: 327
-        description: The total number of contacts that are members in a list. Does not apply to segment type lists.
-        readOnly: true
-  Link:
-    type: object
-    properties:
-      href:
-        type: string
-        example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-  ActivityDeleteListResponse:
-    type: object
-    properties:
-      activity_id:
-        type: string
-        format: uuid
-        description: Unique ID for the delete list batch job.
-      state:
-        type: string
-        example: initialized
-        description: "The state of the request:\n <p><ul>\n <li>initialized - request has been received</li>\n <li>processing - request is being processed</li>\n <li>completed - job completed</li>\n <li>cancelled - request was cancelled</li>\n <li>failed - job failed to complete</li>\n <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
-      created_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:53:04-05:00'
-        description: Date and time that the request was received, in ISO-8601 format.
-      updated_at:
-        type: string
-        format: date-time
-        example: '2016-03-03T10:56:29-05:00'
-        description: Date and time that the request status was updated, in ISO-8601 format.
-      percent_done:
-        type: integer
-        example: 1
-        description: Job completion percentage
-      activity_errors:
-        type: array
-        description: Array of messages describing the errors that occurred.
-        items:
+components:
+  schemas:
+    ActivityDeleteListResponse:
+      type: object
+      properties:
+        activity_id:
           type: string
-          example: Message describing the error condition.
-          description: Message describing the error condition.
+          format: uuid
+          description: Unique ID for the delete list batch job.
+        state:
+          type: string
+          example: initialized
+          description: "The state of the request:\n <p><ul>\n <li>initialized - request has been received</li>\n <li>processing - request is being processed</li>\n <li>completed - job completed</li>\n <li>cancelled - request was cancelled</li>\n <li>failed - job failed to complete</li>\n <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:53:04-05:00'
+          description: Date and time that the request was received, in ISO-8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the request status was updated, in ISO-8601 format.
+        percent_done:
+          type: integer
+          example: 1
+          description: Job completion percentage
+        activity_errors:
+          type: array
+          description: Array of messages describing the errors that occurred.
+          items:
+            type: string
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              description: Link to the activity status to use in tracking the request status.
+              properties:
+                href:
+                  type: string
+                  example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
+    ListXref:
+      type: object
+      properties:
+        sequence_id:
+          type: string
+          example: '0016633325'
+          description: The V2 API list unique identifier
+        list_id:
+          type: string
+          format: uuid
+          example: 71600990-908b-11e6-907f-1200166bff25
+          description: The V3 API list unique identifier
+      description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
+    ListXrefs:
+      type: object
+      properties:
+        xrefs:
+          type: array
+          description: An array of cross-referenced V3 API <code>list_id</code> and V2 API <code>sequence_id</code> properties. Response is sorted ascending by <code>sequence_id</code>.
+          items:
+            $ref: '#/components/schemas/ListXref'
+          maxItems: 500
+    ListInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Multiple purchases
+          description: The name given to the contact list
+          maxLength: 255
+        favorite:
+          type: boolean
+          example: true
+          description: Identifies whether or not the account has favorited the contact list.
+          default: false
+        description:
+          type: string
+          example: List of repeat customers
+          description: Text describing the list.
+    ContactListArray:
+      type: object
+      properties:
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList'
+        lists_count:
+          type: integer
+          example: 249
+          description: The total number of contact lists.
+        _links:
+          $ref: '#/components/schemas/PagingLinks'
+    ContactList:
+      type: object
+      required:
+      - list_id
+      - name
+      properties:
+        list_id:
+          type: string
+          format: uuid
+          example: 06526938-56dd-11e9-932a-fa163ea075fa
+          description: Unique ID for the contact list
           readOnly: true
-      _links:
-        type: object
-        properties:
-          self:
-            type: object
-            description: Link to the activity status to use in tracking the request status.
-            properties:
-              href:
-                type: string
-                example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
-securityDefinitions:
-  oauth2_implicit:
-    type: oauth2
-    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
-    flow: implicit
-    scopes:
-      contact_data: Read or modify contact data.
-      campaign_data: Read or modify email campaign data.
-      account_read: Read account data.
-      account_update: Modify account data.
-  oauth2_access_code:
-    type: oauth2
-    authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
-    tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
-    flow: accessCode
-    scopes:
-      contact_data: Read or modify contact data.
-      campaign_data: Read or modify email campaign data.
-      account_read: Read account data.
-      account_update: Modify account data.
-  ctctPartnerAuthorizer:
-    description: Partner Authentication
-    type: oauth2
-    authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
-    flow: implicit
-    scopes:
-      v3api/general.partner: Access to general partner API methods
-  api_key:
-    type: apiKey
-    name: x-api-key
-    in: header
+        name:
+          type: string
+          example: Multiple purchases
+          description: The name given to the contact list
+        description:
+          type: string
+          example: List of repeat customers.
+          description: Text describing the list.
+        favorite:
+          type: boolean
+          description: Identifies whether or not the account has favorited the contact list.
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: System generated date and time that the resource was created, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the list was last updated, in ISO-8601 format. System generated.
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
+          readOnly: true
+        membership_count:
+          type: integer
+          example: 327
+          description: The total number of contacts that are members in a list. Does not apply to segment type lists.
+          readOnly: true
+    PagingLinks:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Link'
+    ContactListPutPost:
+      type: object
+      required:
+      - list_id
+      - name
+      properties:
+        list_id:
+          type: string
+          format: uuid
+          example: 06526938-56dd-11e9-932a-fa163ea075fa
+          description: Unique ID for the contact list
+          readOnly: true
+        name:
+          type: string
+          example: Multiple purchases
+          description: The name given to the contact list
+        description:
+          type: string
+          example: List of repeat customers.
+          description: Text describing the list.
+        favorite:
+          type: boolean
+          description: Identifies whether or not the account has favorited the contact list.
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: System generated date and time that the resource was created, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the list was last updated, in ISO-8601 format. System generated.
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
+          readOnly: true
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+  securitySchemes:
+    oauth2_implicit:
+      type: oauth2
+      flows:
+        implicit:
+          scopes:
+            contact_data: Read or modify contact data.
+            campaign_data: Read or modify email campaign data.
+            account_read: Read account data.
+            account_update: Modify account data.
+            billing_data: Read or modify billing data.
+          authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    oauth2_access_code:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            contact_data: Read or modify contact data.
+            campaign_data: Read or modify email campaign data.
+            account_read: Read account data.
+            account_update: Modify account data.
+            billing_data: Read or modify billing data.
+          authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+          tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    ctctPartnerAuthorizer:
+      type: oauth2
+      flows:
+        implicit:
+          scopes:
+            v3api/general.partner: Access to general partner API methods
+          authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+      description: Partner Authentication
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header

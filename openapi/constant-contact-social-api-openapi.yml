@@ -1,0 +1,652 @@
+openapi: 3.2.0
+info:
+  description: The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.
+  version: 3.0.178
+  title: AppConnect V3 Social API
+  contact:
+    name: webservices@constantcontact.com
+  license:
+    name: Private
+    url: https://www.constantcontact.com/legal/terms-of-use
+servers:
+- url: https://api.cc.email/v3
+tags:
+- name: Social
+paths:
+  /social/profiles:
+    get:
+      tags:
+      - Social
+      summary: GET social media profiles
+      description: 'Retrieves all social media profiles connected to the account. A profile represents a single account on a social network (such as a Facebook Business Page, a LinkedIn Company Page, or an Instagram Business account) that the user has connected to Constant Contact.
+
+
+        Use the `include=accessible` query parameter to additionally check whether each profile is currently accessible for posting. Profiles that are not currently accessible will fail if used to publish a post.
+
+        '
+      operationId: getSocialProfilesUsingGET
+      parameters:
+      - name: include
+        in: query
+        description: Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.
+        required: false
+        x-example: accessible
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          enum:
+          - accessible
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profiles'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getSocialProfiles
+  /social/connections:
+    get:
+      tags:
+      - Social
+      summary: GET social network connections
+      description: 'Retrieves all social network accounts connected to the Constant Contact account, with support for multiple accounts per social network.
+
+
+        A connection represents the authorization link between a Constant Contact account and a single account on a social network (Facebook, Instagram, LinkedIn, TikTok, etc.). Each connection includes account information about the connected user on that network (display name, username, image, etc.) and the current status of the connection (whether it''s active, rate-limited, or has any errors).
+
+
+        Note that a single connection may have multiple profiles (pages) associated with it — use `GET /social/profiles` to retrieve the individual profiles.
+
+        '
+      operationId: getSocialConnectionsUsingGET
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionResponseDto'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getSocialConnections
+  /social/hashtags/groups:
+    get:
+      tags:
+      - Social
+      summary: GET hashtag groups
+      description: 'Retrieves a paginated list of saved hashtag groups for the account. Hashtag groups allow users to save and organize reusable collections of hashtags that can be applied to social posts.
+
+
+        Use the `limit` and `page` query parameters to paginate through results. Navigate to the next page using the `_links.next` link in the response.
+
+        '
+      operationId: getSocialHashtagGroupsUsingGET
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.
+        required: false
+        x-example: '5'
+        schema:
+          type: integer
+          default: 5
+          maximum: 5
+          minimum: 1
+      - name: page
+        in: query
+        description: Page number to retrieve (0-based).
+        required: false
+        x-example: '0'
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedHashtagGroupsDto'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:read
+      x-sdk-methodName: getHashtagGroups
+  /social/posts:
+    post:
+      tags:
+      - Social
+      summary: POST (create) a social media post
+      description: 'Creates a new social media post that can be published immediately or scheduled for later publication. A post can target one or more social profiles, and can include text, images, and network-specific settings.
+
+
+        Set `status` to `DRAFT` to save without publishing, or `SCHEDULED` to schedule for publication. Scheduled posts require a `scheduled_time` in ISO-8601 format.
+
+
+        Post content and settings can vary per profile — each `profile_posts` entry can have its own text, images, and network-specific settings (e.g., TikTok-specific settings like `disable_comment`).
+
+        '
+      operationId: createSocialPostUsingPOST
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDto'
+        '201':
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDto'
+        '400':
+          description: Bad request. Either the JSON was malformed or there was a data validation error.
+        '401':
+          description: The Access Token used is invalid.
+        '403':
+          description: Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.
+        '404':
+          description: The requested resource was not found.
+        '500':
+          description: There was a problem with our internal service.
+      security:
+      - oauth2_implicit:
+        - campaign_data
+      - oauth2_access_code:
+        - campaign_data
+      x-authorization-privileges:
+      - campaign:write
+      x-sdk-methodName: createSocialPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreateDto'
+        description: The social post content and configuration.
+        required: true
+components:
+  schemas:
+    PagedResponseLinksDto:
+      type: object
+      properties:
+        next:
+          description: Link to retrieve the next page of results. This will be absent for the last page.
+          readOnly: true
+          $ref: '#/components/schemas/PagedResponseLinkRelDto'
+      description: Pagination links for navigating through pages of results.
+    PostDto:
+      type: object
+      required:
+      - profile_posts
+      - status
+      properties:
+        campaign_id:
+          type: string
+          description: Unique identifier for the post campaign. Generated by the server on creation. Use this value to reference the post in subsequent requests.
+          readOnly: true
+        name:
+          type: string
+          example: My Social Post
+          description: Campaign name for this post. The value provided on creation is sanitized before saving, so the returned value may not exactly match what was sent.
+        profile_posts:
+          type: array
+          description: The list of per-profile posts that make up this campaign.
+          items:
+            $ref: '#/components/schemas/ProfilePostDto'
+        scheduled_time:
+          type: string
+          example: '2026-03-15T14:30:00.000Z'
+          description: The date and time to publish the post, in ISO-8601 format. Only set when <code>status</code> is <code>SCHEDULED</code>.
+        status:
+          type: string
+          example: SCHEDULED
+          description: "The current status of the post. Possible values include:\n<ul>\n  <li><code>DRAFT</code> — saved without being scheduled for publication</li>\n  <li><code>SCHEDULED</code> — scheduled for future publication at <code>scheduled_time</code></li>\n  <li><code>EXECUTING</code> — currently being published</li>\n  <li><code>ACTIVE</code> — the post has been published and is active on the social network</li>\n  <li><code>PAUSED</code> — publication has been paused</li>\n  <li><code>SUSPENDED</code> — publication has been suspended</li>\n  <li><code>REMOVED</code> — the post has been removed</li>\n  <li><code>DONE</code> — publication has completed</li>\n  <li><code>ERROR</code> — publication encountered an error</li>\n</ul>\n"
+      description: Represents a social media post campaign that can include multiple posts to multiple social profiles, with either identical or network-specific content.
+    ConnectionDto:
+      type: object
+      properties:
+        account_info:
+          description: Account information for this connection.
+          readOnly: true
+          $ref: '#/components/schemas/AccountInfoDto'
+        connection_status:
+          description: Status details for this connection.
+          readOnly: true
+          $ref: '#/components/schemas/ConnectionStatusDto'
+      description: A combination of account information and connection status for an established social network connection.
+    ConnectionStatusDto:
+      type: object
+      properties:
+        error:
+          type: string
+          description: A message indicating that there was an unexpected error accessing the social network account.
+          readOnly: true
+        has_token:
+          type: boolean
+          example: true
+          description: <code>true</code> if the integration has an authorization token for this social network account.
+          readOnly: true
+        is_active_user:
+          type: boolean
+          example: true
+          description: A user is considered active if the user has any connected profiles for the social network account.
+          readOnly: true
+        rate_limited:
+          type: boolean
+          example: false
+          description: Whether this social network account or the Constant Contact application is currently rate-limited by the social network provider.
+          readOnly: true
+        status:
+          type: integer
+          format: int32
+          description: The status returned from the given network's API when retrieving the account. This is typically only set when <code>error</code> is set.
+          readOnly: true
+        token_has_scopes:
+          type: boolean
+          example: true
+          description: Whether the token associated with this user's social account integration has the scopes necessary to use Constant Contact social functionality.
+          readOnly: true
+        token_is_valid:
+          type: boolean
+          example: true
+          description: <code>true</code> if the token for this social network is currently valid and can be successfully used to fetch data from the network.
+          readOnly: true
+      description: Data indicating the status of a social network connection's integration.
+    MapOfstringAndstring:
+      type: object
+      additionalProperties:
+        type: string
+    Profiles:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProfileDto'
+    HashtagGroupDto:
+      type: object
+      required:
+      - hashtag_group_name
+      - hashtag_names
+      properties:
+        hashtag_group_id:
+          type: string
+          description: Unique identifier for this hashtag group. Automatically generated on creation and returned in all responses.
+          readOnly: true
+        hashtag_group_name:
+          type: string
+          description: The human-readable name for this group. <p>This name will be sanitized before saving, which may include trimming whitespace, truncation, and/or removing invalid characters. If the sanitized name results in a blank string, it will not be able to be saved, and any create or update operation will fail.</p><p>The name is currently limited to a maximum of 150 characters, but the effective length may be shorter, depending on whether special characters (such as emoji) are used.</p>
+        hashtag_names:
+          type: array
+          description: The list of hashtag names for this group. <p>Hashtag <em>names</em> do not include any leading '#' character. They can only consist of alphanumeric characters and '_' (underscore). The hashtag name cannot begin or end with an underscore. Hashtag names may begin with a letter or a number, and may consist of only numbers. Hashtag names are currently limited to a maximum of 30 characters.</p><p>The list order is preserved. If duplicates exist, they will be removed when saving, and the first occurrence will retain its position.</p>
+          items:
+            type: string
+      description: Represents a named collection of hashtags that can be reused when creating social posts.
+    AccountInfoDto:
+      type: object
+      properties:
+        account_url:
+          type: string
+          description: 'The account URL of the connected user''s profile. Note: Facebook & Instagram do not support this.'
+          readOnly: true
+        display_name:
+          type: string
+          example: John Doe
+          description: Display name of the connected user.
+          readOnly: true
+        image_url:
+          type: string
+          example: https://example.com/avatar.jpg
+          description: URL of the connected user's avatar or image.
+          readOnly: true
+        network:
+          type: string
+          example: facebook
+          description: The social network this account belongs to.
+          readOnly: true
+        network_account_id:
+          type: string
+          description: 'The user identifier on the given network. Note: this is the network <em>account</em> id, not the <em>profile</em> id.'
+          readOnly: true
+        username:
+          type: string
+          example: johndoe
+          description: Username of the connected user on the social network.
+          readOnly: true
+      description: Account information for a connected social network user.
+    ProfilePostProfileDto:
+      type: object
+      required:
+      - profile_id
+      properties:
+        account_username:
+          type: string
+          description: The human-readable username of the account that owns this profile.
+          readOnly: true
+        campaign_activity_id:
+          type: string
+          description: The campaign activity ID for this post on the specified profile. Generated by the server on creation. When updating a post, existing profile entries should include their original <code>campaign_activity_id</code>.
+          readOnly: true
+        campaign_activity_status:
+          type: string
+          description: The status of the post activity for this profile.
+          readOnly: true
+        campaign_activity_status_date:
+          type: string
+          format: date-time
+          description: The activity's timestamp. For <code>SCHEDULED</code> activities, this is typically the same as the scheduled publish time; otherwise, it is the last-modified timestamp.
+          readOnly: true
+        campaign_activity_status_message:
+          type: string
+          description: A human-readable message describing the current status of the post activity. Can be a generic Constant Contact message or a specific message reported by the social network.
+          readOnly: true
+        image_url:
+          type: string
+          description: The URL of the profile's image. This image may become stale and is only refreshed when retrieving profiles with <code>include=accessible</code>.
+          readOnly: true
+        network:
+          type: string
+          example: facebook
+          description: The social network this profile belongs to.
+          readOnly: true
+        network_post_id:
+          type: string
+          description: The social network's reference for this post. Only set when the status is <code>DONE</code>.
+          readOnly: true
+        post_url:
+          type: string
+          description: The permalink URL to the published post on the social network. Only set when the status is <code>DONE</code>.
+          readOnly: true
+        profile_id:
+          type: string
+          description: The unique identifier for the profile to post to. Use the <code>profile_id</code> from <code>GET /social/profiles</code>.
+        profile_name:
+          type: string
+          description: The display name of the profile.
+          readOnly: true
+      description: Describes a post to a single social profile, including the target profile and its current status on that network.
+    PageMetadataDto:
+      type: object
+      required:
+      - page
+      - size
+      - total_elements
+      - total_pages
+      properties:
+        page:
+          type: integer
+          format: int64
+          description: The current 0-based page number.
+          readOnly: true
+        size:
+          type: integer
+          format: int64
+          description: The page size (the number of results returned in this response).
+          readOnly: true
+        total_elements:
+          type: integer
+          format: int64
+          description: The total number of results available across all pages.
+          readOnly: true
+        total_pages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the current page size.
+          readOnly: true
+      description: Pagination metadata describing the current page of results.
+    PagedHashtagGroupsDto:
+      type: object
+      required:
+      - _links
+      - hashtag_groups
+      - page
+      properties:
+        _links:
+          description: Pagination links for navigating through pages of results.
+          readOnly: true
+          $ref: '#/components/schemas/PagedResponseLinksDto'
+        hashtag_groups:
+          type: array
+          description: The current page of hashtag group results.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/HashtagGroupDto'
+        page:
+          description: Pagination metadata for the current response.
+          readOnly: true
+          $ref: '#/components/schemas/PageMetadataDto'
+      description: A paginated response containing a page of hashtag groups.
+    ProfileDto:
+      type: object
+      required:
+      - connected
+      - network
+      - profile_id
+      properties:
+        accessible:
+          type: boolean
+          example: false
+          description: Whether the profile is currently accessible for posting. Publishing a post will fail if its profile is not currently accessible. Only populated when the GET request includes the query parameter <code>include=accessible</code>.
+          readOnly: true
+        account_info:
+          readOnly: true
+          $ref: '#/components/schemas/AccountInfoDto'
+        connected:
+          type: boolean
+          example: true
+          description: Whether this profile is currently connected. You can only create and publish posts with connected profiles.
+          readOnly: true
+        handle:
+          type: string
+          example: mybusinesspage
+          description: The profile's handle on the social network (for example, an Instagram or TikTok username). May be <code>null</code> if the network does not expose a separate handle (for example, Facebook).
+          readOnly: true
+        image_url:
+          type: string
+          example: https://example.com/profile-image.jpg
+          description: URL of the profile's image or avatar.
+          readOnly: true
+        name:
+          type: string
+          example: My Business Page
+          description: Display name of the profile.
+          readOnly: true
+        network:
+          type: string
+          example: facebook
+          description: The social network this profile belongs to.
+          readOnly: true
+        network_profile_id:
+          type: string
+          description: The social network-specific identifier for this profile.
+          readOnly: true
+        network_user_id:
+          type: string
+          description: The social network-specific identifier for the user who owns this profile.
+          readOnly: true
+        profile_id:
+          type: string
+          description: Unique identifier for this profile. Use this value in the <code>profile_id</code> field of a <code>ProfilePost</code> when creating a post.
+          readOnly: true
+        settings:
+          type: object
+          description: "Network-specific settings for the profile. Only populated when the request includes <code>include=accessible</code> and settings are available for the network. Currently, only TikTok provides settings: <pre>\"content\": {\n  \"comment_disabled\": Boolean,\n  \"duet_disabled\": Boolean,\n  \"stitch_disabled\": Boolean,\n  \"max_video_post_duration_sec\": Integer\n}</pre>"
+          readOnly: true
+          additionalProperties:
+            type: object
+            properties: {}
+        url:
+          type: string
+          example: https://www.facebook.com/mybusinesspage
+          description: URL to the profile on the social network.
+          readOnly: true
+      description: Describes a social network profile (Business Page, Company Page/Organization, etc.). <br><strong>Note:</strong> Due to performance and/or rate-limit issues, some properties <em>may</em> be cached. Where possible, caching will be limited to 15 minutes.
+    ImageDto:
+      type: object
+      required:
+      - url
+      properties:
+        image_id:
+          type: string
+          description: Unique identifier for this image. Generated by the server on creation.
+          readOnly: true
+        url:
+          type: string
+          example: https://www.host.com/path+with%20space?q=query%20with+space
+          description: The URL of the image. Each component of the URL must be appropriately encoded to avoid illegal characters.
+      description: An image to include in a social post.
+    PostCreateDto:
+      type: object
+      required:
+      - profile_posts
+      - status
+      properties:
+        name:
+          type: string
+          example: My Social Post
+          description: Campaign name for this post. Optional on creation. If not provided, a default name will be generated. The value provided will be sanitized before saving, so the value returned may not exactly match what was sent.
+        profile_posts:
+          type: array
+          description: The list of per-profile posts that make up this campaign. Each entry specifies the content to post and the profiles to post it to.
+          items:
+            $ref: '#/components/schemas/ProfilePostDto'
+        scheduled_time:
+          type: string
+          example: '2026-03-15T14:30:00.000Z'
+          description: The date and time to publish the post, in ISO-8601 format. Only applies when <code>status</code> is <code>SCHEDULED</code>. If not specified for a scheduled post, the publish job is scheduled to execute immediately.
+        status:
+          type: string
+          example: SCHEDULED
+          description: The status of the post on creation. Valid values are <code>DRAFT</code> (save without publishing) or <code>SCHEDULED</code> (schedule for publication).
+      description: Request body for creating a social media post campaign that can include multiple posts to multiple social profiles.
+    PagedResponseLinkRelDto:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The URI of a page of results.
+          readOnly: true
+      description: Represents a link to a page of results.
+    ProfilePostDto:
+      type: object
+      required:
+      - profiles
+      properties:
+        images:
+          type: array
+          description: Images to include in the post. Each image must be accessible via a public URL.
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        post_content_id:
+          type: string
+          description: Identifier for this post content. Generated by the server on creation. When updating a post, existing profile posts must include their original <code>post_content_id</code> unchanged.
+          readOnly: true
+        profiles:
+          type: array
+          description: The list of profiles to post to. Can be an empty list only when the post is in <code>DRAFT</code> status.
+          items:
+            $ref: '#/components/schemas/ProfilePostProfileDto'
+        settings:
+          type: object
+          description: "Network-specific post settings. If no settings are provided, this field will be omitted in the JSON response. All values are persisted as strings.\nCurrently, only TikTok has available settings:\n<pre>{\n  \"settings\": {\n    \"tiktok\": {\n      \"disable_comment\": \"true\",\n      \"disable_duet\": \"false\",\n      \"disable_stitch\": \"true\",\n      \"auto_add_music\": \"false\"\n    }\n  }\n}</pre>\n"
+          additionalProperties:
+            $ref: '#/components/schemas/MapOfstringAndstring'
+        text:
+          type: string
+          description: The text/caption content for the post. Whether text is required depends on the target social network. In <code>DRAFT</code> status, this is always optional.
+      description: The content to post to one or more social profiles as part of a social post campaign.
+    ConnectionResponseDto:
+      type: object
+      properties:
+        connections:
+          type: array
+          description: List of established social network connections for the account.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ConnectionDto'
+      description: A wrapper containing the list of established social network connections for a given Constant Contact account.
+  securitySchemes:
+    oauth2_implicit:
+      type: oauth2
+      flows:
+        implicit:
+          scopes:
+            contact_data: Read or modify contact data.
+            campaign_data: Read or modify email campaign data.
+            account_read: Read account data.
+            account_update: Modify account data.
+            billing_data: Read or modify billing data.
+          authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+    oauth2_access_code:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            contact_data: Read or modify contact data.
+            campaign_data: Read or modify email campaign data.
+            account_read: Read account data.
+            account_update: Modify account data.
+            billing_data: Read or modify billing data.
+          authorizationUrl: https://authz.constantcontact.com/oauth2/default/v1/authorize
+          tokenUrl: https://authz.constantcontact.com/oauth2/default/v1/token
+    ctctPartnerAuthorizer:
+      type: oauth2
+      flows:
+        implicit:
+          scopes:
+            v3api/general.partner: Access to general partner API methods
+          authorizationUrl: https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token
+      description: Partner Authentication
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header

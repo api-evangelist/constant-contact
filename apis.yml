@@ -411,6 +411,26 @@ apis:
     url: https://developer.constantcontact.com/api_guide/auth_overview.html
   - type: GraphQL
     url: graphql/constant-contact-graphql.md
+- aid: constant-contact:constant-contact-automations-api
+  name: Constant Contact Automations API
+  description: Use the automation endpoints and methods to manage automation campaigns
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-automations-api-openapi.yml
+- aid: constant-contact:constant-contact-social-api
+  name: Constant Contact Social API
+  description: The Social API from Constant Contact — 4 operation(s) for social.
+  humanURL: https://developer.constantcontact.com/
+  baseURL: https://api.cc.email/v3
+  tags:
+  - Social
+  properties:
+  - type: OpenAPI
+    url: openapi/constant-contact-social-api-openapi.yml
 common:
 - type: OAuthScopes
   url: scopes/constant-contact-scopes.yml
