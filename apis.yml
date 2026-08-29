@@ -432,6 +432,9 @@ apis:
   - type: OpenAPI
     url: openapi/constant-contact-social-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/constant-contact-capability-edges.yml
+  name: Constant Contact Business Capability Map
 - type: OAuthScopes
   url: scopes/constant-contact-scopes.yml
 - type: AgenticAccess

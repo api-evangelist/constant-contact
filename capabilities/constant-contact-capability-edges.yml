@@ -1,0 +1,92 @@
+slug: constant-contact
+provider: Constant Contact
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: Contacts
+  spec_file: constant-contact-contacts-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.85
+  evidence: POST /contacts  createContact  POST (create) a Contact; GET /contacts/counts  GET Contact
+    Consent Counts; schemas ContactResource, EmailAddressPut, PhoneNumber
+  reason: Operations maintain the master record of customer contacts including addresses, phone, consent
+    and resubscribe status — customer data management.
+- tag: Email Campaigns
+  spec_file: constant-contact-email-campaigns-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: POST /emails  createEmailCampaignUsingPOST  POST (Create) a New Email Campaign
+  reason: Creation and management of email marketing campaigns and their activities is squarely digital
+    marketing / marketing automation.
+- tag: Social
+  spec_file: constant-contact-social-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: '"GET social media profiles", "GET social network connections", "GET hashtag groups", "POST
+    (create) a social media post"'
+  reason: Surface manages connected social accounts and publishes social posts — digital marketing (social/marketing
+    automation) capability.
+- tag: Segments
+  spec_file: constant-contact-segments-api-openapi.yml
+  capability_id: BC-420.20
+  capability_id_l1: BC-420
+  capability_name: Customer Segmentation Management
+  confidence: 0.8
+  evidence: '"POST (create) a Segment", "GET a Segment''s Details", schemas SegmentMaster, SegmentData
+    — marketing contact segments in an email marketing platform'
+  reason: Operations create, read, update and delete contact segments used to target marketing communications,
+    which is customer segmentation management rather than a technical grouping construct.
+- tag: Automations
+  spec_file: constant-contact-automations-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /automations/workflows 'Create an Automation'; schemas AutomationCampaign, TriggerDto,
+    TriggerFilterRuleDto
+  reason: Creation and management of triggered marketing automation workflows/campaigns on an email marketing
+    platform — marketing automation, a component of digital marketing management.
+- tag: Email Campaigns AB Tests
+  spec_file: constant-contact-email-campaigns-ab-tests-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /emails/activities/{campaign_activity_id}/abtest  POST (Create) an A/B Test for an Email
+    Campaign Activity
+  reason: A/B testing of email campaign subject/content is marketing campaign optimisation within digital
+    marketing, not product experimentation.
+- tag: Email Reporting
+  spec_file: constant-contact-email-reporting-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: GET /reports/email_reports/{campaign_activity_id}/tracking/opens  GET an Email Opens Report
+  reason: Sends, opens, clicks, bounces and opt-out reporting measures email marketing performance — digital
+    marketing measurement.
+- tag: Email Scheduling
+  spec_file: constant-contact-email-scheduling-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /emails/activities/{campaign_activity_id}/schedules  scheduleEmailCampaignActivityUsingPOST
+  reason: Scheduling, test sending and previewing email campaign sends is execution of email/digital marketing
+    campaigns.
