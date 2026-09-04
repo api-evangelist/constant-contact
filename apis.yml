@@ -47,7 +47,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/constant-c
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2026-08-13'
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
 kind: company
 description: Constant Contact is a small-business email and digital marketing platform
