@@ -46,17 +46,16 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/constant-contact.png
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-08-13'
+modified: '2026-09-16'
 position: Consuming
 specificationVersion: '0.23'
 kind: company
-description: Constant Contact is a small-business email and digital marketing platform
-  offering email campaigns, automation, SMS, contact management, surveys, and events.
-  The Constant Contact V3 API is a REST + JSON, OAuth2-protected service published
-  at api.cc.email/v3 covering accounts, contacts, lists, tags, custom fields, segments,
-  email campaigns, A/B tests, schedules and tests, bulk activities (CSV/JSON import,
-  export, list and tag mutations), events with registration and check-in, reporting,
-  and partner provisioning.
+description: Constant Contact is a small-business email and digital marketing platform offering email
+  campaigns, automation, SMS, contact management, surveys, and events. The Constant Contact V3 API is
+  a REST + JSON, OAuth2-protected service published at api.cc.email/v3 covering accounts, contacts, lists,
+  tags, custom fields, segments, email campaigns, A/B tests, schedules and tests, bulk activities (CSV/JSON
+  import, export, list and tag mutations), events with registration and check-in, reporting, and partner
+  provisioning.
 apis:
 - aid: constant-contact:constant-contact-account-services-api
   name: Constant Contact Account Services API
@@ -99,7 +98,7 @@ apis:
   - type: GraphQL
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-contact-lists-api
-  name: Constant Contact Contact Lists API
+  name: Constant Contact Lists API
   description: Endpoints and methods to get, create, delete, and update one or more contact lists.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
@@ -119,7 +118,7 @@ apis:
   - type: GraphQL
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-contact-tags-api
-  name: Constant Contact Contact Tags API
+  name: Constant Contact Tags API
   description: Endpoints and methods to get, create, delete, and update one or more contact tags.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
@@ -180,8 +179,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-contacts-reporting-api
   name: Constant Contact Contacts Reporting API
-  description: >-
-    Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.
+  description: Contact reporting endpoints are used to gather activity reports for campaigns sent to a
+    contact.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -201,8 +200,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-email-campaigns-ab-tests-api
   name: Constant Contact Email Campaigns AB Tests API
-  description: >-
-    Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.
+  description: Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B
+    tests.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -242,9 +241,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-email-reporting-api
   name: Constant Contact Email Reporting API
-  description: >-
-    Use the email reporting endpoints and methods to get reporting data for email campaigns you sent to
-    contacts.
+  description: Use the email reporting endpoints and methods to get reporting data for email campaigns
+    you sent to contacts.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -264,9 +262,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-email-scheduling-api
   name: Constant Contact Email Scheduling API
-  description: >-
-    Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule an email
-    campaign activity, and GET schedule information.
+  description: Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule
+    an email campaign activity, and GET schedule information.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -308,9 +305,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-landing-pages-reporting-api
   name: Constant Contact Landing Pages Reporting API
-  description: >-
-    Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted
-    with a campaign activity.
+  description: Use landing pages reporting endpoints and methods to get reporting data about how a contact
+    interacted with a campaign activity.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -330,9 +326,8 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-segments-api
   name: Constant Contact Segments API
-  description: >-
-    Use segments to target a subset of your contacts that are most likely to engage with a particular
-    campaign.
+  description: Use segments to target a subset of your contacts that are most likely to engage with a
+    particular campaign.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
@@ -372,8 +367,7 @@ apis:
     url: graphql/constant-contact-graphql.md
 - aid: constant-contact:constant-contact-technology-partners-api
   name: Constant Contact Technology Partners API
-  description: >-
-    Use partner endpoints to manage client Constant Contact accounts under your partner account.
+  description: Use partner endpoints to manage client Constant Contact accounts under your partner account.
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
