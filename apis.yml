@@ -411,6 +411,8 @@ apis:
   humanURL: https://developer.constantcontact.com/
   baseURL: https://api.cc.email/v3
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
