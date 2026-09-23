@@ -61,7 +61,13 @@ paths:
       tags:
       - Email Scheduling
       summary: POST (Create) an Email Campaign Activity Schedule
-      description: "Use this method to send an email campaign activity to contacts either immediately or on a specific date. To send the email campaign activity immediately, specify `0` for the `scheduled_date` request property (results return an empty array). To send the email campaign activity on a specific date, specify the date using the `scheduled_date` request property (results return the scheduled date in an array).  \n\nBefore you schedule an email campaign activity, you must update the email campaign activity and specify which contacts you want Constant Contact to send the email to. When you make a PUT call to update an email campaign activity, use the `contact_list_ids` or `segment_ids` array to add contacts.\n\nYou can only schedule email campaign activities that have the `primary_email` role and are in `DRAFT`, `DONE`, or `ERROR` status. When you schedule an email campaign activity in `DONE` status, Constant Contact does not send the email campaign activity to contacts that already received it. Constant Contact only sends the email campaign activity to any new contacts in the contact lists or segment you use.\n"
+      description: 'Use this method to send an email campaign activity to contacts either immediately or on a specific date. To send the email campaign activity immediately, specify `0` for the `scheduled_date` request property (results return an empty array). To send the email campaign activity on a specific date, specify the date using the `scheduled_date` request property (results return the scheduled date in an array).
+
+
+        Before you schedule an email campaign activity, you must update the email campaign activity and specify which contacts you want Constant Contact to send the email to. When you make a PUT call to update an email campaign activity, use the `contact_list_ids` or `segment_ids` array to add contacts.
+
+
+        You can only schedule email campaign activities that have the `primary_email` role and are in `DRAFT`, `DONE`, or `ERROR` status. When you schedule an email campaign activity in `DONE` status, Constant Contact does not send the email campaign activity to contacts that already received it. Constant Contact only sends the email campaign activity to any new contacts in the contact lists or segment you use.'
       operationId: scheduleEmailCampaignActivityUsingPOST
       parameters:
       - name: campaign_activity_id
@@ -152,9 +158,7 @@ paths:
       description: 'Use this method to send a test email to specific email addresses. Test emails allow you to verify how the email campaign activity will look before you send it to contacts. This method uses the `email_addresses` array in the request body to determine the recipients of the test email. The test email does not process any dynamic content in the email campaign activity. Dynamic content includes contact and custom field variables.
 
 
-        You can send up to 50 test emails each day. Each recipient you add to the `email_addresses` array in the request body counts towards this limit. Successfully sending a test email returns a 204 response code without a response body.
-
-        '
+        You can send up to 50 test emails each day. Each recipient you add to the `email_addresses` array in the request body counts towards this limit. Successfully sending a test email returns a 204 response code without a response body.'
       operationId: testSendCampaignActivityUsingPOST
       parameters:
       - name: campaign_activity_id
@@ -206,9 +210,7 @@ paths:
         Custom code emails (`format_type` 5) use the Constant Contact account owner''s contact information to process contact, custom field, and account variables in the preview.
 
 
-        This method returns the HTML preview encoded as a JSON string. You will need to decode the string before you can use it as valid HTML.
-
-        '
+        This method returns the HTML preview encoded as a JSON string. You will need to decode the string before you can use it as valid HTML.'
       operationId: retrieveEmailCampaignActivityPreviewUsingGET
       parameters:
       - name: campaign_activity_id
@@ -251,7 +253,13 @@ paths:
       tags:
       - Email Scheduling
       summary: GET the Send History of an Email Campaign Activity
-      description: "Use this method to return the send history of an email campaign activity. This method returns the send history as an array containing an object for each time you sent a specific email campaign activity to contacts. \n\nEach send history object contains the email campaign activity send date, the number of contacts it was sent to, and the contact lists or segments used to send it. Each send history object also includes if the send attempt completed or encountered an error, and the reason why each error occurred. This method returns results in ascending order starting with the first send attempt. \n\nIf the email campaign activity has not been sent to contacts, this method returns a 200 response and an empty array.\n"
+      description: 'Use this method to return the send history of an email campaign activity. This method returns the send history as an array containing an object for each time you sent a specific email campaign activity to contacts.
+
+
+        Each send history object contains the email campaign activity send date, the number of contacts it was sent to, and the contact lists or segments used to send it. Each send history object also includes if the send attempt completed or encountered an error, and the reason why each error occurred. This method returns results in ascending order starting with the first send attempt.
+
+
+        If the email campaign activity has not been sent to contacts, this method returns a 200 response and an empty array.'
       operationId: retrieveEmailSendHistoryUsingGET
       parameters:
       - name: campaign_activity_id
@@ -299,6 +307,41 @@ components:
             type: string
             format: date-time
             description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates.
+    EmailCampaignActivityPreview:
+      type: object
+      properties:
+        campaign_activity_id:
+          type: string
+          example: 4c08372c-957a-48b5-bc45-72c7f00796cd
+          description: The unique ID for an email campaign activity.
+        from_email:
+          type: string
+          example: jdodge@constantconatct.com
+          description: The "from email" email header for the email campaign activity.
+        from_name:
+          type: string
+          example: Jake Dodge
+          description: The "from name" email header for the email campaign activity.
+        preheader:
+          type: string
+          example: You don't want to miss this.
+          description: The email preheader for the email campaign activity. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
+        preview_html_content:
+          type: string
+          example: <html><body> <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>
+          description: An HTML preview of the email campaign activity.
+        preview_text_content:
+          type: string
+          example: Email Content
+          description: A plain text preview of the email campaign activity.
+        reply_to_email:
+          type: string
+          example: jdodge@constantcontact.com
+          description: The email "Reply To Email" field for the email campaign activity.
+        subject:
+          type: string
+          example: Informed Daily Digest
+          description: The email "Subject" field for the email campaign activity.
     EmailTestSendInput:
       type: object
       required:
@@ -360,41 +403,6 @@ components:
             format: int32
             example: 0
             description: "The reason why the send attempt completed or encountered an error. This method returns <code>0</code> if Constant Contact successfully sent the email campaign activity to contacts. Possible <code>reason_code</code> values are: <ul>\n      <li>0 — Constant Contact successfully sent the email to contacts.</li>\n      <li>1 — An error occurred when sending this email. Try scheduling it again, or contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a>.</li>\n      <li>2 — We were unable to send the email. Please contact our <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/5782-contact-an-account-review-and-deliverability-specialist' target='_blank'>Account Review Team</a> for more information.</li>\n      <li>3 — This Constant Contact account cannot currently send emails. This can be due to billing or product expiration.</li>\n      <li>4 — You're not able to send the email to that many contacts. Remove contacts from the contact lists you are using or select a list with fewer contacts.</li>\n      <li>5 — The email is currently in staging. For more information, see the <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/7402-email-staging' target='_blank>Email Staging Knowledge Base article</a>.</li>\n      <li>6 — Constant Contact was unable to finish sending this email to all of the contacts on your list. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>7 — The email contains invalid images. This can be caused when one or more images in the email are longer available in your image library.</li>\n      <li>8 — The email contains a link URL that exceeds 1005 characters.</li>\n      <li>9 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>10 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>11 — This Constant Contact account cannot send survey invitations.</li>\n      <li>12 — Constant Contact attempted to send the email, but there were no eligible contacts to send it to. This can be caused by an invalid contact list, a contact list with no contacts, or a contact list with no new contacts during a resend. This method displays <code>reason_code</code> 12 as a send attempt with a <code>send_status</code> of COMPLETED and a <code>count</code> of 0.</li>\n</ul>\n"
-    EmailCampaignActivityPreview:
-      type: object
-      properties:
-        campaign_activity_id:
-          type: string
-          example: 4c08372c-957a-48b5-bc45-72c7f00796cd
-          description: The unique ID for an email campaign activity.
-        from_email:
-          type: string
-          example: jdodge@constantconatct.com
-          description: The "from email" email header for the email campaign activity.
-        from_name:
-          type: string
-          example: Jake Dodge
-          description: The "from name" email header for the email campaign activity.
-        preheader:
-          type: string
-          example: You don't want to miss this.
-          description: The email preheader for the email campaign activity. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
-        preview_html_content:
-          type: string
-          example: <html><body> <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>
-          description: An HTML preview of the email campaign activity.
-        preview_text_content:
-          type: string
-          example: Email Content
-          description: A plain text preview of the email campaign activity.
-        reply_to_email:
-          type: string
-          example: jdodge@constantcontact.com
-          description: The email "Reply To Email" field for the email campaign activity.
-        subject:
-          type: string
-          example: Informed Daily Digest
-          description: The email "Subject" field for the email campaign activity.
     EmailScheduleInput:
       type: object
       required:

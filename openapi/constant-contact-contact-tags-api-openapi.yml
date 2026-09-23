@@ -19,7 +19,7 @@ paths:
       tags:
       - Contact Tags
       summary: GET Tag Details
-      description: Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see  [Get a Tag's Details](/api_guide/tags_get_single.html).
+      description: Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see Get a Tag's Details.
       operationId: getTag
       parameters:
       - name: tag_id
@@ -66,7 +66,7 @@ paths:
       tags:
       - Contact Tags
       summary: PUT (Update) a Tag
-      description: Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. [Learn more](/api_guide/tags_update.html)
+      description: Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. Learn more
       operationId: putTag
       parameters:
       - name: tag_id
@@ -114,7 +114,7 @@ paths:
       tags:
       - Contact Tags
       summary: DELETE a Tag
-      description: Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. [Learn more](/api_guide/tags_delete.html).
+      description: Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. Learn more.
       operationId: deleteTag
       parameters:
       - name: tag_id
@@ -156,12 +156,16 @@ paths:
       tags:
       - Contact Tags
       summary: GET Details for All Tags
-      description: 'Use this endpoint to get details for all tags in your account. Use the <code>include_count</code> query parameter to include the total number of contacts assigned each tag. Use the <code>limit</code> query parameter to limit the number of tag results returned per page. To get the next page of results, copy the <code>cursor={the cursor ID}</code> from the resulting href link and add it (<code>&</code>) to the URL. For example:
+      description: 'Use this endpoint to get details for all tags in your account. Use the include_count query parameter to include the total number of contacts assigned each tag. Use the limit query parameter to limit the number of tag results returned per page. To get the next page of results, copy the cursor={the cursor ID} from the resulting href link and add it (&) to the URL. For example:
 
 
-        <p><code>/v3/contact_tags?limit=1&cursor=</code></p><p><code>bGltaXQ9MSZuZXh0PTJjZDgwMjdhLTc4YzAtMTFlOS1iZmQwLWZhMTYzZTZiMDFjMQ=</code></p>
+        /v3/contact_tags?limit=1&cursor=
 
-        To learn more, see [Get Tags](/api_guide/tags_get.html).'
+
+        bGltaXQ9MSZuZXh0PTJjZDgwMjdhLTc4YzAtMTFlOS1iZmQwLWZhMTYzZTZiMDFjMQ=
+
+
+        To learn more, see Get Tags.'
       operationId: getTags
       parameters:
       - name: limit
@@ -211,7 +215,7 @@ paths:
       tags:
       - Contact Tags
       summary: POST (Create) a Tag
-      description: Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. [Learn more](/api_guide/tags_create.html).
+      description: Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. Learn more.
       operationId: postTag
       responses:
         '201':
@@ -248,87 +252,6 @@ paths:
         required: true
 components:
   schemas:
-    reportingNext:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
-    tagsActivityLinks:
-      type: object
-      properties:
-        self:
-          type: object
-          description: The link returned in the response that you use to retrieve the status for the specified activity.
-          properties:
-            href:
-              type: string
-              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    ActivityErrors:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Message describing the error condition.
-          readOnly: true
-    Tag:
-      type: object
-      properties:
-        tag_id:
-          type: string
-          format: uuid
-          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          description: The ID that uniquely identifies a tag (UUID format)
-        name:
-          type: string
-          example: Gold card member
-          description: The unique tag name.
-        contacts_count:
-          type: integer
-          example: 325
-          description: The total number of contacts who are assigned this tag.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The system generated date and time when the tag was created (ISO-8601 format).
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: The system generated date and time when the tag was last updated (ISO-8601 format).
-          readOnly: true
-        tag_source:
-          type: string
-          example: ESTY
-          description: The source used to tag contacts.
-          readOnly: true
-    ActivityGenericStatus:
-      type: object
-      properties:
-        items_total_count:
-          type: integer
-          example: 89
-          description: The total number of tags that this activity will delete.
-          readOnly: true
-        items_completed_count:
-          type: integer
-          example: 89
-          description: The number of tags that this activity has currently deleted.
-          readOnly: true
-    Tags:
-      type: object
-      properties:
-        tags:
-          type: array
-          description: Lists all tags and provides tag details.
-          items:
-            $ref: '#/components/schemas/Tag'
-        _links:
-          description: HAL property that contains next link if applicable.
-          $ref: '#/components/schemas/tagsPagingLinks'
     TagPut:
       type: object
       required:
@@ -340,21 +263,6 @@ components:
           description: The new tag name to use. The tag name must be unique.
           minLength: 1
           maxLength: 255
-    TagPost:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: Silver card member
-          description: Specify a unique name to use to identify the tag. Tag names must be at least one character in length and not more than 255 characters.
-          minLength: 1
-          maxLength: 255
-        tag_source:
-          type: string
-          example: ESTY
-          description: The source used to identify the contacts to tag.
     tagsLinks:
       type: object
       properties:
@@ -363,6 +271,16 @@ components:
         next:
           description: Contains the next page link, if applicable.
           $ref: '#/components/schemas/reportingNext'
+    tagsActivityLinks:
+      type: object
+      properties:
+        self:
+          type: object
+          description: The link returned in the response that you use to retrieve the status for the specified activity.
+          properties:
+            href:
+              type: string
+              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
     ActivityGeneric:
       type: object
       required:
@@ -404,12 +322,98 @@ components:
           $ref: '#/components/schemas/ActivityGenericStatus'
         _links:
           $ref: '#/components/schemas/tagsActivityLinks'
+    ActivityGenericStatus:
+      type: object
+      properties:
+        items_total_count:
+          type: integer
+          example: 89
+          description: The total number of tags that this activity will delete.
+          readOnly: true
+        items_completed_count:
+          type: integer
+          example: 89
+          description: The number of tags that this activity has currently deleted.
+          readOnly: true
+    Tags:
+      type: object
+      properties:
+        tags:
+          type: array
+          description: Lists all tags and provides tag details.
+          items:
+            $ref: '#/components/schemas/Tag'
+        _links:
+          description: HAL property that contains next link if applicable.
+          $ref: '#/components/schemas/tagsPagingLinks'
+    Tag:
+      type: object
+      properties:
+        tag_id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          description: The ID that uniquely identifies a tag (UUID format)
+        name:
+          type: string
+          example: Gold card member
+          description: The unique tag name.
+        contacts_count:
+          type: integer
+          example: 325
+          description: The total number of contacts who are assigned this tag.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The system generated date and time when the tag was created (ISO-8601 format).
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: The system generated date and time when the tag was last updated (ISO-8601 format).
+          readOnly: true
+        tag_source:
+          type: string
+          example: ESTY
+          description: The source used to tag contacts.
+          readOnly: true
+    ActivityErrors:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message describing the error condition.
+          readOnly: true
     tagsPagingLinks:
       type: object
       properties:
         next:
           description: The link to the next page of results.
           $ref: '#/components/schemas/tagsLinks'
+    TagPost:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Silver card member
+          description: Specify a unique name to use to identify the tag. Tag names must be at least one character in length and not more than 255 characters.
+          minLength: 1
+          maxLength: 255
+        tag_source:
+          type: string
+          example: ESTY
+          description: The source used to identify the contacts to tag.
+    reportingNext:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

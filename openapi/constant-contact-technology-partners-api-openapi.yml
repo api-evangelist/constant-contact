@@ -23,7 +23,7 @@ paths:
 
         Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.
 
-        For more use case information, see [Get all Partner Client Accounts](/api_guide/partners_accts_get.html) in the API guide.'
+        For more use case information, see Get all Partner Client Accounts in the API guide.'
       operationId: getPartnerSiteOwners
       parameters:
       - name: offset
@@ -80,7 +80,22 @@ paths:
       tags:
       - Technology Partners
       summary: POST (create) a Partner Client Account
-      description: "Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.\n\nNewly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.\n\nIf a field validation error occurs, a 400 response message is returned.\n\nIf provisioning does not complete successfully due to unavailable dependencies, such as database or dependent services, a 503 response message is returned. By default, the client account provision data is stored and processed when provisioning becomes available.\n\nIf the partner client account has the Single Sign On (SSO) for all users feature enabled, all users in the client account can sign into the account using SSO. This feature must be set up through the Constant Contact Partner team. For feature details, see [Configuring Identity Provider Initiated SSO](/api_guide/partner_sso_config.html). Some client account features will be supported in future releases. \n\nFor more use case information, see [Create a new Partner Client Account](/api_guide/partners_accts_create.html) in the API guide."
+      description: 'Use this POST method to create a new Constant Contact client account under your partner account, set up the billing plan for the account, and to add the new client to the default contact list.
+
+
+        Newly created accounts are free trials which give the user up to 60 days to try Constant Contact before buying. Trial accounts have limits depending on the services that are included.
+
+
+        If a field validation error occurs, a 400 response message is returned.
+
+
+        If provisioning does not complete successfully due to unavailable dependencies, such as database or dependent services, a 503 response message is returned. By default, the client account provision data is stored and processed when provisioning becomes available.
+
+
+        If the partner client account has the Single Sign On (SSO) for all users feature enabled, all users in the client account can sign into the account using SSO. This feature must be set up through the Constant Contact Partner team. For feature details, see Configuring Identity Provider Initiated SSO. Some client account features will be supported in future releases.
+
+
+        For more use case information, see Create a new Partner Client Account in the API guide.'
       operationId: provision
       responses:
         '201':
@@ -125,7 +140,7 @@ paths:
 
         If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported. Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.
 
-        For more use case information, see [Get Billing Plan Details for a Client Account](/api_guide/partners_plans_get.html) in the API guide.'
+        For more use case information, see Get Billing Plan Details for a Client Account in the API guide.'
       operationId: getPlan
       parameters:
       - name: encoded_account_id
@@ -173,7 +188,7 @@ paths:
         Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and `plan_type` enum values will continue to be supported.
 
 
-        For more use case information, see [PUT Billing Plan Details for a Client Account](/api_guide/partners_plans_update.html) in the API guide.'
+        For more use case information, see PUT Billing Plan Details for a Client Account in the API guide.'
       operationId: setPlan
       parameters:
       - name: encoded_account_id
@@ -219,7 +234,16 @@ paths:
       tags:
       - Technology Partners
       summary: PUT Cancel the Billing Plan for a Client Account
-      description: "Use this PUT method to cancel a client's Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.\n\n\n  To get a list of all canceled client accounts (`\"billing_status\": \"Canceled\"`), make a `GET` call to the `/partner/accounts` endpoint.\n\n  Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.\n\n  For more use case information, see [Cancel the Billing Plan for a Client Account](/api_guide/partners_plans_cancel.html) in the API guide.\""
+      description: 'Use this PUT method to cancel a client''s Constant Contact account. If the specified client account or technology partner account does not exist, the system returns a 404 error response. If the client account exists under a different technology partner account, the system returns a 400 error response.
+
+
+        To get a list of all canceled client accounts (`"billing_status": "Canceled"`), make a `GET` call to the `/partner/accounts` endpoint.
+
+
+        Only technology partners can access partner endpoints and partner endpoints cannot be tested using the API reference tester.
+
+
+        For more use case information, see Cancel the Billing Plan for a Client Account in the API guide."'
       operationId: cancelAccount
       parameters:
       - name: encoded_account_id
@@ -414,79 +438,6 @@ paths:
         required: true
 components:
   schemas:
-    PathParamObject:
-      type: object
-      properties:
-        path_param_key:
-          type: string
-          example: contact_id
-          description: The name of the path parameter.
-        path_param_value:
-          type: string
-          example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
-          description: The value of the path parameter.
-    ProvisionResponse:
-      type: object
-      properties:
-        encoded_account_id:
-          type: string
-          example: a08e1izzh8t9
-          description: The system generated ID used to uniquely identify a client account.
-        provision_uuid:
-          type: string
-          example: x9xx2ede-5a58-4e23-8168-25930c5x7bxb
-          description: The system generated ID used to uniquely identify the provisioning of a client account.
-    PaginationLinks:
-      type: object
-      properties:
-        next:
-          description: Contains the next page link, if applicable.
-          $ref: '#/components/schemas/partnersLink'
-    TierObject:
-      type: object
-      properties:
-        usage_type:
-          type: string
-          example: CONTACTS
-          description: Identifies the tier usage type that is associated with the billing plan.
-          readOnly: true
-          default: CONTACTS
-        current_usage:
-          type: number
-          format: float
-          example: 10.0
-          description: The number of active contacts (default) used within the current tier.
-          readOnly: true
-        tier:
-          type: integer
-          format: int32
-          example: 1
-          description: "The billing tier level that is associated with a client account. By default, the system determines the tier level to use based on the number of active contacts currently in the client account at the time of billing. Billing tiers may differ. The following shows an example billing tier: <ul>\n  <li>level <code>1</code> = 0 - 500 contacts</li>\n  <li>level <code>2</code> = 501 - 1000 contacts</li>\n  <li>level <code>3</code> = 1001 - ...</li>\n</ul>"
-          readOnly: true
-        tier_min:
-          type: number
-          format: float
-          example: 0.0
-          description: The minimum number of active contacts for the tier level.
-          readOnly: true
-        tier_max:
-          type: number
-          format: float
-          example: 500.0
-          description: The maximum number of active contacts for the tier level.
-          readOnly: true
-        price:
-          type: number
-          format: float
-          example: 20.0
-          description: The billing price set for the tier used to bill the client account each month.
-          readOnly: true
-        currency_code:
-          type: string
-          example: USD
-          description: The currency (ISO currency code) used to price the tier for a client account.
-          readOnly: true
-      description: The usage tier that is associated with a client's Constant Contact account and is used to calculate the monthly billing price.
     PartnerAccountOperationsRequest:
       type: object
       required:
@@ -521,42 +472,17 @@ components:
           items:
             $ref: '#/components/schemas/HeadersObject'
       description: JSON object that contains the fields Constant Contact uses to construct the HTTP request you are sending on behalf of a managed account.
-    AccountCancellation:
+    ProvisionResponse:
       type: object
       properties:
-        reason_id:
-          type: integer
-          format: int32
-          example: 1
-          description: "Specifies the reason that the client is canceling their Constant Contact account as follows:\n  <ul>\n    <li><code>1</code>  Cost Too High</li>\n    <li><code>2</code>  Using A Competitive Service</li>\n    <li><code>3</code>  Not Doing Email Marketing</li>\n    <li><code>11</code> Something Missing Or Not Working </li>\n    <li><code>12</code> Doing It In-House</li>\n    <li><code>14</code> Poor Results</li>\n    <li><code>21</code> Too Difficult To Use</li>\n    <li><code>27</code> Canceled Online by Customer</li>\n    <li><code>30</code> Dissatisfied With Billing Policies</li>\n  </ul>"
-        effective_date:
+        encoded_account_id:
           type: string
-          format: date-time
-          example: '2020-02-06T22:09:15.000Z'
-          description: The client account cancellation date and time in ISO-8601 format.
-      description: Specifies the date and time a client requests to cancel their Constant Contact account and changes the account `billing_status` to `Canceled`. By default, this is the current date and time in ISO format. In the request body, you can optionally specify a future cancellation date (in ISO format) and a reason (`reason_code`) that the client wants to cancel their account.
-    PlanTiersObject:
-      type: object
-      properties:
-        plan_type:
+          example: a08e1izzh8t9
+          description: The system generated ID used to uniquely identify a client account.
+        provision_uuid:
           type: string
-          example: GOLD
-          description: "The billing plan that is associated with a client's Constant Contact account. The billing plan determines which Constant Contact product features that the client account can access. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and <code>plan_type</code> enum values will continue to be supported. <ul>\n  <li><code>TRIAL</code>: Provides limited product features for a non-billed account and the account has an expiration date.</li>\n  <li><code>BRONZE</code>: Billable plan that provides basic email and marketing tools.</li>  \n  <li><code>SILVER</code>: Billable plan that provides all features available in the <code>BRONZE</code> plan, and adds some additional email campaign to features, such as contact segmentation and social media ads integration.</li>\n  <li><code>GOLD</code>: Billable plan that provides all available product features.</li>\n</ul>"
-        current_tiers:
-          type: array
-          description: Lists the billing plan tiers that are currently associated with a client account.
-          items:
-            $ref: '#/components/schemas/TierObject'
-        billing_status:
-          type: string
-          example: Open
-          description: "The client's account billing status. When you first create a client account the <code>billing_status</code> defaults to <code>Trial</code>. Billing status values include:\n  <ul>\n    <li><code>Trial</code> - A non-paying trial client account (default value).</li>\n    <li><code>Open</code> - An active and paying client account.</li>\n    <li><code>Canceled</code> - A canceled client account.</li>\n    <li><code>Trial End</code> - The trial period has ended for this client account.</li>\n  </ul>"
-        billing_day_of_month:
-          type: integer
-          format: int32
-          example: 15
-          description: This property is required when an account is not set up to use single billing. For trial accounts, the value is initially set to <code>null</code>. The value can only be changed when changing the <code>plan_type</code> from a trial account to a different type of plan, otherwise the value you enter is ignored. You can choose to enter a specific day of month or except the default value, which is the day that the <code>plan_type</code> value changes from a trial account plan to a different plan. Valid <code>billing_day_of_month</code> values include <code>1</code> through and including <code>31</code>.
-      description: Specifies client billing plan details including the type of plan, the plan tiers used, the current billing status, and the day of the month that the client is billed. When a client account is first provisioned, the `plan_type` defaults to a `Trial` account. After you change an account `billing_status` from `Trial` to any other `billing_status`, you cannot change it back to a `Trial` account.
+          example: x9xx2ede-5a58-4e23-8168-25930c5x7bxb
+          description: The system generated ID used to uniquely identify the provisioning of a client account.
     PartnerUnsubscribeResponse:
       type: object
       properties:
@@ -565,68 +491,17 @@ components:
           example: 5
           description: The number of contacts that were successfully unsubscribed.
       description: Response indicating the number of contacts that were successfully unsubscribed.
-    HeadersObject:
+    PathParamObject:
       type: object
       properties:
-        header_key:
+        path_param_key:
           type: string
-          example: Accept
-          description: The name of the header.
-        header_value:
+          example: contact_id
+          description: The name of the path parameter.
+        path_param_value:
           type: string
-          example: application/json
-          description: The value of the header.
-    partnersLink:
-      type: object
-      properties:
-        href:
-          type: string
-    SSOUser:
-      type: object
-      required:
-      - contact_email
-      - external_id
-      - external_provider
-      - first_name
-      - last_name
-      - login_name
-      - role_name
-      properties:
-        first_name:
-          type: string
-          example: Josie
-          description: The client account user's first name.
-          maxLength: 80
-        last_name:
-          type: string
-          example: Lang
-          description: The client account user's last name.
-          maxLength: 80
-        role_name:
-          type: string
-          example: campaign_creator
-          description: The role (<code>account_manager</code> or <code>campaign_creator</code>) to assign the client account user.
-        contact_email:
-          type: string
-          example: josie.lang@gmail.com
-          description: The unique email address to associate with the new client account user.
-          maxLength: 80
-        login_name:
-          type: string
-          example: josie.lang
-          description: The login name to associate with the new client account user.
-          maxLength: 50
-        external_id:
-          type: string
-          example: '23378234122161121'
-          description: The unique ID used to identify the client account user to the external authenticator.
-          maxLength: 255
-        external_provider:
-          type: string
-          example: Yahoo
-          description: The unique name used to identify the external provider used to authenticate the client account user. For a list of external providers, contact the Constant Contact Partner Team.
-          maxLength: 80
-      description: Specify client account user's details. All fields are required.
+          example: 04fe9a-a579-43c5-bb1a-58ed29bf0a6a
+          description: The value of the path parameter.
     PartnerAccount:
       type: object
       required:
@@ -673,6 +548,111 @@ components:
         _links:
           description: HAL property that contains the next link, if applicable.
           $ref: '#/components/schemas/PaginationLinks'
+    AccountCancellation:
+      type: object
+      properties:
+        reason_id:
+          type: integer
+          format: int32
+          example: 1
+          description: "Specifies the reason that the client is canceling their Constant Contact account as follows:\n  <ul>\n    <li><code>1</code>  Cost Too High</li>\n    <li><code>2</code>  Using A Competitive Service</li>\n    <li><code>3</code>  Not Doing Email Marketing</li>\n    <li><code>11</code> Something Missing Or Not Working </li>\n    <li><code>12</code> Doing It In-House</li>\n    <li><code>14</code> Poor Results</li>\n    <li><code>21</code> Too Difficult To Use</li>\n    <li><code>27</code> Canceled Online by Customer</li>\n    <li><code>30</code> Dissatisfied With Billing Policies</li>\n  </ul>"
+        effective_date:
+          type: string
+          format: date-time
+          example: '2020-02-06T22:09:15.000Z'
+          description: The client account cancellation date and time in ISO-8601 format.
+      description: Specifies the date and time a client requests to cancel their Constant Contact account and changes the account `billing_status` to `Canceled`. By default, this is the current date and time in ISO format. In the request body, you can optionally specify a future cancellation date (in ISO format) and a reason (`reason_code`) that the client wants to cancel their account.
+    PlanInfo:
+      type: object
+      properties:
+        plan_type:
+          type: string
+          example: GOLD
+          description: "Use this property to update the client account billing plan to a different billing plan. After changing the <code>plan_type</code> from <code>TRIAL</code> to any other billing plan type, you cannot change it back to <code>TRIAL</code>.\n  <ul>\n    <li><code>TRIAL</code>: A non-billable account with an expiration date that allows clients to try Constant Contact product features.</li>\n     <li><code>GOLD</code>: A billable client account plan.</li>\n     <li><code>SILVER</code>: A billable client account plan.</li>\n     <li><code>BRONZE</code>: A billable client account plan.</li>\n  </ul>"
+        plan_group_id:
+          type: integer
+          format: int32
+          example: 152
+          description: Updates an existing client account billing plan group to a new billing plan group. If you don't know the `plan_group_id` to use, contact our API support team.
+        billing_day_of_month:
+          type: integer
+          format: int32
+          example: 15
+          description: This property is required if a client account is not set up to use single billing. You can choose to enter a specific day of the month or accept the default value, which is the day on which the <code>plan_type</code> value changes from a <code>TRIAL</code> plan to a different <code>plan_type</code>. For trial accounts, the value defaults to null. You can only change the <code>billing_day_of_month</code> when changing the <code>plan_type</code> value from <code>TRIAL</code> to a different <code>plan_type</code>, otherwise the value you enter is ignored.
+      description: Specifies the type of billing plan and the billing date to use for a client account.
+    TierObject:
+      type: object
+      properties:
+        usage_type:
+          type: string
+          example: CONTACTS
+          description: Identifies the tier usage type that is associated with the billing plan.
+          readOnly: true
+          default: CONTACTS
+        current_usage:
+          type: number
+          format: float
+          example: 10.0
+          description: The number of active contacts (default) used within the current tier.
+          readOnly: true
+        tier:
+          type: integer
+          format: int32
+          example: 1
+          description: "The billing tier level that is associated with a client account. By default, the system determines the tier level to use based on the number of active contacts currently in the client account at the time of billing. Billing tiers may differ. The following shows an example billing tier: <ul>\n  <li>level <code>1</code> = 0 - 500 contacts</li>\n  <li>level <code>2</code> = 501 - 1000 contacts</li>\n  <li>level <code>3</code> = 1001 - ...</li>\n</ul>"
+          readOnly: true
+        tier_min:
+          type: number
+          format: float
+          example: 0.0
+          description: The minimum number of active contacts for the tier level.
+          readOnly: true
+        tier_max:
+          type: number
+          format: float
+          example: 500.0
+          description: The maximum number of active contacts for the tier level.
+          readOnly: true
+        price:
+          type: number
+          format: float
+          example: 20.0
+          description: The billing price set for the tier used to bill the client account each month.
+          readOnly: true
+        currency_code:
+          type: string
+          example: USD
+          description: The currency (ISO currency code) used to price the tier for a client account.
+          readOnly: true
+      description: The usage tier that is associated with a client's Constant Contact account and is used to calculate the monthly billing price.
+    PaginationLinks:
+      type: object
+      properties:
+        next:
+          description: Contains the next page link, if applicable.
+          $ref: '#/components/schemas/partnersLink'
+    QueryParamObject:
+      type: object
+      properties:
+        query_param_key:
+          type: string
+          example: include
+          description: The name of the query parameter.
+        query_param_value:
+          type: string
+          example: list_memberships
+          description: The value of the query parameter.
+    HeadersObject:
+      type: object
+      properties:
+        header_key:
+          type: string
+          example: Accept
+          description: The name of the header.
+        header_value:
+          type: string
+          example: application/json
+          description: The value of the header.
     Provision:
       type: object
       required:
@@ -777,35 +757,79 @@ components:
           example: Yahoo
           description: The name of the provider who externally authenticates this customer. For example, PayPal or Yahoo. Do not use the <code>password</code> property when using an external authenticator.
           maxLength: 80
-    PlanInfo:
+    SSOUser:
+      type: object
+      required:
+      - contact_email
+      - external_id
+      - external_provider
+      - first_name
+      - last_name
+      - login_name
+      - role_name
+      properties:
+        first_name:
+          type: string
+          example: Josie
+          description: The client account user's first name.
+          maxLength: 80
+        last_name:
+          type: string
+          example: Lang
+          description: The client account user's last name.
+          maxLength: 80
+        role_name:
+          type: string
+          example: campaign_creator
+          description: The role (<code>account_manager</code> or <code>campaign_creator</code>) to assign the client account user.
+        contact_email:
+          type: string
+          example: josie.lang@gmail.com
+          description: The unique email address to associate with the new client account user.
+          maxLength: 80
+        login_name:
+          type: string
+          example: josie.lang
+          description: The login name to associate with the new client account user.
+          maxLength: 50
+        external_id:
+          type: string
+          example: '23378234122161121'
+          description: The unique ID used to identify the client account user to the external authenticator.
+          maxLength: 255
+        external_provider:
+          type: string
+          example: Yahoo
+          description: The unique name used to identify the external provider used to authenticate the client account user. For a list of external providers, contact the Constant Contact Partner Team.
+          maxLength: 80
+      description: Specify client account user's details. All fields are required.
+    partnersLink:
+      type: object
+      properties:
+        href:
+          type: string
+    PlanTiersObject:
       type: object
       properties:
         plan_type:
           type: string
           example: GOLD
-          description: "Use this property to update the client account billing plan to a different billing plan. After changing the <code>plan_type</code> from <code>TRIAL</code> to any other billing plan type, you cannot change it back to <code>TRIAL</code>.\n  <ul>\n    <li><code>TRIAL</code>: A non-billable account with an expiration date that allows clients to try Constant Contact product features.</li>\n     <li><code>GOLD</code>: A billable client account plan.</li>\n     <li><code>SILVER</code>: A billable client account plan.</li>\n     <li><code>BRONZE</code>: A billable client account plan.</li>\n  </ul>"
-        plan_group_id:
-          type: integer
-          format: int32
-          example: 152
-          description: Updates an existing client account billing plan group to a new billing plan group. If you don't know the `plan_group_id` to use, contact our API support team.
+          description: "The billing plan that is associated with a client's Constant Contact account. The billing plan determines which Constant Contact product features that the client account can access. If you are not on the latest billing plan, contact the Constant Contact Partner Team. However, older billing plans and <code>plan_type</code> enum values will continue to be supported. <ul>\n  <li><code>TRIAL</code>: Provides limited product features for a non-billed account and the account has an expiration date.</li>\n  <li><code>BRONZE</code>: Billable plan that provides basic email and marketing tools.</li>  \n  <li><code>SILVER</code>: Billable plan that provides all features available in the <code>BRONZE</code> plan, and adds some additional email campaign to features, such as contact segmentation and social media ads integration.</li>\n  <li><code>GOLD</code>: Billable plan that provides all available product features.</li>\n</ul>"
+        current_tiers:
+          type: array
+          description: Lists the billing plan tiers that are currently associated with a client account.
+          items:
+            $ref: '#/components/schemas/TierObject'
+        billing_status:
+          type: string
+          example: Open
+          description: "The client's account billing status. When you first create a client account the <code>billing_status</code> defaults to <code>Trial</code>. Billing status values include:\n  <ul>\n    <li><code>Trial</code> - A non-paying trial client account (default value).</li>\n    <li><code>Open</code> - An active and paying client account.</li>\n    <li><code>Canceled</code> - A canceled client account.</li>\n    <li><code>Trial End</code> - The trial period has ended for this client account.</li>\n  </ul>"
         billing_day_of_month:
           type: integer
           format: int32
           example: 15
-          description: This property is required if a client account is not set up to use single billing. You can choose to enter a specific day of the month or accept the default value, which is the day on which the <code>plan_type</code> value changes from a <code>TRIAL</code> plan to a different <code>plan_type</code>. For trial accounts, the value defaults to null. You can only change the <code>billing_day_of_month</code> when changing the <code>plan_type</code> value from <code>TRIAL</code> to a different <code>plan_type</code>, otherwise the value you enter is ignored.
-      description: Specifies the type of billing plan and the billing date to use for a client account.
-    QueryParamObject:
-      type: object
-      properties:
-        query_param_key:
-          type: string
-          example: include
-          description: The name of the query parameter.
-        query_param_value:
-          type: string
-          example: list_memberships
-          description: The value of the query parameter.
+          description: This property is required when an account is not set up to use single billing. For trial accounts, the value is initially set to <code>null</code>. The value can only be changed when changing the <code>plan_type</code> from a trial account to a different type of plan, otherwise the value you enter is ignored. You can choose to enter a specific day of month or except the default value, which is the day that the <code>plan_type</code> value changes from a trial account plan to a different plan. Valid <code>billing_day_of_month</code> values include <code>1</code> through and including <code>31</code>.
+      description: Specifies client billing plan details including the type of plan, the plan tiers used, the current billing status, and the day of the month that the client is billed. When a client account is first provisioned, the `plan_type` defaults to a `Trial` account. After you change an account `billing_status` from `Trial` to any other `billing_status`, you cannot change it back to a `Trial` account.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

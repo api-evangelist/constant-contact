@@ -19,9 +19,7 @@ paths:
       tags:
       - Automations
       summary: List All Automations
-      description: 'Use this method to list all available automation workflows.
-
-        '
+      description: Use this method to list all available automation workflows.
       operationId: listAutomations
       parameters:
       - name: channel
@@ -93,9 +91,7 @@ paths:
       description: 'Use this method to create a new automation campaign workflow from scratch by providing trigger information. For example, an automation that triggers when contacts join a list or an automation that triggers for a contact birthday.
 
 
-        Some common automation examples are included in the request body example dropdown menu.
-
-        '
+        Some common automation examples are included in the request body example dropdown menu.'
       operationId: createAutomationCampaignUsingPost
       parameters:
       - name: workflowName
@@ -213,6 +209,71 @@ paths:
         required: true
 components:
   schemas:
+    AutomationStructuredTag:
+      type: object
+      properties:
+        display_value:
+          type: string
+          example: All from-scratch paths
+          description: Human-readable display value
+        key:
+          type: string
+          example: GOAL
+          description: Tag key
+        value:
+          type: string
+          example: goal_undefined
+          description: Tag value
+      description: A structured tag with key, value, and display value
+    ParameterDto:
+      type: object
+      properties:
+        operator:
+          type: string
+          description: Comparison operator for the parameter (e.g. EQUALS, CONTAINS, NOT_EQUALS).
+        parameter_name:
+          type: string
+          description: Name of the parameter (e.g., list_ids, create_source, url).
+        parameter_list_value:
+          type: array
+          description: '[DEPRECATED] List of string values for the parameter when type is LIST. Supported for backwards compatibility; prefer parameter_value.'
+          items:
+            type: string
+          x-deprecated: true
+        parameter_string_value:
+          type: string
+          description: '[DEPRECATED] String value for the parameter when type is STRING. Supported for backwards compatibility; prefer parameter_value.'
+          x-deprecated: true
+        parameter_value:
+          type: object
+          description: 'The parameter value: a string or array of strings depending on type (e.g., STRING → single value, LIST → array of list IDs). Use this instead of parameter_string_value / parameter_list_value moving forward.'
+          properties: {}
+        rule:
+          type: object
+          description: Rule structure for RULE-type parameters (e.g., engagement level triggers).
+          properties: {}
+        type:
+          type: string
+          description: 'Parameter type. Common trigger types: STRING (single value), LIST (array), WEB_TRACKING (page visit).'
+      description: A single trigger parameter used to filter or configure the trigger (e.g., list IDs). Use parameter_value (preferred); parameter_string_value and parameter_list_value are supported for backwards compatibility.
+    TimeoutDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          example: 10.0
+          description: Amount of time for startup timeout.
+        time_unit:
+          type: string
+          example: HOURS
+          description: Unit of time for startup timeout.
+    AutomationFlow:
+      type: object
+      properties:
+        workflow_def:
+          $ref: '#/components/schemas/AutomationWorkflowDef'
+      description: The workflow flow definition.
     WorkflowParametersDto:
       type: object
       properties:
@@ -231,123 +292,40 @@ components:
         discount_code:
           type: string
           description: Discount code used in discount block
-    TriggerFilterRuleDto:
+    TriggerDto:
       type: object
       properties:
-        compound_rule_type:
+        trigger_def:
+          $ref: '#/components/schemas/TriggerDefDto'
+        trigger_filter:
+          $ref: '#/components/schemas/TriggerFilterDto'
+        trigger_version:
           type: string
-        left:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        property_comparison:
-          $ref: '#/components/schemas/PropertyComparisonDto'
-        right:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        rule:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        target:
+          example: 1.0.0
+        workflow_filter:
           type: string
-        target_type:
-          type: string
-        type:
-          type: string
-    AutomationStructuredTag:
+    PropertyComparisonDto:
       type: object
       properties:
-        display_value:
+        argument:
           type: string
-          example: All from-scratch paths
-          description: Human-readable display value
-        key:
-          type: string
-          example: GOAL
-          description: Tag key
-        value:
-          type: string
-          example: goal_undefined
-          description: Tag value
-      description: A structured tag with key, value, and display value
-    TriggerFilterDto:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        version:
-          type: string
-          description: Version number for the trigger filter.
-    AutomationFlow:
-      type: object
-      properties:
-        workflow_def:
-          $ref: '#/components/schemas/AutomationWorkflowDef'
-      description: The workflow flow definition.
-    TriggerDefDto:
-      type: object
-      properties:
-        parameters:
+        array_argument:
           type: array
-          description: List of parameters that filter or configure the trigger (e.g., list IDs for list_join).
           items:
-            $ref: '#/components/schemas/ParameterDto'
-        action_name:
+            type: string
+        operator:
           type: string
-          example: list_join
-          description: Action name. Required for type Action or Date. Identifies the specific trigger (e.g., list_join, calendar_date, visits_page).
-        bounds:
+        property_name:
+          type: string
+        string_map_argument:
           type: object
-          description: 'Time window for Date-type triggers. Sets when the trigger runs relative to
-
-            the contact''s date. Uses ISO 8601 period format (e.g., P0D, P7D, P-7D).
-
-            | Example Scenario | after  | before |
-
-            |----------|--------|--------|
-
-            | On the day | `P0D`  | `P1D` |
-
-            | 7 days before | `P-7D` | `P-6D` |
-
-            | 7 days after | `P7D`  | `P8D` |
-
-            '
           properties:
-            after:
+            custom_field_Id:
               type: string
-              description: Start of the window relative to the contact date in ISO 8601 period format (e.g., P0D = on the day, P-7D = 7 days before).
-            before:
+            value:
               type: string
-              description: End of the window relative to the contact date in ISO 8601 period format (e.g., P1D = 1 day after, P0D = on the day).
-        engagement_level:
-          type: string
-          example: SOMEWHAT
-          description: Engagement level for engagement_level triggers (e.g., SOMEWHAT, LEAST).
-        segment_id:
-          type: string
-          description: Segment ID for segment_join triggers.
-        trigger_date:
-          type: object
-          description: Date configuration for Date-type triggers (e.g., birthday, anniversary). Specifies which contact fields supply the date.
-          properties:
-            date_field:
-              type: string
-              description: Contact field that contains the full date. Must include 'record.' prefix (e.g., record.anniversary).
-            day_field:
-              type: string
-              description: Contact field that contains the day-of-month value. Must include 'record.' prefix (e.g., record.birthday_day).
-            month_field:
-              type: string
-              description: Contact field that contains the month value. Must include 'record.' prefix (e.g., record.birthday_month).
-            type:
-              type: string
-              description: Where the date is represented (e.g., Profile).
         type:
           type: string
-          example: Action
-          description: Trigger type. Determines how the trigger is evaluated (e.g., Action, Date, segment_join).
-        unique_by:
-          type: string
-          example: list_ids
-          description: 'Deduplication key: run the workflow at most once per contact per this value (e.g., list_ids, contact_id).'
-      description: Defines when the workflow starts (e.g., list join, date-based).
     CorrelationMetadataDto:
       type: object
       properties:
@@ -363,75 +341,6 @@ components:
           type: string
           example: 861dd493-540a-4e3e-b457-44cfde28a5f0
           description: Automation campaign identifier
-    TimeoutDto:
-      type: object
-      properties:
-        amount:
-          type: number
-          format: float
-          example: 10.0
-          description: Amount of time for startup timeout.
-        time_unit:
-          type: string
-          example: HOURS
-          description: Unit of time for startup timeout.
-    AutomationFlowSummaryDto:
-      type: object
-      properties:
-        active_state:
-          type: string
-          example: ACTIVE
-          description: State of the active definition
-        created_by_id:
-          type: string
-          example: '123456789'
-          description: User ID who created the flow
-        created_date:
-          type: string
-          example: '2025-09-25T20:06:50.020+00:00'
-          description: Date the flow was created
-        description:
-          type: string
-          example: Automation flow for contact signups
-          description: Description of the automation flow
-        draft_state:
-          type: string
-          example: PROMOTED
-          description: State of the draft definition
-        id:
-          type: string
-          example: 83345850-144a-4dcf-b4dc-88aa1287cffe
-          description: Automation flow ID
-        name:
-          type: string
-          example: Welcome series
-          description: Display name of the automation flow
-        promoted_by_id:
-          type: string
-          example: '123456789'
-          description: User ID who promoted the flow
-        promoted_date:
-          type: string
-          example: '2025-09-25T20:06:50.970+00:00'
-          description: Date the flow was promoted
-        status:
-          type: string
-          example: ACTIVE
-          description: Computed display status of the workflow
-        structured_tags:
-          type: array
-          description: Structured tags associated with the automation flow
-          items:
-            $ref: '#/components/schemas/StructuredTagDto'
-        template_id:
-          type: string
-          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
-          description: Template ID the flow was created from
-        update_date:
-          type: string
-          example: '2025-09-25T20:06:50.970+00:00'
-          description: Date the flow was last updated
-      description: Summary of an automation flow
     TaskDto:
       type: object
       properties:
@@ -505,28 +414,14 @@ components:
             $ref: '#/components/schemas/TaskDto'
         timeout:
           $ref: '#/components/schemas/TimeoutDto'
-    PropertyComparisonDto:
+    TriggerFilterDto:
       type: object
       properties:
-        argument:
+        rule:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        version:
           type: string
-        array_argument:
-          type: array
-          items:
-            type: string
-        operator:
-          type: string
-        property_name:
-          type: string
-        string_map_argument:
-          type: object
-          properties:
-            custom_field_Id:
-              type: string
-            value:
-              type: string
-        type:
-          type: string
+          description: Version number for the trigger filter.
     AutomationWorkflowDef:
       type: object
       properties:
@@ -557,71 +452,146 @@ components:
       properties:
         automation_flow:
           $ref: '#/components/schemas/AutomationCampaign'
-    StructuredTagDto:
-      type: object
-      properties:
-        display_value:
-          type: string
-          example: All from-scratch paths
-          description: Human-readable display value
-        key:
-          type: string
-          example: GOAL
-          description: Tag key
-        value:
-          type: string
-          example: goal_undefined
-          description: Tag value
-      description: A structured tag with key, value, and display value
-    TriggerDto:
-      type: object
-      properties:
-        trigger_def:
-          $ref: '#/components/schemas/TriggerDefDto'
-        trigger_filter:
-          $ref: '#/components/schemas/TriggerFilterDto'
-        trigger_version:
-          type: string
-          example: 1.0.0
-        workflow_filter:
-          type: string
-    ParameterDto:
-      type: object
-      properties:
-        operator:
-          type: string
-          description: Comparison operator for the parameter (e.g. EQUALS, CONTAINS, NOT_EQUALS).
-        parameter_name:
-          type: string
-          description: Name of the parameter (e.g., list_ids, create_source, url).
-        parameter_list_value:
-          type: array
-          description: '[DEPRECATED] List of string values for the parameter when type is LIST. Supported for backwards compatibility; prefer parameter_value.'
-          items:
-            type: string
-          x-deprecated: true
-        parameter_string_value:
-          type: string
-          description: '[DEPRECATED] String value for the parameter when type is STRING. Supported for backwards compatibility; prefer parameter_value.'
-          x-deprecated: true
-        parameter_value:
-          type: object
-          description: 'The parameter value: a string or array of strings depending on type (e.g., STRING → single value, LIST → array of list IDs). Use this instead of parameter_string_value / parameter_list_value moving forward.'
-          properties: {}
-        rule:
-          type: object
-          description: Rule structure for RULE-type parameters (e.g., engagement level triggers).
-          properties: {}
-        type:
-          type: string
-          description: 'Parameter type. Common trigger types: STRING (single value), LIST (array), WEB_TRACKING (page visit).'
-      description: A single trigger parameter used to filter or configure the trigger (e.g., list IDs). Use parameter_value (preferred); parameter_string_value and parameter_list_value are supported for backwards compatibility.
     TaskCorrelationMetadataDto:
       properties:
         campaign_activity_id:
           type: string
           example: 0434c0ee-bdd2-47ee-8634-fa163e6b01c1
           description: Campaign activity identifier
+    TriggerDefDto:
+      type: object
+      properties:
+        parameters:
+          type: array
+          description: List of parameters that filter or configure the trigger (e.g., list IDs for list_join).
+          items:
+            $ref: '#/components/schemas/ParameterDto'
+        action_name:
+          type: string
+          example: list_join
+          description: Action name. Required for type Action or Date. Identifies the specific trigger (e.g., list_join, calendar_date, visits_page).
+        bounds:
+          type: object
+          description: 'Time window for Date-type triggers. Sets when the trigger runs relative to
+
+            the contact''s date. Uses ISO 8601 period format (e.g., P0D, P7D, P-7D).
+
+            | Example Scenario | after  | before |
+
+            |----------|--------|--------|
+
+            | On the day | `P0D`  | `P1D` |
+
+            | 7 days before | `P-7D` | `P-6D` |
+
+            | 7 days after | `P7D`  | `P8D` |
+
+            '
+          properties:
+            after:
+              type: string
+              description: Start of the window relative to the contact date in ISO 8601 period format (e.g., P0D = on the day, P-7D = 7 days before).
+            before:
+              type: string
+              description: End of the window relative to the contact date in ISO 8601 period format (e.g., P1D = 1 day after, P0D = on the day).
+        engagement_level:
+          type: string
+          example: SOMEWHAT
+          description: Engagement level for engagement_level triggers (e.g., SOMEWHAT, LEAST).
+        segment_id:
+          type: string
+          description: Segment ID for segment_join triggers.
+        trigger_date:
+          type: object
+          description: Date configuration for Date-type triggers (e.g., birthday, anniversary). Specifies which contact fields supply the date.
+          properties:
+            date_field:
+              type: string
+              description: Contact field that contains the full date. Must include 'record.' prefix (e.g., record.anniversary).
+            day_field:
+              type: string
+              description: Contact field that contains the day-of-month value. Must include 'record.' prefix (e.g., record.birthday_day).
+            month_field:
+              type: string
+              description: Contact field that contains the month value. Must include 'record.' prefix (e.g., record.birthday_month).
+            type:
+              type: string
+              description: Where the date is represented (e.g., Profile).
+        type:
+          type: string
+          example: Action
+          description: Trigger type. Determines how the trigger is evaluated (e.g., Action, Date, segment_join).
+        unique_by:
+          type: string
+          example: list_ids
+          description: 'Deduplication key: run the workflow at most once per contact per this value (e.g., list_ids, contact_id).'
+      description: Defines when the workflow starts (e.g., list join, date-based).
+    AutomationFlowSummaryDto:
+      type: object
+      properties:
+        active_state:
+          type: string
+          example: ACTIVE
+          description: State of the active definition
+        created_by_id:
+          type: string
+          example: '123456789'
+          description: User ID who created the flow
+        created_date:
+          type: string
+          example: '2025-09-25T20:06:50.020+00:00'
+          description: Date the flow was created
+        description:
+          type: string
+          example: Automation flow for contact signups
+          description: Description of the automation flow
+        draft_state:
+          type: string
+          example: PROMOTED
+          description: State of the draft definition
+        id:
+          type: string
+          example: 83345850-144a-4dcf-b4dc-88aa1287cffe
+          description: Automation flow ID
+        name:
+          type: string
+          example: Welcome series
+          description: Display name of the automation flow
+        promoted_by_id:
+          type: string
+          example: '123456789'
+          description: User ID who promoted the flow
+        promoted_date:
+          type: string
+          example: '2025-09-25T20:06:50.970+00:00'
+          description: Date the flow was promoted
+        status:
+          type: string
+          example: ACTIVE
+          description: Computed display status of the workflow
+        structured_tags:
+          type: array
+          description: Structured tags associated with the automation flow
+          items:
+            $ref: '#/components/schemas/StructuredTagDto'
+        template_id:
+          type: string
+          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
+          description: Template ID the flow was created from
+        update_date:
+          type: string
+          example: '2025-09-25T20:06:50.970+00:00'
+          description: Date the flow was last updated
+      description: Summary of an automation flow
+    ListAutomationFlowsResponseDto:
+      type: object
+      properties:
+        flow_summaries:
+          type: array
+          description: List of automation flow summaries for the current page
+          items:
+            $ref: '#/components/schemas/AutomationFlowSummaryDto'
+      description: Paginated list of automation flow summaries
     AutomationCampaign:
       type: object
       properties:
@@ -650,6 +620,41 @@ components:
         name_explicitly_set:
           type: boolean
           description: Indicates whether the automation campaign name was explicitly set.
+    StructuredTagDto:
+      type: object
+      properties:
+        display_value:
+          type: string
+          example: All from-scratch paths
+          description: Human-readable display value
+        key:
+          type: string
+          example: GOAL
+          description: Tag key
+        value:
+          type: string
+          example: goal_undefined
+          description: Tag value
+      description: A structured tag with key, value, and display value
+    TriggerFilterRuleDto:
+      type: object
+      properties:
+        compound_rule_type:
+          type: string
+        left:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        property_comparison:
+          $ref: '#/components/schemas/PropertyComparisonDto'
+        right:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        rule:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        target:
+          type: string
+        target_type:
+          type: string
+        type:
+          type: string
     AutomationWorkflowDefinition:
       type: object
       properties:
@@ -662,15 +667,6 @@ components:
         workflow:
           $ref: '#/components/schemas/AutomationFlow'
       description: A workflow definition containing state, trigger, and workflow structure.
-    ListAutomationFlowsResponseDto:
-      type: object
-      properties:
-        flow_summaries:
-          type: array
-          description: List of automation flow summaries for the current page
-          items:
-            $ref: '#/components/schemas/AutomationFlowSummaryDto'
-      description: Paginated list of automation flow summaries
   securitySchemes:
     oauth2_implicit:
       type: oauth2

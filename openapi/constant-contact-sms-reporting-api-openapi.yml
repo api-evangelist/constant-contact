@@ -23,7 +23,7 @@ paths:
 
         The `start_at` date is required. Use both the `start_at` and `end_at` date query parameters to return only SMS campaign summary details that occurred within a specified date range.
 
-        Use the `limit` query parameter to limit the number of results returned per page. '
+        Use the `limit` query parameter to limit the number of results returned per page.'
       operationId: getAllBulkSmsCampaignSummaries
       parameters:
       - name: limit
@@ -74,56 +74,6 @@ paths:
       - ui:campaign:metrics
 components:
   schemas:
-    reportingsmsLinks:
-      type: object
-      properties:
-        next:
-          description: Contains the next link if it is available.
-          $ref: '#/components/schemas/reportingsmsNext'
-    BulkCampaignSummary:
-      type: object
-      required:
-      - campaign_id
-      - campaign_name
-      - campaign_type
-      - last_sent_date
-      - unique_counts
-      properties:
-        campaign_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies the campaign.
-        campaign_name:
-          type: string
-          example: Spring Clearance Sale
-          description: The name to associate with this campaign.
-        last_sent_date:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The date that the campaign was last sent.
-        unique_counts:
-          description: The total number of times each unique contact interacted with a tracked SMS campaign activity.
-          $ref: '#/components/schemas/UniqueSmsCounts'
-        campaign_type:
-          type: string
-          example: SMS
-          description: The campaign type.
-    SmsCampaignSummariesPage:
-      type: object
-      properties:
-        bulk_sms_campaign_summaries:
-          type: array
-          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
-          items:
-            $ref: '#/components/schemas/BulkCampaignSummary'
-        aggregate_percents:
-          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
-          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/reportingsmsLinks'
     reportingsmsNext:
       type: object
       required:
@@ -132,6 +82,31 @@ components:
         href:
           type: string
           description: The next link in the page or null if there are no additional pages.
+    BulkSmsCampaignSummariesPercents:
+      type: object
+      properties:
+        deliver:
+          type: number
+          example: 23.0
+          description: The aggregated SMS delivery rate for all campaigns on the current results page.
+        click:
+          type: number
+          example: 43.0
+          description: The aggregated click rate for all campaigns on the current results page.
+        bounce:
+          type: number
+          example: 0.0
+          description: The aggregated bounce rate for all campaigns on the current results page.
+        unsubscribe:
+          type: number
+          example: 0.0
+          description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
+    reportingsmsLinks:
+      type: object
+      properties:
+        next:
+          description: Contains the next link if it is available.
+          $ref: '#/components/schemas/reportingsmsNext'
     UniqueSmsCounts:
       type: object
       required:
@@ -165,25 +140,50 @@ components:
           format: int32
           example: 0
           description: The total number of unique opt-outs (unsubscribes).
-    BulkSmsCampaignSummariesPercents:
+    SmsCampaignSummariesPage:
       type: object
       properties:
-        deliver:
-          type: number
-          example: 23.0
-          description: The aggregated SMS delivery rate for all campaigns on the current results page.
-        click:
-          type: number
-          example: 43.0
-          description: The aggregated click rate for all campaigns on the current results page.
-        bounce:
-          type: number
-          example: 0.0
-          description: The aggregated bounce rate for all campaigns on the current results page.
-        unsubscribe:
-          type: number
-          example: 0.0
-          description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
+        bulk_sms_campaign_summaries:
+          type: array
+          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
+          items:
+            $ref: '#/components/schemas/BulkCampaignSummary'
+        aggregate_percents:
+          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
+          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/reportingsmsLinks'
+    BulkCampaignSummary:
+      type: object
+      required:
+      - campaign_id
+      - campaign_name
+      - campaign_type
+      - last_sent_date
+      - unique_counts
+      properties:
+        campaign_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies the campaign.
+        campaign_name:
+          type: string
+          example: Spring Clearance Sale
+          description: The name to associate with this campaign.
+        last_sent_date:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The date that the campaign was last sent.
+        unique_counts:
+          description: The total number of times each unique contact interacted with a tracked SMS campaign activity.
+          $ref: '#/components/schemas/UniqueSmsCounts'
+        campaign_type:
+          type: string
+          example: SMS
+          description: The campaign type.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

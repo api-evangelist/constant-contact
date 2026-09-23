@@ -76,7 +76,7 @@ paths:
       tags:
       - Landing Pages Reporting
       summary: GET a Unique Contacts Opens Landing Page Report
-      description: Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.
+      description: Use this method get details about each contact that opens a link on a landing page. Contacts are uniquely identified by `contact_id`. The resulting contact data is listed with most recent activity first.
       operationId: getUniqueContactOpens
       parameters:
       - name: campaign_activity_id
@@ -133,7 +133,7 @@ paths:
       tags:
       - Landing Pages Reporting
       summary: GET a Contacts Opens Landing Page Report
-      description: Use this method get contact details for each time a contact opens a link on a landing page.  The resulting contact data is listed with most recent activity first.
+      description: Use this method get contact details for each time a contact opens a link on a landing page. The resulting contact data is listed with most recent activity first.
       operationId: getContactOpens
       parameters:
       - name: campaign_activity_id
@@ -190,7 +190,7 @@ paths:
       tags:
       - Landing Pages Reporting
       summary: GET a Unique Contacts Updates Landing Page Report
-      description: Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`.  The resulting contact data is listed with most recent activity first.
+      description: Use this method to get contact details for each contact that updated their contact data from a landing page. Contacts are uniquely identified by `contact_id`. The resulting contact data is listed with most recent activity first.
       operationId: getUniqueContactUpdates
       parameters:
       - name: campaign_activity_id
@@ -304,7 +304,7 @@ paths:
       tags:
       - Landing Pages Reporting
       summary: GET a Unique Contacts SMS Opt-In Landing Page Report
-      description: Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``.  The resulting contact data is listed with most recent activity first.
+      description: Use this method get details about unique contacts that click a link on a landing page to opt in to receiving SMS text messages. Contacts are uniquely identified by `contact_id``. The resulting contact data is listed with most recent activity first.
       operationId: getUniqueContactSMSOptIns
       parameters:
       - name: campaign_activity_id
@@ -358,7 +358,15 @@ paths:
       - ui:campaign:metrics
 components:
   schemas:
-    PContactAddTrackingActivitiesPage:
+    lpreportingNext:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages
+    PContactOpensTrackingActivitiesPage:
       type: object
       required:
       - _links
@@ -366,9 +374,9 @@ components:
       properties:
         tracking_activities:
           type: array
-          description: The list of landing page contact adds tracking activities.
+          description: The list of landing page contact opens tracking activities.
           items:
-            $ref: '#/components/schemas/PContactAddTrackingActivity'
+            $ref: '#/components/schemas/PContactOpenTrackingActivity'
         _links:
           description: HAL property that contains next link if applicable
           $ref: '#/components/schemas/lpreportingLinks'
@@ -386,66 +394,6 @@ components:
         _links:
           description: HAL property that contains next link if applicable
           $ref: '#/components/schemas/lpreportingLinks'
-    lpreportingNext:
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages
-    PContactOpenTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The unique ID that identifies the contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The unique ID that identifies of the campaign activity to use.
-        tracking_activity_type:
-          type: string
-          example: p_contact_opens
-          description: The tracked activity event type.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address for the contact and tracking activity.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        device_type:
-          type: string
-          example: tablet
-          description: The type of device that was used to open the link.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time the tracking activity occurred.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: The time the Contact was deleted
-        sms_channel:
-          description: Sms channel info for this contact
-          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
     PContactUpdateTrackingActivitiesPage:
       type: object
       required:
@@ -460,6 +408,24 @@ components:
         _links:
           description: HAL property that contains next link if applicable
           $ref: '#/components/schemas/lpreportingLinks'
+    TrackingActivitySmsChannelDTO:
+      type: object
+      properties:
+        country_code:
+          type: string
+          example: US
+          description: The ISO country code that is associated with SMS address.
+        state:
+          type: string
+          description: "The SMS channel status:\n  <ul><li><code>N</code>: not_set<li>\n     <li><code>T</code>: temp_hold<li>\n     <li><code>P</code>: pending_confirmation<li>\n     <li><code>I</code>: implicit<li>\n     <li><code>E</code>: explicit<li>\n     <li><code>O</code>: unsubscribed<li>\n     <li><code>D</code>:deprecated<li></ul>"
+        formatted_international:
+          type: string
+          example: +1 234-555-6789
+          description: 'The formatted SMS number returned if the SMS <code>country_code</code> does not match the contacts <code>country_code</code>. '
+        formatted_national:
+          type: string
+          example: (234) 555-6789
+          description: 'The formatted SMS number returned if the SMS <code>country_code</code> matches the contacts <code>country_code</code>. '
     PContactClickTrackingActivity:
       type: object
       required:
@@ -521,28 +487,6 @@ components:
         sms_channel:
           description: Sms channel info for this contact
           $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactSMSOptInTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact opt in tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactSMSOptInTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
-    lpreportingLinks:
-      type: object
-      required:
-      - next
-      properties:
-        next:
-          description: Contains the next link if it is available.
-          $ref: '#/components/schemas/lpreportingNext'
     PContactAddTrackingActivity:
       type: object
       required:
@@ -591,39 +535,7 @@ components:
         sms_channel:
           description: Sms channel info for this contact
           $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactOpensTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact opens tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactOpenTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
-    TrackingActivitySmsChannelDTO:
-      type: object
-      properties:
-        country_code:
-          type: string
-          example: US
-          description: The ISO country code that is associated with SMS address.
-        state:
-          type: string
-          description: "The SMS channel status:\n  <ul><li><code>N</code>: not_set<li>\n     <li><code>T</code>: temp_hold<li>\n     <li><code>P</code>: pending_confirmation<li>\n     <li><code>I</code>: implicit<li>\n     <li><code>E</code>: explicit<li>\n     <li><code>O</code>: unsubscribed<li>\n     <li><code>D</code>:deprecated<li></ul>"
-        formatted_international:
-          type: string
-          example: +1 234-555-6789
-          description: 'The formatted SMS number returned if the SMS <code>country_code</code> does not match the contacts <code>country_code</code>. '
-        formatted_national:
-          type: string
-          example: (234) 555-6789
-          description: 'The formatted SMS number returned if the SMS <code>country_code</code> matches the contacts <code>country_code</code>. '
-    PContactUpdateTrackingActivity:
+    PContactOpenTrackingActivity:
       type: object
       required:
       - campaign_activity_id
@@ -644,7 +556,7 @@ components:
           description: The unique ID that identifies of the campaign activity to use.
         tracking_activity_type:
           type: string
-          example: p_contact_updates
+          example: p_contact_opens
           description: The tracked activity event type.
         email_address:
           type: string
@@ -658,6 +570,10 @@ components:
           type: string
           example: Brown
           description: The last name of the contact.
+        device_type:
+          type: string
+          example: tablet
+          description: The type of device that was used to open the link.
         created_time:
           type: string
           format: date-time
@@ -719,6 +635,90 @@ components:
         sms_channel:
           description: Sms channel info for this contact
           $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
+    PContactSMSOptInTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact opt in tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactSMSOptInTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
+    PContactUpdateTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The unique ID that identifies the contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The unique ID that identifies of the campaign activity to use.
+        tracking_activity_type:
+          type: string
+          example: p_contact_updates
+          description: The tracked activity event type.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address for the contact and tracking activity.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time the tracking activity occurred.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: The time the Contact was deleted
+        sms_channel:
+          description: Sms channel info for this contact
+          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
+    lpreportingLinks:
+      type: object
+      required:
+      - next
+      properties:
+        next:
+          description: Contains the next link if it is available.
+          $ref: '#/components/schemas/lpreportingNext'
+    PContactAddTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact adds tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactAddTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
   securitySchemes:
     oauth2_implicit:
       type: oauth2

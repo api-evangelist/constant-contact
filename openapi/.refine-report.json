@@ -30,10 +30,12 @@
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "constant-contact-v3-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "constant-contact-v3-openapi.yml: declared missing tag: Social"
+    "constant-contact-v3-openapi.yml: declared missing tag: Social",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "constant-contact-account-services-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "constant-contact-automations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-bulk-activities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-contact-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-contact-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -48,6 +50,7 @@
     "constant-contact-landing-pages-reporting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-segments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-sms-reporting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "constant-contact-social-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-technology-partners-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "constant-contact-technology-partners-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]

@@ -19,7 +19,43 @@ paths:
       tags:
       - Contacts Reporting
       summary: GET Contact Activity Details
-      description: "<p>Gets the tracking activity data for a single contact, sorted in descending activity date order.</p> <p>You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.</p>\n      <table><tr><td colspan='2'>Valid tracking activity types</td></tr>\n        <tr><td><b>em_sends</b></td><td>Send activities</td></tr>\n        <tr><td><b>em_opens</b></td><td>Email open tracking activities</td></tr>\n        <tr><td><b>em_clicks</b></td><td>Link click-through tracking activities</td></tr>\n        <tr><td><b>em_bounces</b></td><td>Bounce tracking activities</td></tr>\n        <tr><td><b>em_optouts</b></td><td>Opt-out tracking activities</td></tr><tr>\n        <td><b>em_forwards</b></td><td>Forward to a friend tracking activities</td></tr>\n        <tr><td><b>p_contact_open</b></td><td>Landing page opens</td></tr>\n        <tr><td><b>p_contact_click</b></td><td>Landing page clicks</td></tr>\n        <tr><td><b>p_contact_add</b></td><td>Landing page adds</td></tr>\n        <tr><td><b>p_contact_update </b></td><td> Landing page updates</td></tr>\n      </table>"
+      description: 'Gets the tracking activity data for a single contact, sorted in descending activity date order.
+
+
+        You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list` and `tracking_activities_type` query parameters are mutually exclusive.
+
+
+        Valid tracking activity types
+
+
+        em_sendsSend activities
+
+
+        em_opensEmail open tracking activities
+
+
+        em_clicksLink click-through tracking activities
+
+
+        em_bouncesBounce tracking activities
+
+
+        em_optoutsOpt-out tracking activities
+
+
+        em_forwardsForward to a friend tracking activities
+
+
+        p_contact_openLanding page opens
+
+
+        p_contact_clickLanding page clicks
+
+
+        p_contact_addLanding page adds
+
+
+        p_contact_update Landing page updates'
       operationId: getContactTracking
       parameters:
       - name: contact_id
@@ -111,7 +147,15 @@ paths:
       tags:
       - Contacts Reporting
       summary: GET Average Open and Click Rates
-      description: <p>Gets the average open and click rate for a given account and contact.<p>Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.</p><p>Returns the rates and the number of campaign activities that were included in the calculation.</p><p>If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.</p>
+      description: 'Gets the average open and click rate for a given account and contact.
+
+        Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.
+
+
+        Returns the rates and the number of campaign activities that were included in the calculation.
+
+
+        If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.'
       operationId: getContactOpenClickRate
       parameters:
       - name: contact_id
@@ -216,24 +260,25 @@ paths:
       x-sdk-methodName: getContactTrackingCountReport
 components:
   schemas:
-    reportingNext:
+    ContactCampaignActivitiesSummary:
       type: object
+      required:
+      - campaign_activities
+      - contact_id
       properties:
-        href:
+        contact_id:
           type: string
-          description: The next link in the page or null if there are no additional pages.
-    ContactTrackingActivitiesPage:
-      type: object
-      properties:
-        tracking_activities:
+          format: uuid
+          example: 71600990-908b-11e6-907f-00166bff25
+          description: Unique id of the contact that will have their activity summarized.
+        campaign_activities:
           type: array
-          description: The list of contact tracking activities in descending date order.
+          description: A summary of all the actions for a contact.
           items:
-            $ref: '#/components/schemas/ContactTrackingActivity'
+            $ref: '#/components/schemas/CampaignActivitySummary'
         _links:
-          description: The next link if more contact tracking activities are available.
+          description: The next link if more summaries of activities are available.
           $ref: '#/components/schemas/reportingLinks'
-      description: A page of tracking activities for a contact that can include sends, opens, clicks, bounces, opt-outs and forwards to a friend. If it exists, a link to the next page of tracking activities is provided.
     CampaignActivitySummary:
       type: object
       required:
@@ -278,31 +323,53 @@ components:
           type: integer
           format: int32
           description: The number of times this contact has opted out.
-    ContactCampaignActivitiesSummary:
+    ContactOpenAndClickRates:
       type: object
       required:
-      - campaign_activities
+      - average_click_rate
+      - average_open_rate
       - contact_id
+      - included_activities_count
       properties:
         contact_id:
           type: string
           format: uuid
           example: 71600990-908b-11e6-907f-00166bff25
-          description: Unique id of the contact that will have their activity summarized.
-        campaign_activities:
-          type: array
-          description: A summary of all the actions for a contact.
-          items:
-            $ref: '#/components/schemas/CampaignActivitySummary'
-        _links:
-          description: The next link if more summaries of activities are available.
-          $ref: '#/components/schemas/reportingLinks'
+          description: The unique ID of the contact for which the report is being generated.
+        included_activities_count:
+          type: integer
+          format: int32
+          example: 10
+          description: The number of activities included in the calculation.
+        average_open_rate:
+          type: number
+          format: double
+          example: 0.6
+          description: The average rate the contact opened emails sent to them.
+        average_click_rate:
+          type: number
+          format: double
+          example: 0.6
+          description: The average rate the contact clicked on links in emails sent to them.
+      description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
     reportingLinks:
       type: object
       properties:
         next:
           description: Contains the next page link if it is available.
           $ref: '#/components/schemas/reportingNext'
+    ContactTrackingActivitiesPage:
+      type: object
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of contact tracking activities in descending date order.
+          items:
+            $ref: '#/components/schemas/ContactTrackingActivity'
+        _links:
+          description: The next link if more contact tracking activities are available.
+          $ref: '#/components/schemas/reportingLinks'
+      description: A page of tracking activities for a contact that can include sends, opens, clicks, bounces, opt-outs and forwards to a friend. If it exists, a link to the next page of tracking activities is provided.
     ContactTrackingActivity:
       type: object
       required:
@@ -333,35 +400,12 @@ components:
           example: April DLCV Newsletter
           description: The campaign activity name.
       description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
-    ContactOpenAndClickRates:
+    reportingNext:
       type: object
-      required:
-      - average_click_rate
-      - average_open_rate
-      - contact_id
-      - included_activities_count
       properties:
-        contact_id:
+        href:
           type: string
-          format: uuid
-          example: 71600990-908b-11e6-907f-00166bff25
-          description: The unique ID of the contact for which the report is being generated.
-        included_activities_count:
-          type: integer
-          format: int32
-          example: 10
-          description: The number of activities included in the calculation.
-        average_open_rate:
-          type: number
-          format: double
-          example: 0.6
-          description: The average rate the contact opened emails sent to them.
-        average_click_rate:
-          type: number
-          format: double
-          example: 0.6
-          description: The average rate the contact clicked on links in emails sent to them.
-      description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
+          description: The next link in the page or null if there are no additional pages.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

@@ -47,7 +47,16 @@ paths:
       tags:
       - Technology Partners Webhooks
       summary: GET Webhook Topic Subscription
-      description: "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n  * `1` - Billing tier upgrade.\n  * `2` - Billing tier downgrade.\n  * `3` - Account cancelled.\n  * `4` - Account disabled."
+      description: 'Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:
+
+
+        * `1` - Billing tier upgrade.
+
+        * `2` - Billing tier downgrade.
+
+        * `3` - Account cancelled.
+
+        * `4` - Account disabled.'
       operationId: getWebhooksTopic
       parameters:
       - name: topic_id
@@ -82,7 +91,33 @@ paths:
       tags:
       - Technology Partners Webhooks
       summary: PUT Webhook Topic Subscription
-      description: "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request body:\n\n  ```\n  {\"url\":\"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan\",\n  \"api_key\":\"90ed8738-5190-44a3-bc12-c172930db12c\",\n  \"event_type\":\"tier.increase\"}\n  ```\n</br>\nIf your application does not return a success response after receiving a notification, Constant Contact will retry sending the POST notification at 1 minute intervals for up to an hour."
+      description: 'Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:
+
+
+        * `1` - Billing tier upgrade.
+
+        * `2` - Billing tier downgrade.
+
+        * `3` - Account cancelled.
+
+        * `4` - Account disabled.
+
+
+        After you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application''s callback URI. This is an example of the POST notification request body:
+
+
+        ```
+
+        {"url":"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan",
+
+        "api_key":"90ed8738-5190-44a3-bc12-c172930db12c",
+
+        "event_type":"tier.increase"}
+
+        ```
+
+
+        If your application does not return a success response after receiving a notification, Constant Contact will retry sending the POST notification at 1 minute intervals for up to an hour.'
       operationId: putWebhooksTopic
       parameters:
       - name: topic_id
@@ -124,7 +159,16 @@ paths:
       tags:
       - Technology Partners Webhooks
       summary: DELETE Webhook Topic Subscriptions
-      description: "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled."
+      description: 'Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:
+
+
+        * `1` - Billing tier upgrade.
+
+        * `2` - Billing tier downgrade.
+
+        * `3` - Account cancelled.
+
+        * `4` - Account disabled.'
       operationId: deleteWebhooksSubscriptions
       parameters:
       - name: topic_id
@@ -155,7 +199,19 @@ paths:
       tags:
       - Technology Partners Webhooks
       summary: POST Test Send Webhook Notification
-      description: "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data."
+      description: 'Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:
+
+
+        * `1` - Billing tier upgrade.
+
+        * `2` - Billing tier downgrade.
+
+        * `3` - Account cancelled.
+
+        * `4` - Account disabled.
+
+
+        After you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic''s callback URI with example data.'
       operationId: testSendWebhooksTopic
       parameters:
       - name: topic_id
@@ -187,6 +243,43 @@ paths:
         api_key: []
 components:
   schemas:
+    WebhooksSubscriptionBody:
+      type: object
+      properties:
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: The callback URI you would like to use to receive webhook notifications. Constant Contact will automatically send POST notifications about your chosen topic to this URI.
+    WebhooksSubscriptionPutResp:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          example: 1
+          description: Identifies the topic using an integer to indicate the type of topic.
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+    WebhooksSubscriptionResponse:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          example: 2
+          description: Identifies the topic using an integer to indicate the type of topic.
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+        topic_name:
+          type: string
+          example: Billing Tier Downgrade
+          description: The name of the topic.
+        topic_description:
+          type: string
+          example: Executes when an account's billing tier is downgraded.
+          description: A description of what the topic is and when Constant Contact notifies you concerning it.
     WebhooksSubscriptionCollection:
       type: array
       description: An array of webhook subscriptions.
@@ -209,43 +302,6 @@ components:
             type: string
             example: Executes when an account's billing tier is downgraded.
             description: A description of what the topic is and when Constant Contact notifies you concerning it.
-    WebhooksSubscriptionResponse:
-      type: object
-      properties:
-        topic_id:
-          type: integer
-          example: 2
-          description: Identifies the topic using an integer to indicate the type of topic.
-        hook_uri:
-          type: string
-          example: https://www.examplename.com/webhooks/billingTier
-          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
-        topic_name:
-          type: string
-          example: Billing Tier Downgrade
-          description: The name of the topic.
-        topic_description:
-          type: string
-          example: Executes when an account's billing tier is downgraded.
-          description: A description of what the topic is and when Constant Contact notifies you concerning it.
-    WebhooksSubscriptionPutResp:
-      type: object
-      properties:
-        topic_id:
-          type: integer
-          example: 1
-          description: Identifies the topic using an integer to indicate the type of topic.
-        hook_uri:
-          type: string
-          example: https://www.examplename.com/webhooks/billingTier
-          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
-    WebhooksSubscriptionBody:
-      type: object
-      properties:
-        hook_uri:
-          type: string
-          example: https://www.examplename.com/webhooks/billingTier
-          description: The callback URI you would like to use to receive webhook notifications. Constant Contact will automatically send POST notifications about your chosen topic to this URI.
     WebhooksTestSend:
       type: object
       properties:

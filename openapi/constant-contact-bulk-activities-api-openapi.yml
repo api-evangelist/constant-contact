@@ -19,7 +19,7 @@ paths:
       tags:
       - Bulk Activities
       summary: GET Activity Status Collection
-      description: This endpoint returns a collection of activities. Use the state query parameter to include only activities with a specific status (processing, completed, cancelled, failed, or time_out). Use the limit query parameter to define the number of activities returned per page. Learn [more](/api_guide/activity_status.html).
+      description: This endpoint returns a collection of activities. Use the state query parameter to include only activities with a specific status (processing, completed, cancelled, failed, or time_out). Use the limit query parameter to define the number of activities returned per page. Learn more.
       operationId: getActivityStatusCollection
       parameters:
       - name: limit
@@ -119,7 +119,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Export Contacts to a File
-      description: Use this method to create an activity that exports contacts and contact details to a CSV file.  You can choose to export all contacts in your account (default) or you can use parameters to filter on which contacts to export. After Constant Contact finishes processing the activity, use the `results` link in the response body to retrieve the CSV file.
+      description: Use this method to create an activity that exports contacts and contact details to a CSV file. You can choose to export all contacts in your account (default) or you can use parameters to filter on which contacts to export. After Constant Contact finishes processing the activity, use the `results` link in the response body to retrieve the CSV file.
       operationId: postContactsExport
       responses:
         '201':
@@ -162,7 +162,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Retrieve Exported Contacts File
-      description: "Use this endpoint to retrieve (GET) a CSV file containing exported contacts by providing the `activity_id` of a completed CSV export activity. \n"
+      description: Use this endpoint to retrieve (GET) a CSV file containing exported contacts by providing the `activity_id` of a completed CSV export activity.
       operationId: getContactsExport
       parameters:
       - name: file_export_id
@@ -206,7 +206,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Delete Contacts in Bulk
-      description: Use this endpoint to bulk delete contacts in an account. Contacts to delete are specified by contact_id (up to 500), or by list_id (up to 50 lists); all contacts that are members of the list_ids are deleted. Deleted contacts won’t receive email from you, and they don’t count as active contacts. Unlike unsubscribed contacts, deleted contacts can be added back to an account. [Learn how to revive deleted contacts](/api_guide/contacts_delete.html#revive).
+      description: Use this endpoint to bulk delete contacts in an account. Contacts to delete are specified by contact_id (up to 500), or by list_id (up to 50 lists); all contacts that are members of the list_ids are deleted. Deleted contacts won’t receive email from you, and they don’t count as active contacts. Unlike unsubscribed contacts, deleted contacts can be added back to an account. Learn how to revive deleted contacts.
       operationId: postContactDelete
       responses:
         '201':
@@ -247,7 +247,17 @@ paths:
       tags:
       - Bulk Activities
       summary: Import Contacts using a CSV File
-      description: "This multipart method creates an asynchronous background job that adds or updates contacts by importing a CSV file containing contact information. Do not use a Content-Type header value with this method.\n\nImporting a new contact email address automatically sets the contact's `permission_to_send` property as `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request.\nImporting contacts with `sms_number`s requires using the `sms_permission_to_send` parameter  to specify permissions for all contacts being imported. Set to `explicit` to specify that all contacts either provided explicit permission. Set to `not_set` if permission was not provided. If `explicit`, you must also include the `sms_consent_date` as a column header to include the date the contact consented to receiving SMS messages.\nContacts must have either an email address or an SMS number defined.\n \nThe CSV file has a maximum of 40,000 lines including the header row (39,999 contacts) and a maximum file size of 4 megabytes (MB).  Lines above the 40,000 line maximum are not processed. If the request body exceeds 4 MB, only the contacts contained in the first 4 MB are imported and the remaining data is dropped."
+      description: 'This multipart method creates an asynchronous background job that adds or updates contacts by importing a CSV file containing contact information. Do not use a Content-Type header value with this method.
+
+
+        Importing a new contact email address automatically sets the contact''s `permission_to_send` property as `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request.
+
+        Importing contacts with `sms_number`s requires using the `sms_permission_to_send` parameter to specify permissions for all contacts being imported. Set to `explicit` to specify that all contacts either provided explicit permission. Set to `not_set` if permission was not provided. If `explicit`, you must also include the `sms_consent_date` as a column header to include the date the contact consented to receiving SMS messages.
+
+        Contacts must have either an email address or an SMS number defined.
+
+
+        The CSV file has a maximum of 40,000 lines including the header row (39,999 contacts) and a maximum file size of 4 megabytes (MB). Lines above the 40,000 line maximum are not processed. If the request body exceeds 4 MB, only the contacts contained in the first 4 MB are imported and the remaining data is dropped.'
       operationId: contactsCSVImport
       responses:
         '201':
@@ -311,7 +321,19 @@ paths:
       tags:
       - Bulk Activities
       summary: Import Contacts using a JSON Payload
-      description: "Use this method to create an asynchronous background job that adds new contacts or updates existing contacts by importing a JSON payload. This method requires a request body that contains the contact data you are importing and the contact lists to which you want to add the imported contacts. A contact's data must include an `email` address and/or `sms_number`. The `sms_number` must be a US phone number to associate with the contact's SMS-enabled phone. Valid formats are <code>1231231234</code> or <code>123-123-1234</code> (the country code must be valid).\n\nImporting a new contact using this method automatically sets the contact's email `permission_to_send` property to `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request. For each contact, you can import up to three addresses and three phone numbers. International phone numbers are currently not supported.      \n\nTo import custom fields, prefix the custom field name with `cf:` and add it as a contact property. For example, use the property name `cf:first_name` if you have a custom field named `first_name`. The custom field must already exist in the Constant Contact account you are using. Each contact can contain up to 25 custom fields.\n\nTo include a contact's `sms_number`, if the contact provided explicit permission to receive SMS messages, you must set the `sms_permission_to_send` property to `explicit` and specify the date of consent using the `sms_consent_date` column header. If explicit permission was not provided, set `sms_permission_to_send` to `not_set` (the `sms_consent_date` is not required). If the `sms_consent_date` is not set, SMS messages cannot be sent to contacts and `sms_permission_to_send` defaults to `not_set`. Valid value formats for `sms_consent_date` include MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY. \n\nThe request body payload has a maximum size of 4 megabytes (MB). If the request body exceeds 4 MB, this method only imports the first 4 MB and drops the remaining data. Use the activity URL to check the status of the import activity request."
+      description: 'Use this method to create an asynchronous background job that adds new contacts or updates existing contacts by importing a JSON payload. This method requires a request body that contains the contact data you are importing and the contact lists to which you want to add the imported contacts. A contact''s data must include an `email` address and/or `sms_number`. The `sms_number` must be a US phone number to associate with the contact''s SMS-enabled phone. Valid formats are 1231231234 or 123-123-1234 (the country code must be valid).
+
+
+        Importing a new contact using this method automatically sets the contact''s email `permission_to_send` property to `implicit` and the `opt_in_source` property as `Account`. Importing an existing contact only updates the contact properties you include in the request. For each contact, you can import up to three addresses and three phone numbers. International phone numbers are currently not supported.
+
+
+        To import custom fields, prefix the custom field name with `cf:` and add it as a contact property. For example, use the property name `cf:first_name` if you have a custom field named `first_name`. The custom field must already exist in the Constant Contact account you are using. Each contact can contain up to 25 custom fields.
+
+
+        To include a contact''s `sms_number`, if the contact provided explicit permission to receive SMS messages, you must set the `sms_permission_to_send` property to `explicit` and specify the date of consent using the `sms_consent_date` column header. If explicit permission was not provided, set `sms_permission_to_send` to `not_set` (the `sms_consent_date` is not required). If the `sms_consent_date` is not set, SMS messages cannot be sent to contacts and `sms_permission_to_send` defaults to `not_set`. Valid value formats for `sms_consent_date` include MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
+
+
+        The request body payload has a maximum size of 4 megabytes (MB). If the request body exceeds 4 MB, this method only imports the first 4 MB and drops the remaining data. Use the activity URL to check the status of the import activity request.'
       operationId: bulkImportContactsJSON
       responses:
         '201':
@@ -353,7 +375,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Remove Contacts from Lists
-      description: Use this method to create an activity that removes contacts from one or more contact lists. Use the properties in the `source` object to remove specific contacts from your lists. Use the `list_ids` array to specify the target lists from which contacts are removed. Optionally, if the source is  `all_active_contacts` (billable) or `list_ids`, use the `exclude` object to exclude specific contacts from being removed from the destination lists.
+      description: Use this method to create an activity that removes contacts from one or more contact lists. Use the properties in the `source` object to remove specific contacts from your lists. Use the `list_ids` array to specify the target lists from which contacts are removed. Optionally, if the source is `all_active_contacts` (billable) or `list_ids`, use the `exclude` object to exclude specific contacts from being removed from the destination lists.
       operationId: postListRemoveContact
       responses:
         '201':
@@ -437,7 +459,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Delete Contact Lists
-      description: 'Use this endpoint to delete up to 100 contact lists in an account. '
+      description: Use this endpoint to delete up to 100 contact lists in an account.
       operationId: postListDelete
       responses:
         '201':
@@ -482,7 +504,7 @@ paths:
 
         Source types are mutually exclusive. If the specified source is either `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` specified contacts by `contact_id`. Use the activity link in the results to check the status of your request."
 
-        For more use case information, see "[Remove Tags from Contacts](/api_guide/remove_tagging_activity.html)'
+        For more use case information, see "Remove Tags from Contacts'
       operationId: postTagRemoveContact
       responses:
         '201':
@@ -529,7 +551,7 @@ paths:
 
         Source criteria are mutually exclusive. If the source is `all_active_contacts` or `list_ids`, you can optionally choose to `exclude` contacts by `contact_id`. Use the activity link in the results to check the status of your request.
 
-        For more use case information, see "[Add Tags to Contacts](/api_guide/add_tagging_activity.html)'
+        For more use case information, see "Add Tags to Contacts'
       operationId: postTagAddContact
       responses:
         '201':
@@ -613,7 +635,7 @@ paths:
       tags:
       - Bulk Activities
       summary: Delete Custom Fields
-      description: 'Use this endpoint to delete up to 100 custom fields for an account. '
+      description: Use this endpoint to delete up to 100 custom fields for an account.
       operationId: postCustomFieldDelete
       responses:
         '201':
@@ -665,428 +687,76 @@ components:
             format: uuid
             example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
           maxItems: 0
-    ActivityDeleteListsResponse:
+    ContactsExport:
       type: object
       properties:
-        activity_id:
-          type: string
-          example: af86135c-8740-11eb-8abf-fa163ef30864
-          description: The system assigned UUID that uniquely identifies an activity.
-          readOnly: true
-        state:
-          type: string
-          example: initialized
-          description: The activity processing state.
-          readOnly: true
-        started_at:
-          type: string
-          format: date-time
-          example: '2019-12-12T15:38:24Z'
-          description: Timestamp showing when processing started for the activity, in ISO-8601 format.
-          readOnly: true
-        completed_at:
-          type: string
-          format: date-time
-          example: '2019-12-12T15:38:24Z'
-          description: Timestamp showing when processing completed for the activity, in ISO-8601 format.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2019-12-12T15:38:24Z'
-          description: Timestamp showing when the activity was first requested, in ISO-8601 format.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2019-12-12T15:38:24Z'
-          description: Timestamp showing when the activity was last updated, in ISO-8601 format.
-          readOnly: true
-        percent_done:
-          type: integer
-          example: 25
-          description: The processing percent complete for the activity.
-          readOnly: true
-        activity_errors:
+        contact_ids:
           type: array
-          description: An array of error message strings describing the errors that occurred.
-          readOnly: true
-          items:
-            type: string
-            example: Message describing the error condition.
-            description: Message describing the error condition.
-            readOnly: true
-        status:
-          type: object
-          properties:
-            list_count:
-              type: integer
-              example: 5
-              description: The number of lists deleted.
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              description: Link to the activity status to use in tracking the request status.
-              properties:
-                href:
-                  type: string
-                  example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
-    Activities:
-      type: object
-      properties:
-        activities:
-          type: array
-          description: A list of bulk activity jobs and status submitted by the account over the past 10 days.
-          items:
-            type: object
-            description: Generic bulk activity status response object
-            properties:
-              activity_id:
-                type: string
-                format: uuid
-                example: 86b90820-cc52-11ea-9dad-fa163e3d9194
-                description: Unique ID for the activity.
-                readOnly: true
-              state:
-                type: string
-                example: initialized
-                description: "The state of the request: <p><ul>\n  <li>initialized - request has been received</li>\n  <li>processing - request is being processed</li>\n  <li>completed - job completed</li>\n  <li>cancelled - request was cancelled</li>\n  <li>failed - job failed to complete</li>\n  <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
-              started_at:
-                type: string
-                format: date-time
-                example: '2016-01-23T13:48:44.108Z'
-                description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
-                readOnly: true
-              completed_at:
-                type: string
-                format: date-time
-                example: '2016-01-23T13:48:44.108Z'
-                description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
-                readOnly: true
-              created_at:
-                type: string
-                format: date-time
-                example: '2016-01-23T13:48:44.108Z'
-                description: Timestamp showing when we created the activity, in ISO-8601 format.
-                readOnly: true
-              updated_at:
-                type: string
-                format: date-time
-                example: '2016-01-23T13:48:44.108Z'
-                description: Timestamp showing when we last updated the activity, in ISO-8601 format.
-                readOnly: true
-              source_file_name:
-                type: string
-                example: 2016-21-04-contact_import.xls
-                description: Name of the file used for an add_contacts activity.
-                readOnly: true
-              percent_done:
-                type: integer
-                example: 75
-                description: Shows the percent done for an activity that we are still processing.
-                readOnly: true
-              activity_errors:
-                type: array
-                description: Array of messages describing the errors that occurred.
-                items:
-                  type: string
-                  example: Message describing the error condition.
-                  description: Message describing the error condition.
-                  readOnly: true
-              status:
-                $ref: '#/components/schemas/ActivityStatus'
-              _links:
-                $ref: '#/components/schemas/ActivityStatusExportLink'
-        _links:
-          $ref: '#/components/schemas/PagingLinks'
-    ActivityDeleteCustomFields:
-      type: object
-      properties:
-        activity_id:
-          type: string
-          format: uuid
-          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
-          description: Unique ID for the activity.
-          readOnly: true
-        state:
-          type: string
-          example: initialized
-          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
-        started_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
-          readOnly: true
-        completed_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we created the activity, in ISO-8601 format.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
-          readOnly: true
-        percent_done:
-          type: integer
-          example: 75
-          description: Shows the percent done for an activity that we are still processing.
-          readOnly: true
-        activity_errors:
-          type: array
-          description: Array of messages describing the errors that occurred.
-          items:
-            type: string
-            example: Message describing the error condition.
-            description: Message describing the error condition.
-            readOnly: true
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              description: Link to the activity status (this object) to retrieve the activity status.
-              properties:
-                href:
-                  type: string
-                  example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-      description: Activity status for contact_delete activity
-    ActivityStatusExportLink:
-      type: object
-      properties:
-        self:
-          type: object
-          description: HATEOS-style link to the activity status (this object).
-          properties:
-            href:
-              type: string
-              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-        results:
-          type: object
-          description: Link to an activity result resource; as an example, for file_export, the link to the exported contacts file.
-          properties:
-            href:
-              type: string
-              example: /v3/contacts_exports/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    PagingLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Link'
-    TagAddRemoveContacts:
-      type: object
-      required:
-      - source
-      - tag_ids
-      properties:
-        source:
-          type: object
-          description: Select the source used to identify contacts to which a tag is added or removed. Source types are mutually exclusive.
-          properties:
-            contact_ids:
-              type: array
-              description: An array of contacts IDs.
-              items:
-                type: string
-                format: uuid
-                example: 358f6a5e-21f6-11ea-a1cb-fa163e56c9b0
-              maxItems: 500
-            list_ids:
-              type: array
-              description: An array of list IDs ( <code>list_id</code> ).
-              items:
-                type: string
-                format: uuid
-                example: 6eeb4756-1cf5-11ea-859f-fa163e56c9b0
-              maxItems: 50
-            tag_ids:
-              type: array
-              description: An array of tags ( <code>tag_id</code> ).
-              items:
-                type: string
-                format: uuid
-                example: c6915956-fde3-4081-977e-c3b8d1b068a7
-              maxItems: 50
-            all_active_contacts:
-              type: boolean
-              example: false
-              description: Use to identify contacts with an active (billable) status.
-            new_subscriber:
-              type: boolean
-              example: true
-              description: Use to identify newly subscribed contacts.
-        exclude:
-          type: object
-          description: Use to exclude specified contacts from being added or removed from a tag. Only applicable if the specified source is either <code>all_active_contacts</code> (billable) or <code>list_ids</code>.
-          properties:
-            contact_ids:
-              type: array
-              description: Identifies the contacts, by <code>contact_id</code>, to exclude from the add or remove tags activity.
-              items:
-                type: string
-                format: uuid
-                example: c7172ca0-f353-11e8-aff2-fa163e56c9b0
-        tag_ids:
-          type: array
-          description: An array of tags (<code>tag_id</code>) to add to all contacts meeting the specified source criteria.
+          description: Exports up to 500 specific contacts.  This property is mutually exclusive with all other filtering criteria except with<code>status</code>.
           items:
             type: string
             format: uuid
-            example: 5bbf758c-d8ce-11e9-8d3a-fa163e56c9b0
-            description: A list of tags to which contacts are added or removed.
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+          maxItems: 500
+        list_ids:
+          type: array
+          description: Exports all of the contacts inside of up to 50 contact lists. This property is mutually exclusive with all other filtering criteria except with either <code>status</code> or <code>exclude</code>.
+          items:
+            type: string
+            format: uuid
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
           maxItems: 50
-    ListActivityRemoveContacts:
-      type: object
-      required:
-      - list_ids
-      - source
-      properties:
-        source:
-          type: object
-          description: Specifies the contacts to remove from your target list(s) using one of several mutually exclusive properties.
-          properties:
-            list_ids:
-              type: array
-              description: Include up to 50 <code>list_id</code> values to remove all contact list members from your target list(s). This property is mutually exclusive with all other <code>source</code> properties.
-              items:
-                type: string
-                format: uuid
-                example: 5bbf758c-d8ce-11e9-8d3a-fa163e56c9b0
-              maxItems: 0
-            contact_ids:
-              type: array
-              description: Include up to 500 <code>contact_id</code> values to remove the contacts from your target lists. This property is mutually exclusive with all other <code>source</code> properties.
-              items:
-                type: string
-                format: uuid
-                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
-              maxItems: 0
-            all_active_contacts:
-              type: boolean
-              example: true
-              description: Removes all active (billable) contacts from your targeted lists. This property is mutually exclusive with all other <code>source</code> properties.
-              default: false
-            engagement_level:
-              type: string
-              example: high
-              description: Removes all contacts that meet the selected  <code>engagement_level </code> to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
-            tag_ids:
-              type: array
-              description: Removes all contacts assigned with the specified <code>tag_id</code>s from your target lists. This property is mutually exclusive with all other <code>source</code> properties.
-              items:
-                type: string
-                format: uuid
-                example: 5e88f172-21d1-11ea-b5ae-fa163e56c9b9
-              maxItems: 0
+        tag_ids:
+          type: array
+          description: Exports contacts assigned one or more of the tags (<code>tag_id</code>) specified. This property is mutually exclusive with all other filtering criteria.
+          items:
+            type: string
+            format: uuid
+            example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          maxItems: 50
+        new_subscriber:
+          type: boolean
+          example: true
+          description: 'Set to <code>true</code> to only export contacts that subscribed within the last 30 days. Default setting is <code>false</code>. This property is mutually exclusive with all other filtering criteria except  with either  <code>list_ids</code> or <code>exclude</code>. '
+        segment_id:
+          type: integer
+          example: 12
+          description: Specify the <code>segment_id</code> from which you want to export all contacts that meet the specified <code>segment_criteria</code>. You can only specify one <code>segment_id</code>. This property is mutually exclusive with all other filtering criteria.
+        fields:
+          type: array
+          description: By default , all fields are returned. Use this array to only export specific contact fields. You must export <code>email_address</code> to successfully export <code>email_optin_source</code>, <code>email_optin_date</code>, <code>email_optout_source</code>, <code>email_optout_date</code>, or <code>email_optout_reason</code>.
+          items:
+            type: string
+            example: email_address
+        status:
+          type: string
+          example: unsubscribed
+          description: Allows you to export only contacts that have a specific status value. This property is mutually exclusive with all other filtering criteria except with either  <code>contact_ids</code> or <code>list_ids</code>.
         exclude:
           type: object
           properties:
             contact_ids:
               type: array
-              description: Excludes specified contacts (<code>contact_id</code>) from being deleted from the target list and only applicable if using either the <code>all_active_contacts</code> (billable) or <code>list_ids</code> as the source.
+              description: Excludes up to 50 specified contacts (<code>contact_id</code>) from being exported. This property is mutually exclusive with all other filtering criteria except  with either <code>list_ids</code> or <code>new_subscriber</code> .
               items:
                 type: string
                 format: uuid
                 example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
                 description: An array of <code>contact_id</code>s to exclude.
+      description: Export contact objects to a CSV file. By default, all contacts in the user's account are exported unless a filtering parameter is specified.
+    ListIdList100:
+      type: object
+      required:
+      - list_ids
+      properties:
         list_ids:
           type: array
-          description: Specify up to 50 target <code>list_id</code>s from which to remove contacts.
+          description: The array of contact lists <code>list_id</code> to delete.
           items:
             type: string
             format: uuid
             example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-            description: Target list from which to remove contacts.
-          maxItems: 0
-    ActivityDeleteStatus:
-      type: object
-      properties:
-        activity_id:
-          type: string
-          format: uuid
-          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
-          description: Unique ID for the activity.
-          readOnly: true
-        state:
-          type: string
-          example: initialized
-          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
-        started_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
-          readOnly: true
-        completed_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we created the activity, in ISO-8601 format.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
-          readOnly: true
-        percent_done:
-          type: integer
-          example: 75
-          description: Shows the percent done for an activity that we are still processing.
-          readOnly: true
-        activity_errors:
-          type: array
-          description: Array of messages describing the errors that occurred.
-          items:
-            type: string
-            example: Message describing the error condition.
-            description: Message describing the error condition.
-            readOnly: true
-        status:
-          type: object
-          properties:
-            list_count:
-              type: integer
-              example: 4
-              description: The number of lists if request specifies contacts to delete by list_ids.
-            items_total_count:
-              type: integer
-              example: 375
-              description: The total number of contacts to delete.
-              readOnly: true
-            items_completed_count:
-              type: integer
-              example: 351
-              description: The number of contacts deleted.
-              readOnly: true
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              description: Link to the activity status (this object) to retrieve the activity status.
-              properties:
-                href:
-                  type: string
-                  example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-      description: Activity status for contact_delete activity
+          maxItems: 100
     ActivityTaggingStatus:
       type: object
       properties:
@@ -1099,142 +769,39 @@ components:
           example: 25
           description: The total number of items for which processing completed for the requested activity.
       description: Provides the status for the requested activity.
-    Activity:
+    PagingLinks:
       type: object
       properties:
-        activity_id:
-          type: string
-          format: uuid
-          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
-          description: Unique ID for the activity.
-          readOnly: true
-        state:
-          type: string
-          example: initialized
-          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
-        started_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
-          readOnly: true
-        completed_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we created the activity, in ISO-8601 format.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
-          readOnly: true
-        source_file_name:
-          type: string
-          example: 2016-21-04-contact_import.xls
-          description: Name of the file used for an add_contacts activity.
-          readOnly: true
-        percent_done:
-          type: integer
-          example: 75
-          description: Shows the percent done for an activity that we are still processing.
-          readOnly: true
-        activity_errors:
+        next:
+          $ref: '#/components/schemas/Link'
+    TagIdList500Limit:
+      type: object
+      required:
+      - tag_ids
+      properties:
+        tag_ids:
           type: array
-          description: Array of messages describing the errors that occurred.
+          description: The tag IDs (<code>tag_ids</code>) to delete.
           items:
             type: string
-            example: Message describing the error condition.
-            description: Message describing the error condition.
-            readOnly: true
-        status:
-          $ref: '#/components/schemas/ActivityStatus'
-        _links:
-          $ref: '#/components/schemas/ActivityStatusExportLink'
-      description: Generic bulk activity status response object
-    ActivityStatusLink:
+            format: uuid
+            example: 00e4429c-3beb-11eb-9f34-fa163e56c9b9
+            description: A list of tag_ids. Mutually exclusive with other filters and criteria.
+          maxItems: 500
+    ActivityLinks:
       type: object
       properties:
         self:
           type: object
-          description: HATEOS-style link to the activity status (this object).
           properties:
             href:
               type: string
-              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    ListActivityAddContacts:
-      type: object
-      required:
-      - list_ids
-      - source
-      properties:
-        source:
+        results:
           type: object
-          description: The <code>source</code> object specifies which contacts you are adding to your targeted lists using one of four mutually exclusive properties.
           properties:
-            list_ids:
-              type: array
-              description: Specifies which contacts you are adding to lists as an array of up to 50 contact <code>list_id</code> values. This property is mutually exclusive with <code>contact_ids</code>, <code>all_active_contacts</code> (billable), and <code>segment_id</code>.
-              items:
-                type: string
-                format: uuid
-                example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-              maxItems: 50
-            all_active_contacts:
-              type: boolean
-              example: true
-              description: Adds all active (billable) contacts to your targeted lists. This property is mutually exclusive with <code>contact_ids</code>, <code>list_ids</code>, and <code>segment_id</code>.
-              default: false
-            contact_ids:
-              type: array
-              description: Specifies which contacts (up to 500) you are adding to lists as an array of <code>contact_id</code> values. This property is mutually exclusive with <code>list_ids</code>, <code>all_active_contacts</code> (billable), and <code>segment_id</code>.
-              items:
-                type: string
-                format: uuid
-                example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-              maxItems: 500
-            tag_ids:
-              type: array
-              description: Adds all contacts assigned with the specified <code>tag_id</code>s to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
-              items:
-                type: string
-                format: uuid
-                example: 5e88f172-21d1-11ea-b5ae-fa163e56c9b9
-              maxItems: 0
-            engagement_level:
+            href:
               type: string
-              example: high
-              description: Adds all contacts that meet the selected  <code>engagement_level </code> to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
-            segment_id:
-              type: integer
-              example: 12
-              description: Specifies which contacts you are adding to lists as a single <code>segment_id</code> value. This property is mutually exclusive with <code>list_ids</code>, <code>all_active_contacts</code> (billable), and <code>contact_ids</code>.
-        exclude:
-          type: object
-          properties:
-            contact_ids:
-              type: array
-              description: Excludes specified contacts (<code>contact_id</code>) from being added to the target list. Applicable if using either the <code>all_active_contacts</code> (billable) or <code>list_ids</code> as the source.
-              items:
-                type: string
-                format: uuid
-                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
-                description: An array of <code>contact_id</code>s to exclude.
-        list_ids:
-          type: array
-          description: Specifies which lists (up to 50) you are adding your source contacts to.
-          items:
-            type: string
-            format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-          maxItems: 50
+              description: Use this link to view activity results.
     ActivityImport:
       type: object
       properties:
@@ -1320,77 +887,69 @@ components:
         _links:
           $ref: '#/components/schemas/ActivityStatusLink'
       description: Activity status for contacts_json_import and contacts_file_import activities
-    ContactsExport:
+    ActivityDeleteCustomFields:
       type: object
       properties:
-        contact_ids:
-          type: array
-          description: Exports up to 500 specific contacts.  This property is mutually exclusive with all other filtering criteria except with<code>status</code>.
-          items:
-            type: string
-            format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-          maxItems: 500
-        list_ids:
-          type: array
-          description: Exports all of the contacts inside of up to 50 contact lists. This property is mutually exclusive with all other filtering criteria except with either <code>status</code> or <code>exclude</code>.
-          items:
-            type: string
-            format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-          maxItems: 50
-        tag_ids:
-          type: array
-          description: Exports contacts assigned one or more of the tags (<code>tag_id</code>) specified. This property is mutually exclusive with all other filtering criteria.
-          items:
-            type: string
-            format: uuid
-            example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          maxItems: 50
-        new_subscriber:
-          type: boolean
-          example: true
-          description: 'Set to <code>true</code> to only export contacts that subscribed within the last 30 days. Default setting is <code>false</code>. This property is mutually exclusive with all other filtering criteria except  with either  <code>list_ids</code> or <code>exclude</code>. '
-        segment_id:
-          type: integer
-          example: 12
-          description: Specify the <code>segment_id</code> from which you want to export all contacts that meet the specified <code>segment_criteria</code>. You can only specify one <code>segment_id</code>. This property is mutually exclusive with all other filtering criteria.
-        fields:
-          type: array
-          description: By default , all fields are returned. Use this array to only export specific contact fields. You must export <code>email_address</code> to successfully export <code>email_optin_source</code>, <code>email_optin_date</code>, <code>email_optout_source</code>, <code>email_optout_date</code>, or <code>email_optout_reason</code>.
-          items:
-            type: string
-            example: email_address
-        status:
+        activity_id:
           type: string
-          example: unsubscribed
-          description: Allows you to export only contacts that have a specific status value. This property is mutually exclusive with all other filtering criteria except with either  <code>contact_ids</code> or <code>list_ids</code>.
-        exclude:
+          format: uuid
+          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
+          description: Unique ID for the activity.
+          readOnly: true
+        state:
+          type: string
+          example: initialized
+          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
+        started_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we created the activity, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
+          readOnly: true
+        percent_done:
+          type: integer
+          example: 75
+          description: Shows the percent done for an activity that we are still processing.
+          readOnly: true
+        activity_errors:
+          type: array
+          description: Array of messages describing the errors that occurred.
+          items:
+            type: string
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        _links:
           type: object
           properties:
-            contact_ids:
-              type: array
-              description: Excludes up to 50 specified contacts (<code>contact_id</code>) from being exported. This property is mutually exclusive with all other filtering criteria except  with either <code>list_ids</code> or <code>new_subscriber</code> .
-              items:
-                type: string
-                format: uuid
-                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
-                description: An array of <code>contact_id</code>s to exclude.
-      description: Export contact objects to a CSV file. By default, all contacts in the user's account are exported unless a filtering parameter is specified.
-    Link:
+            self:
+              type: object
+              description: Link to the activity status (this object) to retrieve the activity status.
+              properties:
+                href:
+                  type: string
+                  example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+      description: Activity status for contact_delete activity
+    ActivityDeleteListsResponse:
       type: object
-      properties:
-        href:
-          type: string
-          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    ActivityGetExport:
-      type: string
-      description: CSV file containing exported contacts
-    ActivityTagging:
-      type: object
-      required:
-      - activity_id
-      - state
       properties:
         activity_id:
           type: string
@@ -1441,33 +1000,160 @@ components:
             description: Message describing the error condition.
             readOnly: true
         status:
-          $ref: '#/components/schemas/ActivityTaggingStatus'
+          type: object
+          properties:
+            list_count:
+              type: integer
+              example: 5
+              description: The number of lists deleted.
         _links:
-          $ref: '#/components/schemas/ActivityLinks'
-    ContactsJsonImport:
+          type: object
+          properties:
+            self:
+              type: object
+              description: Link to the activity status to use in tracking the request status.
+              properties:
+                href:
+                  type: string
+                  example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
+    ActivityListsMembership:
       type: object
-      required:
-      - import_data
-      - list_ids
       properties:
-        import_data:
+        activity_id:
+          type: string
+          format: uuid
+          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
+          description: Unique ID for the activity.
+          readOnly: true
+        state:
+          type: string
+          example: initialized
+          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
+        started_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we created the activity, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
+          readOnly: true
+        percent_done:
+          type: integer
+          example: 75
+          description: Shows the percent done for an activity that we are still processing.
+          readOnly: true
+        activity_errors:
           type: array
-          description: An array containing the contacts to import.
-          items:
-            $ref: '#/components/schemas/JsonImportContact'
-        list_ids:
-          type: array
-          description: Specify which contact lists you are adding all imported contacts to as an array of up to 50 contact <code>list_id</code> string values.
+          description: Array of messages describing the errors that occurred.
           items:
             type: string
-            format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-          maxItems: 50
-          minItems: 1
-        sms_permission_to_send:
-          type: string
-          example: explicit
-          description: Specifies if the contact gave <code>explicit</code> SMS permission or if the SMS permission was not set (<code>not_set</code>). If `explicit, the <code>sms_consent_date</code> must be provided.
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        status:
+          type: object
+          properties:
+            items_total_count:
+              type: integer
+              example: 2200
+              description: Total number of contacts to add to or remove from lists.
+              readOnly: true
+            items_completed_count:
+              type: integer
+              example: 652
+              description: The number of contacts processed.
+              readOnly: true
+            list_count:
+              type: integer
+              example: 3
+              description: The number of lists specified in the request.
+              readOnly: true
+        _links:
+          $ref: '#/components/schemas/ActivityStatusLink'
+    Activities:
+      type: object
+      properties:
+        activities:
+          type: array
+          description: A list of bulk activity jobs and status submitted by the account over the past 10 days.
+          items:
+            type: object
+            description: Generic bulk activity status response object
+            properties:
+              activity_id:
+                type: string
+                format: uuid
+                example: 86b90820-cc52-11ea-9dad-fa163e3d9194
+                description: Unique ID for the activity.
+                readOnly: true
+              state:
+                type: string
+                example: initialized
+                description: "The state of the request: <p><ul>\n  <li>initialized - request has been received</li>\n  <li>processing - request is being processed</li>\n  <li>completed - job completed</li>\n  <li>cancelled - request was cancelled</li>\n  <li>failed - job failed to complete</li>\n  <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
+              started_at:
+                type: string
+                format: date-time
+                example: '2016-01-23T13:48:44.108Z'
+                description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
+                readOnly: true
+              completed_at:
+                type: string
+                format: date-time
+                example: '2016-01-23T13:48:44.108Z'
+                description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
+                readOnly: true
+              created_at:
+                type: string
+                format: date-time
+                example: '2016-01-23T13:48:44.108Z'
+                description: Timestamp showing when we created the activity, in ISO-8601 format.
+                readOnly: true
+              updated_at:
+                type: string
+                format: date-time
+                example: '2016-01-23T13:48:44.108Z'
+                description: Timestamp showing when we last updated the activity, in ISO-8601 format.
+                readOnly: true
+              source_file_name:
+                type: string
+                example: 2016-21-04-contact_import.xls
+                description: Name of the file used for an add_contacts activity.
+                readOnly: true
+              percent_done:
+                type: integer
+                example: 75
+                description: Shows the percent done for an activity that we are still processing.
+                readOnly: true
+              activity_errors:
+                type: array
+                description: Array of messages describing the errors that occurred.
+                items:
+                  type: string
+                  example: Message describing the error condition.
+                  description: Message describing the error condition.
+                  readOnly: true
+              status:
+                $ref: '#/components/schemas/ActivityStatus'
+              _links:
+                $ref: '#/components/schemas/ActivityStatusExportLink'
+        _links:
+          $ref: '#/components/schemas/PagingLinks'
     JsonImportContact:
       type: object
       properties:
@@ -1668,6 +1354,135 @@ components:
           example: 07-03-2024
           description: Required if the SMS permission is set to `explicit`. The date that the contact consented to receiving SMS messages. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
           maxLength: 16
+    Activity:
+      type: object
+      properties:
+        activity_id:
+          type: string
+          format: uuid
+          example: 86b90820-cc52-11ea-9dad-fa163e3d9194
+          description: Unique ID for the activity.
+          readOnly: true
+        state:
+          type: string
+          example: initialized
+          description: 'The state of the request: <p><ul> <li>initialized - request has been received</li> <li>processing - request is being processed</li> <li>completed - job completed</li> <li>cancelled - request was cancelled</li> <li>failed - job failed to complete</li> <li>timed_out - the request timed out before completing"</li> </ul> </p>'
+        started_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we began processing the activity request, in ISO-8601 format.
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we completed processing the activity, in ISO-8601 format.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we created the activity, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Timestamp showing when we last updated the activity, in ISO-8601 format.
+          readOnly: true
+        source_file_name:
+          type: string
+          example: 2016-21-04-contact_import.xls
+          description: Name of the file used for an add_contacts activity.
+          readOnly: true
+        percent_done:
+          type: integer
+          example: 75
+          description: Shows the percent done for an activity that we are still processing.
+          readOnly: true
+        activity_errors:
+          type: array
+          description: Array of messages describing the errors that occurred.
+          items:
+            type: string
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        status:
+          $ref: '#/components/schemas/ActivityStatus'
+        _links:
+          $ref: '#/components/schemas/ActivityStatusExportLink'
+      description: Generic bulk activity status response object
+    ActivityGetExport:
+      type: string
+      description: CSV file containing exported contacts
+    ListActivityAddContacts:
+      type: object
+      required:
+      - list_ids
+      - source
+      properties:
+        source:
+          type: object
+          description: The <code>source</code> object specifies which contacts you are adding to your targeted lists using one of four mutually exclusive properties.
+          properties:
+            list_ids:
+              type: array
+              description: Specifies which contacts you are adding to lists as an array of up to 50 contact <code>list_id</code> values. This property is mutually exclusive with <code>contact_ids</code>, <code>all_active_contacts</code> (billable), and <code>segment_id</code>.
+              items:
+                type: string
+                format: uuid
+                example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+              maxItems: 50
+            all_active_contacts:
+              type: boolean
+              example: true
+              description: Adds all active (billable) contacts to your targeted lists. This property is mutually exclusive with <code>contact_ids</code>, <code>list_ids</code>, and <code>segment_id</code>.
+              default: false
+            contact_ids:
+              type: array
+              description: Specifies which contacts (up to 500) you are adding to lists as an array of <code>contact_id</code> values. This property is mutually exclusive with <code>list_ids</code>, <code>all_active_contacts</code> (billable), and <code>segment_id</code>.
+              items:
+                type: string
+                format: uuid
+                example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+              maxItems: 500
+            tag_ids:
+              type: array
+              description: Adds all contacts assigned with the specified <code>tag_id</code>s to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
+              items:
+                type: string
+                format: uuid
+                example: 5e88f172-21d1-11ea-b5ae-fa163e56c9b9
+              maxItems: 0
+            engagement_level:
+              type: string
+              example: high
+              description: Adds all contacts that meet the selected  <code>engagement_level </code> to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
+            segment_id:
+              type: integer
+              example: 12
+              description: Specifies which contacts you are adding to lists as a single <code>segment_id</code> value. This property is mutually exclusive with <code>list_ids</code>, <code>all_active_contacts</code> (billable), and <code>contact_ids</code>.
+        exclude:
+          type: object
+          properties:
+            contact_ids:
+              type: array
+              description: Excludes specified contacts (<code>contact_id</code>) from being added to the target list. Applicable if using either the <code>all_active_contacts</code> (billable) or <code>list_ids</code> as the source.
+              items:
+                type: string
+                format: uuid
+                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
+                description: An array of <code>contact_id</code>s to exclude.
+        list_ids:
+          type: array
+          description: Specifies which lists (up to 50) you are adding your source contacts to.
+          items:
+            type: string
+            format: uuid
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+          maxItems: 50
     ActivityExportStatus:
       type: object
       properties:
@@ -1734,70 +1549,7 @@ components:
         _links:
           $ref: '#/components/schemas/ActivityStatusExportLink'
       description: Activity status for contact_exports activity
-    ListIdList100:
-      type: object
-      required:
-      - list_ids
-      properties:
-        list_ids:
-          type: array
-          description: The array of contact lists <code>list_id</code> to delete.
-          items:
-            type: string
-            format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-          maxItems: 100
-    ActivityStatus:
-      type: object
-      properties:
-        items_total_count:
-          type: integer
-          example: 2200
-          description: The total number of items to be processed.
-          readOnly: true
-        items_completed_count:
-          type: integer
-          example: 2100
-          description: The number of items processed in the activity request.
-          readOnly: true
-        person_count:
-          type: integer
-          example: 8750
-          description: The total number of contacts in an import contacts request.
-          readOnly: true
-        error_count:
-          type: integer
-          example: 1
-          description: The number of non-correctable errors encountered during an import contacts request.
-          readOnly: true
-        correctable_count:
-          type: integer
-          example: 1
-          description: The number of correctable errors. Correctable errors include invalid email address format, birthday or anniversary format error, or does not have minimal contact information (no name or email address). Correctable errors are available in the product UI to correct.
-        cannot_add_to_list_count:
-          type: integer
-          example: 1
-          description: The number of contacts that cannot be added to a list because they were previously unsubscribed, valid for contacts_file_ or json_import requests.
-        list_count:
-          type: integer
-          example: 3
-          description: The number of lists processed in an add or remove list membership activity request.
-          readOnly: true
-    ActivityLinks:
-      type: object
-      properties:
-        self:
-          type: object
-          properties:
-            href:
-              type: string
-        results:
-          type: object
-          properties:
-            href:
-              type: string
-              description: Use this link to view activity results.
-    ActivityListsMembership:
+    ActivityDeleteStatus:
       type: object
       properties:
         activity_id:
@@ -1850,23 +1602,290 @@ components:
         status:
           type: object
           properties:
+            list_count:
+              type: integer
+              example: 4
+              description: The number of lists if request specifies contacts to delete by list_ids.
             items_total_count:
               type: integer
-              example: 2200
-              description: Total number of contacts to add to or remove from lists.
+              example: 375
+              description: The total number of contacts to delete.
               readOnly: true
             items_completed_count:
               type: integer
-              example: 652
-              description: The number of contacts processed.
-              readOnly: true
-            list_count:
-              type: integer
-              example: 3
-              description: The number of lists specified in the request.
+              example: 351
+              description: The number of contacts deleted.
               readOnly: true
         _links:
-          $ref: '#/components/schemas/ActivityStatusLink'
+          type: object
+          properties:
+            self:
+              type: object
+              description: Link to the activity status (this object) to retrieve the activity status.
+              properties:
+                href:
+                  type: string
+                  example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+      description: Activity status for contact_delete activity
+    ActivityTagging:
+      type: object
+      required:
+      - activity_id
+      - state
+      properties:
+        activity_id:
+          type: string
+          example: af86135c-8740-11eb-8abf-fa163ef30864
+          description: The system assigned UUID that uniquely identifies an activity.
+          readOnly: true
+        state:
+          type: string
+          example: initialized
+          description: The activity processing state.
+          readOnly: true
+        started_at:
+          type: string
+          format: date-time
+          example: '2019-12-12T15:38:24Z'
+          description: Timestamp showing when processing started for the activity, in ISO-8601 format.
+          readOnly: true
+        completed_at:
+          type: string
+          format: date-time
+          example: '2019-12-12T15:38:24Z'
+          description: Timestamp showing when processing completed for the activity, in ISO-8601 format.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-12-12T15:38:24Z'
+          description: Timestamp showing when the activity was first requested, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-12-12T15:38:24Z'
+          description: Timestamp showing when the activity was last updated, in ISO-8601 format.
+          readOnly: true
+        percent_done:
+          type: integer
+          example: 25
+          description: The processing percent complete for the activity.
+          readOnly: true
+        activity_errors:
+          type: array
+          description: An array of error message strings describing the errors that occurred.
+          readOnly: true
+          items:
+            type: string
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        status:
+          $ref: '#/components/schemas/ActivityTaggingStatus'
+        _links:
+          $ref: '#/components/schemas/ActivityLinks'
+    ActivityStatus:
+      type: object
+      properties:
+        items_total_count:
+          type: integer
+          example: 2200
+          description: The total number of items to be processed.
+          readOnly: true
+        items_completed_count:
+          type: integer
+          example: 2100
+          description: The number of items processed in the activity request.
+          readOnly: true
+        person_count:
+          type: integer
+          example: 8750
+          description: The total number of contacts in an import contacts request.
+          readOnly: true
+        error_count:
+          type: integer
+          example: 1
+          description: The number of non-correctable errors encountered during an import contacts request.
+          readOnly: true
+        correctable_count:
+          type: integer
+          example: 1
+          description: The number of correctable errors. Correctable errors include invalid email address format, birthday or anniversary format error, or does not have minimal contact information (no name or email address). Correctable errors are available in the product UI to correct.
+        cannot_add_to_list_count:
+          type: integer
+          example: 1
+          description: The number of contacts that cannot be added to a list because they were previously unsubscribed, valid for contacts_file_ or json_import requests.
+        list_count:
+          type: integer
+          example: 3
+          description: The number of lists processed in an add or remove list membership activity request.
+          readOnly: true
+    ActivityStatusLink:
+      type: object
+      properties:
+        self:
+          type: object
+          description: HATEOS-style link to the activity status (this object).
+          properties:
+            href:
+              type: string
+              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+    ListActivityRemoveContacts:
+      type: object
+      required:
+      - list_ids
+      - source
+      properties:
+        source:
+          type: object
+          description: Specifies the contacts to remove from your target list(s) using one of several mutually exclusive properties.
+          properties:
+            list_ids:
+              type: array
+              description: Include up to 50 <code>list_id</code> values to remove all contact list members from your target list(s). This property is mutually exclusive with all other <code>source</code> properties.
+              items:
+                type: string
+                format: uuid
+                example: 5bbf758c-d8ce-11e9-8d3a-fa163e56c9b0
+              maxItems: 0
+            contact_ids:
+              type: array
+              description: Include up to 500 <code>contact_id</code> values to remove the contacts from your target lists. This property is mutually exclusive with all other <code>source</code> properties.
+              items:
+                type: string
+                format: uuid
+                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
+              maxItems: 0
+            all_active_contacts:
+              type: boolean
+              example: true
+              description: Removes all active (billable) contacts from your targeted lists. This property is mutually exclusive with all other <code>source</code> properties.
+              default: false
+            engagement_level:
+              type: string
+              example: high
+              description: Removes all contacts that meet the selected  <code>engagement_level </code> to your target lists. This property is mutually exclusive with all other <code>source</code> properties.
+            tag_ids:
+              type: array
+              description: Removes all contacts assigned with the specified <code>tag_id</code>s from your target lists. This property is mutually exclusive with all other <code>source</code> properties.
+              items:
+                type: string
+                format: uuid
+                example: 5e88f172-21d1-11ea-b5ae-fa163e56c9b9
+              maxItems: 0
+        exclude:
+          type: object
+          properties:
+            contact_ids:
+              type: array
+              description: Excludes specified contacts (<code>contact_id</code>) from being deleted from the target list and only applicable if using either the <code>all_active_contacts</code> (billable) or <code>list_ids</code> as the source.
+              items:
+                type: string
+                format: uuid
+                example: 4d88f172-21d1-11ea-b5ae-fa163e56c9b0
+                description: An array of <code>contact_id</code>s to exclude.
+        list_ids:
+          type: array
+          description: Specify up to 50 target <code>list_id</code>s from which to remove contacts.
+          items:
+            type: string
+            format: uuid
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+            description: Target list from which to remove contacts.
+          maxItems: 0
+    TagAddRemoveContacts:
+      type: object
+      required:
+      - source
+      - tag_ids
+      properties:
+        source:
+          type: object
+          description: Select the source used to identify contacts to which a tag is added or removed. Source types are mutually exclusive.
+          properties:
+            contact_ids:
+              type: array
+              description: An array of contacts IDs.
+              items:
+                type: string
+                format: uuid
+                example: 358f6a5e-21f6-11ea-a1cb-fa163e56c9b0
+              maxItems: 500
+            list_ids:
+              type: array
+              description: An array of list IDs ( <code>list_id</code> ).
+              items:
+                type: string
+                format: uuid
+                example: 6eeb4756-1cf5-11ea-859f-fa163e56c9b0
+              maxItems: 50
+            tag_ids:
+              type: array
+              description: An array of tags ( <code>tag_id</code> ).
+              items:
+                type: string
+                format: uuid
+                example: c6915956-fde3-4081-977e-c3b8d1b068a7
+              maxItems: 50
+            all_active_contacts:
+              type: boolean
+              example: false
+              description: Use to identify contacts with an active (billable) status.
+            new_subscriber:
+              type: boolean
+              example: true
+              description: Use to identify newly subscribed contacts.
+        exclude:
+          type: object
+          description: Use to exclude specified contacts from being added or removed from a tag. Only applicable if the specified source is either <code>all_active_contacts</code> (billable) or <code>list_ids</code>.
+          properties:
+            contact_ids:
+              type: array
+              description: Identifies the contacts, by <code>contact_id</code>, to exclude from the add or remove tags activity.
+              items:
+                type: string
+                format: uuid
+                example: c7172ca0-f353-11e8-aff2-fa163e56c9b0
+        tag_ids:
+          type: array
+          description: An array of tags (<code>tag_id</code>) to add to all contacts meeting the specified source criteria.
+          items:
+            type: string
+            format: uuid
+            example: 5bbf758c-d8ce-11e9-8d3a-fa163e56c9b0
+            description: A list of tags to which contacts are added or removed.
+          maxItems: 50
+    ContactsJsonImport:
+      type: object
+      required:
+      - import_data
+      - list_ids
+      properties:
+        import_data:
+          type: array
+          description: An array containing the contacts to import.
+          items:
+            $ref: '#/components/schemas/JsonImportContact'
+        list_ids:
+          type: array
+          description: Specify which contact lists you are adding all imported contacts to as an array of up to 50 contact <code>list_id</code> string values.
+          items:
+            type: string
+            format: uuid
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+          maxItems: 50
+          minItems: 1
+        sms_permission_to_send:
+          type: string
+          example: explicit
+          description: Specifies if the contact gave <code>explicit</code> SMS permission or if the SMS permission was not set (<code>not_set</code>). If `explicit, the <code>sms_consent_date</code> must be provided.
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
     ContactDelete:
       type: object
       properties:
@@ -1888,20 +1907,23 @@ components:
             example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
             description: ''
           maxItems: 50
-    TagIdList500Limit:
+    ActivityStatusExportLink:
       type: object
-      required:
-      - tag_ids
       properties:
-        tag_ids:
-          type: array
-          description: The tag IDs (<code>tag_ids</code>) to delete.
-          items:
-            type: string
-            format: uuid
-            example: 00e4429c-3beb-11eb-9f34-fa163e56c9b9
-            description: A list of tag_ids. Mutually exclusive with other filters and criteria.
-          maxItems: 500
+        self:
+          type: object
+          description: HATEOS-style link to the activity status (this object).
+          properties:
+            href:
+              type: string
+              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+        results:
+          type: object
+          description: Link to an activity result resource; as an example, for file_export, the link to the exported contacts file.
+          properties:
+            href:
+              type: string
+              example: /v3/contacts_exports/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
   securitySchemes:
     oauth2_implicit:
       type: oauth2
