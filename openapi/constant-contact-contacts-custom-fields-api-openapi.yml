@@ -228,28 +228,16 @@ paths:
         required: true
 components:
   schemas:
-    CustomFieldChoicePutRequest:
+    CustomFields:
       type: object
       properties:
-        choice_id:
-          type: integer
-          example: 111
-          description: The ID that uniquely identifies the choice.
-        choice_label:
-          type: string
-          example: Apple
-          description: Label to display for the choice on the user interface.
-          maxLength: 255
-        display_order:
-          type: integer
-          example: 1
-          description: Stores the order for displaying a list of choices.
-      description: The <code>single_select</code> and <code>multi_select</code> custom field options.
-    PagingLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Link'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+          maxItems: 100
+        _links:
+          $ref: '#/components/schemas/PagingLinks'
     CustomFieldRequest:
       type: object
       properties:
@@ -275,16 +263,45 @@ components:
           type: integer
           example: 2
           description: Available if data type is <code>data</code>. Displays <code>1</code> if using legacy date fields where values are stored as strings. Displays <code>2</code> if using new date fields where values are stored as actual dates to support date comparisons and validations.
-    CustomFields:
+    PagingLinks:
       type: object
       properties:
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
-          maxItems: 100
-        _links:
-          $ref: '#/components/schemas/PagingLinks'
+        next:
+          $ref: '#/components/schemas/Link'
+    CustomFieldMetadata:
+      type: object
+      properties:
+        display_type:
+          type: string
+          example: radio
+          description: Determines how Constant Contact renders a <code>single_select</code> or <code> multi_select</code> field.
+        allow_negative:
+          type: boolean
+          example: false
+          description: For type <code>number</code>, determines if a value can be negative. By default, this value is false for the type <code>number</code>.
+        decimal_places:
+          type: integer
+          example: 1
+          description: For types <code>number</code> and <code>currency</code>, determines the number of decimal places possible in the value.
+        currency_code:
+          type: string
+          example: USD
+          description: For type <code>currency</code>, specifies the three-letter currency code to assign.
+        integer:
+          type: boolean
+          example: true
+          description: For types <code>number</code> and <code>currency</code>, determines whether the custom field should store only whole numbers (integers) without decimal values. If the <code>integer</code> is set to <code>false</code>, the <code>decimal_places</code> must be between 1 and 4.
+        display_format:
+          type: string
+          example: MM/DD/YYYY
+          description: Specifies the display format for date fields in the user interface. If not specified for a date type field, defaults to <code>YYYY-MM-DD</code> format. Valid only for version 2 type dates (values are stored as actual dates to support date comparisons and validations).
+      description: Additional details about a custom field in JSON format.
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
     CustomField:
       type: object
       required:
@@ -338,67 +355,6 @@ components:
           description: Date and time that the resource was created, in ISO-8601 format. System generated.
           readOnly: true
       description: Custom fields details.
-    CustomFieldMetadata:
-      type: object
-      properties:
-        display_type:
-          type: string
-          example: radio
-          description: Determines how Constant Contact renders a <code>single_select</code> or <code> multi_select</code> field.
-        allow_negative:
-          type: boolean
-          example: false
-          description: For type <code>number</code>, determines if a value can be negative. By default, this value is false for the type <code>number</code>.
-        decimal_places:
-          type: integer
-          example: 1
-          description: For types <code>number</code> and <code>currency</code>, determines the number of decimal places possible in the value.
-        currency_code:
-          type: string
-          example: USD
-          description: For type <code>currency</code>, specifies the three-letter currency code to assign.
-        integer:
-          type: boolean
-          example: true
-          description: For types <code>number</code> and <code>currency</code>, determines whether the custom field should store only whole numbers (integers) without decimal values. If the <code>integer</code> is set to <code>false</code>, the <code>decimal_places</code> must be between 1 and 4.
-        display_format:
-          type: string
-          example: MM/DD/YYYY
-          description: Specifies the display format for date fields in the user interface. If not specified for a date type field, defaults to <code>YYYY-MM-DD</code> format. Valid only for version 2 type dates (values are stored as actual dates to support date comparisons and validations).
-      description: Additional details about a custom field in JSON format.
-    CustomFieldPutRequest:
-      type: object
-      properties:
-        label:
-          type: string
-          example: Favorite color
-          description: The custom field name to display in the UI (free-form text).
-          maxLength: 50
-        choices:
-          type: array
-          description: 'Array of choices for custom fields of type: <code>single_select</code> or <code>multi_select</code>. Maximum number of elements for <code>checkbox</code> and <code>radio</code> display types is 20. Maximum number of elements for a <code>dropdown</code> is 100.'
-          items:
-            $ref: '#/components/schemas/CustomFieldChoicePutRequest'
-          maxItems: 100
-    CustomFieldChoiceRequest:
-      type: object
-      properties:
-        choice_label:
-          type: string
-          example: Apple
-          description: Label to display for the choice on the user interface.
-          maxLength: 255
-        display_order:
-          type: integer
-          example: 1
-          description: Stores the order for displaying a list of choices.
-      description: The <code>single_select</code> and <code>multi_select</code> custom field options.
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
     CustomFieldChoice:
       type: object
       properties:
@@ -437,6 +393,50 @@ components:
           description: Date the choice was deleted, in ISO-8601 format. System generated.
           readOnly: true
       description: Custom fields <code>single_select</code> and <code>multi_select</code> settings.
+    CustomFieldChoiceRequest:
+      type: object
+      properties:
+        choice_label:
+          type: string
+          example: Apple
+          description: Label to display for the choice on the user interface.
+          maxLength: 255
+        display_order:
+          type: integer
+          example: 1
+          description: Stores the order for displaying a list of choices.
+      description: The <code>single_select</code> and <code>multi_select</code> custom field options.
+    CustomFieldPutRequest:
+      type: object
+      properties:
+        label:
+          type: string
+          example: Favorite color
+          description: The custom field name to display in the UI (free-form text).
+          maxLength: 50
+        choices:
+          type: array
+          description: 'Array of choices for custom fields of type: <code>single_select</code> or <code>multi_select</code>. Maximum number of elements for <code>checkbox</code> and <code>radio</code> display types is 20. Maximum number of elements for a <code>dropdown</code> is 100.'
+          items:
+            $ref: '#/components/schemas/CustomFieldChoicePutRequest'
+          maxItems: 100
+    CustomFieldChoicePutRequest:
+      type: object
+      properties:
+        choice_id:
+          type: integer
+          example: 111
+          description: The ID that uniquely identifies the choice.
+        choice_label:
+          type: string
+          example: Apple
+          description: Label to display for the choice on the user interface.
+          maxLength: 255
+        display_order:
+          type: integer
+          example: 1
+          description: Stores the order for displaying a list of choices.
+      description: The <code>single_select</code> and <code>multi_select</code> custom field options.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

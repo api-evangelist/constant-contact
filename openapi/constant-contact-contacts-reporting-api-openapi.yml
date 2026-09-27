@@ -260,6 +260,41 @@ paths:
       x-sdk-methodName: getContactTrackingCountReport
 components:
   schemas:
+    ContactOpenAndClickRates:
+      type: object
+      required:
+      - average_click_rate
+      - average_open_rate
+      - contact_id
+      - included_activities_count
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: 71600990-908b-11e6-907f-00166bff25
+          description: The unique ID of the contact for which the report is being generated.
+        included_activities_count:
+          type: integer
+          format: int32
+          example: 10
+          description: The number of activities included in the calculation.
+        average_open_rate:
+          type: number
+          format: double
+          example: 0.6
+          description: The average rate the contact opened emails sent to them.
+        average_click_rate:
+          type: number
+          format: double
+          example: 0.6
+          description: The average rate the contact clicked on links in emails sent to them.
+      description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
+    reportingNext:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
     ContactCampaignActivitiesSummary:
       type: object
       required:
@@ -279,6 +314,36 @@ components:
         _links:
           description: The next link if more summaries of activities are available.
           $ref: '#/components/schemas/reportingLinks'
+    ContactTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: 71600990-908b-11e6-907f-00166bff25
+          description: The contact ID.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 010a0-1234-5678-9012-1100a0c1ab2a
+          description: The unique ID of the activity for an e-mail campaign.
+        created_time:
+          type: string
+          format: date-time
+          example: '2017-04-02T04:08:00.000Z'
+          description: The time the tracking activity occurred
+        tracking_activity_type:
+          type: string
+          example: em_sends
+          description: The types of the tracking activities included in the request. For example, sends, opens, clicks, bounces, opt-outs, or forwards.
+        campaign_activity_name:
+          type: string
+          example: April DLCV Newsletter
+          description: The campaign activity name.
+      description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
     CampaignActivitySummary:
       type: object
       required:
@@ -323,35 +388,6 @@ components:
           type: integer
           format: int32
           description: The number of times this contact has opted out.
-    ContactOpenAndClickRates:
-      type: object
-      required:
-      - average_click_rate
-      - average_open_rate
-      - contact_id
-      - included_activities_count
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: 71600990-908b-11e6-907f-00166bff25
-          description: The unique ID of the contact for which the report is being generated.
-        included_activities_count:
-          type: integer
-          format: int32
-          example: 10
-          description: The number of activities included in the calculation.
-        average_open_rate:
-          type: number
-          format: double
-          example: 0.6
-          description: The average rate the contact opened emails sent to them.
-        average_click_rate:
-          type: number
-          format: double
-          example: 0.6
-          description: The average rate the contact clicked on links in emails sent to them.
-      description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
     reportingLinks:
       type: object
       properties:
@@ -370,42 +406,6 @@ components:
           description: The next link if more contact tracking activities are available.
           $ref: '#/components/schemas/reportingLinks'
       description: A page of tracking activities for a contact that can include sends, opens, clicks, bounces, opt-outs and forwards to a friend. If it exists, a link to the next page of tracking activities is provided.
-    ContactTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: 71600990-908b-11e6-907f-00166bff25
-          description: The contact ID.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 010a0-1234-5678-9012-1100a0c1ab2a
-          description: The unique ID of the activity for an e-mail campaign.
-        created_time:
-          type: string
-          format: date-time
-          example: '2017-04-02T04:08:00.000Z'
-          description: The time the tracking activity occurred
-        tracking_activity_type:
-          type: string
-          example: em_sends
-          description: The types of the tracking activities included in the request. For example, sends, opens, clicks, bounces, opt-outs, or forwards.
-        campaign_activity_name:
-          type: string
-          example: April DLCV Newsletter
-          description: The campaign activity name.
-      description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
-    reportingNext:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

@@ -298,15 +298,60 @@ paths:
       x-sdk-methodName: getEmailCampaignActivitySendHistory
 components:
   schemas:
-    EmailScheduleResponse:
+    EmailScheduleInput:
+      type: object
+      required:
+      - scheduled_date
+      properties:
+        scheduled_date:
+          type: string
+          format: date-time
+          description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates. Use <code>"0"</code> as the date to have Constant Contact immediately send the email campaign activity to contacts.
+    EmailSendHistory:
       type: array
       items:
         type: object
         properties:
-          scheduled_date:
+          send_id:
+            type: integer
+            format: int32
+            example: 1
+            description: 'Uniquely identifies each send history object using the number of times that you sent the email campaign activity as a sequence starting at <code>1</code>. For example, when you send a specific email campaign activity twice this method returns an object with a <code>send_id</code> of 1 for the first send and an object with a <code>send_id</code> of 2 for the second send.
+
+              '
+            minimum: 1
+          contact_list_ids:
+            type: array
+            description: The contacts lists that Constant Contact sent email campaign activity to as an array of contact <code>list_id</code> strings.
+            items:
+              type: string
+              example: 72876990-b664-11e5-844a-00163e0cb6a5
+          segment_ids:
+            type: array
+            description: The contact segments that Constant Contact sent the email campaign activity to as an array of <code>segment_id</code> integers.
+            items:
+              type: integer
+              format: int64
+              example: 57
+          count:
+            type: integer
+            format: int64
+            example: 200
+            description: The number of contacts that Constant Contact sent this email campaign activity to. This property is specific to each send history object. When you resend an email campaign activity, Constant Contact only sends it to new contacts in the contact lists or segments you are using.
+          run_date:
             type: string
             format: date-time
-            description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates.
+            example: '2018-06-27T10:28:09.000Z'
+            description: The system generated date and time that Constant Contact sent the email campaign activity to contacts in ISO-8601 format.
+          send_status:
+            type: string
+            example: COMPLETED
+            description: "The send status for the email campaign activity. Valid values are: <ul> \n  <li><code>COMPLETED</code>: Constant Contact successfully sent the email campaign activity.</li>\n  <li><code>ERRORED</code>: Constant Contact encountered an error when sending the email campaign activity.<li>\n</ul>\n"
+          reason_code:
+            type: integer
+            format: int32
+            example: 0
+            description: "The reason why the send attempt completed or encountered an error. This method returns <code>0</code> if Constant Contact successfully sent the email campaign activity to contacts. Possible <code>reason_code</code> values are: <ul>\n      <li>0 — Constant Contact successfully sent the email to contacts.</li>\n      <li>1 — An error occurred when sending this email. Try scheduling it again, or contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a>.</li>\n      <li>2 — We were unable to send the email. Please contact our <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/5782-contact-an-account-review-and-deliverability-specialist' target='_blank'>Account Review Team</a> for more information.</li>\n      <li>3 — This Constant Contact account cannot currently send emails. This can be due to billing or product expiration.</li>\n      <li>4 — You're not able to send the email to that many contacts. Remove contacts from the contact lists you are using or select a list with fewer contacts.</li>\n      <li>5 — The email is currently in staging. For more information, see the <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/7402-email-staging' target='_blank>Email Staging Knowledge Base article</a>.</li>\n      <li>6 — Constant Contact was unable to finish sending this email to all of the contacts on your list. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>7 — The email contains invalid images. This can be caused when one or more images in the email are longer available in your image library.</li>\n      <li>8 — The email contains a link URL that exceeds 1005 characters.</li>\n      <li>9 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>10 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>11 — This Constant Contact account cannot send survey invitations.</li>\n      <li>12 — Constant Contact attempted to send the email, but there were no eligible contacts to send it to. This can be caused by an invalid contact list, a contact list with no contacts, or a contact list with no new contacts during a resend. This method displays <code>reason_code</code> 12 as a send attempt with a <code>send_status</code> of COMPLETED and a <code>count</code> of 0.</li>\n</ul>\n"
     EmailCampaignActivityPreview:
       type: object
       properties:
@@ -358,60 +403,15 @@ components:
           type: string
           example: This is a test send of the email campaign activity.
           description: A personal message for the recipients of the test email. Constant Contact displays this message before the email campaign activity content.
-    EmailSendHistory:
+    EmailScheduleResponse:
       type: array
       items:
         type: object
         properties:
-          send_id:
-            type: integer
-            format: int32
-            example: 1
-            description: 'Uniquely identifies each send history object using the number of times that you sent the email campaign activity as a sequence starting at <code>1</code>. For example, when you send a specific email campaign activity twice this method returns an object with a <code>send_id</code> of 1 for the first send and an object with a <code>send_id</code> of 2 for the second send.
-
-              '
-            minimum: 1
-          contact_list_ids:
-            type: array
-            description: The contacts lists that Constant Contact sent email campaign activity to as an array of contact <code>list_id</code> strings.
-            items:
-              type: string
-              example: 72876990-b664-11e5-844a-00163e0cb6a5
-          segment_ids:
-            type: array
-            description: The contact segments that Constant Contact sent the email campaign activity to as an array of <code>segment_id</code> integers.
-            items:
-              type: integer
-              format: int64
-              example: 57
-          count:
-            type: integer
-            format: int64
-            example: 200
-            description: The number of contacts that Constant Contact sent this email campaign activity to. This property is specific to each send history object. When you resend an email campaign activity, Constant Contact only sends it to new contacts in the contact lists or segments you are using.
-          run_date:
+          scheduled_date:
             type: string
             format: date-time
-            example: '2018-06-27T10:28:09.000Z'
-            description: The system generated date and time that Constant Contact sent the email campaign activity to contacts in ISO-8601 format.
-          send_status:
-            type: string
-            example: COMPLETED
-            description: "The send status for the email campaign activity. Valid values are: <ul> \n  <li><code>COMPLETED</code>: Constant Contact successfully sent the email campaign activity.</li>\n  <li><code>ERRORED</code>: Constant Contact encountered an error when sending the email campaign activity.<li>\n</ul>\n"
-          reason_code:
-            type: integer
-            format: int32
-            example: 0
-            description: "The reason why the send attempt completed or encountered an error. This method returns <code>0</code> if Constant Contact successfully sent the email campaign activity to contacts. Possible <code>reason_code</code> values are: <ul>\n      <li>0 — Constant Contact successfully sent the email to contacts.</li>\n      <li>1 — An error occurred when sending this email. Try scheduling it again, or contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a>.</li>\n      <li>2 — We were unable to send the email. Please contact our <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/5782-contact-an-account-review-and-deliverability-specialist' target='_blank'>Account Review Team</a> for more information.</li>\n      <li>3 — This Constant Contact account cannot currently send emails. This can be due to billing or product expiration.</li>\n      <li>4 — You're not able to send the email to that many contacts. Remove contacts from the contact lists you are using or select a list with fewer contacts.</li>\n      <li>5 — The email is currently in staging. For more information, see the <a href='http://knowledgebase.constantcontact.com/articles/KnowledgeBase/7402-email-staging' target='_blank>Email Staging Knowledge Base article</a>.</li>\n      <li>6 — Constant Contact was unable to finish sending this email to all of the contacts on your list. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>7 — The email contains invalid images. This can be caused when one or more images in the email are longer available in your image library.</li>\n      <li>8 — The email contains a link URL that exceeds 1005 characters.</li>\n      <li>9 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>10 — Constant Contact was unable to verify your authenticated Sender address. Please contact <a href='http://support.constantcontact.com' target='_blank'>Customer Support</a> for more information.</li>\n      <li>11 — This Constant Contact account cannot send survey invitations.</li>\n      <li>12 — Constant Contact attempted to send the email, but there were no eligible contacts to send it to. This can be caused by an invalid contact list, a contact list with no contacts, or a contact list with no new contacts during a resend. This method displays <code>reason_code</code> 12 as a send attempt with a <code>send_status</code> of COMPLETED and a <code>count</code> of 0.</li>\n</ul>\n"
-    EmailScheduleInput:
-      type: object
-      required:
-      - scheduled_date
-      properties:
-        scheduled_date:
-          type: string
-          format: date-time
-          description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates. Use <code>"0"</code> as the date to have Constant Contact immediately send the email campaign activity to contacts.
+            description: The date when Constant Contact will send the email campaign activity to contacts in ISO-8601 format. For example, <code>2022-05-17</code> and <code>2022-05-17T16:37:59.091Z</code> are valid dates.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

@@ -308,84 +308,6 @@ paths:
         required: true
 components:
   schemas:
-    Next:
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          type: string
-          description: The next link in the page, or null if there are no additional pages.
-    segmentsLinks:
-      type: object
-      required:
-      - next
-      properties:
-        next:
-          description: HAL property that contains next link if applicable.
-          $ref: '#/components/schemas/Next'
-    SegmentsDTO:
-      type: object
-      required:
-      - segments
-      properties:
-        segments:
-          type: array
-          description: Lists all segments for the account.
-          items:
-            $ref: '#/components/schemas/SegmentMaster'
-        _links:
-          description: HAL property that contains next link if applicable.
-          $ref: '#/components/schemas/segmentsLinks'
-    SegmentName:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: Contacts who did not open any email campaign within the last 100 days.
-          description: The segment's unique descriptive name.
-    SegmentMaster:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Re-engage contacts who did not open the last 5 campaigns.
-          description: The segment's unique descriptive name.
-        segment_id:
-          type: integer
-          format: int32
-          example: 14
-          description: The system generated number that uniquely identifies the segment.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The system generated date and time that the segment was created (ISO-8601 format).
-          readOnly: true
-        edited_at:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The system generated date and time that the segment's <code>name</code> or <code>segment_criteria</code> was last updated (ISO-8601 format).
-          readOnly: true
-    SegmentData:
-      type: object
-      required:
-      - name
-      - segment_criteria
-      properties:
-        name:
-          type: string
-          example: Re-engage contacts who did not open the last 5 email campaign activities.
-          description: The segment's unique descriptive name.
-        segment_criteria:
-          type: string
-          example: '{"version":"1.0.0","criteria":{"type":"and","group":[{"source":"tracking","field":"not_opened","op":"contains-any","const_value":"last-n-campaigns","param":"5"}]}}'
-          description: The <code>segment_criteria</code> specifies the contact data that Constant Contact uses to evaluate and identify contacts that meet your criteria. The <code>segment_criteria</code> must be formatted as single-string escaped JSON. The top-level <code>group</code> <code>type</code> must be <code>add</code>.
-          maxLength: 20000
     SegmentDetail:
       type: object
       properties:
@@ -416,6 +338,84 @@ components:
           example: '2019-04-25T11:08:00.000Z'
           description: The system generated date and time (ISO-8601) that the segment's <code>name</code> or <code> segment_criteria</code> was last updated.
           readOnly: true
+    SegmentData:
+      type: object
+      required:
+      - name
+      - segment_criteria
+      properties:
+        name:
+          type: string
+          example: Re-engage contacts who did not open the last 5 email campaign activities.
+          description: The segment's unique descriptive name.
+        segment_criteria:
+          type: string
+          example: '{"version":"1.0.0","criteria":{"type":"and","group":[{"source":"tracking","field":"not_opened","op":"contains-any","const_value":"last-n-campaigns","param":"5"}]}}'
+          description: The <code>segment_criteria</code> specifies the contact data that Constant Contact uses to evaluate and identify contacts that meet your criteria. The <code>segment_criteria</code> must be formatted as single-string escaped JSON. The top-level <code>group</code> <code>type</code> must be <code>add</code>.
+          maxLength: 20000
+    SegmentName:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Contacts who did not open any email campaign within the last 100 days.
+          description: The segment's unique descriptive name.
+    segmentsLinks:
+      type: object
+      required:
+      - next
+      properties:
+        next:
+          description: HAL property that contains next link if applicable.
+          $ref: '#/components/schemas/Next'
+    Next:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The next link in the page, or null if there are no additional pages.
+    SegmentMaster:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Re-engage contacts who did not open the last 5 campaigns.
+          description: The segment's unique descriptive name.
+        segment_id:
+          type: integer
+          format: int32
+          example: 14
+          description: The system generated number that uniquely identifies the segment.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The system generated date and time that the segment was created (ISO-8601 format).
+          readOnly: true
+        edited_at:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The system generated date and time that the segment's <code>name</code> or <code>segment_criteria</code> was last updated (ISO-8601 format).
+          readOnly: true
+    SegmentsDTO:
+      type: object
+      required:
+      - segments
+      properties:
+        segments:
+          type: array
+          description: Lists all segments for the account.
+          items:
+            $ref: '#/components/schemas/SegmentMaster'
+        _links:
+          description: HAL property that contains next link if applicable.
+          $ref: '#/components/schemas/segmentsLinks'
   securitySchemes:
     oauth2_implicit:
       type: oauth2

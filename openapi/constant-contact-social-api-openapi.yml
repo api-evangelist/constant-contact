@@ -208,18 +208,66 @@ paths:
         required: true
 components:
   schemas:
-    ConnectionDto:
+    PagedHashtagGroupsDto:
+      type: object
+      required:
+      - _links
+      - hashtag_groups
+      - page
+      properties:
+        _links:
+          description: Pagination links for navigating through pages of results.
+          readOnly: true
+          $ref: '#/components/schemas/PagedResponseLinksDto'
+        hashtag_groups:
+          type: array
+          description: The current page of hashtag group results.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/HashtagGroupDto'
+        page:
+          description: Pagination metadata for the current response.
+          readOnly: true
+          $ref: '#/components/schemas/PageMetadataDto'
+      description: A paginated response containing a page of hashtag groups.
+    MapOfstringAndstring:
+      type: object
+      additionalProperties:
+        type: string
+    PostCreateDto:
+      type: object
+      required:
+      - profile_posts
+      - status
+      properties:
+        name:
+          type: string
+          example: My Social Post
+          description: Campaign name for this post. Optional on creation. If not provided, a default name will be generated. The value provided will be sanitized before saving, so the value returned may not exactly match what was sent.
+        profile_posts:
+          type: array
+          description: The list of per-profile posts that make up this campaign. Each entry specifies the content to post and the profiles to post it to.
+          items:
+            $ref: '#/components/schemas/ProfilePostDto'
+        scheduled_time:
+          type: string
+          example: '2026-03-15T14:30:00.000Z'
+          description: The date and time to publish the post, in ISO-8601 format. Only applies when <code>status</code> is <code>SCHEDULED</code>. If not specified for a scheduled post, the publish job is scheduled to execute immediately.
+        status:
+          type: string
+          example: SCHEDULED
+          description: The status of the post on creation. Valid values are <code>DRAFT</code> (save without publishing) or <code>SCHEDULED</code> (schedule for publication).
+      description: Request body for creating a social media post campaign that can include multiple posts to multiple social profiles.
+    ConnectionResponseDto:
       type: object
       properties:
-        account_info:
-          description: Account information for this connection.
+        connections:
+          type: array
+          description: List of established social network connections for the account.
           readOnly: true
-          $ref: '#/components/schemas/AccountInfoDto'
-        connection_status:
-          description: Status details for this connection.
-          readOnly: true
-          $ref: '#/components/schemas/ConnectionStatusDto'
-      description: A combination of account information and connection status for an established social network connection.
+          items:
+            $ref: '#/components/schemas/ConnectionDto'
+      description: A wrapper containing the list of established social network connections for a given Constant Contact account.
     AccountInfoDto:
       type: object
       properties:
@@ -252,20 +300,87 @@ components:
           description: Username of the connected user on the social network.
           readOnly: true
       description: Account information for a connected social network user.
-    PagedResponseLinkRelDto:
+    PageMetadataDto:
       type: object
       required:
-      - href
+      - page
+      - size
+      - total_elements
+      - total_pages
       properties:
-        href:
-          type: string
-          description: The URI of a page of results.
+        page:
+          type: integer
+          format: int64
+          description: The current 0-based page number.
           readOnly: true
-      description: Represents a link to a page of results.
+        size:
+          type: integer
+          format: int64
+          description: The page size (the number of results returned in this response).
+          readOnly: true
+        total_elements:
+          type: integer
+          format: int64
+          description: The total number of results available across all pages.
+          readOnly: true
+        total_pages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the current page size.
+          readOnly: true
+      description: Pagination metadata describing the current page of results.
+    PagedResponseLinksDto:
+      type: object
+      properties:
+        next:
+          description: Link to retrieve the next page of results. This will be absent for the last page.
+          readOnly: true
+          $ref: '#/components/schemas/PagedResponseLinkRelDto'
+      description: Pagination links for navigating through pages of results.
+    ProfilePostDto:
+      type: object
+      required:
+      - profiles
+      properties:
+        images:
+          type: array
+          description: Images to include in the post. Each image must be accessible via a public URL.
+          items:
+            $ref: '#/components/schemas/ImageDto'
+        post_content_id:
+          type: string
+          description: Identifier for this post content. Generated by the server on creation. When updating a post, existing profile posts must include their original <code>post_content_id</code> unchanged.
+          readOnly: true
+        profiles:
+          type: array
+          description: The list of profiles to post to. Can be an empty list only when the post is in <code>DRAFT</code> status.
+          items:
+            $ref: '#/components/schemas/ProfilePostProfileDto'
+        settings:
+          type: object
+          description: "Network-specific post settings. If no settings are provided, this field will be omitted in the JSON response. All values are persisted as strings.\nCurrently, only TikTok has available settings:\n<pre>{\n  \"settings\": {\n    \"tiktok\": {\n      \"disable_comment\": \"true\",\n      \"disable_duet\": \"false\",\n      \"disable_stitch\": \"true\",\n      \"auto_add_music\": \"false\"\n    }\n  }\n}</pre>\n"
+          additionalProperties:
+            $ref: '#/components/schemas/MapOfstringAndstring'
+        text:
+          type: string
+          description: The text/caption content for the post. Whether text is required depends on the target social network. In <code>DRAFT</code> status, this is always optional.
+      description: The content to post to one or more social profiles as part of a social post campaign.
     Profiles:
       type: array
       items:
         $ref: '#/components/schemas/ProfileDto'
+    ConnectionDto:
+      type: object
+      properties:
+        account_info:
+          description: Account information for this connection.
+          readOnly: true
+          $ref: '#/components/schemas/AccountInfoDto'
+        connection_status:
+          description: Status details for this connection.
+          readOnly: true
+          $ref: '#/components/schemas/ConnectionStatusDto'
+      description: A combination of account information and connection status for an established social network connection.
     ConnectionStatusDto:
       type: object
       properties:
@@ -304,117 +419,6 @@ components:
           description: <code>true</code> if the token for this social network is currently valid and can be successfully used to fetch data from the network.
           readOnly: true
       description: Data indicating the status of a social network connection's integration.
-    PageMetadataDto:
-      type: object
-      required:
-      - page
-      - size
-      - total_elements
-      - total_pages
-      properties:
-        page:
-          type: integer
-          format: int64
-          description: The current 0-based page number.
-          readOnly: true
-        size:
-          type: integer
-          format: int64
-          description: The page size (the number of results returned in this response).
-          readOnly: true
-        total_elements:
-          type: integer
-          format: int64
-          description: The total number of results available across all pages.
-          readOnly: true
-        total_pages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the current page size.
-          readOnly: true
-      description: Pagination metadata describing the current page of results.
-    PagedHashtagGroupsDto:
-      type: object
-      required:
-      - _links
-      - hashtag_groups
-      - page
-      properties:
-        _links:
-          description: Pagination links for navigating through pages of results.
-          readOnly: true
-          $ref: '#/components/schemas/PagedResponseLinksDto'
-        hashtag_groups:
-          type: array
-          description: The current page of hashtag group results.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/HashtagGroupDto'
-        page:
-          description: Pagination metadata for the current response.
-          readOnly: true
-          $ref: '#/components/schemas/PageMetadataDto'
-      description: A paginated response containing a page of hashtag groups.
-    PostCreateDto:
-      type: object
-      required:
-      - profile_posts
-      - status
-      properties:
-        name:
-          type: string
-          example: My Social Post
-          description: Campaign name for this post. Optional on creation. If not provided, a default name will be generated. The value provided will be sanitized before saving, so the value returned may not exactly match what was sent.
-        profile_posts:
-          type: array
-          description: The list of per-profile posts that make up this campaign. Each entry specifies the content to post and the profiles to post it to.
-          items:
-            $ref: '#/components/schemas/ProfilePostDto'
-        scheduled_time:
-          type: string
-          example: '2026-03-15T14:30:00.000Z'
-          description: The date and time to publish the post, in ISO-8601 format. Only applies when <code>status</code> is <code>SCHEDULED</code>. If not specified for a scheduled post, the publish job is scheduled to execute immediately.
-        status:
-          type: string
-          example: SCHEDULED
-          description: The status of the post on creation. Valid values are <code>DRAFT</code> (save without publishing) or <code>SCHEDULED</code> (schedule for publication).
-      description: Request body for creating a social media post campaign that can include multiple posts to multiple social profiles.
-    PostDto:
-      type: object
-      required:
-      - profile_posts
-      - status
-      properties:
-        campaign_id:
-          type: string
-          description: Unique identifier for the post campaign. Generated by the server on creation. Use this value to reference the post in subsequent requests.
-          readOnly: true
-        name:
-          type: string
-          example: My Social Post
-          description: Campaign name for this post. The value provided on creation is sanitized before saving, so the returned value may not exactly match what was sent.
-        profile_posts:
-          type: array
-          description: The list of per-profile posts that make up this campaign.
-          items:
-            $ref: '#/components/schemas/ProfilePostDto'
-        scheduled_time:
-          type: string
-          example: '2026-03-15T14:30:00.000Z'
-          description: The date and time to publish the post, in ISO-8601 format. Only set when <code>status</code> is <code>SCHEDULED</code>.
-        status:
-          type: string
-          example: SCHEDULED
-          description: "The current status of the post. Possible values include:\n<ul>\n  <li><code>DRAFT</code> — saved without being scheduled for publication</li>\n  <li><code>SCHEDULED</code> — scheduled for future publication at <code>scheduled_time</code></li>\n  <li><code>EXECUTING</code> — currently being published</li>\n  <li><code>ACTIVE</code> — the post has been published and is active on the social network</li>\n  <li><code>PAUSED</code> — publication has been paused</li>\n  <li><code>SUSPENDED</code> — publication has been suspended</li>\n  <li><code>REMOVED</code> — the post has been removed</li>\n  <li><code>DONE</code> — publication has completed</li>\n  <li><code>ERROR</code> — publication encountered an error</li>\n</ul>\n"
-      description: Represents a social media post campaign that can include multiple posts to multiple social profiles, with either identical or network-specific content.
-    PagedResponseLinksDto:
-      type: object
-      properties:
-        next:
-          description: Link to retrieve the next page of results. This will be absent for the last page.
-          readOnly: true
-          $ref: '#/components/schemas/PagedResponseLinkRelDto'
-      description: Pagination links for navigating through pages of results.
     HashtagGroupDto:
       type: object
       required:
@@ -434,16 +438,16 @@ components:
           items:
             type: string
       description: Represents a named collection of hashtags that can be reused when creating social posts.
-    ConnectionResponseDto:
+    PagedResponseLinkRelDto:
       type: object
+      required:
+      - href
       properties:
-        connections:
-          type: array
-          description: List of established social network connections for the account.
+        href:
+          type: string
+          description: The URI of a page of results.
           readOnly: true
-          items:
-            $ref: '#/components/schemas/ConnectionDto'
-      description: A wrapper containing the list of established social network connections for a given Constant Contact account.
+      description: Represents a link to a page of results.
     ImageDto:
       type: object
       required:
@@ -458,85 +462,6 @@ components:
           example: https://www.host.com/path+with%20space?q=query%20with+space
           description: The URL of the image. Each component of the URL must be appropriately encoded to avoid illegal characters.
       description: An image to include in a social post.
-    ProfilePostProfileDto:
-      type: object
-      required:
-      - profile_id
-      properties:
-        account_username:
-          type: string
-          description: The human-readable username of the account that owns this profile.
-          readOnly: true
-        campaign_activity_id:
-          type: string
-          description: The campaign activity ID for this post on the specified profile. Generated by the server on creation. When updating a post, existing profile entries should include their original <code>campaign_activity_id</code>.
-          readOnly: true
-        campaign_activity_status:
-          type: string
-          description: The status of the post activity for this profile.
-          readOnly: true
-        campaign_activity_status_date:
-          type: string
-          format: date-time
-          description: The activity's timestamp. For <code>SCHEDULED</code> activities, this is typically the same as the scheduled publish time; otherwise, it is the last-modified timestamp.
-          readOnly: true
-        campaign_activity_status_message:
-          type: string
-          description: A human-readable message describing the current status of the post activity. Can be a generic Constant Contact message or a specific message reported by the social network.
-          readOnly: true
-        image_url:
-          type: string
-          description: The URL of the profile's image. This image may become stale and is only refreshed when retrieving profiles with <code>include=accessible</code>.
-          readOnly: true
-        network:
-          type: string
-          example: facebook
-          description: The social network this profile belongs to.
-          readOnly: true
-        network_post_id:
-          type: string
-          description: The social network's reference for this post. Only set when the status is <code>DONE</code>.
-          readOnly: true
-        post_url:
-          type: string
-          description: The permalink URL to the published post on the social network. Only set when the status is <code>DONE</code>.
-          readOnly: true
-        profile_id:
-          type: string
-          description: The unique identifier for the profile to post to. Use the <code>profile_id</code> from <code>GET /social/profiles</code>.
-        profile_name:
-          type: string
-          description: The display name of the profile.
-          readOnly: true
-      description: Describes a post to a single social profile, including the target profile and its current status on that network.
-    ProfilePostDto:
-      type: object
-      required:
-      - profiles
-      properties:
-        images:
-          type: array
-          description: Images to include in the post. Each image must be accessible via a public URL.
-          items:
-            $ref: '#/components/schemas/ImageDto'
-        post_content_id:
-          type: string
-          description: Identifier for this post content. Generated by the server on creation. When updating a post, existing profile posts must include their original <code>post_content_id</code> unchanged.
-          readOnly: true
-        profiles:
-          type: array
-          description: The list of profiles to post to. Can be an empty list only when the post is in <code>DRAFT</code> status.
-          items:
-            $ref: '#/components/schemas/ProfilePostProfileDto'
-        settings:
-          type: object
-          description: "Network-specific post settings. If no settings are provided, this field will be omitted in the JSON response. All values are persisted as strings.\nCurrently, only TikTok has available settings:\n<pre>{\n  \"settings\": {\n    \"tiktok\": {\n      \"disable_comment\": \"true\",\n      \"disable_duet\": \"false\",\n      \"disable_stitch\": \"true\",\n      \"auto_add_music\": \"false\"\n    }\n  }\n}</pre>\n"
-          additionalProperties:
-            $ref: '#/components/schemas/MapOfstringAndstring'
-        text:
-          type: string
-          description: The text/caption content for the post. Whether text is required depends on the target social network. In <code>DRAFT</code> status, this is always optional.
-      description: The content to post to one or more social profiles as part of a social post campaign.
     ProfileDto:
       type: object
       required:
@@ -602,10 +527,85 @@ components:
           description: URL to the profile on the social network.
           readOnly: true
       description: Describes a social network profile (Business Page, Company Page/Organization, etc.). <br><strong>Note:</strong> Due to performance and/or rate-limit issues, some properties <em>may</em> be cached. Where possible, caching will be limited to 15 minutes.
-    MapOfstringAndstring:
+    ProfilePostProfileDto:
       type: object
-      additionalProperties:
-        type: string
+      required:
+      - profile_id
+      properties:
+        account_username:
+          type: string
+          description: The human-readable username of the account that owns this profile.
+          readOnly: true
+        campaign_activity_id:
+          type: string
+          description: The campaign activity ID for this post on the specified profile. Generated by the server on creation. When updating a post, existing profile entries should include their original <code>campaign_activity_id</code>.
+          readOnly: true
+        campaign_activity_status:
+          type: string
+          description: The status of the post activity for this profile.
+          readOnly: true
+        campaign_activity_status_date:
+          type: string
+          format: date-time
+          description: The activity's timestamp. For <code>SCHEDULED</code> activities, this is typically the same as the scheduled publish time; otherwise, it is the last-modified timestamp.
+          readOnly: true
+        campaign_activity_status_message:
+          type: string
+          description: A human-readable message describing the current status of the post activity. Can be a generic Constant Contact message or a specific message reported by the social network.
+          readOnly: true
+        image_url:
+          type: string
+          description: The URL of the profile's image. This image may become stale and is only refreshed when retrieving profiles with <code>include=accessible</code>.
+          readOnly: true
+        network:
+          type: string
+          example: facebook
+          description: The social network this profile belongs to.
+          readOnly: true
+        network_post_id:
+          type: string
+          description: The social network's reference for this post. Only set when the status is <code>DONE</code>.
+          readOnly: true
+        post_url:
+          type: string
+          description: The permalink URL to the published post on the social network. Only set when the status is <code>DONE</code>.
+          readOnly: true
+        profile_id:
+          type: string
+          description: The unique identifier for the profile to post to. Use the <code>profile_id</code> from <code>GET /social/profiles</code>.
+        profile_name:
+          type: string
+          description: The display name of the profile.
+          readOnly: true
+      description: Describes a post to a single social profile, including the target profile and its current status on that network.
+    PostDto:
+      type: object
+      required:
+      - profile_posts
+      - status
+      properties:
+        campaign_id:
+          type: string
+          description: Unique identifier for the post campaign. Generated by the server on creation. Use this value to reference the post in subsequent requests.
+          readOnly: true
+        name:
+          type: string
+          example: My Social Post
+          description: Campaign name for this post. The value provided on creation is sanitized before saving, so the returned value may not exactly match what was sent.
+        profile_posts:
+          type: array
+          description: The list of per-profile posts that make up this campaign.
+          items:
+            $ref: '#/components/schemas/ProfilePostDto'
+        scheduled_time:
+          type: string
+          example: '2026-03-15T14:30:00.000Z'
+          description: The date and time to publish the post, in ISO-8601 format. Only set when <code>status</code> is <code>SCHEDULED</code>.
+        status:
+          type: string
+          example: SCHEDULED
+          description: "The current status of the post. Possible values include:\n<ul>\n  <li><code>DRAFT</code> — saved without being scheduled for publication</li>\n  <li><code>SCHEDULED</code> — scheduled for future publication at <code>scheduled_time</code></li>\n  <li><code>EXECUTING</code> — currently being published</li>\n  <li><code>ACTIVE</code> — the post has been published and is active on the social network</li>\n  <li><code>PAUSED</code> — publication has been paused</li>\n  <li><code>SUSPENDED</code> — publication has been suspended</li>\n  <li><code>REMOVED</code> — the post has been removed</li>\n  <li><code>DONE</code> — publication has completed</li>\n  <li><code>ERROR</code> — publication encountered an error</li>\n</ul>\n"
+      description: Represents a social media post campaign that can include multiple posts to multiple social profiles, with either identical or network-specific content.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

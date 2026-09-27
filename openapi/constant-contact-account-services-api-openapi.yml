@@ -361,103 +361,14 @@ paths:
         required: true
 components:
   schemas:
-    UserPrivilegesResource:
-      type: array
-      items:
-        type: object
-        properties:
-          privilege_id:
-            type: integer
-            example: 30
-            description: Identifies a user privilege in Constant Contact.
-          privilege_name:
-            type: string
-            example: campaign:create
-            description: The name of the Constant Contact user privilege.
-    CompanyLogo:
-      type: object
-      properties:
-        url:
-          type: string
-          example: https://files.constantcontact.com/3a20c2f5701/780c1ff3-7fc6-4712-a862-ad5b6af57d38.jpg.
-          description: The internal URL used to get the company logo image file hosted locally in your account's MyLibrary.
-        external_url:
-          type: string
-          example: https://www.google.com/images/logos/google_logo_41.png.
-          description: The external URL used to get the company logo image file that is hosted on an external website.
-        internal_id:
-          type: string
-          example: ACCOUNT.IMAGE.5
-          description: The internal ID used to identify the image hosted in your account's MyLibrary.
-    AccountEmailCreateResponse:
+    AccountEmailInput:
       type: object
       properties:
         email_address:
           type: string
           example: dlang@example.com
-          description: An email address associated with a Constant Contact account owner.
+          description: The new email address you want to add to a Constant Contact account.
           maxLength: 80
-        email_id:
-          type: integer
-          format: int64
-          example: 2
-          description: The unique ID for an email address in a Constant Contact account.
-          minimum: 1
-        confirm_status:
-          type: string
-          example: UNCONFIRMED
-          description: 'The confirmation status of the account email address. When you add a new email address to an account, Constant Contact automatically sends an email to that address with a link to confirm it. You can use any account email address with a <code>CONFIRMED</code> status to create an email campaign.
-
-            '
-    CustomerPut:
-      type: object
-      properties:
-        contact_email:
-          type: string
-          example: InstaPrinz@gmail.com
-          description: The confirmed email address that is associated with the account owner.
-        contact_phone:
-          type: string
-          example: '5081111212'
-          description: The account owner's contact phone number (up to 25 characters in length).
-          maxLength: 25
-        country_code:
-          type: string
-          example: US
-          description: The two-letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> representing the organization's country.
-        encoded_account_id:
-          type: string
-          example: p07e1l8cdif9dl
-          description: The read only encoded account ID that uniquely identifies the account.
-          readOnly: true
-        first_name:
-          type: string
-          example: Lola
-          description: The account owner's first name.
-        last_name:
-          type: string
-          example: Zang
-          description: The account owner's last name.
-        organization_name:
-          type: string
-          example: InstaPrinz
-          description: The name of the organization that is associated with this account.
-        organization_phone:
-          type: string
-          example: 333-333-3335
-          description: The phone number of the organization that is associated with this account.
-        state_code:
-          type: string
-          example: MA
-          description: The two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> used to specify the state to associate with the account. This property is required if the <code>country_code</code> is US (United States).
-        time_zone_id:
-          type: string
-          example: US/Eastern
-          description: The time zone to use for the account; as defined in the IANA time-zone database (see http://www.iana.org/time-zones).
-        website:
-          type: string
-          example: http://InstaPriz4me.com
-          description: The organization's website URL.
     AccountPhysicalAddress:
       type: object
       required:
@@ -607,6 +518,55 @@ components:
         company_logo:
           description: Used to include an existing company logo in the response body. If a company logo does not exist, nothing is returned in the response body. This property is optional.
           $ref: '#/components/schemas/CompanyLogo'
+    CustomerPut:
+      type: object
+      properties:
+        contact_email:
+          type: string
+          example: InstaPrinz@gmail.com
+          description: The confirmed email address that is associated with the account owner.
+        contact_phone:
+          type: string
+          example: '5081111212'
+          description: The account owner's contact phone number (up to 25 characters in length).
+          maxLength: 25
+        country_code:
+          type: string
+          example: US
+          description: The two-letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> representing the organization's country.
+        encoded_account_id:
+          type: string
+          example: p07e1l8cdif9dl
+          description: The read only encoded account ID that uniquely identifies the account.
+          readOnly: true
+        first_name:
+          type: string
+          example: Lola
+          description: The account owner's first name.
+        last_name:
+          type: string
+          example: Zang
+          description: The account owner's last name.
+        organization_name:
+          type: string
+          example: InstaPrinz
+          description: The name of the organization that is associated with this account.
+        organization_phone:
+          type: string
+          example: 333-333-3335
+          description: The phone number of the organization that is associated with this account.
+        state_code:
+          type: string
+          example: MA
+          description: The two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> used to specify the state to associate with the account. This property is required if the <code>country_code</code> is US (United States).
+        time_zone_id:
+          type: string
+          example: US/Eastern
+          description: The time zone to use for the account; as defined in the IANA time-zone database (see http://www.iana.org/time-zones).
+        website:
+          type: string
+          example: http://InstaPriz4me.com
+          description: The organization's website URL.
     AccountEmails:
       type: array
       items:
@@ -647,14 +607,54 @@ components:
               '
             items:
               type: string
-    AccountEmailInput:
+    CompanyLogo:
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://files.constantcontact.com/3a20c2f5701/780c1ff3-7fc6-4712-a862-ad5b6af57d38.jpg.
+          description: The internal URL used to get the company logo image file hosted locally in your account's MyLibrary.
+        external_url:
+          type: string
+          example: https://www.google.com/images/logos/google_logo_41.png.
+          description: The external URL used to get the company logo image file that is hosted on an external website.
+        internal_id:
+          type: string
+          example: ACCOUNT.IMAGE.5
+          description: The internal ID used to identify the image hosted in your account's MyLibrary.
+    AccountEmailCreateResponse:
       type: object
       properties:
         email_address:
           type: string
           example: dlang@example.com
-          description: The new email address you want to add to a Constant Contact account.
+          description: An email address associated with a Constant Contact account owner.
           maxLength: 80
+        email_id:
+          type: integer
+          format: int64
+          example: 2
+          description: The unique ID for an email address in a Constant Contact account.
+          minimum: 1
+        confirm_status:
+          type: string
+          example: UNCONFIRMED
+          description: 'The confirmation status of the account email address. When you add a new email address to an account, Constant Contact automatically sends an email to that address with a link to confirm it. You can use any account email address with a <code>CONFIRMED</code> status to create an email campaign.
+
+            '
+    UserPrivilegesResource:
+      type: array
+      items:
+        type: object
+        properties:
+          privilege_id:
+            type: integer
+            example: 30
+            description: Identifies a user privilege in Constant Contact.
+          privilege_name:
+            type: string
+            example: campaign:create
+            description: The name of the Constant Contact user privilege.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

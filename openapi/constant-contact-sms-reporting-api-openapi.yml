@@ -74,39 +74,20 @@ paths:
       - ui:campaign:metrics
 components:
   schemas:
-    reportingsmsNext:
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
-    BulkSmsCampaignSummariesPercents:
+    SmsCampaignSummariesPage:
       type: object
       properties:
-        deliver:
-          type: number
-          example: 23.0
-          description: The aggregated SMS delivery rate for all campaigns on the current results page.
-        click:
-          type: number
-          example: 43.0
-          description: The aggregated click rate for all campaigns on the current results page.
-        bounce:
-          type: number
-          example: 0.0
-          description: The aggregated bounce rate for all campaigns on the current results page.
-        unsubscribe:
-          type: number
-          example: 0.0
-          description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
-    reportingsmsLinks:
-      type: object
-      properties:
-        next:
-          description: Contains the next link if it is available.
-          $ref: '#/components/schemas/reportingsmsNext'
+        bulk_sms_campaign_summaries:
+          type: array
+          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
+          items:
+            $ref: '#/components/schemas/BulkCampaignSummary'
+        aggregate_percents:
+          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
+          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/reportingsmsLinks'
     UniqueSmsCounts:
       type: object
       required:
@@ -140,20 +121,39 @@ components:
           format: int32
           example: 0
           description: The total number of unique opt-outs (unsubscribes).
-    SmsCampaignSummariesPage:
+    reportingsmsLinks:
       type: object
       properties:
-        bulk_sms_campaign_summaries:
-          type: array
-          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
-          items:
-            $ref: '#/components/schemas/BulkCampaignSummary'
-        aggregate_percents:
-          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
-          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/reportingsmsLinks'
+        next:
+          description: Contains the next link if it is available.
+          $ref: '#/components/schemas/reportingsmsNext'
+    BulkSmsCampaignSummariesPercents:
+      type: object
+      properties:
+        deliver:
+          type: number
+          example: 23.0
+          description: The aggregated SMS delivery rate for all campaigns on the current results page.
+        click:
+          type: number
+          example: 43.0
+          description: The aggregated click rate for all campaigns on the current results page.
+        bounce:
+          type: number
+          example: 0.0
+          description: The aggregated bounce rate for all campaigns on the current results page.
+        unsubscribe:
+          type: number
+          example: 0.0
+          description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
+    reportingsmsNext:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
     BulkCampaignSummary:
       type: object
       required:

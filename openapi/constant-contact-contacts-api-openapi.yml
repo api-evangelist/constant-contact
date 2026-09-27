@@ -658,6 +658,352 @@ paths:
         required: true
 components:
   schemas:
+    ContactResubscribeRequest:
+      type: object
+      required:
+      - list_ids
+      properties:
+        list_ids:
+          type: array
+          description: Array of list id values. Constant Contact adds the resubscribed contact to the contact lists you provide in the array.
+          items:
+            type: string
+            format: uuid
+            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+            description: Contact list id value.
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+    ContactCreateOrUpdateResponse:
+      type: object
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
+          description: The unique identifier for the contact that the V3 API created or updated.
+        action:
+          type: string
+          description: Identifies if the V3 API created a new contact or updated an existing contact.
+    EmailAddressPost:
+      type: object
+      required:
+      - address
+      properties:
+        address:
+          type: string
+          example: dlang@example.com
+          description: The contact's email address.
+          maxLength: 80
+        permission_to_send:
+          type: string
+          example: implicit
+          description: 'Identifies the type of permission that the Constant Contact account has been granted to send email to the contact. Types of permission: explicit, implicit, not_set, pending_confirmation, temp_hold, unsubscribed.'
+      description: The contact's email address and related properties.
+    Contacts:
+      type: object
+      properties:
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactResource'
+        contacts_count:
+          type: integer
+          example: 3249
+          description: Total number of contacts in the response.
+        _links:
+          $ref: '#/components/schemas/PagingLinks'
+        status:
+          type: string
+          description: If you use the <code>segment_id</code> query parameter to filter results based on a segment, this property indicates that the V3 API accepted your request and is still processing it.
+      description: Use this endpoint to retrieve (GET) a collection of existing contacts, or to create (POST) a new contact.
+    PagingLinks:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Link'
+    JmmlSmsChannelConsents:
+      type: object
+      required:
+      - consent_medium_details
+      - consent_medium_type
+      - consent_medium_url
+      - consent_type
+      - sms_consent_permission
+      properties:
+        sms_consent_permission:
+          type: string
+          example: pending_confirmation
+          description: The current consent status of the SMS Channel.
+        consent_type:
+          type: string
+          example: promotional_sms
+          description: The type of consent provided.
+        consent_medium_type:
+          type: string
+          example: LF
+          description: A code representing where the consent was retrieved.
+        consent_medium_url:
+          type: string
+          example: https://lp.constantcontactpages.com/su/iPtuMuh
+          description: The URL for which the consent was gathered, such as a landing page.
+        consent_medium_details:
+          type: string
+          example: Contact used our landing page to consent to SMS.
+          description: Additional information for the consent
+        advertised_frequency:
+          type: integer
+          example: 1
+          description: The numeric component used to indicate how often to send advertising. For example, <code>1</code> indicates once. Use with <code>advertised_internal</code> property to indicate when on the calender to send it. For example, to send once (<code>1</code>) daily, weekly, or monthly.
+        advertised_interval:
+          type: string
+          example: weekly
+          description: The calender interval used to indicate when advertising is sent. For example <code>weekly</code>.
+    HistoryDetails:
+      type: object
+      properties:
+        state:
+          type: string
+          example: O
+          description: The code representing the consent state, including <code>E</code> for optin and <code>O</code> for Optin.
+        source:
+          type: string
+          example: A
+          description: The code representing the consent source type, including <code>A</code> for Account, <code>C</code> for Contact, and <code>S</code>' for System.
+        consent_type:
+          type: string
+          example: promotional_sms
+          description: The type of SMS consent used.
+        consent_action_time:
+          type: string
+          format: date-time
+          example: 2023-01-23 06:09:23 -0800
+          description: The date and time that SMS engagement data was last updated, in ISO-8601 format. System generated.
+        consent_action_type:
+          type: string
+          example: opt_out
+          description: The type of consent action provided.
+        consent_medium_type:
+          type: string
+          example: MD
+          description: The code representing the medium used to provide consent. Medium types include mobile device (<code>MD</code>). lead generation form(<code>LF</code>), deactivation by carrier(<code>CD</code>), import_file:(<code>FI</code>), and system (<code>SY</code>).
+        source_consent_timestamp:
+          type: string
+          example: 2016-03-03T10:53:04-05:0
+          description: The time that SMS consent was last updated.
+        source_sms_number:
+          type: string
+          example: '6035550239'
+          description: If applicable, the SMS consent number associated with the source.
+        advertised_frequency:
+          type: integer
+          example: 2
+          description: If applicable, the advertising numeric component used to advertise to the contact.. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
+        advertised_interval:
+          type: string
+          example: W
+          description: If applicable, the interval component used to advertise to the contact. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
+      description: Additional details about the SMS consent actions (opt-in, opt-out) in JSON format. The  <code>consent_action_type</code> and the method used to add or update a contacts SMS details determines which properties are returned in the results.
+    Note:
+      type: object
+      properties:
+        note_id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          description: The ID that uniquely identifies the note (UUID format).
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-05-12T13:48:44.108Z'
+          description: The date that the note was created.
+        content:
+          type: string
+          example: This contact resubscribed on 2021-05-12.
+          description: The content for the note.
+          maxLength: 2000
+      description: A note about the contact.
+    ContactCustomField:
+      type: object
+      required:
+      - custom_field_id
+      properties:
+        custom_field_id:
+          type: string
+          format: uuid
+          example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+          description: The custom field's unique ID
+        value:
+          type: string
+          example: Tesla S 2017
+          description: The custom field value.
+          maxLength: 255
+        choice_ids:
+          type: array
+          description: For <code>>multi_select</code> and <code>single_select</code> data types, the ID that uniquely identifies the choice associated with a the custom field.
+          items:
+            type: string
+            example: '000001'
+      description: Custom fields allow Constant Contact users to add custom content to a contact that can be used to personalize emails in addition to the standard set of variables available for email personalization.
+    StreetAddress:
+      type: object
+      required:
+      - kind
+      properties:
+        street_address_id:
+          type: string
+          format: uuid
+          example: 977a9a2e-3e00-11ea-804b-fa163e56c9b0
+          description: Unique ID for the street address
+          readOnly: true
+        kind:
+          type: string
+          example: home
+          description: Describes the type of address; valid values are home, work, or other.
+        street:
+          type: string
+          example: 123 Kashmir Valley Road
+          description: Number and street of the address.
+          maxLength: 255
+        city:
+          type: string
+          example: Chicago
+          description: The name of the city where the contact lives.
+          maxLength: 50
+        state:
+          type: string
+          example: Illinois
+          description: The name of the state or province where the contact lives.
+          maxLength: 50
+        postal_code:
+          type: string
+          example: '60609'
+          description: The zip or postal code of the contact.
+          maxLength: 50
+        country:
+          type: string
+          example: United States
+          description: The name of the country where the contact lives.
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:53:04-05:00'
+          description: Date and time that the street address was created, in ISO-8601 format. System generated.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the street address was last updated, in ISO-8601 format. System generated.
+          readOnly: true
+    JmmlSmsChannel:
+      type: object
+      required:
+      - country_code
+      - dial_code
+      - sms_address
+      - sms_channel_consents
+      properties:
+        sms_address:
+          type: string
+          example: '7815551212'
+          description: The contact's SMS-capable phone number, excluding the country code.
+        dial_code:
+          type: string
+          example: '1'
+          description: The dial code the country uses. For example, use <code>1</code> for the United States dial code.
+        country_code:
+          type: string
+          example: US
+          description: The two-digit code that identifies the country.
+        sms_channel_consents:
+          type: array
+          description: The consents provided for the SMS Channel.
+          items:
+            $ref: '#/components/schemas/JmmlSmsChannelConsents'
+      description: The contact's SMS details.
+    ContactSmsChannelConsents:
+      type: object
+      required:
+      - consent_type
+      - sms_consent_permission
+      properties:
+        sms_consent_permission:
+          type: string
+          example: explicit
+          description: The current status of the SMS channel.
+        consent_type:
+          type: string
+          example: promotional_sms
+          description: The type of consent provided.
+        consent_medium_details:
+          type: string
+          example: IPhone 13 device used to provide consent.
+          description: Additional information about the consent such as the type of device used.
+    PhoneNumber:
+      type: object
+      properties:
+        phone_number_id:
+          type: string
+          format: uuid
+          example: 6eec28a6-1cf5-11ea-859f-fa163e56c9b0
+          description: Unique ID for the phone number
+          readOnly: true
+        phone_number:
+          type: string
+          example: +1-555-555-5555
+          description: The contact's phone number.
+          maxLength: 25
+        kind:
+          type: string
+          example: home
+          description: Identifies the type of phone number; valid values are home, work, mobile, or other.
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:53:04-05:00'
+          description: Date and time that the street address was created, in ISO-8601 format. System generated.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the phone number was last updated, in ISO-8601 format. System generated.
+          readOnly: true
+        update_source:
+          type: string
+          example: Account
+          description: Identifies who last updated the phone number; valid values are Contact or Account
+        create_source:
+          type: string
+          example: Account
+          description: Identifies who added the phone number; valid values are Contact or Account.
+    CreateOrUpdateContactCustomField:
+      type: object
+      properties:
+        custom_field_id:
+          type: string
+          format: uuid
+          example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
+          description: The unique ID for the <code>custom_field</code>.
+        value:
+          type: string
+          example: Tesla S 2017
+          description: The value of the <code>custom_field</code>.
+          maxLength: 255
+    ContactXrefs:
+      type: object
+      properties:
+        xrefs:
+          type: array
+          description: An array of cross-referenced V3 API <code>contact_id</code> and V2 API <code>sequence_id</code> values. Response is sorted ascending by <code>sequence_id</code>.
+          items:
+            $ref: '#/components/schemas/ContactXref'
+          maxItems: 500
     ContactCreateOrUpdateInput:
       type: object
       required:
@@ -758,15 +1104,53 @@ components:
           - kind
         sms_channel:
           $ref: '#/components/schemas/JmmlSmsChannel'
-    PhoneNumber:
+    SmsChannelConsentDetails:
       type: object
       properties:
-        phone_number_id:
+        sms_consent_permission:
           type: string
-          format: uuid
-          example: 6eec28a6-1cf5-11ea-859f-fa163e56c9b0
-          description: Unique ID for the phone number
+          example: explicit
+          description: Identifies the current permission status for the SMS channel.
+        consent_type:
+          type: string
+          example: promotional_sms
+          description: Identifies the type of consent provided. Currently, only <code>promotional_sms</code> is supported.
+        opt_in_date:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Date and time, in ISO-8601 format, that the contact subscribed/opted-in to receiving SMS from the account. Displays only if the contact subscribes/opts-in. System generated.
           readOnly: true
+        opt_out_date:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Date and time, in ISO-8601 format, that the contact unsubscribed/opted-out of receiving SMS from the account. Displays only if the contact unsubscribed/opted-out. System generated.
+          readOnly: true
+        advertised_frequency:
+          type: string
+          example: '1'
+          description: The numeric used to set how often to send SMS advertisements during a specified time interval (<code>advertised_interval</code>). For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the  <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
+        advertised_interval:
+          type: string
+          example: monthly
+          description: Identifies the unit of time used by Constant Contact to send SMS advertisements as a string enum. For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Date and time that the SMS stats were created, in ISO-8601 format. System generated.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: Date and time that the SMS stats were updated, in ISO-8601 format. System generated.
+          readOnly: true
+      description: Provides SMS consent details.
+    PhoneNumberPut:
+      type: object
+      properties:
         phone_number:
           type: string
           example: +1-555-555-5555
@@ -776,185 +1160,40 @@ components:
           type: string
           example: home
           description: Identifies the type of phone number; valid values are home, work, mobile, or other.
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:53:04-05:00'
-          description: Date and time that the street address was created, in ISO-8601 format. System generated.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:56:29-05:00'
-          description: Date and time that the phone number was last updated, in ISO-8601 format. System generated.
-          readOnly: true
-        update_source:
-          type: string
-          example: Account
-          description: Identifies who last updated the phone number; valid values are Contact or Account
-        create_source:
-          type: string
-          example: Account
-          description: Identifies who added the phone number; valid values are Contact or Account.
-    JmmlSmsChannel:
+    StreetAddressPut:
       type: object
       required:
-      - country_code
-      - dial_code
-      - sms_address
-      - sms_channel_consents
+      - kind
       properties:
-        sms_address:
+        kind:
           type: string
-          example: '7815551212'
-          description: The contact's SMS-capable phone number, excluding the country code.
-        dial_code:
+          example: home
+          description: Describes the type of address; valid values are home, work, or other.
+        street:
           type: string
-          example: '1'
-          description: The dial code the country uses. For example, use <code>1</code> for the United States dial code.
-        country_code:
+          example: 123 Kashmir Valley Road
+          description: Number and street of the address.
+          maxLength: 255
+        city:
           type: string
-          example: US
-          description: The two-digit code that identifies the country.
-        sms_channel_consents:
-          type: array
-          description: The consents provided for the SMS Channel.
-          items:
-            $ref: '#/components/schemas/JmmlSmsChannelConsents'
-      description: The contact's SMS details.
-    ContactPostRequest:
-      type: object
-      properties:
-        email_address:
-          $ref: '#/components/schemas/EmailAddressPost'
-        first_name:
-          type: string
-          example: Debora
-          description: The first name of the contact.
+          example: Chicago
+          description: The name of the city where the contact lives.
           maxLength: 50
-        last_name:
+        state:
           type: string
-          example: Lang
-          description: The last name of the contact.
+          example: Illinois
+          description: The name of the state or province where the contact lives.
           maxLength: 50
-        job_title:
+        postal_code:
           type: string
-          example: Musician
-          description: The job title of the contact.
+          example: '60609'
+          description: The zip or postal code of the contact.
           maxLength: 50
-        company_name:
+        country:
           type: string
-          example: Acme Corp.
-          description: The name of the company where the contact works.
+          example: United States
+          description: The name of the country where the contact lives.
           maxLength: 50
-        create_source:
-          type: string
-          example: Account
-          description: Describes who added the contact; valid values are <code>Contact</code> or <code>Account</code>. Your integration must accurately identify <code>create_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
-        birthday_month:
-          type: integer
-          example: 11
-          description: The month value for the contact's birthday. Valid values are from 1 through 12. The <code>birthday_month</code> property is required if you use <code>birthday_day</code>.
-        birthday_day:
-          type: integer
-          example: 24
-          description: The day value for the contact's birthday. Valid values are from 1 through 31. The <code>birthday_day</code> property is required if you use <code>birthday_month</code>.
-        anniversary:
-          type: string
-          example: '2006-11-15'
-          description: The anniversary date for the contact. For example, this value could be the date when the contact first became a customer of an organization in Constant Contact. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
-          maxLength: 10
-        custom_fields:
-          type: array
-          description: Array of up to 25 <code>custom_field</code> key value pairs.
-          items:
-            $ref: '#/components/schemas/ContactCustomField'
-          maxItems: 25
-        phone_numbers:
-          type: array
-          description: Array of up to 3 phone numbers subresources.
-          items:
-            $ref: '#/components/schemas/PhoneNumberPut'
-          maxItems: 3
-        street_addresses:
-          type: array
-          description: Array of up to 3 street address subresources.
-          items:
-            $ref: '#/components/schemas/StreetAddressPut'
-          maxItems: 3
-        list_memberships:
-          type: array
-          description: Array of <code>list_id</code>s to which the contact is being subscribed, up to a maximum of 50.
-          items:
-            type: string
-            format: uuid
-            example: 07936f78-662a-11eb-af0a-fa163e56c9b0
-            description: Unique ID of a list to which the contact is subscribed, up to a maximum of 50.
-            readOnly: true
-          maxItems: 50
-        taggings:
-          type: array
-          description: Array of tags (<code>tag_id</code>) assigned to the contact, up to a maximum of 50.
-          items:
-            type: string
-            format: uuid
-            example: 00e4429c-3beb-11eb-9f34-fa163e56c9b9
-            description: Unique ID of a tag assigned to the contact, up to a maximum of 50.
-            readOnly: true
-          maxItems: 50
-        notes:
-          type: array
-          description: An array of notes about the contact.
-          items:
-            $ref: '#/components/schemas/Note'
-          maxItems: 150
-        sms_channel:
-          $ref: '#/components/schemas/ContactSmsChannel'
-    SmsEngagementHistory:
-      type: array
-      items:
-        type: object
-        description: Provides a contact's SMS engagement history details. The properties returned depend on the type of SMS consent granted by the contact.
-        properties:
-          contact_id:
-            type: string
-            example: 7f7923da-ebf7-11ec-ae6e-3e22fbb230ec
-            description: The unique contact UUID.
-          sms_channel_id:
-            type: string
-            example: 3fa85f64-5712-6245-b3fc-2c963f66bfc6
-            description: The unique SMS channel UUID.
-          sms_channel_history_id:
-            type: string
-            example: 04515cb3-17be-41e4-823a-f71c3d381c7b
-            description: The unique SMS channel history UUID.
-          insert_time:
-            type: string
-            format: date-time
-            example: '2016-03-03T10:53:04-05:00'
-            description: The date and time that the history record was created, in ISO-8601 format. System generated.
-          history_details:
-            $ref: '#/components/schemas/HistoryDetails'
-    PagingLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Link'
-    ContactSmsChannel:
-      type: object
-      required:
-      - full_sms_address
-      - sms_channel_consents
-      properties:
-        full_sms_address:
-          type: string
-          example: '17815551212'
-          description: The SMS-capable phone number for the Contact, including the dial code
-        sms_channel_consents:
-          type: array
-          description: The consents for the SMS Channel.
-          items:
-            $ref: '#/components/schemas/ContactSmsChannelConsents'
     ContactsCounts:
       type: object
       properties:
@@ -982,20 +1221,60 @@ components:
           type: integer
           example: 1
           description: Total number of newly subscribed contacts.
-    CreateOrUpdateContactCustomField:
+    ContactXref:
       type: object
       properties:
-        custom_field_id:
+        sequence_id:
+          type: string
+          example: '0016633325'
+          description: The V2 API contact unique identifier
+        contact_id:
           type: string
           format: uuid
-          example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
-          description: The unique ID for the <code>custom_field</code>.
-        value:
+          example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
+          description: The V3 API contact unique identifier
+      description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
+    SmsEngagementHistory:
+      type: array
+      items:
+        type: object
+        description: Provides a contact's SMS engagement history details. The properties returned depend on the type of SMS consent granted by the contact.
+        properties:
+          contact_id:
+            type: string
+            example: 7f7923da-ebf7-11ec-ae6e-3e22fbb230ec
+            description: The unique contact UUID.
+          sms_channel_id:
+            type: string
+            example: 3fa85f64-5712-6245-b3fc-2c963f66bfc6
+            description: The unique SMS channel UUID.
+          sms_channel_history_id:
+            type: string
+            example: 04515cb3-17be-41e4-823a-f71c3d381c7b
+            description: The unique SMS channel history UUID.
+          insert_time:
+            type: string
+            format: date-time
+            example: '2016-03-03T10:53:04-05:00'
+            description: The date and time that the history record was created, in ISO-8601 format. System generated.
+          history_details:
+            $ref: '#/components/schemas/HistoryDetails'
+    ContactSmsChannel:
+      type: object
+      required:
+      - full_sms_address
+      - sms_channel_consents
+      properties:
+        full_sms_address:
           type: string
-          example: Tesla S 2017
-          description: The value of the <code>custom_field</code>.
-          maxLength: 255
-    EmailAddressPut:
+          example: '17815551212'
+          description: The SMS-capable phone number for the Contact, including the dial code
+        sms_channel_consents:
+          type: array
+          description: The consents for the SMS Channel.
+          items:
+            $ref: '#/components/schemas/ContactSmsChannelConsents'
+    EmailAddress:
       type: object
       required:
       - address
@@ -1021,6 +1300,10 @@ components:
           example: '2016-03-03T10:56:29-05:00'
           description: Date and time that the email_address was last updated, in ISO-8601 format. System generated.
           readOnly: true
+        opt_in_source:
+          type: string
+          example: Contact
+          description: Describes who opted-in the email_address; valid values are Contact or Account. Your integration must accurately identify <code>opt_in_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
         opt_in_date:
           type: string
           format: date-time
@@ -1048,33 +1331,7 @@ components:
           example: confirmed
           description: 'Indicates if the contact confirmed their email address after they subscribed to receive emails. Possible values: pending, confirmed, off.'
           readOnly: true
-      description: The contact's email address and related properties.
-    ContactXrefs:
-      type: object
-      properties:
-        xrefs:
-          type: array
-          description: An array of cross-referenced V3 API <code>contact_id</code> and V2 API <code>sequence_id</code> values. Response is sorted ascending by <code>sequence_id</code>.
-          items:
-            $ref: '#/components/schemas/ContactXref'
-          maxItems: 500
-    Contacts:
-      type: object
-      properties:
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactResource'
-        contacts_count:
-          type: integer
-          example: 3249
-          description: Total number of contacts in the response.
-        _links:
-          $ref: '#/components/schemas/PagingLinks'
-        status:
-          type: string
-          description: If you use the <code>segment_id</code> query parameter to filter results based on a segment, this property indicates that the V3 API accepted your request and is still processing it.
-      description: Use this endpoint to retrieve (GET) a collection of existing contacts, or to create (POST) a new contact.
+      description: A contact subresource describing the contact's email address.
     ContactResource:
       type: object
       properties:
@@ -1224,143 +1481,94 @@ components:
               items:
                 $ref: '#/components/schemas/SmsChannelConsentDetails'
       description: Use this endpoint to retrieve (GET), update (PUT), or DELETE an existing contact resource specified using the <code>contact_id</code> path parameter.
-    ContactSmsChannelConsents:
-      type: object
-      required:
-      - consent_type
-      - sms_consent_permission
-      properties:
-        sms_consent_permission:
-          type: string
-          example: explicit
-          description: The current status of the SMS channel.
-        consent_type:
-          type: string
-          example: promotional_sms
-          description: The type of consent provided.
-        consent_medium_details:
-          type: string
-          example: IPhone 13 device used to provide consent.
-          description: Additional information about the consent such as the type of device used.
-    PhoneNumberPut:
+    ContactPostRequest:
       type: object
       properties:
-        phone_number:
+        email_address:
+          $ref: '#/components/schemas/EmailAddressPost'
+        first_name:
           type: string
-          example: +1-555-555-5555
-          description: The contact's phone number.
-          maxLength: 25
-        kind:
+          example: Debora
+          description: The first name of the contact.
+          maxLength: 50
+        last_name:
           type: string
-          example: home
-          description: Identifies the type of phone number; valid values are home, work, mobile, or other.
-    ContactResubscribeRequest:
-      type: object
-      required:
-      - list_ids
-      properties:
-        list_ids:
+          example: Lang
+          description: The last name of the contact.
+          maxLength: 50
+        job_title:
+          type: string
+          example: Musician
+          description: The job title of the contact.
+          maxLength: 50
+        company_name:
+          type: string
+          example: Acme Corp.
+          description: The name of the company where the contact works.
+          maxLength: 50
+        create_source:
+          type: string
+          example: Account
+          description: Describes who added the contact; valid values are <code>Contact</code> or <code>Account</code>. Your integration must accurately identify <code>create_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
+        birthday_month:
+          type: integer
+          example: 11
+          description: The month value for the contact's birthday. Valid values are from 1 through 12. The <code>birthday_month</code> property is required if you use <code>birthday_day</code>.
+        birthday_day:
+          type: integer
+          example: 24
+          description: The day value for the contact's birthday. Valid values are from 1 through 31. The <code>birthday_day</code> property is required if you use <code>birthday_month</code>.
+        anniversary:
+          type: string
+          example: '2006-11-15'
+          description: The anniversary date for the contact. For example, this value could be the date when the contact first became a customer of an organization in Constant Contact. Valid date formats are MM/DD/YYYY, M/D/YYYY, YYYY/MM/DD, YYYY/M/D, YYYY-MM-DD, YYYY-M-D,M-D-YYYY, or M-DD-YYYY.
+          maxLength: 10
+        custom_fields:
           type: array
-          description: Array of list id values. Constant Contact adds the resubscribed contact to the contact lists you provide in the array.
+          description: Array of up to 25 <code>custom_field</code> key value pairs.
+          items:
+            $ref: '#/components/schemas/ContactCustomField'
+          maxItems: 25
+        phone_numbers:
+          type: array
+          description: Array of up to 3 phone numbers subresources.
+          items:
+            $ref: '#/components/schemas/PhoneNumberPut'
+          maxItems: 3
+        street_addresses:
+          type: array
+          description: Array of up to 3 street address subresources.
+          items:
+            $ref: '#/components/schemas/StreetAddressPut'
+          maxItems: 3
+        list_memberships:
+          type: array
+          description: Array of <code>list_id</code>s to which the contact is being subscribed, up to a maximum of 50.
           items:
             type: string
             format: uuid
-            example: 04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-            description: Contact list id value.
-    HistoryDetails:
-      type: object
-      properties:
-        state:
-          type: string
-          example: O
-          description: The code representing the consent state, including <code>E</code> for optin and <code>O</code> for Optin.
-        source:
-          type: string
-          example: A
-          description: The code representing the consent source type, including <code>A</code> for Account, <code>C</code> for Contact, and <code>S</code>' for System.
-        consent_type:
-          type: string
-          example: promotional_sms
-          description: The type of SMS consent used.
-        consent_action_time:
-          type: string
-          format: date-time
-          example: 2023-01-23 06:09:23 -0800
-          description: The date and time that SMS engagement data was last updated, in ISO-8601 format. System generated.
-        consent_action_type:
-          type: string
-          example: opt_out
-          description: The type of consent action provided.
-        consent_medium_type:
-          type: string
-          example: MD
-          description: The code representing the medium used to provide consent. Medium types include mobile device (<code>MD</code>). lead generation form(<code>LF</code>), deactivation by carrier(<code>CD</code>), import_file:(<code>FI</code>), and system (<code>SY</code>).
-        source_consent_timestamp:
-          type: string
-          example: 2016-03-03T10:53:04-05:0
-          description: The time that SMS consent was last updated.
-        source_sms_number:
-          type: string
-          example: '6035550239'
-          description: If applicable, the SMS consent number associated with the source.
-        advertised_frequency:
-          type: integer
-          example: 2
-          description: If applicable, the advertising numeric component used to advertise to the contact.. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
-        advertised_interval:
-          type: string
-          example: W
-          description: If applicable, the interval component used to advertise to the contact. For example, if <code>advertised_frequency</code> is set to <code> 2</code> , and  <code>advertised_interval</code> is set to <code>M</code>, the contact receives advertisements twice a month.
-      description: Additional details about the SMS consent actions (opt-in, opt-out) in JSON format. The  <code>consent_action_type</code> and the method used to add or update a contacts SMS details determines which properties are returned in the results.
-    EmailAddressPost:
-      type: object
-      required:
-      - address
-      properties:
-        address:
-          type: string
-          example: dlang@example.com
-          description: The contact's email address.
-          maxLength: 80
-        permission_to_send:
-          type: string
-          example: implicit
-          description: 'Identifies the type of permission that the Constant Contact account has been granted to send email to the contact. Types of permission: explicit, implicit, not_set, pending_confirmation, temp_hold, unsubscribed.'
-      description: The contact's email address and related properties.
-    StreetAddressPut:
-      type: object
-      required:
-      - kind
-      properties:
-        kind:
-          type: string
-          example: home
-          description: Describes the type of address; valid values are home, work, or other.
-        street:
-          type: string
-          example: 123 Kashmir Valley Road
-          description: Number and street of the address.
-          maxLength: 255
-        city:
-          type: string
-          example: Chicago
-          description: The name of the city where the contact lives.
-          maxLength: 50
-        state:
-          type: string
-          example: Illinois
-          description: The name of the state or province where the contact lives.
-          maxLength: 50
-        postal_code:
-          type: string
-          example: '60609'
-          description: The zip or postal code of the contact.
-          maxLength: 50
-        country:
-          type: string
-          example: United States
-          description: The name of the country where the contact lives.
-          maxLength: 50
+            example: 07936f78-662a-11eb-af0a-fa163e56c9b0
+            description: Unique ID of a list to which the contact is subscribed, up to a maximum of 50.
+            readOnly: true
+          maxItems: 50
+        taggings:
+          type: array
+          description: Array of tags (<code>tag_id</code>) assigned to the contact, up to a maximum of 50.
+          items:
+            type: string
+            format: uuid
+            example: 00e4429c-3beb-11eb-9f34-fa163e56c9b9
+            description: Unique ID of a tag assigned to the contact, up to a maximum of 50.
+            readOnly: true
+          maxItems: 50
+        notes:
+          type: array
+          description: An array of notes about the contact.
+          items:
+            $ref: '#/components/schemas/Note'
+          maxItems: 150
+        sms_channel:
+          $ref: '#/components/schemas/ContactSmsChannel'
     ContactPutRequest:
       type: object
       required:
@@ -1451,26 +1659,7 @@ components:
           maxItems: 150
         sms_channel:
           $ref: '#/components/schemas/ContactSmsChannel'
-    Note:
-      type: object
-      properties:
-        note_id:
-          type: string
-          format: uuid
-          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          description: The ID that uniquely identifies the note (UUID format).
-        created_at:
-          type: string
-          format: date-time
-          example: '2021-05-12T13:48:44.108Z'
-          description: The date that the note was created.
-        content:
-          type: string
-          example: This contact resubscribed on 2021-05-12.
-          description: The content for the note.
-          maxLength: 2000
-      description: A note about the contact.
-    EmailAddress:
+    EmailAddressPut:
       type: object
       required:
       - address
@@ -1496,10 +1685,6 @@ components:
           example: '2016-03-03T10:56:29-05:00'
           description: Date and time that the email_address was last updated, in ISO-8601 format. System generated.
           readOnly: true
-        opt_in_source:
-          type: string
-          example: Contact
-          description: Describes who opted-in the email_address; valid values are Contact or Account. Your integration must accurately identify <code>opt_in_source</code> for compliance reasons; value is set on POST, and is read-only going forward.
         opt_in_date:
           type: string
           format: date-time
@@ -1527,192 +1712,7 @@ components:
           example: confirmed
           description: 'Indicates if the contact confirmed their email address after they subscribed to receive emails. Possible values: pending, confirmed, off.'
           readOnly: true
-      description: A contact subresource describing the contact's email address.
-    ContactCustomField:
-      type: object
-      required:
-      - custom_field_id
-      properties:
-        custom_field_id:
-          type: string
-          format: uuid
-          example: 1618ae62-4752-11e9-9c8a-fa163e6b01c1
-          description: The custom field's unique ID
-        value:
-          type: string
-          example: Tesla S 2017
-          description: The custom field value.
-          maxLength: 255
-        choice_ids:
-          type: array
-          description: For <code>>multi_select</code> and <code>single_select</code> data types, the ID that uniquely identifies the choice associated with a the custom field.
-          items:
-            type: string
-            example: '000001'
-      description: Custom fields allow Constant Contact users to add custom content to a contact that can be used to personalize emails in addition to the standard set of variables available for email personalization.
-    ContactCreateOrUpdateResponse:
-      type: object
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
-          description: The unique identifier for the contact that the V3 API created or updated.
-        action:
-          type: string
-          description: Identifies if the V3 API created a new contact or updated an existing contact.
-    ContactXref:
-      type: object
-      properties:
-        sequence_id:
-          type: string
-          example: '0016633325'
-          description: The V2 API contact unique identifier
-        contact_id:
-          type: string
-          format: uuid
-          example: ab7ab702-b935-11e9-8a58-fa163e6b01c1
-          description: The V3 API contact unique identifier
-      description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
-    StreetAddress:
-      type: object
-      required:
-      - kind
-      properties:
-        street_address_id:
-          type: string
-          format: uuid
-          example: 977a9a2e-3e00-11ea-804b-fa163e56c9b0
-          description: Unique ID for the street address
-          readOnly: true
-        kind:
-          type: string
-          example: home
-          description: Describes the type of address; valid values are home, work, or other.
-        street:
-          type: string
-          example: 123 Kashmir Valley Road
-          description: Number and street of the address.
-          maxLength: 255
-        city:
-          type: string
-          example: Chicago
-          description: The name of the city where the contact lives.
-          maxLength: 50
-        state:
-          type: string
-          example: Illinois
-          description: The name of the state or province where the contact lives.
-          maxLength: 50
-        postal_code:
-          type: string
-          example: '60609'
-          description: The zip or postal code of the contact.
-          maxLength: 50
-        country:
-          type: string
-          example: United States
-          description: The name of the country where the contact lives.
-          maxLength: 50
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:53:04-05:00'
-          description: Date and time that the street address was created, in ISO-8601 format. System generated.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:56:29-05:00'
-          description: Date and time that the street address was last updated, in ISO-8601 format. System generated.
-          readOnly: true
-    JmmlSmsChannelConsents:
-      type: object
-      required:
-      - consent_medium_details
-      - consent_medium_type
-      - consent_medium_url
-      - consent_type
-      - sms_consent_permission
-      properties:
-        sms_consent_permission:
-          type: string
-          example: pending_confirmation
-          description: The current consent status of the SMS Channel.
-        consent_type:
-          type: string
-          example: promotional_sms
-          description: The type of consent provided.
-        consent_medium_type:
-          type: string
-          example: LF
-          description: A code representing where the consent was retrieved.
-        consent_medium_url:
-          type: string
-          example: https://lp.constantcontactpages.com/su/iPtuMuh
-          description: The URL for which the consent was gathered, such as a landing page.
-        consent_medium_details:
-          type: string
-          example: Contact used our landing page to consent to SMS.
-          description: Additional information for the consent
-        advertised_frequency:
-          type: integer
-          example: 1
-          description: The numeric component used to indicate how often to send advertising. For example, <code>1</code> indicates once. Use with <code>advertised_internal</code> property to indicate when on the calender to send it. For example, to send once (<code>1</code>) daily, weekly, or monthly.
-        advertised_interval:
-          type: string
-          example: weekly
-          description: The calender interval used to indicate when advertising is sent. For example <code>weekly</code>.
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    SmsChannelConsentDetails:
-      type: object
-      properties:
-        sms_consent_permission:
-          type: string
-          example: explicit
-          description: Identifies the current permission status for the SMS channel.
-        consent_type:
-          type: string
-          example: promotional_sms
-          description: Identifies the type of consent provided. Currently, only <code>promotional_sms</code> is supported.
-        opt_in_date:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Date and time, in ISO-8601 format, that the contact subscribed/opted-in to receiving SMS from the account. Displays only if the contact subscribes/opts-in. System generated.
-          readOnly: true
-        opt_out_date:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Date and time, in ISO-8601 format, that the contact unsubscribed/opted-out of receiving SMS from the account. Displays only if the contact unsubscribed/opted-out. System generated.
-          readOnly: true
-        advertised_frequency:
-          type: string
-          example: '1'
-          description: The numeric used to set how often to send SMS advertisements during a specified time interval (<code>advertised_interval</code>). For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the  <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
-        advertised_interval:
-          type: string
-          example: monthly
-          description: Identifies the unit of time used by Constant Contact to send SMS advertisements as a string enum. For example, if the <code>advertised_frequency</code> is set to <code>2</code> and the <code>advertised_interval</code> is set to <code>monthly</code>, the contact can receive up to two advertisements per month.
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Date and time that the SMS stats were created, in ISO-8601 format. System generated.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: Date and time that the SMS stats were updated, in ISO-8601 format. System generated.
-          readOnly: true
-      description: Provides SMS consent details.
+      description: The contact's email address and related properties.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

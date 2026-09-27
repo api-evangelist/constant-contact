@@ -358,42 +358,6 @@ paths:
       - ui:campaign:metrics
 components:
   schemas:
-    lpreportingNext:
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages
-    PContactOpensTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact opens tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactOpenTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
-    PContactClickTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact click tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactClickTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
     PContactUpdateTrackingActivitiesPage:
       type: object
       required:
@@ -405,6 +369,68 @@ components:
           description: The list of landing page contact update tracking activities.
           items:
             $ref: '#/components/schemas/PContactUpdateTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
+    PContactUpdateTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The unique ID that identifies the contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The unique ID that identifies of the campaign activity to use.
+        tracking_activity_type:
+          type: string
+          example: p_contact_updates
+          description: The tracked activity event type.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address for the contact and tracking activity.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time the tracking activity occurred.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: The time the Contact was deleted
+        sms_channel:
+          description: Sms channel info for this contact
+          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
+    PContactSMSOptInTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact opt in tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactSMSOptInTrackingActivity'
         _links:
           description: HAL property that contains next link if applicable
           $ref: '#/components/schemas/lpreportingLinks'
@@ -426,6 +452,212 @@ components:
           type: string
           example: (234) 555-6789
           description: 'The formatted SMS number returned if the SMS <code>country_code</code> matches the contacts <code>country_code</code>. '
+    lpreportingLinks:
+      type: object
+      required:
+      - next
+      properties:
+        next:
+          description: Contains the next link if it is available.
+          $ref: '#/components/schemas/lpreportingNext'
+    PContactSMSOptInTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The unique ID that identifies the contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The unique ID that identifies of the campaign activity to use.
+        tracking_activity_type:
+          type: string
+          example: p_contact_sms_optins
+          description: The tracked activity event type.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address for the contact and tracking activity.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time the tracking activity occurred.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: The time the Contact was deleted
+        sms_channel:
+          description: Sms channel info for this contact
+          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
+    PContactOpensTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact opens tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactOpenTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
+    PContactAddTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact adds tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactAddTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
+    PContactClickTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: The list of landing page contact click tracking activities.
+          items:
+            $ref: '#/components/schemas/PContactClickTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/lpreportingLinks'
+    PContactAddTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The unique ID that identifies the contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The unique ID that identifies of the campaign activity to use.
+        tracking_activity_type:
+          type: string
+          example: p_contact_adds
+          description: The tracked activity event type.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address for the contact and tracking activity.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time the tracking activity occurred.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: The time the Contact was deleted
+        sms_channel:
+          description: Sms channel info for this contact
+          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
+    lpreportingNext:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages
+    PContactOpenTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The unique ID that identifies the contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The unique ID that identifies of the campaign activity to use.
+        tracking_activity_type:
+          type: string
+          example: p_contact_opens
+          description: The tracked activity event type.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address for the contact and tracking activity.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        device_type:
+          type: string
+          example: tablet
+          description: The type of device that was used to open the link.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time the tracking activity occurred.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: The time the Contact was deleted
+        sms_channel:
+          description: Sms channel info for this contact
+          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
     PContactClickTrackingActivity:
       type: object
       required:
@@ -487,238 +719,6 @@ components:
         sms_channel:
           description: Sms channel info for this contact
           $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactAddTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The unique ID that identifies the contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The unique ID that identifies of the campaign activity to use.
-        tracking_activity_type:
-          type: string
-          example: p_contact_adds
-          description: The tracked activity event type.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address for the contact and tracking activity.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time the tracking activity occurred.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: The time the Contact was deleted
-        sms_channel:
-          description: Sms channel info for this contact
-          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactOpenTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The unique ID that identifies the contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The unique ID that identifies of the campaign activity to use.
-        tracking_activity_type:
-          type: string
-          example: p_contact_opens
-          description: The tracked activity event type.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address for the contact and tracking activity.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        device_type:
-          type: string
-          example: tablet
-          description: The type of device that was used to open the link.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time the tracking activity occurred.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: The time the Contact was deleted
-        sms_channel:
-          description: Sms channel info for this contact
-          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactSMSOptInTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The unique ID that identifies the contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The unique ID that identifies of the campaign activity to use.
-        tracking_activity_type:
-          type: string
-          example: p_contact_sms_optins
-          description: The tracked activity event type.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address for the contact and tracking activity.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time the tracking activity occurred.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: The time the Contact was deleted
-        sms_channel:
-          description: Sms channel info for this contact
-          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    PContactSMSOptInTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact opt in tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactSMSOptInTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
-    PContactUpdateTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The unique ID that identifies the contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The unique ID that identifies of the campaign activity to use.
-        tracking_activity_type:
-          type: string
-          example: p_contact_updates
-          description: The tracked activity event type.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address for the contact and tracking activity.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time the tracking activity occurred.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: The time the Contact was deleted
-        sms_channel:
-          description: Sms channel info for this contact
-          $ref: '#/components/schemas/TrackingActivitySmsChannelDTO'
-    lpreportingLinks:
-      type: object
-      required:
-      - next
-      properties:
-        next:
-          description: Contains the next link if it is available.
-          $ref: '#/components/schemas/lpreportingNext'
-    PContactAddTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of landing page contact adds tracking activities.
-          items:
-            $ref: '#/components/schemas/PContactAddTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/lpreportingLinks'
   securitySchemes:
     oauth2_implicit:
       type: oauth2

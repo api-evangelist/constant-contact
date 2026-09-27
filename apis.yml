@@ -18,6 +18,7 @@ tags_raw:
 - Reporting
 - SMS
 - Surveys
+- Email
 type: Index
 deliveryModel:
   model: saas

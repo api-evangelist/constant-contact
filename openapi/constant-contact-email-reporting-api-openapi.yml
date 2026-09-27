@@ -654,387 +654,6 @@ paths:
       x-sdk-methodName: getEmailCampaignActivityReport
 components:
   schemas:
-    CampaignStatsQueryResultEmail:
-      type: object
-      properties:
-        errors:
-          type: array
-          description: An array of errors indicating any partial failures in the query.
-          items:
-            $ref: '#/components/schemas/StatsError'
-        results:
-          type: array
-          description: An array of results listing statistics for each requested <code>campaign_id</code>.
-          items:
-            $ref: '#/components/schemas/CampaignStatsResultGenericStatsEmailPercentsEmail'
-    OpensTrackingActivitiesPage:
-      type: object
-      required:
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: Lists contacts that opened the specified <code>campaign_activity_id</code>.
-          items:
-            $ref: '#/components/schemas/OpensTrackingActivity'
-        _links:
-          description: HAL property that contains the next link, if applicable.
-          $ref: '#/components/schemas/reportingLinks'
-    UniqueEmailCounts:
-      type: object
-      properties:
-        sends:
-          type: integer
-          format: int32
-          example: 3129
-          description: The total number of unique sends.
-        opens:
-          type: integer
-          format: int32
-          example: 1672
-          description: The total number of unique opens.
-        clicks:
-          type: integer
-          format: int32
-          example: 256
-          description: The total number of unique clicks.
-        forwards:
-          type: integer
-          format: int32
-          example: 21
-          description: The total number of unique forwards.
-        optouts:
-          type: integer
-          format: int32
-          example: 3
-          description: The total number of unique optouts (unsubscribes).
-        abuse:
-          type: integer
-          format: int32
-          example: 1
-          description: The total number of unique abuse count (spam).
-        bounces:
-          type: integer
-          format: int32
-          example: 210
-          description: The total number of unique bounce count.
-        not_opened:
-          type: integer
-          format: int32
-          example: 1211
-          description: The total number of unique non-opens
-    ClicksTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - link_url
-      - tracking_activity_type
-      - url_id
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies a contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The ID that uniquely identifies the email campaign activity.
-        tracking_activity_type:
-          type: string
-          example: em_clicks
-          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address used to send the email campaign activity to a contact.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        device_type:
-          type: string
-          example: computer
-          description: The type of device that the contact was using when they clicked the URL link for the email campaign activity.
-        url_id:
-          type: string
-          example: '1100407204171'
-          description: The ID used to uniquely identify the URL link.
-        link_url:
-          type: string
-          example: http://www.yoursite.com
-          description: The text used for the URL link.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The date and time that the contact clicked the specified URL link for the email campaign activity.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: If applicable, displays the date that the contact was deleted.
-    SendsTrackingActivitiesPage:
-      type: object
-      required:
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: Lists the contacts to which the email campaign activity (<code>campaign_activity_id</code>) was sent.
-          items:
-            $ref: '#/components/schemas/SendsTrackingActivity'
-        _links:
-          description: HAL property that contains the next link, if applicable.
-          $ref: '#/components/schemas/reportingLinks'
-    StatsError:
-      type: object
-      properties:
-        error_key:
-          type: string
-          example: reportingsvc.not_found.invalid_path_param.campaign_ids.
-          description: The unique error key.
-        error_message:
-          type: string
-          example: Could not find any campaign stats for all requested campaigns.
-          description: A error description.
-    OpensTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies a contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The ID that uniquely identifies an email campaign activity.
-        tracking_activity_type:
-          type: string
-          example: em_opens
-          description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address used to send the email campaign activity to a contact.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        device_type:
-          type: string
-          example: computer
-          description: The type of device that the contact used to open the email campaign activity.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The date and time that the contact opened the email campaign activity.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: If applicable, displays the date that the contact was deleted.
-    BouncesTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of email bounce tracking activities associated with a given `campaign_activity_id'.
-          items:
-            $ref: '#/components/schemas/BouncesTrackingActivity'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/reportingLinks'
-    DidNotOpensTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies a contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The ID that uniquely identifies an email campaign activity.
-        tracking_activity_type:
-          type: string
-          example: em_didnotopens
-          description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The email address used to send the email campaign activity to a contact.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The date and time that the contact was sent the email campaign activity.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: If applicable, displays the date that the contact was deleted.
-    BulkEmailCampaignSummariesPercents:
-      type: object
-      properties:
-        click:
-          type: number
-          example: 43.0
-          description: Aggregated click rate for campaigns on the current page.
-        open:
-          type: number
-          example: 12.0
-          description: Aggregated open rate for campaigns on the current page.
-        did_not_open:
-          type: number
-          example: 23.0
-          description: Aggregated did-not-open rate for campaigns on the current page.
-        bounce:
-          type: number
-          example: 21.0
-          description: Aggregated bounce rate for campaigns on the current page.
-        unsubscribe:
-          type: number
-          example: 2.0
-          description: Aggregated unsubscribe (optout) rate for campaigns on the current page.
-    OptoutsTrackingActivitiesPage:
-      type: object
-      required:
-      - _links
-      - tracking_activities
-      properties:
-        tracking_activities:
-          type: array
-          description: The list of opt-out tracking activities
-          items:
-            $ref: '#/components/schemas/OptoutsTrackingActivity'
-        _links:
-          description: HAL property that contains the next link, if applicable.
-          $ref: '#/components/schemas/reportingLinks'
-    ForwardsTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies a contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The ID that uniquely identifies the email campaign activity.
-        tracking_activity_type:
-          type: string
-          example: em_forwards
-          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The contact's email address.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time that the contact forwarded the email campaign activity.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: If applicable, displays the date that the contact was deleted.
-    CampaignStatsResultGenericStatsEmailPercentsEmail:
-      type: object
-      properties:
-        campaign_id:
-          type: string
-          example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
-          description: The ID that uniquely identifies the campaign (UUID).
-        stats:
-          description: Key-value pairs of campaign related statistics.
-          $ref: '#/components/schemas/StatsEmail'
-        percents:
-          description: Key-value pairs of campaign related percentages.
-          $ref: '#/components/schemas/PercentsEmail'
-        last_refresh_time:
-          type: string
-          format: date-time
-          example: '2015-08-25T22:00:09.908Z'
-          description: The date and time that the campaign stats were last refreshed.
-    reportingNext:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
-    CampaignActivityStatsResultGenericStatsEmailActivity:
-      type: object
-      properties:
-        campaign_id:
-          type: string
-          description: The unique ID used to identify the campaign (UUID).
-        campaign_activity_id:
-          type: string
-          description: The unique ID used to identify the campaign activity (UUID).
-        stats:
-          description: Key-value pairs of campaign activity statistics.
-          $ref: '#/components/schemas/StatsEmailActivity'
-        last_refresh_time:
-          type: string
-          description: The time at which the campaign activity stats were last refreshed in ISO 8601 format (e.g. '2015-08-25T22:00:09.908Z').
     StatsEmail:
       type: object
       properties:
@@ -1133,6 +752,40 @@ components:
           format: int32
           example: 308
           description: Number of unique email sends.
+    BulkEmailCampaignSummariesPercents:
+      type: object
+      properties:
+        click:
+          type: number
+          example: 43.0
+          description: Aggregated click rate for campaigns on the current page.
+        open:
+          type: number
+          example: 12.0
+          description: Aggregated open rate for campaigns on the current page.
+        did_not_open:
+          type: number
+          example: 23.0
+          description: Aggregated did-not-open rate for campaigns on the current page.
+        bounce:
+          type: number
+          example: 21.0
+          description: Aggregated bounce rate for campaigns on the current page.
+        unsubscribe:
+          type: number
+          example: 2.0
+          description: Aggregated unsubscribe (optout) rate for campaigns on the current page.
+    StatsError:
+      type: object
+      properties:
+        error_key:
+          type: string
+          example: reportingsvc.not_found.invalid_path_param.campaign_ids.
+          description: The unique error key.
+        error_message:
+          type: string
+          example: Could not find any campaign stats for all requested campaigns.
+          description: A error description.
     EmailLinkClickCount:
       type: object
       properties:
@@ -1162,19 +815,97 @@ components:
           type: string
           example: google-link-1
           description: Link tags are not currently available in email campaigns. By default, this method combines results for duplicate link URLs. Link tags will allow users to get a separate link click report for each unique <code>link_tag</code> value they use, even if URLs are not unique.
-    EmailLinks:
+    UniqueEmailCounts:
       type: object
       properties:
+        sends:
+          type: integer
+          format: int32
+          example: 3129
+          description: The total number of unique sends.
+        opens:
+          type: integer
+          format: int32
+          example: 1672
+          description: The total number of unique opens.
+        clicks:
+          type: integer
+          format: int32
+          example: 256
+          description: The total number of unique clicks.
+        forwards:
+          type: integer
+          format: int32
+          example: 21
+          description: The total number of unique forwards.
+        optouts:
+          type: integer
+          format: int32
+          example: 3
+          description: The total number of unique optouts (unsubscribes).
+        abuse:
+          type: integer
+          format: int32
+          example: 1
+          description: The total number of unique abuse count (spam).
+        bounces:
+          type: integer
+          format: int32
+          example: 210
+          description: The total number of unique bounce count.
+        not_opened:
+          type: integer
+          format: int32
+          example: 1211
+          description: The total number of unique non-opens
+    CampaignActivityStatsResultGenericStatsEmailActivity:
+      type: object
+      properties:
+        campaign_id:
+          type: string
+          description: The unique ID used to identify the campaign (UUID).
         campaign_activity_id:
           type: string
-          format: uuid
-          example: 8892baf9-970a-4de6-8400-fa4ec461987c
-          description: The unique ID for an email campaign activity.
-        link_click_counts:
+          description: The unique ID used to identify the campaign activity (UUID).
+        stats:
+          description: Key-value pairs of campaign activity statistics.
+          $ref: '#/components/schemas/StatsEmailActivity'
+        last_refresh_time:
+          type: string
+          description: The time at which the campaign activity stats were last refreshed in ISO 8601 format (e.g. '2015-08-25T22:00:09.908Z').
+    BouncesTrackingActivitiesPage:
+      type: object
+      required:
+      - _links
+      - tracking_activities
+      properties:
+        tracking_activities:
           type: array
-          description: An array of objects that contain the contact click count and link metadata for each unique link URL in an email campaign activity. By default, this method combines results for duplicate link URLs.
+          description: The list of email bounce tracking activities associated with a given `campaign_activity_id'.
           items:
-            $ref: '#/components/schemas/EmailLinkClickCount'
+            $ref: '#/components/schemas/BouncesTrackingActivity'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/reportingLinks'
+    reportingLinks:
+      type: object
+      properties:
+        next:
+          description: Contains the next page link if it is available.
+          $ref: '#/components/schemas/reportingNext'
+    SendsTrackingActivitiesPage:
+      type: object
+      required:
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: Lists the contacts to which the email campaign activity (<code>campaign_activity_id</code>) was sent.
+          items:
+            $ref: '#/components/schemas/SendsTrackingActivity'
+        _links:
+          description: HAL property that contains the next link, if applicable.
+          $ref: '#/components/schemas/reportingLinks'
     SendsTrackingActivity:
       type: object
       required:
@@ -1220,85 +951,151 @@ components:
           format: date
           example: '2019-04-10'
           description: If applicable, displays the date that the contact was deleted.
-    DidNotOpensTrackingActivitiesPage:
+    OpensTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies a contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The ID that uniquely identifies an email campaign activity.
+        tracking_activity_type:
+          type: string
+          example: em_opens
+          description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address used to send the email campaign activity to a contact.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        device_type:
+          type: string
+          example: computer
+          description: The type of device that the contact used to open the email campaign activity.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The date and time that the contact opened the email campaign activity.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: If applicable, displays the date that the contact was deleted.
+    OpensTrackingActivitiesPage:
       type: object
       required:
       - tracking_activities
       properties:
         tracking_activities:
           type: array
-          description: Lists contacts that did not open the specified <code>campaign_activity_id</code>.
+          description: Lists contacts that opened the specified <code>campaign_activity_id</code>.
           items:
-            $ref: '#/components/schemas/DidNotOpensTrackingActivity'
+            $ref: '#/components/schemas/OpensTrackingActivity'
         _links:
           description: HAL property that contains the next link, if applicable.
           $ref: '#/components/schemas/reportingLinks'
-    CampaignActivityStatsQueryResultEmail:
+    OptoutsTrackingActivitiesPage:
       type: object
+      required:
+      - _links
+      - tracking_activities
       properties:
-        errors:
+        tracking_activities:
           type: array
-          description: Array of errors indicating any partial failures in the query
+          description: The list of opt-out tracking activities
           items:
-            $ref: '#/components/schemas/StatsError'
-        results:
-          type: array
-          description: An array of results containing statistics for each requested campaign activity
-          items:
-            $ref: '#/components/schemas/CampaignActivityStatsResultGenericStatsEmailActivity'
-    PercentsEmail:
-      type: object
-      properties:
-        bounce:
-          type: number
-          example: 0.0
-          description: Percentage of emails sent to unique recipients that bounced.
-        click:
-          type: number
-          example: 40.0
-          description: Percentage of recipients who opened the email who also clicked one or more links in it.
-        desktop_click:
-          type: number
-          example: 10.0
-          description: Percentage of clicks that came from a standard desktop or laptop computer.
-        desktop_open:
-          type: number
-          example: 20.0
-          description: Percentage of opens that came from a standard desktop or laptop computer.
-        did_not_open:
-          type: number
-          example: 30.0
-          description: Percentage of recipients that received the email (did not bounce) but did not open it.
-        mobile_click:
-          type: number
-          example: 40.0
-          description: Percentage of clicks that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
-        mobile_open:
-          type: number
-          example: 10.0
-          description: Percentage of opens that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
-        open:
-          type: number
-          example: 70.0
-          description: Percentage of recipients that received the email (did not bounce) and opened it.
-        unsubscribe:
-          type: number
-          example: 0.0
-          description: Percentage of recipients that received the email (did not bounce) and chose to unsubscribe.
-    BulkEmailCampaignSummariesPage:
-      type: object
-      properties:
-        bulk_email_campaign_summaries:
-          type: array
-          description: Lists and provides details about each bulk email campaign activity including total unique counts for tracked activities.
-          items:
-            $ref: '#/components/schemas/BulkEmailCampaignSummary'
-        aggregate_percents:
-          description: Lists aggregate percents for  `click`, `open`, `did_not_open`, `bounce`, and  `unsubscribe` activities for all campaigns included on a page of results.
-          $ref: '#/components/schemas/BulkEmailCampaignSummariesPercents'
+            $ref: '#/components/schemas/OptoutsTrackingActivity'
         _links:
-          description: HAL property that contains next link if applicable
+          description: HAL property that contains the next link, if applicable.
           $ref: '#/components/schemas/reportingLinks'
+    reportingNext:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
+    DidNotOpensTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies a contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The ID that uniquely identifies an email campaign activity.
+        tracking_activity_type:
+          type: string
+          example: em_didnotopens
+          description: The type of tracking activity that is associated with this <code>campaign_activity_id</code> and used for reporting purposes.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address used to send the email campaign activity to a contact.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The date and time that the contact was sent the email campaign activity.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: If applicable, displays the date that the contact was deleted.
+    CampaignStatsResultGenericStatsEmailPercentsEmail:
+      type: object
+      properties:
+        campaign_id:
+          type: string
+          example: 82ee2c37-c8f8-4974-9560-ef93ad51d58z
+          description: The ID that uniquely identifies the campaign (UUID).
+        stats:
+          description: Key-value pairs of campaign related statistics.
+          $ref: '#/components/schemas/StatsEmail'
+        percents:
+          description: Key-value pairs of campaign related percentages.
+          $ref: '#/components/schemas/PercentsEmail'
+        last_refresh_time:
+          type: string
+          format: date-time
+          example: '2015-08-25T22:00:09.908Z'
+          description: The date and time that the campaign stats were last refreshed.
     BouncesTrackingActivity:
       type: object
       required:
@@ -1374,6 +1171,140 @@ components:
           format: date
           example: '2015-08-10'
           description: If applicable, the date when the contact was deleted.
+    OptoutsTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies a contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The ID that uniquely identifies the email campaign activity.
+        tracking_activity_type:
+          type: string
+          example: em_optouts
+          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The contact's email address.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        opt_out_reason:
+          type: string
+          example: The content is not what I expected
+          description: The opt-out reason, if the contact entered a reason.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time that the contact chose to opt-out from receiving future email campaign activities.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: If applicable, displays the date that the contact was deleted.
+    EmailLinks:
+      type: object
+      properties:
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 8892baf9-970a-4de6-8400-fa4ec461987c
+          description: The unique ID for an email campaign activity.
+        link_click_counts:
+          type: array
+          description: An array of objects that contain the contact click count and link metadata for each unique link URL in an email campaign activity. By default, this method combines results for duplicate link URLs.
+          items:
+            $ref: '#/components/schemas/EmailLinkClickCount'
+    ClicksTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - link_url
+      - tracking_activity_type
+      - url_id
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies a contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The ID that uniquely identifies the email campaign activity.
+        tracking_activity_type:
+          type: string
+          example: em_clicks
+          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The email address used to send the email campaign activity to a contact.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        device_type:
+          type: string
+          example: computer
+          description: The type of device that the contact was using when they clicked the URL link for the email campaign activity.
+        url_id:
+          type: string
+          example: '1100407204171'
+          description: The ID used to uniquely identify the URL link.
+        link_url:
+          type: string
+          example: http://www.yoursite.com
+          description: The text used for the URL link.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The date and time that the contact clicked the specified URL link for the email campaign activity.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: If applicable, displays the date that the contact was deleted.
+    ForwardsTrackingActivitiesPage:
+      type: object
+      required:
+      - tracking_activities
+      properties:
+        tracking_activities:
+          type: array
+          description: 'The list of contacts that forwarded the specified email campaign activity. '
+          items:
+            $ref: '#/components/schemas/ForwardsTrackingActivity'
+        _links:
+          description: HAL property that contains the next link, if applicable.
+          $ref: '#/components/schemas/reportingLinks'
     ClicksTrackingActivitiesPage:
       type: object
       required:
@@ -1387,6 +1318,19 @@ components:
         _links:
           description: HAL property that contains next link if applicable.
           $ref: '#/components/schemas/reportingLinks'
+    CampaignStatsQueryResultEmail:
+      type: object
+      properties:
+        errors:
+          type: array
+          description: An array of errors indicating any partial failures in the query.
+          items:
+            $ref: '#/components/schemas/StatsError'
+        results:
+          type: array
+          description: An array of results listing statistics for each requested <code>campaign_id</code>.
+          items:
+            $ref: '#/components/schemas/CampaignStatsResultGenericStatsEmailPercentsEmail'
     StatsEmailActivity:
       type: object
       properties:
@@ -1525,6 +1469,90 @@ components:
           format: int32
           example: 2
           description: Unique number that bounced back with a vacation or out of office autoreply.
+    PercentsEmail:
+      type: object
+      properties:
+        bounce:
+          type: number
+          example: 0.0
+          description: Percentage of emails sent to unique recipients that bounced.
+        click:
+          type: number
+          example: 40.0
+          description: Percentage of recipients who opened the email who also clicked one or more links in it.
+        desktop_click:
+          type: number
+          example: 10.0
+          description: Percentage of clicks that came from a standard desktop or laptop computer.
+        desktop_open:
+          type: number
+          example: 20.0
+          description: Percentage of opens that came from a standard desktop or laptop computer.
+        did_not_open:
+          type: number
+          example: 30.0
+          description: Percentage of recipients that received the email (did not bounce) but did not open it.
+        mobile_click:
+          type: number
+          example: 40.0
+          description: Percentage of clicks that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
+        mobile_open:
+          type: number
+          example: 10.0
+          description: Percentage of opens that came from a mobile phone, tablet computer, or similar small mobile device (e.g. iPhone or iPad).
+        open:
+          type: number
+          example: 70.0
+          description: Percentage of recipients that received the email (did not bounce) and opened it.
+        unsubscribe:
+          type: number
+          example: 0.0
+          description: Percentage of recipients that received the email (did not bounce) and chose to unsubscribe.
+    ForwardsTrackingActivity:
+      type: object
+      required:
+      - campaign_activity_id
+      - contact_id
+      - created_time
+      - email_address
+      - tracking_activity_type
+      properties:
+        contact_id:
+          type: string
+          format: uuid
+          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
+          description: The ID that uniquely identifies a contact.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 98edac88-f4bc-408c-9e64-acd890384231
+          description: The ID that uniquely identifies the email campaign activity.
+        tracking_activity_type:
+          type: string
+          example: em_forwards
+          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
+        email_address:
+          type: string
+          example: maddieb@gmail.com
+          description: The contact's email address.
+        first_name:
+          type: string
+          example: Maddie
+          description: The first name of the contact.
+        last_name:
+          type: string
+          example: Brown
+          description: The last name of the contact.
+        created_time:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The time that the contact forwarded the email campaign activity.
+        deleted_at:
+          type: string
+          format: date
+          example: '2015-08-10'
+          description: If applicable, displays the date that the contact was deleted.
     BulkEmailCampaignSummary:
       type: object
       required:
@@ -1546,74 +1574,46 @@ components:
         unique_counts:
           description: The total number of times each unique contact interacted with a tracked email campaign activity.
           $ref: '#/components/schemas/UniqueEmailCounts'
-    reportingLinks:
+    BulkEmailCampaignSummariesPage:
       type: object
       properties:
-        next:
-          description: Contains the next page link if it is available.
-          $ref: '#/components/schemas/reportingNext'
-    OptoutsTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      - created_time
-      - email_address
-      - tracking_activity_type
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: a2fdc285-f4bc-408c-9e64-f3f89038ec82
-          description: The ID that uniquely identifies a contact.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 98edac88-f4bc-408c-9e64-acd890384231
-          description: The ID that uniquely identifies the email campaign activity.
-        tracking_activity_type:
-          type: string
-          example: em_optouts
-          description: The type of report tracking activity that is associated with the specified <code>campaign_activity_id</code>.
-        email_address:
-          type: string
-          example: maddieb@gmail.com
-          description: The contact's email address.
-        first_name:
-          type: string
-          example: Maddie
-          description: The first name of the contact.
-        last_name:
-          type: string
-          example: Brown
-          description: The last name of the contact.
-        opt_out_reason:
-          type: string
-          example: The content is not what I expected
-          description: The opt-out reason, if the contact entered a reason.
-        created_time:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The time that the contact chose to opt-out from receiving future email campaign activities.
-        deleted_at:
-          type: string
-          format: date
-          example: '2015-08-10'
-          description: If applicable, displays the date that the contact was deleted.
-    ForwardsTrackingActivitiesPage:
+        bulk_email_campaign_summaries:
+          type: array
+          description: Lists and provides details about each bulk email campaign activity including total unique counts for tracked activities.
+          items:
+            $ref: '#/components/schemas/BulkEmailCampaignSummary'
+        aggregate_percents:
+          description: Lists aggregate percents for  `click`, `open`, `did_not_open`, `bounce`, and  `unsubscribe` activities for all campaigns included on a page of results.
+          $ref: '#/components/schemas/BulkEmailCampaignSummariesPercents'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/reportingLinks'
+    DidNotOpensTrackingActivitiesPage:
       type: object
       required:
       - tracking_activities
       properties:
         tracking_activities:
           type: array
-          description: 'The list of contacts that forwarded the specified email campaign activity. '
+          description: Lists contacts that did not open the specified <code>campaign_activity_id</code>.
           items:
-            $ref: '#/components/schemas/ForwardsTrackingActivity'
+            $ref: '#/components/schemas/DidNotOpensTrackingActivity'
         _links:
           description: HAL property that contains the next link, if applicable.
           $ref: '#/components/schemas/reportingLinks'
+    CampaignActivityStatsQueryResultEmail:
+      type: object
+      properties:
+        errors:
+          type: array
+          description: Array of errors indicating any partial failures in the query
+          items:
+            $ref: '#/components/schemas/StatsError'
+        results:
+          type: array
+          description: An array of results containing statistics for each requested campaign activity
+          items:
+            $ref: '#/components/schemas/CampaignActivityStatsResultGenericStatsEmailActivity'
   securitySchemes:
     oauth2_implicit:
       type: oauth2
