@@ -347,147 +347,6 @@ paths:
       - contacts:lists:read
 components:
   schemas:
-    ContactListPutPost:
-      type: object
-      required:
-      - list_id
-      - name
-      properties:
-        list_id:
-          type: string
-          format: uuid
-          example: 06526938-56dd-11e9-932a-fa163ea075fa
-          description: Unique ID for the contact list
-          readOnly: true
-        name:
-          type: string
-          example: Multiple purchases
-          description: The name given to the contact list
-        description:
-          type: string
-          example: List of repeat customers.
-          description: Text describing the list.
-        favorite:
-          type: boolean
-          description: Identifies whether or not the account has favorited the contact list.
-          default: false
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: System generated date and time that the resource was created, in ISO-8601 format.
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:56:29-05:00'
-          description: Date and time that the list was last updated, in ISO-8601 format. System generated.
-          readOnly: true
-        deleted_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:56:29-05:00'
-          description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
-          readOnly: true
-    PagingLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Link'
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    ContactListArray:
-      type: object
-      properties:
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactList'
-        lists_count:
-          type: integer
-          example: 249
-          description: The total number of contact lists.
-        _links:
-          $ref: '#/components/schemas/PagingLinks'
-    ListXref:
-      type: object
-      properties:
-        sequence_id:
-          type: string
-          example: '0016633325'
-          description: The V2 API list unique identifier
-        list_id:
-          type: string
-          format: uuid
-          example: 71600990-908b-11e6-907f-1200166bff25
-          description: The V3 API list unique identifier
-      description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
-    ActivityDeleteListResponse:
-      type: object
-      properties:
-        activity_id:
-          type: string
-          format: uuid
-          description: Unique ID for the delete list batch job.
-        state:
-          type: string
-          example: initialized
-          description: "The state of the request:\n <p><ul>\n <li>initialized - request has been received</li>\n <li>processing - request is being processed</li>\n <li>completed - job completed</li>\n <li>cancelled - request was cancelled</li>\n <li>failed - job failed to complete</li>\n <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
-        created_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:53:04-05:00'
-          description: Date and time that the request was received, in ISO-8601 format.
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-03-03T10:56:29-05:00'
-          description: Date and time that the request status was updated, in ISO-8601 format.
-        percent_done:
-          type: integer
-          example: 1
-          description: Job completion percentage
-        activity_errors:
-          type: array
-          description: Array of messages describing the errors that occurred.
-          items:
-            type: string
-            example: Message describing the error condition.
-            description: Message describing the error condition.
-            readOnly: true
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              description: Link to the activity status to use in tracking the request status.
-              properties:
-                href:
-                  type: string
-                  example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
-    ListInput:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: Multiple purchases
-          description: The name given to the contact list
-          maxLength: 255
-        favorite:
-          type: boolean
-          example: true
-          description: Identifies whether or not the account has favorited the contact list.
-          default: false
-        description:
-          type: string
-          example: List of repeat customers
-          description: Text describing the list.
     ListXrefs:
       type: object
       properties:
@@ -544,6 +403,147 @@ components:
           example: 327
           description: The total number of contacts that are members in a list. Does not apply to segment type lists.
           readOnly: true
+    PagingLinks:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Link'
+    ContactListPutPost:
+      type: object
+      required:
+      - list_id
+      - name
+      properties:
+        list_id:
+          type: string
+          format: uuid
+          example: 06526938-56dd-11e9-932a-fa163ea075fa
+          description: Unique ID for the contact list
+          readOnly: true
+        name:
+          type: string
+          example: Multiple purchases
+          description: The name given to the contact list
+        description:
+          type: string
+          example: List of repeat customers.
+          description: Text describing the list.
+        favorite:
+          type: boolean
+          description: Identifies whether or not the account has favorited the contact list.
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: System generated date and time that the resource was created, in ISO-8601 format.
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the list was last updated, in ISO-8601 format. System generated.
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: If the list was deleted, this property shows the date and time it was deleted, in ISO-8601 format. System generated.
+          readOnly: true
+    ListInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Multiple purchases
+          description: The name given to the contact list
+          maxLength: 255
+        favorite:
+          type: boolean
+          example: true
+          description: Identifies whether or not the account has favorited the contact list.
+          default: false
+        description:
+          type: string
+          example: List of repeat customers
+          description: Text describing the list.
+    ActivityDeleteListResponse:
+      type: object
+      properties:
+        activity_id:
+          type: string
+          format: uuid
+          description: Unique ID for the delete list batch job.
+        state:
+          type: string
+          example: initialized
+          description: "The state of the request:\n <p><ul>\n <li>initialized - request has been received</li>\n <li>processing - request is being processed</li>\n <li>completed - job completed</li>\n <li>cancelled - request was cancelled</li>\n <li>failed - job failed to complete</li>\n <li>timed_out - the request timed out before completing\"</li>\n  </ul> </p>"
+        created_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:53:04-05:00'
+          description: Date and time that the request was received, in ISO-8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-03-03T10:56:29-05:00'
+          description: Date and time that the request status was updated, in ISO-8601 format.
+        percent_done:
+          type: integer
+          example: 1
+          description: Job completion percentage
+        activity_errors:
+          type: array
+          description: Array of messages describing the errors that occurred.
+          items:
+            type: string
+            example: Message describing the error condition.
+            description: Message describing the error condition.
+            readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              description: Link to the activity status to use in tracking the request status.
+              properties:
+                href:
+                  type: string
+                  example: /v3/activities/04fa57a7-cf55-4185-cc1a-58ed29bf0a6a
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+    ListXref:
+      type: object
+      properties:
+        sequence_id:
+          type: string
+          example: '0016633325'
+          description: The V2 API list unique identifier
+        list_id:
+          type: string
+          format: uuid
+          example: 71600990-908b-11e6-907f-1200166bff25
+          description: The V3 API list unique identifier
+      description: The cross-referenced pair of V3 API <code>list_id</code> and V2 API <code>sequence_id</code> for a list. Response is sorted ascending by <code>sequence_id</code>.
+    ContactListArray:
+      type: object
+      properties:
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList'
+        lists_count:
+          type: integer
+          example: 249
+          description: The total number of contact lists.
+        _links:
+          $ref: '#/components/schemas/PagingLinks'
   securitySchemes:
     oauth2_implicit:
       type: oauth2

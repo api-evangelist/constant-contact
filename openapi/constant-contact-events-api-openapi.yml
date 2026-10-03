@@ -696,302 +696,21 @@ paths:
         required: true
 components:
   schemas:
-    AttributeDto:
-      type: object
-      required:
-      - name
-      properties:
-        create_time:
-          type: string
-          example: '2023-11-17T17:33:21.652Z'
-          description: Create time of the event.
-        last_update_time:
-          type: string
-          example: '2023-12-07T13:18:39.681Z'
-          description: Last modification time of the event.
-        attribute_id:
-          type: string
-          example: attr123
-          description: The unique identifier for the attribute.
-        display_order:
-          type: integer
-          format: int32
-          example: 1
-          description: The order in which the attribute should display.
-        name:
-          type: string
-          example: Size
-          description: The name of the attribute
-        quantity_total:
-          type: integer
-          format: int32
-          example: 100
-          description: The total quantity available for this attribute.
-        quantity_remaining:
-          type: integer
-          format: int32
-          example: 20
-          description: The total quantity that remains available for this attribute.
-        quantity_sold:
-          type: integer
-          format: int32
-          example: 40
-          description: The total quantity sold for this attribute.
-        paused_flag:
-          type: boolean
-          example: false
-          description: Specifies if the attribute is currently paused from sales.
-        deleted_time:
-          type: string
-          example: '2025-05-01T00:00:00.000Z'
-          description: The time when the attribute was deleted.
-        status_labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusDisplayLabelDto'
-      title: AttributeDto
-    EventSettingsDto:
+    StatusDisplayLabelDto:
       type: object
       properties:
-        event_requires_payments:
-          type: boolean
-          example: true
-          description: Specifies if the event is configured to require payment.
-        item_configured:
-          type: boolean
-          example: false
-          description: Specifies if items exist for the event.
-        online_payment_configured:
-          type: boolean
-          example: false
-          description: Specifies if online payment is configured for the event.
-        payment_configured:
-          type: boolean
-          example: false
-          description: Specifies if payment is configured for the event.
-        promo_code_configured:
-          type: boolean
-          example: false
-          description: Specifies if promo code is configured for the event.
-        ticket_configured:
-          type: boolean
-          example: true
-          description: Specifies if ticketing is configured for the event
-    RegistrationTicketDto:
-      type: object
-      properties:
-        checked_in_time:
+        label:
           type: string
-          format: date-time
-          example: '2025-11-20T16:13:02.072Z'
-          description: The event check in time date, in ISO format.
-        editable:
-          type: boolean
-          example: false
-          description: Set to <code>true</code> to allow or <code>false</code> to not allow registrations to be modified.
-        order_ticket_key:
-          type: string
-          example: a1b2c3
-          description: The system generated number used to identify a ticket order.
-        price:
-          type: number
-          example: 25.0
-          description: The price for a ticket.
-        ticket_name:
-          type: string
-          example: General Admission
-          description: The name used to identify the ticket.
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimpleFieldDto'
-    OrderTicketKeysRequestDto:
-      type: object
-      required:
-      - order_ticket_keys
-      properties:
-        order_ticket_keys:
-          type: array
-          example:
-          - a1b2c3
-          - d4e5f6
-          description: Array of order ticket keys to process.
-          items:
-            type: string
-      description: Request payload for ticket check-in operations.
-    ContactDto:
-      type: object
-      required:
-      - name
-      - organization_name
-      properties:
-        create_time:
-          type: string
-          example: '2023-11-17T17:33:21.652Z'
-          description: The create time of the event.
-        email_address:
-          type: string
-          example: john.doe@aol.com
-          description: The email address to use to when replying to email, as well as the email that receives SO notifications.
-          minLength: 0
-          maxLength: 128
-        from_email_address:
-          type: string
-          example: john.doe@aol.com
-          description: The email address to use for sending confirmation emails.
-          minLength: 0
-          maxLength: 128
-        last_update_time:
-          type: string
-          example: '2023-12-07T13:18:39.681Z'
-          description: The time the event was last modified. ISO format
-        name:
-          type: string
-          example: John Doe
-          description: The contact name to associate with the event.
-          minLength: 0
-          maxLength: 100
-        organization_name:
-          type: string
-          example: Doe Orchards
-          description: The organization name to associate with the event.
-          minLength: 0
-          maxLength: 255
-        phone_number:
-          type: string
-          example: 781 265 8956
-          description: The phone number to associate with the event.
-          minLength: 1
-          maxLength: 25
-      title: ContactDto
-    registrationsLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Href'
-        prev:
-          $ref: '#/components/schemas/Href'
-        self:
-          $ref: '#/components/schemas/Href'
-    EventRegistrationSummaryMetricDto:
-      type: object
-      properties:
-        registration_count:
-          type: integer
-          format: int32
-          description: The total number of registrants for the event.
-        ticket_sold:
-          type: integer
-          format: int32
-          description: The total number of tickets sold for the event.
-        item_sold:
-          type: integer
-          format: int32
-          description: The total number of items sold for the event.
-    ItemDto:
-      type: object
-      required:
-      - name
-      properties:
-        create_time:
-          type: string
-          example: '2023-11-17T17:33:21.652Z'
-          description: The create time of the event is ISO format.
-        last_update_time:
-          type: string
-          example: '2023-12-07T13:18:39.681Z'
-          description: Last modification time of the event.
-        item_id:
-          type: string
-          example: ITEM123
-          description: The unique identifier for the item.
-        display_order:
-          type: integer
-          format: int32
-          example: 1
-          description: The order in which to display an item.
-        name:
-          type: string
-          example: VIP Ticket
-          description: The name of the item.
-        description:
-          type: string
-          example: Premium access to all event areas.
-          description: The description of the item.
-        price:
-          type: number
-          example: 25.0
-          description: The price per item.
-        quantity_total:
-          type: integer
-          format: int32
-          example: 100
-          description: The total number of items available.
-        quantity_remaining:
-          type: integer
-          format: int32
-          example: 50
-          description: The total number of items still available.
-        quantity_sold:
-          type: integer
-          format: int32
-          example: 50
-          description: The total number of items sold.
-        limit_per_order:
-          type: integer
-          format: int32
-          example: 2
-          description: Limits the number of items per order.
-        show_remaining_flag:
-          type: boolean
-          example: false
-          description: Set to display or not to display the number of remaining items to customers.
-        paused_flag:
-          type: boolean
-          example: true
-          description: Specifies if the item is currently paused from sales.
-        deletable_flag:
-          type: boolean
-          example: true
-          description: Specifies if the item can be deleted.
+          example: Sold out
+          description: 'The display text for the status. For example: Available, Sold out.'
           readOnly: true
-        media_internal_id:
+        label_key:
           type: string
-          example: rqla5y1
-          description: The internal identifier for the item's image.
-        media_url:
-          type: string
-          example: https://example.com/media/image.jpg
-          description: The URL to associate with the media.
-        time_limit_flag:
-          type: boolean
-          example: false
-          description: Specifies if the item has time-based availability.
-        start_time:
-          type: string
-          example: '2025-04-17T20:00:00.000Z'
-          description: The start time when the item becomes available.
-        end_time:
-          type: string
-          example: '2025-05-17T20:00:00.000Z'
-          description: The time that the item become unavailable.
-        hidden_flag:
-          type: boolean
-          example: false
-          description: Specifies if the item is hidden from customers.
-        deleted_time:
-          type: string
-          example: '2024-05-17T20:00:00.000Z'
-          description: The time when the item was deleted.
-        status_labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusDisplayLabelDto'
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttributeDto'
-      title: ItemDto
+          example: status_label.available
+          description: 'The translation key for the status. For example: status_label.available, status_label.sold_out.'
+          readOnly: true
+      title: StatusDisplayLabelDto
+      description: Represents a display label for a status with the translation label key.
     OrderDetailsDto:
       type: object
       properties:
@@ -1031,23 +750,349 @@ components:
           type: string
           example: Holiday Festival of Lights
           description: The title for the order.
-    EventMetaDataDto:
+    EventPromotionDto:
       type: object
       properties:
-        items_enabled:
+        assoc_activity_sub_type:
+          type: string
+          example: EMAIL_INVITATION
+          description: The type of associated activity
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: The unique identifier for the campaign activity.
+        document_id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: The unique identifier for the document.
+        ext_id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: The external identifier.
+        default:
+          type: boolean
+          example: false
+          description: Whether this is the default promotion.
+      description: Represents a promotion associated with an event.
+    OrderTicketKeysRequestDto:
+      type: object
+      required:
+      - order_ticket_keys
+      properties:
+        order_ticket_keys:
+          type: array
+          example:
+          - a1b2c3
+          - d4e5f6
+          description: Array of order ticket keys to process.
+          items:
+            type: string
+      description: Request payload for ticket check-in operations.
+    SimpleFieldDto:
+      type: object
+      properties:
+        display_order:
+          type: integer
+          format: int32
+          example: 1
+          description: 'If specified, determines the order in which to return a subset of contact''s details. For example, if you want a contact''s email address to display first, set the <code>display_order</code> to <code>1</code> within the <code>field_label</code>: <code>CONTACT_EMAIL_ADDRESS</code> details section.'
+        field_label:
+          type: string
+          example: Email Address
+          description: The label used to identify a field within each contact details section.
+        field_name:
+          type: string
+          example: CONTACT_EMAIL_ADDRESS
+          description: The formatted name used to identify a field within each contact details section.
+        field_type:
+          type: string
+          example: TEXT
+          description: Identifies the type of field. Acceptable values include; TEXT_AREA, DATE, SINGLE_SELECT,MULTI_SELECT, INFORMATIONAL, TERMS_CONDITIONS, ADDRESS, HEADER, DIVIDER, STATIC_TEXT.
+        label_key:
+          type: string
+          example: registration.field.label.contact_email_address
+          description: The label used to identify a contact's registration details.
+        field_value:
+          type: string
+          example: john.doe@example.com
+          description: The value of the field for this contact. For example, if the field is an email address, the field_value would contain the actual email address.
+        choices:
+          type: array
+          example:
+          - Option 1
+          - Option 2
+          - Option 3
+          description: For SINGLE_SELECT and MULTI_SELECT field types, this array contains the available options the registrant can choose from.
+          items:
+            type: string
+      description: An array of contact details.
+    EventMediaAssetDto:
+      type: object
+      properties:
+        create_time:
+          type: string
+          example: '2023-11-17T17:33:21.652Z'
+          description: Create time of the event media. ISO format.
+        external_id:
+          type: string
+          example: '123456'
+          description: The external ID to associate with the event media.
+        external_url:
+          type: string
+          description: The event media URL.
+        internal_id:
+          type: string
+          example: '123456'
+          description: The internal ID for the event media.
+        last_update_time:
+          type: string
+          example: '2023-12-07T13:18:39.681Z'
+          description: Last time the media was modified. ISO format.
+        media_type:
+          type: string
+          example: BNR
+          description: Identifies the media type.
+      title: EventMediaAssetDto
+    EventRegistrationSummaryMetricDto:
+      type: object
+      properties:
+        registration_count:
+          type: integer
+          format: int32
+          description: The total number of registrants for the event.
+        ticket_sold:
+          type: integer
+          format: int32
+          description: The total number of tickets sold for the event.
+        item_sold:
+          type: integer
+          format: int32
+          description: The total number of items sold for the event.
+    EventSettingsDto:
+      type: object
+      properties:
+        event_requires_payments:
           type: boolean
           example: true
-          description: Specifies if the items are enabled for the event.
-        paid_event:
+          description: Specifies if the event is configured to require payment.
+        item_configured:
+          type: boolean
+          example: false
+          description: Specifies if items exist for the event.
+        online_payment_configured:
+          type: boolean
+          example: false
+          description: Specifies if online payment is configured for the event.
+        payment_configured:
+          type: boolean
+          example: false
+          description: Specifies if payment is configured for the event.
+        promo_code_configured:
+          type: boolean
+          example: false
+          description: Specifies if promo code is configured for the event.
+        ticket_configured:
           type: boolean
           example: true
-          description: Specifies if the event requires payment.
-        promo_codes_enabled:
+          description: Specifies if ticketing is configured for the event
+    DetailedRegistrationDto:
+      type: object
+      properties:
+        registration_id:
+          type: string
+          example: 4g1ceb43-f858-432e-b287-30a6d20d1250
+          description: The unique ID used to identify an event registration.
+        contact_id:
+          type: string
+          example: 84afe95a-5866-11ec-8019-fa163e56c9b0
+          description: The unique ID used to identify a contact.
+        checkedIn_tickets:
+          type: integer
+          format: int32
+          example: 0
+          description: The total number of tickets assigned to a given <code>registration_id</code>.
+        checkin_status:
+          type: string
+          example: NOT_CHECKED_IN
+          description: Provides the status of eligible checkin tickets.
+        eligible_checkin_tickets:
+          type: integer
+          format: int32
+          example: 1
+          description: The total number of tickets eligible for checkin.
+        registration_date:
+          type: string
+          format: date-time
+          example: '2025-11-20T16:13:02.072Z'
+          description: The event registration date, in ISO format.
+        registration_status:
+          type: string
+          example: REGISTERED
+          description: Provides the current registration status; <code>REGISTERED</code>, <code>PENDING</code>, <code>CANCELED</code>, <code>EXPIRED</code>, <code>IN_PROGRESS</code>, <code>FAILED</code>.
+        display_physical_tickets:
           type: boolean
           example: true
-          description: Specifies if promotion codes are enabled for the event.
-      title: EventMetaDataDto
-      description: Additional information related to event
+          description: Determines if the physical tickets should display or not display.
+        contact:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleFieldDto'
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistrationTicketDto'
+        order_summary:
+          $ref: '#/components/schemas/OrderDetailsDto'
+    PaginatedRegistrations:
+      type: object
+      properties:
+        _links:
+          $ref: '#/components/schemas/registrationsLinks'
+        next_cursor:
+          type: string
+          description: Use to get the next page of results.
+        prev_cursor:
+          type: string
+          description: Use to get the previous page of results.
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegistrantInformationLiteDto'
+        total_records:
+          type: integer
+          format: int32
+          example: 563
+          description: The total number of resulting records.
+    PromoCodeDto:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: WIN95
+          description: The name of the promotional code.
+        end_time:
+          type: string
+          example: '2026-11-17T17:33:21.652Z'
+          description: The date to end the promotional code. ISO format
+        deleted_time:
+          type: string
+          example: '2023-11-17T17:33:21.652Z'
+          description: Delete time of the promo code. ISO format.
+        description:
+          type: string
+          example: JAN_PROMO
+          description: Promotional code description.
+        discount_amount:
+          type: number
+          example: 10.0
+          description: The discount dollar amount date to apply to the promotional code.
+        discount_code_scope:
+          type: string
+          example: ORDER_TOTAL
+          description: The scope that applies to the discount code.
+        discount_code_type:
+          type: string
+          example: PERCENT
+          description: The type of discount code to use for the event.
+        discount_percent:
+          type: integer
+          format: int32
+          example: 20
+          description: The promotional discount percentage to apply for the promotional code.
+        id:
+          type: string
+          example: '123456'
+          description: The ID to use for the promotion code.
+        items:
+          type: array
+          example:
+          - item_id: item123
+            name: T-shirt
+          description: List of items associated with this promo code.
+          items:
+            $ref: '#/components/schemas/ItemSummaryDto'
+        paused_flag:
+          type: boolean
+          example: false
+          description: Pauses the promotional code.
+        quantity_available:
+          type: integer
+          format: int32
+          example: 500
+          description: Total number of promotional codes available for use.
+        quantity_total:
+          type: integer
+          format: int32
+          example: 1000
+          description: Total number of promotional codes to accept.
+        quantity_used:
+          type: integer
+          format: int32
+          description: Total number of promotional codes used.
+        start_time:
+          type: string
+          example: '2026-11-10T17:33:21.652Z'
+          description: The date the promotional code starts. ISO format
+        status:
+          type: string
+          description: The status of the promo code.
+        status_labels:
+          type: array
+          example:
+          - label: Available
+            label_key: status_label.available
+          - label: Sold out
+            label_key: status_label.sold_out
+          description: Status display labels with display text and translation key.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/StatusDisplayLabelDto'
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketSummaryDto'
+        time_limit_flag:
+          type: boolean
+          example: false
+          description: Indicates a time limit applies to the promotional code.
+      title: PromoCodeDto
+      description: Specifies promotion code details.
+    TicketSummaryDto:
+      type: object
+      required:
+      - name
+      - ticket_type
+      properties:
+        name:
+          type: string
+          example: VIP Ticket
+          description: The name to associate with the ticket.
+        ticket_id:
+          type: string
+          example: TICKET123
+          description: The unique identifier for the ticket.
+        ticket_type:
+          type: string
+          example: PAID
+          description: The type of ticket.
+        associated:
+          type: boolean
+          example: false
+          description: Specifies if the ticket is associated with the promo code.
+        display_ticket_on_promo_redemption:
+          type: boolean
+          example: true
+          description: Specifies if the ticket on the promo code redemption displays.
+        hidden_flag:
+          type: boolean
+          example: true
+          description: Specifies if the ticket is hidden.
+      title: TicketSummaryDto
     ItemSummaryDto:
       type: object
       required:
@@ -1075,6 +1120,134 @@ components:
           description: The name of the item.
       title: ItemSummaryDto
       description: Summary information for an item.
+    RegistrationTicketDto:
+      type: object
+      properties:
+        checked_in_time:
+          type: string
+          format: date-time
+          example: '2025-11-20T16:13:02.072Z'
+          description: The event check in time date, in ISO format.
+        editable:
+          type: boolean
+          example: false
+          description: Set to <code>true</code> to allow or <code>false</code> to not allow registrations to be modified.
+        order_ticket_key:
+          type: string
+          example: a1b2c3
+          description: The system generated number used to identify a ticket order.
+        price:
+          type: number
+          example: 25.0
+          description: The price for a ticket.
+        ticket_name:
+          type: string
+          example: General Admission
+          description: The name used to identify the ticket.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleFieldDto'
+    Links:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Href'
+        next:
+          $ref: '#/components/schemas/Href'
+        prev:
+          $ref: '#/components/schemas/Href'
+      description: HATEOAS links for navigation. Is null if no additional navigation links are available.
+    PaginationDtoEventListingDto:
+      type: object
+      properties:
+        records:
+          type: array
+          description: List of events for the current page.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/EventListingDto'
+        total_records:
+          type: integer
+          format: int32
+          example: 26
+          description: The total number of events across all pages.
+          readOnly: true
+        next_cursor:
+          type: string
+          example: roBvv-Nidkuxg8gTAJ5joDU6yQufWMDdEHjRqzcTXnZ3qBZYR3jZChnZTC6McJ6j8M70fM4IFT8KNJvA076D0g
+          description: Use to get the next page of results.
+          readOnly: true
+        prev_cursor:
+          type: string
+          example: Z83W2HtZsQkzXXStyKDDKs5hkuPz7mQvqcg37Quq-Lb_BXnKqYmUf13Li6ZyeRCY8M70fM4IFT8KNJvA076D0g
+          description: Use to get the previous page of results.
+          readOnly: true
+        _links:
+          $ref: '#/components/schemas/Links'
+    RegistrantInformationLiteDto:
+      type: object
+      properties:
+        checkedIn_tickets:
+          type: integer
+          format: int32
+          example: 1
+          description: The total number of tickets processed to check in for the event.
+        checkin_status:
+          type: string
+          example: CHECKED_IN
+          description: The status of the check-in.
+        eligible_checkin_tickets:
+          type: integer
+          format: int32
+          example: 2
+          description: The current checkin status.
+        email_address:
+          type: string
+          example: sarah_lang@mymail.com
+          description: The email address associated with the registered event user.
+        first_name:
+          type: string
+          example: sarah
+          description: The first name of the person that registered for the event.
+        last_name:
+          type: string
+          example: lang
+          description: The last name of the person that registered for the event.
+        new_contact:
+          type: boolean
+          example: true
+          description: Set to <code>true</code> to indicate that the contact is new, otherwise set to <code>false</code>.
+        payment_status:
+          type: string
+          example: PAID
+          description: The current payment status for a registration.
+        registration_id:
+          type: string
+          example: 3f1ceb43-f858-432e-b287-30a6d20d1250
+          description: The ID that uniquely identifies a registration.
+        registration_status:
+          type: string
+          example: <code>REGISTERED</code>
+          description: 'The status of a registration. Acceptable values include: <code>PENDING</code>, <code>REGISTERED</code>, <code>CANCELED</code>, <code>EXPIRED</code>, <code>IN_PROGRESS</code>, <code>FAILED</code>.'
+        registration_time:
+          type: string
+          format: date-time
+          example: '2025-11-20T16:13:02.072Z'
+          description: The time of event registration, in ISO format.
+        tickets:
+          type: integer
+          format: int32
+          example: 5
+          description: Total number of tickets associated with a registration.
+        total:
+          type: number
+          example: 100.0
+          description: The total amount paid for a registration.
+        track_key:
+          type: string
+          example: wfhmkz
+          description: System generated string used to track a registration.
     EventDto:
       type: object
       required:
@@ -1245,96 +1418,159 @@ components:
           example: EST
           description: The abbreviation to use to indicate the time zone where the event takes place.
           readOnly: true
-    RegistrantInformationLiteDto:
+    RegistrationStatusUpdateResponseDto:
       type: object
       properties:
-        checkedIn_tickets:
-          type: integer
-          format: int32
-          example: 1
-          description: The total number of tickets processed to check in for the event.
-        checkin_status:
-          type: string
-          example: CHECKED_IN
-          description: The status of the check-in.
-        eligible_checkin_tickets:
-          type: integer
-          format: int32
-          example: 2
-          description: The current checkin status.
-        email_address:
-          type: string
-          example: sarah_lang@mymail.com
-          description: The email address associated with the registered event user.
-        first_name:
-          type: string
-          example: sarah
-          description: The first name of the person that registered for the event.
-        last_name:
-          type: string
-          example: lang
-          description: The last name of the person that registered for the event.
-        new_contact:
-          type: boolean
-          example: true
-          description: Set to <code>true</code> to indicate that the contact is new, otherwise set to <code>false</code>.
-        payment_status:
-          type: string
-          example: PAID
-          description: The current payment status for a registration.
-        registration_id:
-          type: string
-          example: 3f1ceb43-f858-432e-b287-30a6d20d1250
-          description: The ID that uniquely identifies a registration.
-        registration_status:
-          type: string
-          example: <code>REGISTERED</code>
-          description: 'The status of a registration. Acceptable values include: <code>PENDING</code>, <code>REGISTERED</code>, <code>CANCELED</code>, <code>EXPIRED</code>, <code>IN_PROGRESS</code>, <code>FAILED</code>.'
-        registration_time:
-          type: string
-          format: date-time
-          example: '2025-11-20T16:13:02.072Z'
-          description: The time of event registration, in ISO format.
-        tickets:
-          type: integer
-          format: int32
-          example: 5
-          description: Total number of tickets associated with a registration.
-        total:
-          type: number
-          example: 100.0
-          description: The total amount paid for a registration.
-        track_key:
-          type: string
-          example: wfhmkz
-          description: System generated string used to track a registration.
-    EventMediaAssetDto:
+        failed_registration_ids:
+          type: array
+          example:
+          - 278f74c7-0765-4086-a644-f99fec6817e8
+          description: List of registration IDs that failed to update. Empty or omitted means all updates succeeded.
+          items:
+            type: string
+      description: Response payload for bulk status update operations. Contains list of registration IDs that failed to update.
+    LineItemDetailsDto:
       type: object
+      properties:
+        amount:
+          type: string
+          example: $25.00
+          description: The formatted amount of the line item.
+        amount_unformatted:
+          type: number
+          example: 25.0
+          description: The unformatted amount of the line item.
+        line_item_type:
+          type: string
+          example: TICKET
+          description: Type of line item.
+        name:
+          type: string
+          example: General Admission
+          description: The name of the line item.
+    ItemDto:
+      type: object
+      required:
+      - name
       properties:
         create_time:
           type: string
           example: '2023-11-17T17:33:21.652Z'
-          description: Create time of the event media. ISO format.
-        external_id:
-          type: string
-          example: '123456'
-          description: The external ID to associate with the event media.
-        external_url:
-          type: string
-          description: The event media URL.
-        internal_id:
-          type: string
-          example: '123456'
-          description: The internal ID for the event media.
+          description: The create time of the event is ISO format.
         last_update_time:
           type: string
           example: '2023-12-07T13:18:39.681Z'
-          description: Last time the media was modified. ISO format.
-        media_type:
+          description: Last modification time of the event.
+        item_id:
           type: string
-          example: BNR
-          description: Identifies the media type.
-      title: EventMediaAssetDto
+          example: ITEM123
+          description: The unique identifier for the item.
+        display_order:
+          type: integer
+          format: int32
+          example: 1
+          description: The order in which to display an item.
+        name:
+          type: string
+          example: VIP Ticket
+          description: The name of the item.
+        description:
+          type: string
+          example: Premium access to all event areas.
+          description: The description of the item.
+        price:
+          type: number
+          example: 25.0
+          description: The price per item.
+        quantity_total:
+          type: integer
+          format: int32
+          example: 100
+          description: The total number of items available.
+        quantity_remaining:
+          type: integer
+          format: int32
+          example: 50
+          description: The total number of items still available.
+        quantity_sold:
+          type: integer
+          format: int32
+          example: 50
+          description: The total number of items sold.
+        limit_per_order:
+          type: integer
+          format: int32
+          example: 2
+          description: Limits the number of items per order.
+        show_remaining_flag:
+          type: boolean
+          example: false
+          description: Set to display or not to display the number of remaining items to customers.
+        paused_flag:
+          type: boolean
+          example: true
+          description: Specifies if the item is currently paused from sales.
+        deletable_flag:
+          type: boolean
+          example: true
+          description: Specifies if the item can be deleted.
+          readOnly: true
+        media_internal_id:
+          type: string
+          example: rqla5y1
+          description: The internal identifier for the item's image.
+        media_url:
+          type: string
+          example: https://example.com/media/image.jpg
+          description: The URL to associate with the media.
+        time_limit_flag:
+          type: boolean
+          example: false
+          description: Specifies if the item has time-based availability.
+        start_time:
+          type: string
+          example: '2025-04-17T20:00:00.000Z'
+          description: The start time when the item becomes available.
+        end_time:
+          type: string
+          example: '2025-05-17T20:00:00.000Z'
+          description: The time that the item become unavailable.
+        hidden_flag:
+          type: boolean
+          example: false
+          description: Specifies if the item is hidden from customers.
+        deleted_time:
+          type: string
+          example: '2024-05-17T20:00:00.000Z'
+          description: The time when the item was deleted.
+        status_labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDisplayLabelDto'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeDto'
+      title: ItemDto
+    PaymentStatusUpdateRequestDto:
+      type: object
+      required:
+      - payment_status
+      - registration_ids
+      properties:
+        registration_ids:
+          type: array
+          example:
+          - 4460bdcd-1a8a-434a-a7bf-c72a500743b2
+          - 2ed7e310-ab71-4e8f-8863-8784e7ee4183
+          description: List of registration IDs to update.
+          items:
+            type: string
+        payment_status:
+          type: string
+          example: Paid
+          description: New payment status to set.
+      description: Request payload to update payment status.
     EventCopyRequestDto:
       type: object
       required:
@@ -1354,52 +1590,79 @@ components:
             type: string
             format: uuid
       description: Request payload for copying an event.
-    TicketSummaryDto:
+    EventListingDto:
       type: object
-      required:
-      - name
-      - ticket_type
       properties:
+        event_id:
+          type: string
+          example: 05cf4d60-56ea-4023-bf49-b35e56a9c7b5
+          description: The unique identifier for the event.
+        title:
+          type: string
+          example: Class of 2015 Reunion
+          description: The title of the event.
+        description:
+          type: string
+          example: Join us for a night of reminiscing and celebration!
+          description: The description of the event.
+        start_time:
+          type: string
+          example: '2023-12-01T20:30:00Z'
+          description: The start time of the event in UTC format.
+        end_time:
+          type: string
+          example: '2023-12-01T21:30:00Z'
+          description: The end time of the event in UTC format.
+        status:
+          type: string
+          example: ACTIVE
+          description: The current status of the event.
+        registration_url:
+          type: string
+          example: https://sample_url.com/ev/reg/scrk2u2
+          description: The URL for event registration
         name:
           type: string
-          example: VIP Ticket
-          description: The name to associate with the ticket.
-        ticket_id:
+          example: Holiday Market at Snowport
+          description: The name of the event.
+        event_type:
           type: string
-          example: TICKET123
-          description: The unique identifier for the ticket.
-        ticket_type:
+          example: PERFORMING_ARTS
+          description: Use to specify the type of event.
+        location_type:
           type: string
-          example: PAID
-          description: The type of ticket.
-        associated:
-          type: boolean
-          example: false
-          description: Specifies if the ticket is associated with the promo code.
-        display_ticket_on_promo_redemption:
-          type: boolean
-          example: true
-          description: Specifies if the ticket on the promo code redemption displays.
-        hidden_flag:
-          type: boolean
-          example: true
-          description: Specifies if the ticket is hidden.
-      title: TicketSummaryDto
-    StatusDisplayLabelDto:
+          example: PHYSICAL
+          description: Specifies if this is a physical or virtual event (of both), or if the location is to be specified in the future.
+        time_zone_type:
+          type: string
+          example: EST
+          description: The type of time zone.
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        event_registration_summary_metrics:
+          $ref: '#/components/schemas/EventRegistrationSummaryMetricDto'
+        create_time:
+          type: string
+          example: '2023-09-01T20:30:00Z'
+          description: The create time of the event in UTC format.
+      description: Provides information about the event listing.
+    EventMetaDataDto:
       type: object
       properties:
-        label:
-          type: string
-          example: Sold out
-          description: 'The display text for the status. For example: Available, Sold out.'
-          readOnly: true
-        label_key:
-          type: string
-          example: status_label.available
-          description: 'The translation key for the status. For example: status_label.available, status_label.sold_out.'
-          readOnly: true
-      title: StatusDisplayLabelDto
-      description: Represents a display label for a status with the translation label key.
+        items_enabled:
+          type: boolean
+          example: true
+          description: Specifies if the items are enabled for the event.
+        paid_event:
+          type: boolean
+          example: true
+          description: Specifies if the event requires payment.
+        promo_codes_enabled:
+          type: boolean
+          example: true
+          description: Specifies if promotion codes are enabled for the event.
+      title: EventMetaDataDto
+      description: Additional information related to event
     TrackDto:
       type: object
       required:
@@ -1481,6 +1744,74 @@ components:
           items:
             $ref: '#/components/schemas/ItemDto'
       title: TrackDto
+    AttributeDto:
+      type: object
+      required:
+      - name
+      properties:
+        create_time:
+          type: string
+          example: '2023-11-17T17:33:21.652Z'
+          description: Create time of the event.
+        last_update_time:
+          type: string
+          example: '2023-12-07T13:18:39.681Z'
+          description: Last modification time of the event.
+        attribute_id:
+          type: string
+          example: attr123
+          description: The unique identifier for the attribute.
+        display_order:
+          type: integer
+          format: int32
+          example: 1
+          description: The order in which the attribute should display.
+        name:
+          type: string
+          example: Size
+          description: The name of the attribute
+        quantity_total:
+          type: integer
+          format: int32
+          example: 100
+          description: The total quantity available for this attribute.
+        quantity_remaining:
+          type: integer
+          format: int32
+          example: 20
+          description: The total quantity that remains available for this attribute.
+        quantity_sold:
+          type: integer
+          format: int32
+          example: 40
+          description: The total quantity sold for this attribute.
+        paused_flag:
+          type: boolean
+          example: false
+          description: Specifies if the attribute is currently paused from sales.
+        deleted_time:
+          type: string
+          example: '2025-05-01T00:00:00.000Z'
+          description: The time when the attribute was deleted.
+        status_labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDisplayLabelDto'
+      title: AttributeDto
+    Href:
+      type: object
+      properties:
+        href:
+          type: string
+    registrationsLinks:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Href'
+        prev:
+          $ref: '#/components/schemas/Href'
+        self:
+          $ref: '#/components/schemas/Href'
     OnlineMeetingDto:
       type: object
       properties:
@@ -1508,276 +1839,6 @@ components:
           example: https://meet.google.com/abc-defg-hij
           description: The URL to use for the online meeting.
       title: OnlineMeetingDto
-    PaymentStatusUpdateRequestDto:
-      type: object
-      required:
-      - payment_status
-      - registration_ids
-      properties:
-        registration_ids:
-          type: array
-          example:
-          - 4460bdcd-1a8a-434a-a7bf-c72a500743b2
-          - 2ed7e310-ab71-4e8f-8863-8784e7ee4183
-          description: List of registration IDs to update.
-          items:
-            type: string
-        payment_status:
-          type: string
-          example: Paid
-          description: New payment status to set.
-      description: Request payload to update payment status.
-    Href:
-      type: object
-      properties:
-        href:
-          type: string
-    PaginationDtoEventListingDto:
-      type: object
-      properties:
-        records:
-          type: array
-          description: List of events for the current page.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/EventListingDto'
-        total_records:
-          type: integer
-          format: int32
-          example: 26
-          description: The total number of events across all pages.
-          readOnly: true
-        next_cursor:
-          type: string
-          example: roBvv-Nidkuxg8gTAJ5joDU6yQufWMDdEHjRqzcTXnZ3qBZYR3jZChnZTC6McJ6j8M70fM4IFT8KNJvA076D0g
-          description: Use to get the next page of results.
-          readOnly: true
-        prev_cursor:
-          type: string
-          example: Z83W2HtZsQkzXXStyKDDKs5hkuPz7mQvqcg37Quq-Lb_BXnKqYmUf13Li6ZyeRCY8M70fM4IFT8KNJvA076D0g
-          description: Use to get the previous page of results.
-          readOnly: true
-        _links:
-          $ref: '#/components/schemas/Links'
-    EventListingDto:
-      type: object
-      properties:
-        event_id:
-          type: string
-          example: 05cf4d60-56ea-4023-bf49-b35e56a9c7b5
-          description: The unique identifier for the event.
-        title:
-          type: string
-          example: Class of 2015 Reunion
-          description: The title of the event.
-        description:
-          type: string
-          example: Join us for a night of reminiscing and celebration!
-          description: The description of the event.
-        start_time:
-          type: string
-          example: '2023-12-01T20:30:00Z'
-          description: The start time of the event in UTC format.
-        end_time:
-          type: string
-          example: '2023-12-01T21:30:00Z'
-          description: The end time of the event in UTC format.
-        status:
-          type: string
-          example: ACTIVE
-          description: The current status of the event.
-        registration_url:
-          type: string
-          example: https://sample_url.com/ev/reg/scrk2u2
-          description: The URL for event registration
-        name:
-          type: string
-          example: Holiday Market at Snowport
-          description: The name of the event.
-        event_type:
-          type: string
-          example: PERFORMING_ARTS
-          description: Use to specify the type of event.
-        location_type:
-          type: string
-          example: PHYSICAL
-          description: Specifies if this is a physical or virtual event (of both), or if the location is to be specified in the future.
-        time_zone_type:
-          type: string
-          example: EST
-          description: The type of time zone.
-        address:
-          $ref: '#/components/schemas/AddressDto'
-        event_registration_summary_metrics:
-          $ref: '#/components/schemas/EventRegistrationSummaryMetricDto'
-        create_time:
-          type: string
-          example: '2023-09-01T20:30:00Z'
-          description: The create time of the event in UTC format.
-      description: Provides information about the event listing.
-    RegistrationStatusUpdateRequestDto:
-      type: object
-      required:
-      - registration_ids
-      - registration_status
-      properties:
-        registration_ids:
-          type: array
-          example:
-          - 0c6a6ce8-e620-4ffc-92e6-6ffb689eb9d2
-          - 15cdb4d3-86b9-4b9d-9431-4a5a0de53c4f
-          description: List of registration IDs to update.
-          items:
-            type: string
-        registration_status:
-          type: string
-          example: CANCELED
-          description: New registration status to set.
-      description: Request payload to update registration status.
-    DetailedRegistrationDto:
-      type: object
-      properties:
-        registration_id:
-          type: string
-          example: 4g1ceb43-f858-432e-b287-30a6d20d1250
-          description: The unique ID used to identify an event registration.
-        contact_id:
-          type: string
-          example: 84afe95a-5866-11ec-8019-fa163e56c9b0
-          description: The unique ID used to identify a contact.
-        checkedIn_tickets:
-          type: integer
-          format: int32
-          example: 0
-          description: The total number of tickets assigned to a given <code>registration_id</code>.
-        checkin_status:
-          type: string
-          example: NOT_CHECKED_IN
-          description: Provides the status of eligible checkin tickets.
-        eligible_checkin_tickets:
-          type: integer
-          format: int32
-          example: 1
-          description: The total number of tickets eligible for checkin.
-        registration_date:
-          type: string
-          format: date-time
-          example: '2025-11-20T16:13:02.072Z'
-          description: The event registration date, in ISO format.
-        registration_status:
-          type: string
-          example: REGISTERED
-          description: Provides the current registration status; <code>REGISTERED</code>, <code>PENDING</code>, <code>CANCELED</code>, <code>EXPIRED</code>, <code>IN_PROGRESS</code>, <code>FAILED</code>.
-        display_physical_tickets:
-          type: boolean
-          example: true
-          description: Determines if the physical tickets should display or not display.
-        contact:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimpleFieldDto'
-        tickets:
-          type: array
-          items:
-            $ref: '#/components/schemas/RegistrationTicketDto'
-        order_summary:
-          $ref: '#/components/schemas/OrderDetailsDto'
-    PromoCodeDto:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: WIN95
-          description: The name of the promotional code.
-        end_time:
-          type: string
-          example: '2026-11-17T17:33:21.652Z'
-          description: The date to end the promotional code. ISO format
-        deleted_time:
-          type: string
-          example: '2023-11-17T17:33:21.652Z'
-          description: Delete time of the promo code. ISO format.
-        description:
-          type: string
-          example: JAN_PROMO
-          description: Promotional code description.
-        discount_amount:
-          type: number
-          example: 10.0
-          description: The discount dollar amount date to apply to the promotional code.
-        discount_code_scope:
-          type: string
-          example: ORDER_TOTAL
-          description: The scope that applies to the discount code.
-        discount_code_type:
-          type: string
-          example: PERCENT
-          description: The type of discount code to use for the event.
-        discount_percent:
-          type: integer
-          format: int32
-          example: 20
-          description: The promotional discount percentage to apply for the promotional code.
-        id:
-          type: string
-          example: '123456'
-          description: The ID to use for the promotion code.
-        items:
-          type: array
-          example:
-          - item_id: item123
-            name: T-shirt
-          description: List of items associated with this promo code.
-          items:
-            $ref: '#/components/schemas/ItemSummaryDto'
-        paused_flag:
-          type: boolean
-          example: false
-          description: Pauses the promotional code.
-        quantity_available:
-          type: integer
-          format: int32
-          example: 500
-          description: Total number of promotional codes available for use.
-        quantity_total:
-          type: integer
-          format: int32
-          example: 1000
-          description: Total number of promotional codes to accept.
-        quantity_used:
-          type: integer
-          format: int32
-          description: Total number of promotional codes used.
-        start_time:
-          type: string
-          example: '2026-11-10T17:33:21.652Z'
-          description: The date the promotional code starts. ISO format
-        status:
-          type: string
-          description: The status of the promo code.
-        status_labels:
-          type: array
-          example:
-          - label: Available
-            label_key: status_label.available
-          - label: Sold out
-            label_key: status_label.sold_out
-          description: Status display labels with display text and translation key.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/StatusDisplayLabelDto'
-        tickets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketSummaryDto'
-        time_limit_flag:
-          type: boolean
-          example: false
-          description: Indicates a time limit applies to the promotional code.
-      title: PromoCodeDto
-      description: Specifies promotion code details.
     AddressDto:
       type: object
       required:
@@ -1860,131 +1921,70 @@ components:
           minLength: 0
           maxLength: 2
       title: AddressDto
-    PaginatedRegistrations:
+    RegistrationStatusUpdateRequestDto:
       type: object
+      required:
+      - registration_ids
+      - registration_status
       properties:
-        _links:
-          $ref: '#/components/schemas/registrationsLinks'
-        next_cursor:
-          type: string
-          description: Use to get the next page of results.
-        prev_cursor:
-          type: string
-          description: Use to get the previous page of results.
-        records:
+        registration_ids:
           type: array
+          example:
+          - 0c6a6ce8-e620-4ffc-92e6-6ffb689eb9d2
+          - 15cdb4d3-86b9-4b9d-9431-4a5a0de53c4f
+          description: List of registration IDs to update.
           items:
-            $ref: '#/components/schemas/RegistrantInformationLiteDto'
-        total_records:
-          type: integer
-          format: int32
-          example: 563
-          description: The total number of resulting records.
-    LineItemDetailsDto:
+            type: string
+        registration_status:
+          type: string
+          example: CANCELED
+          description: New registration status to set.
+      description: Request payload to update registration status.
+    ContactDto:
       type: object
+      required:
+      - name
+      - organization_name
       properties:
-        amount:
+        create_time:
           type: string
-          example: $25.00
-          description: The formatted amount of the line item.
-        amount_unformatted:
-          type: number
-          example: 25.0
-          description: The unformatted amount of the line item.
-        line_item_type:
+          example: '2023-11-17T17:33:21.652Z'
+          description: The create time of the event.
+        email_address:
           type: string
-          example: TICKET
-          description: Type of line item.
+          example: john.doe@aol.com
+          description: The email address to use to when replying to email, as well as the email that receives SO notifications.
+          minLength: 0
+          maxLength: 128
+        from_email_address:
+          type: string
+          example: john.doe@aol.com
+          description: The email address to use for sending confirmation emails.
+          minLength: 0
+          maxLength: 128
+        last_update_time:
+          type: string
+          example: '2023-12-07T13:18:39.681Z'
+          description: The time the event was last modified. ISO format
         name:
           type: string
-          example: General Admission
-          description: The name of the line item.
-    RegistrationStatusUpdateResponseDto:
-      type: object
-      properties:
-        failed_registration_ids:
-          type: array
-          example:
-          - 278f74c7-0765-4086-a644-f99fec6817e8
-          description: List of registration IDs that failed to update. Empty or omitted means all updates succeeded.
-          items:
-            type: string
-      description: Response payload for bulk status update operations. Contains list of registration IDs that failed to update.
-    SimpleFieldDto:
-      type: object
-      properties:
-        display_order:
-          type: integer
-          format: int32
-          example: 1
-          description: 'If specified, determines the order in which to return a subset of contact''s details. For example, if you want a contact''s email address to display first, set the <code>display_order</code> to <code>1</code> within the <code>field_label</code>: <code>CONTACT_EMAIL_ADDRESS</code> details section.'
-        field_label:
+          example: John Doe
+          description: The contact name to associate with the event.
+          minLength: 0
+          maxLength: 100
+        organization_name:
           type: string
-          example: Email Address
-          description: The label used to identify a field within each contact details section.
-        field_name:
+          example: Doe Orchards
+          description: The organization name to associate with the event.
+          minLength: 0
+          maxLength: 255
+        phone_number:
           type: string
-          example: CONTACT_EMAIL_ADDRESS
-          description: The formatted name used to identify a field within each contact details section.
-        field_type:
-          type: string
-          example: TEXT
-          description: Identifies the type of field. Acceptable values include; TEXT_AREA, DATE, SINGLE_SELECT,MULTI_SELECT, INFORMATIONAL, TERMS_CONDITIONS, ADDRESS, HEADER, DIVIDER, STATIC_TEXT.
-        label_key:
-          type: string
-          example: registration.field.label.contact_email_address
-          description: The label used to identify a contact's registration details.
-        field_value:
-          type: string
-          example: john.doe@example.com
-          description: The value of the field for this contact. For example, if the field is an email address, the field_value would contain the actual email address.
-        choices:
-          type: array
-          example:
-          - Option 1
-          - Option 2
-          - Option 3
-          description: For SINGLE_SELECT and MULTI_SELECT field types, this array contains the available options the registrant can choose from.
-          items:
-            type: string
-      description: An array of contact details.
-    Links:
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/Href'
-        next:
-          $ref: '#/components/schemas/Href'
-        prev:
-          $ref: '#/components/schemas/Href'
-      description: HATEOAS links for navigation. Is null if no additional navigation links are available.
-    EventPromotionDto:
-      type: object
-      properties:
-        assoc_activity_sub_type:
-          type: string
-          example: EMAIL_INVITATION
-          description: The type of associated activity
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: The unique identifier for the campaign activity.
-        document_id:
-          type: string
-          format: uuid
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: The unique identifier for the document.
-        ext_id:
-          type: string
-          format: uuid
-          example: 123e4567-e89b-12d3-a456-426614174000
-          description: The external identifier.
-        default:
-          type: boolean
-          example: false
-          description: Whether this is the default promotion.
-      description: Represents a promotion associated with an event.
+          example: 781 265 8956
+          description: The phone number to associate with the event.
+          minLength: 1
+          maxLength: 25
+      title: ContactDto
   securitySchemes:
     oauth2_implicit:
       type: oauth2

@@ -353,23 +353,6 @@ components:
           example: '{"version":"1.0.0","criteria":{"type":"and","group":[{"source":"tracking","field":"not_opened","op":"contains-any","const_value":"last-n-campaigns","param":"5"}]}}'
           description: The <code>segment_criteria</code> specifies the contact data that Constant Contact uses to evaluate and identify contacts that meet your criteria. The <code>segment_criteria</code> must be formatted as single-string escaped JSON. The top-level <code>group</code> <code>type</code> must be <code>add</code>.
           maxLength: 20000
-    SegmentName:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          example: Contacts who did not open any email campaign within the last 100 days.
-          description: The segment's unique descriptive name.
-    segmentsLinks:
-      type: object
-      required:
-      - next
-      properties:
-        next:
-          description: HAL property that contains next link if applicable.
-          $ref: '#/components/schemas/Next'
     Next:
       type: object
       required:
@@ -403,6 +386,23 @@ components:
           example: '2019-04-25T11:08:00.000Z'
           description: The system generated date and time that the segment's <code>name</code> or <code>segment_criteria</code> was last updated (ISO-8601 format).
           readOnly: true
+    SegmentName:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Contacts who did not open any email campaign within the last 100 days.
+          description: The segment's unique descriptive name.
+    segmentsLinks:
+      type: object
+      required:
+      - next
+      properties:
+        next:
+          description: HAL property that contains next link if applicable.
+          $ref: '#/components/schemas/Next'
     SegmentsDTO:
       type: object
       required:

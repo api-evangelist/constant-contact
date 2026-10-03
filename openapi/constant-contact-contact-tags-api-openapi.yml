@@ -252,33 +252,6 @@ paths:
         required: true
 components:
   schemas:
-    reportingNext:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
-    tagsLinks:
-      type: object
-      properties:
-        href:
-          type: string
-        next:
-          description: Contains the next page link, if applicable.
-          $ref: '#/components/schemas/reportingNext'
-    tagsPagingLinks:
-      type: object
-      properties:
-        next:
-          description: The link to the next page of results.
-          $ref: '#/components/schemas/tagsLinks'
-    ActivityErrors:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Message describing the error condition.
-          readOnly: true
     Tag:
       type: object
       properties:
@@ -313,17 +286,35 @@ components:
           example: ESTY
           description: The source used to tag contacts.
           readOnly: true
-    TagPut:
+    tagsActivityLinks:
       type: object
-      required:
-      - name
       properties:
-        name:
+        self:
+          type: object
+          description: The link returned in the response that you use to retrieve the status for the specified activity.
+          properties:
+            href:
+              type: string
+              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
+    tagsLinks:
+      type: object
+      properties:
+        href:
           type: string
-          example: Bronze card member
-          description: The new tag name to use. The tag name must be unique.
-          minLength: 1
-          maxLength: 255
+        next:
+          description: Contains the next page link, if applicable.
+          $ref: '#/components/schemas/reportingNext'
+    Tags:
+      type: object
+      properties:
+        tags:
+          type: array
+          description: Lists all tags and provides tag details.
+          items:
+            $ref: '#/components/schemas/Tag'
+        _links:
+          description: HAL property that contains next link if applicable.
+          $ref: '#/components/schemas/tagsPagingLinks'
     ActivityGeneric:
       type: object
       required:
@@ -365,39 +356,18 @@ components:
           $ref: '#/components/schemas/ActivityGenericStatus'
         _links:
           $ref: '#/components/schemas/tagsActivityLinks'
-    tagsActivityLinks:
+    reportingNext:
       type: object
       properties:
-        self:
-          type: object
-          description: The link returned in the response that you use to retrieve the status for the specified activity.
-          properties:
-            href:
-              type: string
-              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    Tags:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
+    ActivityErrors:
       type: object
       properties:
-        tags:
-          type: array
-          description: Lists all tags and provides tag details.
-          items:
-            $ref: '#/components/schemas/Tag'
-        _links:
-          description: HAL property that contains next link if applicable.
-          $ref: '#/components/schemas/tagsPagingLinks'
-    ActivityGenericStatus:
-      type: object
-      properties:
-        items_total_count:
-          type: integer
-          example: 89
-          description: The total number of tags that this activity will delete.
-          readOnly: true
-        items_completed_count:
-          type: integer
-          example: 89
-          description: The number of tags that this activity has currently deleted.
+        message:
+          type: string
+          description: Message describing the error condition.
           readOnly: true
     TagPost:
       type: object
@@ -414,6 +384,36 @@ components:
           type: string
           example: ESTY
           description: The source used to identify the contacts to tag.
+    tagsPagingLinks:
+      type: object
+      properties:
+        next:
+          description: The link to the next page of results.
+          $ref: '#/components/schemas/tagsLinks'
+    ActivityGenericStatus:
+      type: object
+      properties:
+        items_total_count:
+          type: integer
+          example: 89
+          description: The total number of tags that this activity will delete.
+          readOnly: true
+        items_completed_count:
+          type: integer
+          example: 89
+          description: The number of tags that this activity has currently deleted.
+          readOnly: true
+    TagPut:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: Bronze card member
+          description: The new tag name to use. The tag name must be unique.
+          minLength: 1
+          maxLength: 255
   securitySchemes:
     oauth2_implicit:
       type: oauth2
