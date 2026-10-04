@@ -243,7 +243,7 @@ paths:
         api_key: []
 components:
   schemas:
-    WebhooksTestSend:
+    WebhooksSubscriptionResponse:
       type: object
       properties:
         topic_id:
@@ -253,7 +253,7 @@ components:
         hook_uri:
           type: string
           example: https://www.examplename.com/webhooks/billingTier
-          description: The webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
         topic_name:
           type: string
           example: Billing Tier Downgrade
@@ -261,7 +261,25 @@ components:
         topic_description:
           type: string
           example: Executes when an account's billing tier is downgraded.
-          description: A description of what the topic is and when Constant Contact notifies you concerning it. When you use the test send API method, Constant Contact will immediately send a test event to you.
+          description: A description of what the topic is and when Constant Contact notifies you concerning it.
+    WebhooksSubscriptionPutResp:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          example: 1
+          description: Identifies the topic using an integer to indicate the type of topic.
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+    WebhooksSubscriptionBody:
+      type: object
+      properties:
+        hook_uri:
+          type: string
+          example: https://www.examplename.com/webhooks/billingTier
+          description: The callback URI you would like to use to receive webhook notifications. Constant Contact will automatically send POST notifications about your chosen topic to this URI.
     WebhooksSubscriptionCollection:
       type: array
       description: An array of webhook subscriptions.
@@ -284,18 +302,7 @@ components:
             type: string
             example: Executes when an account's billing tier is downgraded.
             description: A description of what the topic is and when Constant Contact notifies you concerning it.
-    WebhooksSubscriptionPutResp:
-      type: object
-      properties:
-        topic_id:
-          type: integer
-          example: 1
-          description: Identifies the topic using an integer to indicate the type of topic.
-        hook_uri:
-          type: string
-          example: https://www.examplename.com/webhooks/billingTier
-          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
-    WebhooksSubscriptionResponse:
+    WebhooksTestSend:
       type: object
       properties:
         topic_id:
@@ -305,7 +312,7 @@ components:
         hook_uri:
           type: string
           example: https://www.examplename.com/webhooks/billingTier
-          description: Your webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
+          description: The webhook callback URI. Constant Contact automatically sends POST requests to this URI to notify you about the topic.
         topic_name:
           type: string
           example: Billing Tier Downgrade
@@ -313,14 +320,7 @@ components:
         topic_description:
           type: string
           example: Executes when an account's billing tier is downgraded.
-          description: A description of what the topic is and when Constant Contact notifies you concerning it.
-    WebhooksSubscriptionBody:
-      type: object
-      properties:
-        hook_uri:
-          type: string
-          example: https://www.examplename.com/webhooks/billingTier
-          description: The callback URI you would like to use to receive webhook notifications. Constant Contact will automatically send POST notifications about your chosen topic to this URI.
+          description: A description of what the topic is and when Constant Contact notifies you concerning it. When you use the test send API method, Constant Contact will immediately send a test event to you.
   securitySchemes:
     oauth2_implicit:
       type: oauth2

@@ -260,12 +260,36 @@ paths:
       x-sdk-methodName: getContactTrackingCountReport
 components:
   schemas:
-    reportingLinks:
+    ContactTrackingActivity:
       type: object
+      required:
+      - campaign_activity_id
+      - contact_id
       properties:
-        next:
-          description: Contains the next page link if it is available.
-          $ref: '#/components/schemas/reportingNext'
+        contact_id:
+          type: string
+          format: uuid
+          example: 71600990-908b-11e6-907f-00166bff25
+          description: The contact ID.
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 010a0-1234-5678-9012-1100a0c1ab2a
+          description: The unique ID of the activity for an e-mail campaign.
+        created_time:
+          type: string
+          format: date-time
+          example: '2017-04-02T04:08:00.000Z'
+          description: The time the tracking activity occurred
+        tracking_activity_type:
+          type: string
+          example: em_sends
+          description: The types of the tracking activities included in the request. For example, sends, opens, clicks, bounces, opt-outs, or forwards.
+        campaign_activity_name:
+          type: string
+          example: April DLCV Newsletter
+          description: The campaign activity name.
+      description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
     ContactTrackingActivitiesPage:
       type: object
       properties:
@@ -322,42 +346,6 @@ components:
           type: integer
           format: int32
           description: The number of times this contact has opted out.
-    ContactTrackingActivity:
-      type: object
-      required:
-      - campaign_activity_id
-      - contact_id
-      properties:
-        contact_id:
-          type: string
-          format: uuid
-          example: 71600990-908b-11e6-907f-00166bff25
-          description: The contact ID.
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 010a0-1234-5678-9012-1100a0c1ab2a
-          description: The unique ID of the activity for an e-mail campaign.
-        created_time:
-          type: string
-          format: date-time
-          example: '2017-04-02T04:08:00.000Z'
-          description: The time the tracking activity occurred
-        tracking_activity_type:
-          type: string
-          example: em_sends
-          description: The types of the tracking activities included in the request. For example, sends, opens, clicks, bounces, opt-outs, or forwards.
-        campaign_activity_name:
-          type: string
-          example: April DLCV Newsletter
-          description: The campaign activity name.
-      description: The base contact tracking activity representing sends, opt-outs and forwards to a friend. The basic information provided includes the campaign activity ID, tracking activity type, and time the tracking activity occurred.
-    reportingNext:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
     ContactOpenAndClickRates:
       type: object
       required:
@@ -387,6 +375,18 @@ components:
           example: 0.6
           description: The average rate the contact clicked on links in emails sent to them.
       description: The average click and open rates for a provided contact. The basic information provided is contact id, open rate, click rate, and emails included in the calculation.
+    reportingLinks:
+      type: object
+      properties:
+        next:
+          description: Contains the next page link if it is available.
+          $ref: '#/components/schemas/reportingNext'
+    reportingNext:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
     ContactCampaignActivitiesSummary:
       type: object
       required:

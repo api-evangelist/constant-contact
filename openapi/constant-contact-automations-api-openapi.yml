@@ -209,310 +209,6 @@ paths:
         required: true
 components:
   schemas:
-    TaskCorrelationMetadataDto:
-      properties:
-        campaign_activity_id:
-          type: string
-          example: 0434c0ee-bdd2-47ee-8634-fa163e6b01c1
-          description: Campaign activity identifier
-    AutomationCampaignUpdate:
-      type: object
-      properties:
-        automation_flow:
-          $ref: '#/components/schemas/AutomationCampaign'
-    TriggerDefDto:
-      type: object
-      properties:
-        parameters:
-          type: array
-          description: List of parameters that filter or configure the trigger (e.g., list IDs for list_join).
-          items:
-            $ref: '#/components/schemas/ParameterDto'
-        action_name:
-          type: string
-          example: list_join
-          description: Action name. Required for type Action or Date. Identifies the specific trigger (e.g., list_join, calendar_date, visits_page).
-        bounds:
-          type: object
-          description: 'Time window for Date-type triggers. Sets when the trigger runs relative to
-
-            the contact''s date. Uses ISO 8601 period format (e.g., P0D, P7D, P-7D).
-
-            | Example Scenario | after  | before |
-
-            |----------|--------|--------|
-
-            | On the day | `P0D`  | `P1D` |
-
-            | 7 days before | `P-7D` | `P-6D` |
-
-            | 7 days after | `P7D`  | `P8D` |
-
-            '
-          properties:
-            after:
-              type: string
-              description: Start of the window relative to the contact date in ISO 8601 period format (e.g., P0D = on the day, P-7D = 7 days before).
-            before:
-              type: string
-              description: End of the window relative to the contact date in ISO 8601 period format (e.g., P1D = 1 day after, P0D = on the day).
-        engagement_level:
-          type: string
-          example: SOMEWHAT
-          description: Engagement level for engagement_level triggers (e.g., SOMEWHAT, LEAST).
-        segment_id:
-          type: string
-          description: Segment ID for segment_join triggers.
-        trigger_date:
-          type: object
-          description: Date configuration for Date-type triggers (e.g., birthday, anniversary). Specifies which contact fields supply the date.
-          properties:
-            date_field:
-              type: string
-              description: Contact field that contains the full date. Must include 'record.' prefix (e.g., record.anniversary).
-            day_field:
-              type: string
-              description: Contact field that contains the day-of-month value. Must include 'record.' prefix (e.g., record.birthday_day).
-            month_field:
-              type: string
-              description: Contact field that contains the month value. Must include 'record.' prefix (e.g., record.birthday_month).
-            type:
-              type: string
-              description: Where the date is represented (e.g., Profile).
-        type:
-          type: string
-          example: Action
-          description: Trigger type. Determines how the trigger is evaluated (e.g., Action, Date, segment_join).
-        unique_by:
-          type: string
-          example: list_ids
-          description: 'Deduplication key: run the workflow at most once per contact per this value (e.g., list_ids, contact_id).'
-      description: Defines when the workflow starts (e.g., list join, date-based).
-    CorrelationMetadataDto:
-      type: object
-      properties:
-        automation_flow_id:
-          type: string
-          example: 9a5982f0-26d8-4e74-b2f5-f415af434fa4
-          description: Automation flow identifier
-        automation_template_id:
-          type: string
-          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
-          description: Automation template identifier
-        campaign_id:
-          type: string
-          example: 861dd493-540a-4e3e-b457-44cfde28a5f0
-          description: Automation campaign identifier
-    ListAutomationFlowsResponseDto:
-      type: object
-      properties:
-        flow_summaries:
-          type: array
-          description: List of automation flow summaries for the current page
-          items:
-            $ref: '#/components/schemas/AutomationFlowSummaryDto'
-      description: Paginated list of automation flow summaries
-    AutomationWorkflowDefinition:
-      type: object
-      properties:
-        state:
-          type: string
-          example: DRAFT
-          description: The current state of the workflow definition (e.g. DRAFT, ACTIVE).
-        trigger:
-          $ref: '#/components/schemas/TriggerDto'
-        workflow:
-          $ref: '#/components/schemas/AutomationFlow'
-      description: A workflow definition containing state, trigger, and workflow structure.
-    AutomationFlowSummaryDto:
-      type: object
-      properties:
-        active_state:
-          type: string
-          example: ACTIVE
-          description: State of the active definition
-        created_by_id:
-          type: string
-          example: '123456789'
-          description: User ID who created the flow
-        created_date:
-          type: string
-          example: '2025-09-25T20:06:50.020+00:00'
-          description: Date the flow was created
-        description:
-          type: string
-          example: Automation flow for contact signups
-          description: Description of the automation flow
-        draft_state:
-          type: string
-          example: PROMOTED
-          description: State of the draft definition
-        id:
-          type: string
-          example: 83345850-144a-4dcf-b4dc-88aa1287cffe
-          description: Automation flow ID
-        name:
-          type: string
-          example: Welcome series
-          description: Display name of the automation flow
-        promoted_by_id:
-          type: string
-          example: '123456789'
-          description: User ID who promoted the flow
-        promoted_date:
-          type: string
-          example: '2025-09-25T20:06:50.970+00:00'
-          description: Date the flow was promoted
-        status:
-          type: string
-          example: ACTIVE
-          description: Computed display status of the workflow
-        structured_tags:
-          type: array
-          description: Structured tags associated with the automation flow
-          items:
-            $ref: '#/components/schemas/StructuredTagDto'
-        template_id:
-          type: string
-          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
-          description: Template ID the flow was created from
-        update_date:
-          type: string
-          example: '2025-09-25T20:06:50.970+00:00'
-          description: Date the flow was last updated
-      description: Summary of an automation flow
-    AutomationWorkflowDef:
-      type: object
-      properties:
-        parameters:
-          $ref: '#/components/schemas/WorkflowParametersDto'
-        correlation_metadata:
-          $ref: '#/components/schemas/CorrelationMetadataDto'
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskDto'
-        status:
-          type: string
-          example: SCHEDULED
-          description: Workflow definition status.
-        metadata:
-          type: object
-          description: Workflow metadata.
-          properties: {}
-        timeout:
-          $ref: '#/components/schemas/TimeoutDto'
-        upgradable:
-          type: boolean
-          description: Indicates if the workflow can be upgraded after it is activated.
-      description: The workflow definition containing tasks, status, and metadata.
-    AutomationCampaign:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the automation campaign workflow.
-        name:
-          type: string
-          example: 'Autogenerated Birthday: Basic'
-          description: The name of the automation campaign.
-        description:
-          type: string
-          example: Send a greeting or special offer to your contacts on or before their birthday
-          description: The description of the automation campaign.
-        structured_tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationStructuredTag'
-        status:
-          type: string
-          description: Computed display status of the workflow
-        active_definition:
-          $ref: '#/components/schemas/AutomationWorkflowDefinition'
-        draft_definition:
-          $ref: '#/components/schemas/AutomationWorkflowDefinition'
-        name_explicitly_set:
-          type: boolean
-          description: Indicates whether the automation campaign name was explicitly set.
-    TriggerFilterDto:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        version:
-          type: string
-          description: Version number for the trigger filter.
-    WorkflowParametersDto:
-      type: object
-      properties:
-        automation_flow_id:
-          type: string
-          example: 9a5982f0-26d8-4e74-b2f5-f415af434fa4
-          description: Automation flow identifier
-        automation_flow_name:
-          type: string
-          example: 'Autogenerated Birthday: Basic'
-          description: Automation flow name
-        campaign_id:
-          type: string
-          example: 861dd493-540a-4e3e-b457-44cfde28a5f0
-          description: Automation campaign identifier
-        discount_code:
-          type: string
-          description: Discount code used in discount block
-    TimeoutDto:
-      type: object
-      properties:
-        amount:
-          type: number
-          format: float
-          example: 10.0
-          description: Amount of time for startup timeout.
-        time_unit:
-          type: string
-          example: HOURS
-          description: Unit of time for startup timeout.
-    AutomationFlow:
-      type: object
-      properties:
-        workflow_def:
-          $ref: '#/components/schemas/AutomationWorkflowDef'
-      description: The workflow flow definition.
-    TriggerFilterRuleDto:
-      type: object
-      properties:
-        compound_rule_type:
-          type: string
-        left:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        property_comparison:
-          $ref: '#/components/schemas/PropertyComparisonDto'
-        right:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        rule:
-          $ref: '#/components/schemas/TriggerFilterRuleDto'
-        target:
-          type: string
-        target_type:
-          type: string
-        type:
-          type: string
-    AutomationStructuredTag:
-      type: object
-      properties:
-        display_value:
-          type: string
-          example: All from-scratch paths
-          description: Human-readable display value
-        key:
-          type: string
-          example: GOAL
-          description: Tag key
-        value:
-          type: string
-          example: goal_undefined
-          description: Tag value
-      description: A structured tag with key, value, and display value
     TaskDto:
       type: object
       properties:
@@ -586,6 +282,120 @@ components:
             $ref: '#/components/schemas/TaskDto'
         timeout:
           $ref: '#/components/schemas/TimeoutDto'
+    WorkflowParametersDto:
+      type: object
+      properties:
+        automation_flow_id:
+          type: string
+          example: 9a5982f0-26d8-4e74-b2f5-f415af434fa4
+          description: Automation flow identifier
+        automation_flow_name:
+          type: string
+          example: 'Autogenerated Birthday: Basic'
+          description: Automation flow name
+        campaign_id:
+          type: string
+          example: 861dd493-540a-4e3e-b457-44cfde28a5f0
+          description: Automation campaign identifier
+        discount_code:
+          type: string
+          description: Discount code used in discount block
+    StructuredTagDto:
+      type: object
+      properties:
+        display_value:
+          type: string
+          example: All from-scratch paths
+          description: Human-readable display value
+        key:
+          type: string
+          example: GOAL
+          description: Tag key
+        value:
+          type: string
+          example: goal_undefined
+          description: Tag value
+      description: A structured tag with key, value, and display value
+    AutomationFlow:
+      type: object
+      properties:
+        workflow_def:
+          $ref: '#/components/schemas/AutomationWorkflowDef'
+      description: The workflow flow definition.
+    TimeoutDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          example: 10.0
+          description: Amount of time for startup timeout.
+        time_unit:
+          type: string
+          example: HOURS
+          description: Unit of time for startup timeout.
+    AutomationCampaignUpdate:
+      type: object
+      properties:
+        automation_flow:
+          $ref: '#/components/schemas/AutomationCampaign'
+    AutomationFlowSummaryDto:
+      type: object
+      properties:
+        active_state:
+          type: string
+          example: ACTIVE
+          description: State of the active definition
+        created_by_id:
+          type: string
+          example: '123456789'
+          description: User ID who created the flow
+        created_date:
+          type: string
+          example: '2025-09-25T20:06:50.020+00:00'
+          description: Date the flow was created
+        description:
+          type: string
+          example: Automation flow for contact signups
+          description: Description of the automation flow
+        draft_state:
+          type: string
+          example: PROMOTED
+          description: State of the draft definition
+        id:
+          type: string
+          example: 83345850-144a-4dcf-b4dc-88aa1287cffe
+          description: Automation flow ID
+        name:
+          type: string
+          example: Welcome series
+          description: Display name of the automation flow
+        promoted_by_id:
+          type: string
+          example: '123456789'
+          description: User ID who promoted the flow
+        promoted_date:
+          type: string
+          example: '2025-09-25T20:06:50.970+00:00'
+          description: Date the flow was promoted
+        status:
+          type: string
+          example: ACTIVE
+          description: Computed display status of the workflow
+        structured_tags:
+          type: array
+          description: Structured tags associated with the automation flow
+          items:
+            $ref: '#/components/schemas/StructuredTagDto'
+        template_id:
+          type: string
+          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
+          description: Template ID the flow was created from
+        update_date:
+          type: string
+          example: '2025-09-25T20:06:50.970+00:00'
+          description: Date the flow was last updated
+      description: Summary of an automation flow
     TriggerDto:
       type: object
       properties:
@@ -598,6 +408,190 @@ components:
           example: 1.0.0
         workflow_filter:
           type: string
+    TriggerDefDto:
+      type: object
+      properties:
+        parameters:
+          type: array
+          description: List of parameters that filter or configure the trigger (e.g., list IDs for list_join).
+          items:
+            $ref: '#/components/schemas/ParameterDto'
+        action_name:
+          type: string
+          example: list_join
+          description: Action name. Required for type Action or Date. Identifies the specific trigger (e.g., list_join, calendar_date, visits_page).
+        bounds:
+          type: object
+          description: 'Time window for Date-type triggers. Sets when the trigger runs relative to
+
+            the contact''s date. Uses ISO 8601 period format (e.g., P0D, P7D, P-7D).
+
+            | Example Scenario | after  | before |
+
+            |----------|--------|--------|
+
+            | On the day | `P0D`  | `P1D` |
+
+            | 7 days before | `P-7D` | `P-6D` |
+
+            | 7 days after | `P7D`  | `P8D` |
+
+            '
+          properties:
+            after:
+              type: string
+              description: Start of the window relative to the contact date in ISO 8601 period format (e.g., P0D = on the day, P-7D = 7 days before).
+            before:
+              type: string
+              description: End of the window relative to the contact date in ISO 8601 period format (e.g., P1D = 1 day after, P0D = on the day).
+        engagement_level:
+          type: string
+          example: SOMEWHAT
+          description: Engagement level for engagement_level triggers (e.g., SOMEWHAT, LEAST).
+        segment_id:
+          type: string
+          description: Segment ID for segment_join triggers.
+        trigger_date:
+          type: object
+          description: Date configuration for Date-type triggers (e.g., birthday, anniversary). Specifies which contact fields supply the date.
+          properties:
+            date_field:
+              type: string
+              description: Contact field that contains the full date. Must include 'record.' prefix (e.g., record.anniversary).
+            day_field:
+              type: string
+              description: Contact field that contains the day-of-month value. Must include 'record.' prefix (e.g., record.birthday_day).
+            month_field:
+              type: string
+              description: Contact field that contains the month value. Must include 'record.' prefix (e.g., record.birthday_month).
+            type:
+              type: string
+              description: Where the date is represented (e.g., Profile).
+        type:
+          type: string
+          example: Action
+          description: Trigger type. Determines how the trigger is evaluated (e.g., Action, Date, segment_join).
+        unique_by:
+          type: string
+          example: list_ids
+          description: 'Deduplication key: run the workflow at most once per contact per this value (e.g., list_ids, contact_id).'
+      description: Defines when the workflow starts (e.g., list join, date-based).
+    TriggerFilterDto:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        version:
+          type: string
+          description: Version number for the trigger filter.
+    TriggerFilterRuleDto:
+      type: object
+      properties:
+        compound_rule_type:
+          type: string
+        left:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        property_comparison:
+          $ref: '#/components/schemas/PropertyComparisonDto'
+        right:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        rule:
+          $ref: '#/components/schemas/TriggerFilterRuleDto'
+        target:
+          type: string
+        target_type:
+          type: string
+        type:
+          type: string
+    AutomationWorkflowDef:
+      type: object
+      properties:
+        parameters:
+          $ref: '#/components/schemas/WorkflowParametersDto'
+        correlation_metadata:
+          $ref: '#/components/schemas/CorrelationMetadataDto'
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskDto'
+        status:
+          type: string
+          example: SCHEDULED
+          description: Workflow definition status.
+        metadata:
+          type: object
+          description: Workflow metadata.
+          properties: {}
+        timeout:
+          $ref: '#/components/schemas/TimeoutDto'
+        upgradable:
+          type: boolean
+          description: Indicates if the workflow can be upgraded after it is activated.
+      description: The workflow definition containing tasks, status, and metadata.
+    AutomationCampaign:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the automation campaign workflow.
+        name:
+          type: string
+          example: 'Autogenerated Birthday: Basic'
+          description: The name of the automation campaign.
+        description:
+          type: string
+          example: Send a greeting or special offer to your contacts on or before their birthday
+          description: The description of the automation campaign.
+        structured_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationStructuredTag'
+        status:
+          type: string
+          description: Computed display status of the workflow
+        active_definition:
+          $ref: '#/components/schemas/AutomationWorkflowDefinition'
+        draft_definition:
+          $ref: '#/components/schemas/AutomationWorkflowDefinition'
+        name_explicitly_set:
+          type: boolean
+          description: Indicates whether the automation campaign name was explicitly set.
+    AutomationWorkflowDefinition:
+      type: object
+      properties:
+        state:
+          type: string
+          example: DRAFT
+          description: The current state of the workflow definition (e.g. DRAFT, ACTIVE).
+        trigger:
+          $ref: '#/components/schemas/TriggerDto'
+        workflow:
+          $ref: '#/components/schemas/AutomationFlow'
+      description: A workflow definition containing state, trigger, and workflow structure.
+    ListAutomationFlowsResponseDto:
+      type: object
+      properties:
+        flow_summaries:
+          type: array
+          description: List of automation flow summaries for the current page
+          items:
+            $ref: '#/components/schemas/AutomationFlowSummaryDto'
+      description: Paginated list of automation flow summaries
+    CorrelationMetadataDto:
+      type: object
+      properties:
+        automation_flow_id:
+          type: string
+          example: 9a5982f0-26d8-4e74-b2f5-f415af434fa4
+          description: Automation flow identifier
+        automation_template_id:
+          type: string
+          example: 17f58023-559a-41e5-84b7-0e9e213f7aef
+          description: Automation template identifier
+        campaign_id:
+          type: string
+          example: 861dd493-540a-4e3e-b457-44cfde28a5f0
+          description: Automation campaign identifier
     PropertyComparisonDto:
       type: object
       properties:
@@ -620,7 +614,7 @@ components:
               type: string
         type:
           type: string
-    StructuredTagDto:
+    AutomationStructuredTag:
       type: object
       properties:
         display_value:
@@ -636,6 +630,12 @@ components:
           example: goal_undefined
           description: Tag value
       description: A structured tag with key, value, and display value
+    TaskCorrelationMetadataDto:
+      properties:
+        campaign_activity_id:
+          type: string
+          example: 0434c0ee-bdd2-47ee-8634-fa163e6b01c1
+          description: Campaign activity identifier
     ParameterDto:
       type: object
       properties:

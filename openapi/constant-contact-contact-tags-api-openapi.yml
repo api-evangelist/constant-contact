@@ -252,58 +252,6 @@ paths:
         required: true
 components:
   schemas:
-    Tag:
-      type: object
-      properties:
-        tag_id:
-          type: string
-          format: uuid
-          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-          description: The ID that uniquely identifies a tag (UUID format)
-        name:
-          type: string
-          example: Gold card member
-          description: The unique tag name.
-        contacts_count:
-          type: integer
-          example: 325
-          description: The total number of contacts who are assigned this tag.
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          example: '2019-04-25T11:08:00.000Z'
-          description: The system generated date and time when the tag was created (ISO-8601 format).
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          example: '2016-01-23T13:48:44.108Z'
-          description: The system generated date and time when the tag was last updated (ISO-8601 format).
-          readOnly: true
-        tag_source:
-          type: string
-          example: ESTY
-          description: The source used to tag contacts.
-          readOnly: true
-    tagsActivityLinks:
-      type: object
-      properties:
-        self:
-          type: object
-          description: The link returned in the response that you use to retrieve the status for the specified activity.
-          properties:
-            href:
-              type: string
-              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
-    tagsLinks:
-      type: object
-      properties:
-        href:
-          type: string
-        next:
-          description: Contains the next page link, if applicable.
-          $ref: '#/components/schemas/reportingNext'
     Tags:
       type: object
       properties:
@@ -315,6 +263,25 @@ components:
         _links:
           description: HAL property that contains next link if applicable.
           $ref: '#/components/schemas/tagsPagingLinks'
+    reportingNext:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
+    ActivityGenericStatus:
+      type: object
+      properties:
+        items_total_count:
+          type: integer
+          example: 89
+          description: The total number of tags that this activity will delete.
+          readOnly: true
+        items_completed_count:
+          type: integer
+          example: 89
+          description: The number of tags that this activity has currently deleted.
+          readOnly: true
     ActivityGeneric:
       type: object
       required:
@@ -356,19 +323,17 @@ components:
           $ref: '#/components/schemas/ActivityGenericStatus'
         _links:
           $ref: '#/components/schemas/tagsActivityLinks'
-    reportingNext:
+    TagPut:
       type: object
+      required:
+      - name
       properties:
-        href:
+        name:
           type: string
-          description: The next link in the page or null if there are no additional pages.
-    ActivityErrors:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Message describing the error condition.
-          readOnly: true
+          example: Bronze card member
+          description: The new tag name to use. The tag name must be unique.
+          minLength: 1
+          maxLength: 255
     TagPost:
       type: object
       required:
@@ -384,36 +349,71 @@ components:
           type: string
           example: ESTY
           description: The source used to identify the contacts to tag.
+    tagsLinks:
+      type: object
+      properties:
+        href:
+          type: string
+        next:
+          description: Contains the next page link, if applicable.
+          $ref: '#/components/schemas/reportingNext'
+    Tag:
+      type: object
+      properties:
+        tag_id:
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          description: The ID that uniquely identifies a tag (UUID format)
+        name:
+          type: string
+          example: Gold card member
+          description: The unique tag name.
+        contacts_count:
+          type: integer
+          example: 325
+          description: The total number of contacts who are assigned this tag.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-04-25T11:08:00.000Z'
+          description: The system generated date and time when the tag was created (ISO-8601 format).
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2016-01-23T13:48:44.108Z'
+          description: The system generated date and time when the tag was last updated (ISO-8601 format).
+          readOnly: true
+        tag_source:
+          type: string
+          example: ESTY
+          description: The source used to tag contacts.
+          readOnly: true
     tagsPagingLinks:
       type: object
       properties:
         next:
           description: The link to the next page of results.
           $ref: '#/components/schemas/tagsLinks'
-    ActivityGenericStatus:
+    ActivityErrors:
       type: object
       properties:
-        items_total_count:
-          type: integer
-          example: 89
-          description: The total number of tags that this activity will delete.
-          readOnly: true
-        items_completed_count:
-          type: integer
-          example: 89
-          description: The number of tags that this activity has currently deleted.
-          readOnly: true
-    TagPut:
-      type: object
-      required:
-      - name
-      properties:
-        name:
+        message:
           type: string
-          example: Bronze card member
-          description: The new tag name to use. The tag name must be unique.
-          minLength: 1
-          maxLength: 255
+          description: Message describing the error condition.
+          readOnly: true
+    tagsActivityLinks:
+      type: object
+      properties:
+        self:
+          type: object
+          description: The link returned in the response that you use to retrieve the status for the specified activity.
+          properties:
+            href:
+              type: string
+              example: /v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a
   securitySchemes:
     oauth2_implicit:
       type: oauth2

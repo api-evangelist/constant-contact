@@ -74,14 +74,6 @@ paths:
       - ui:campaign:metrics
 components:
   schemas:
-    reportingsmsNext:
-      type: object
-      required:
-      - href
-      properties:
-        href:
-          type: string
-          description: The next link in the page or null if there are no additional pages.
     UniqueSmsCounts:
       type: object
       required:
@@ -115,12 +107,6 @@ components:
           format: int32
           example: 0
           description: The total number of unique opt-outs (unsubscribes).
-    reportingsmsLinks:
-      type: object
-      properties:
-        next:
-          description: Contains the next link if it is available.
-          $ref: '#/components/schemas/reportingsmsNext'
     BulkCampaignSummary:
       type: object
       required:
@@ -151,20 +137,20 @@ components:
           type: string
           example: SMS
           description: The campaign type.
-    SmsCampaignSummariesPage:
+    reportingsmsNext:
+      type: object
+      required:
+      - href
+      properties:
+        href:
+          type: string
+          description: The next link in the page or null if there are no additional pages.
+    reportingsmsLinks:
       type: object
       properties:
-        bulk_sms_campaign_summaries:
-          type: array
-          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
-          items:
-            $ref: '#/components/schemas/BulkCampaignSummary'
-        aggregate_percents:
-          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
-          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
-        _links:
-          description: HAL property that contains next link if applicable
-          $ref: '#/components/schemas/reportingsmsLinks'
+        next:
+          description: Contains the next link if it is available.
+          $ref: '#/components/schemas/reportingsmsNext'
     BulkSmsCampaignSummariesPercents:
       type: object
       properties:
@@ -184,6 +170,20 @@ components:
           type: number
           example: 0.0
           description: The aggregated unsubscribe (opt-out) rate for all campaigns on the current results page.
+    SmsCampaignSummariesPage:
+      type: object
+      properties:
+        bulk_sms_campaign_summaries:
+          type: array
+          description: Provides details about each SMS campaign, including the total unique counts for each tracked campaign activity.
+          items:
+            $ref: '#/components/schemas/BulkCampaignSummary'
+        aggregate_percents:
+          description: Campaign activity aggregate percents, including <code>click</code>, <code> deliver</code>, <code> bounce</code>, and <code>unsubscribe</code>, for all SMS campaigns returned on a page of results.
+          $ref: '#/components/schemas/BulkSmsCampaignSummariesPercents'
+        _links:
+          description: HAL property that contains next link if applicable
+          $ref: '#/components/schemas/reportingsmsLinks'
   securitySchemes:
     oauth2_implicit:
       type: oauth2

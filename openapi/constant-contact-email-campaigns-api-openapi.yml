@@ -575,161 +575,32 @@ paths:
       x-sdk-methodName: deleteResendEmailCampaign
 components:
   schemas:
-    CrossReference:
+    ResendToNonOpenersObject:
       type: object
       properties:
-        v2_email_campaign_id:
+        resend_subject:
           type: string
-          example: '1100567546598'
-          description: Identifies an email campaign in the V2 API.
-        campaign_id:
-          type: string
-          format: uuid
-          example: e4cf53f0-e37f-11e8-9f32-f2801f1b9fd1
-          description: <p>Identifies a campaign in the V3 API. In the V3 API, each campaign contains one or more activities. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Email Campaign Resource Changes<a/>.<p>
-        campaign_activity_id:
-          type: string
-          format: uuid
-          example: 4c08372c-957a-48b5-bc45-72c7f00796cd
-          description: <p>Identifies a campaign activity in the V3 API. In the V3 API, each campaign contains one or more activities. Email type activities represent the detailed information in an email and contain properties like <code>from_email</code> and <code>from_name</code>. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Campaign Resource Changes<a/>.<p>
-    emailsLink:
-      type: object
-      properties:
-        href:
-          type: string
-    ResendToNonOpeners:
-      type: array
-      items:
-        type: object
-        properties:
-          resend_subject:
-            type: string
-            example: Our Big Sale is Coming Soon!
-            description: The subject line used when resending the email campaign activity.
-          delay_days:
-            type: integer
-            format: int32
-            example: 3
-            description: 'The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value. '
-          delay_minutes:
-            type: integer
-            format: int32
-            example: 1000
-            description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
-          resend_date:
-            type: string
-            format: date-time
-            description: The system generated date and time (in ISO-8601 format) that the email campaign activity was resent to non-openers (only included in the response results for sent resend activities).
-            readOnly: true
-          resend_request_id:
-            type: string
-            example: DRAFT
-            description: For scheduled or sent resend to non-opener emails, the system generates an ID that identifies the resend to non-openers activity. For draft email campaign resend activities, the system returns <code>DRAFT</code>.
-          resend_status:
-            type: string
-            example: DRAFT
-            description: 'The status of the resend to non-openers campaign activity. The <code>resend_status</code> is only returned in the response results if the campaign activity is either scheduled to be sent or was already sent.
-
-              '
-    EmailPhysicalAddress:
-      type: object
-      required:
-      - address_line1
-      - country_code
-      - organization_name
-      properties:
-        address_line1:
-          type: string
-          example: 123 Maple Street
-          description: Line 1 of the organization's street address.
-        address_line2:
-          type: string
-          example: Unit 1
-          description: Line 2 of the organization's street address.
-        address_line3:
-          type: string
-          description: Line 3 of the organization's street address.
-        address_optional:
-          type: string
-          example: Near Boston Fire Station
-          description: An optional address field for the organization. Only <code>format_type</code> 3, 4, and 5 can use this property.
-        city:
-          type: string
-          example: Boston
-          description: The city where the organization sending the email campaign is located.
-        country_code:
-          type: string
-          example: US
-          description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's country.
-        country_name:
-          type: string
-          example: United States
-          description: The full name of the country where the organization sending the email is located. Automatically generated using the <code>country_code</code>.
-          readOnly: true
-        organization_name:
-          type: string
-          example: Jake Dodge's Pancakes
-          description: The name of the organization that is sending the email campaign.
-        postal_code:
-          type: string
-          example: '02451'
-          description: The postal code address (ZIP code) of the organization.
-        state_code:
-          type: string
-          example: MA
-          description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's state. This property is required if the <code>country_code</code> is US (United States).
-        state_name:
-          type: string
-          description: The full state name for a <code>state_code</code> that is inside the United States. Automatically generated using the <code>state_code</code>.
-          readOnly: true
-        state_non_us_name:
-          type: string
-          example: Victoria
-          description: The full state name for a <code>state_code</code> that is outside the United States. This property is not read only.
-    EmailCampaigns:
-      type: object
-      properties:
-        campaign_id:
-          type: string
-          example: 8987dc1a-48ef-433a-b836-7ca4f9aa3481
-          description: The unique ID used to identify the email campaign (UUID format).
-        created_at:
-          type: string
-          format: date-time
-          example: '2018-02-06T22:09:15.000Z'
-          description: The system generated date and time that this email campaign was created. This string is readonly and is in ISO-8601 format.
-          readOnly: true
-        current_status:
-          type: string
-          example: Draft
-          description: "The current status of the email campaign. Valid values are: <ul>\n  <li>Draft — An email campaign that you have created but have not sent to contacts.</li>\n  <li>Scheduled — An email campaign that you have scheduled for Constant Contact to send to contacts.</li>\n  <li>Executing — An email campaign that Constant Contact is currently sending to contacts. Email campaign activities are only in this status briefly.</li>\n  <li>Done — An email campaign that you successfully sent to contacts.</li>\n  <li>Error — An email campaign activity that encountered an error.</li>\n  <li>Removed — An email campaign that a user deleted. Users can view and restore deleted emails through the UI.</li>\n</ul>\n"
-        name:
-          type: string
-          example: December Newsletter for Dog Lovers
-          description: The descriptive name the user provides to identify this campaign. Campaign names must be unique for each account ID.
-          maxLength: 80
-        type:
-          type: string
-          example: NEWSLETTER
-          description: Identifies the type of campaign that you select when creating the campaign. Newsletter and Custom Code email campaigns are the primary types.
-        type_code:
+          example: Our Big Sale is Coming Soon!
+          description: The subject line for the resend email.
+        delay_days:
           type: integer
-          example: 10
-          description: "The code used to identify the email campaign `type`. <ul>\n  <li> 1  (Default) </li>\n  <li> 2  (Bulk Email) </li>\n  <li> 10 (Newsletter) </li>\n  <li> 11 (Announcement) </li>\n  <li> 12 (Product/Service News) </li>\n  <li> 14 (Business Letter) </li>\n  <li> 15 (Card) </li>\n  <li> 16 (Press release)</li>\n  <li> 17 (Flyer) </li>\n  <li> 18 (Feedback Request) </li>\n  <li> 19 (Ratings and Reviews) </li>\n  <li> 20 (Event Announcement) </li>\n  <li> 21 (Simple Coupon) </li>\n  <li> 22 (Sale Promotion) </li>\n  <li> 23 (Product Promotion) </li>\n  <li> 24 (Membership Drive) </li>\n  <li> 25 (Fundraiser) </li>\n  <li> 26 (Custom Code Email)</li>\n  <li> 57 (A/B Test)</li>\n</ul>\n"
-        updated_at:
+          format: int32
+          example: 7
+          description: The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This property is mutually exclusive with <code>delay_minutes</code>. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value.
+        delay_minutes:
+          type: integer
+          format: int32
+          example: 10,080
+          description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
+        resend_date:
           type: string
           format: date-time
-          example: '2018-06-27T10:28:09.000Z'
-          description: The system generated date and time showing when the campaign was last updated. This string is read only and is in ISO-8601 format.
+          description: The system generated ISO-8601 format date and time that Constant Contact resent the email to non-openers.
           readOnly: true
-    CrossReferenceResponse:
-      type: object
-      properties:
-        xrefs:
-          type: array
-          description: An array of objects that contain a <code>v2_email_campaign_id</code> cross-referenced with a V3 <code>campaign_id</code> and a V3 <code>campaign_activity_id</code> value.
-          items:
-            $ref: '#/components/schemas/CrossReference'
+        resend_request_id:
+          type: string
+          example: DRAFT
+          description: For scheduled or sent resend to non-opener emails, this property is a unique identifier for the resend. For draft email campaign resend activities, the value of this property is <code>DRAFT</code>.
     PagedEmailCampaignResponse:
       type: object
       properties:
@@ -739,78 +610,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EmailCampaigns'
-    EmailCampaignComplete:
-      type: object
-      required:
-      - email_campaign_activities
-      - name
-      properties:
-        name:
-          type: string
-          example: December Newsletter for Dog Lovers
-          description: The unique and descriptive name that you specify for the email campaign.
-          maxLength: 80
-        email_campaign_activities:
-          type: array
-          description: The content of the email campaign as an array that contains a single email campaign activity object.
-          items:
-            $ref: '#/components/schemas/EmailCampaignActivityInput'
-    emailsPagingLinks:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/emailsLink'
-    EmailCampaignActivityInput:
-      type: object
-      required:
-      - format_type
-      - from_email
-      - from_name
-      - html_content
-      - reply_to_email
-      - subject
-      properties:
-        format_type:
-          type: integer
-          format: int32
-          example: 5
-          description: 'The email format you are using to create the email campaign activity. The V3 API supports creating emails using <code>format_type</code> 4 (email editor) and 5 (custom code emails).
-
-            '
-        from_name:
-          type: string
-          example: Jake Dodge
-          description: The email sender's name to display for the email campaign activity.
-          maxLength: 100
-        from_email:
-          type: string
-          example: jdodge@constantcontact.com
-          description: The sender's email address to use for the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
-          maxLength: 80
-        reply_to_email:
-          type: string
-          example: jdodge@constantconatct.com
-          description: The sender's email address to use if the contact replies to the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
-          maxLength: 80
-        subject:
-          type: string
-          example: Informed Daily Digest
-          description: The text to display in the subject line that describes the email campaign activity.
-        preheader:
-          type: string
-          example: You don't want to miss this.
-          description: The email preheader for the email campaign activity. Contacts will view your preheader as a short summary that follows the subject line in their email client. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
-          maxLength: 200
-        html_content:
-          type: string
-          example: <html><body>[[trackingImage]] <a href="http://www.constantcontact.com">Visit ConstantContact.com!</a> </body></html>
-          description: 'The HTML content for the email campaign activity. Only <code>format_type</code> 5 (custom code emails) can contain <code>html_content</code>. When creating a <code>format_type</code> 5 custom code email, make sure that you include <code>[[trackingImage]]</code> in the <code>&lt;body&gt;</code> element of your HTML.
-
-            '
-          maxLength: 150000
-        physical_address_in_footer:
-          description: The physical address for the organization that is sending the email campaign. Constant Contact displays this information to contacts in the email message footer. If you do not include a physical address in the email campaign activity, Constant Contact will use the physical address information saved for the Constant Contact user account.
-          $ref: '#/components/schemas/EmailPhysicalAddress'
     EmailCampaignActivity:
       type: object
       required:
@@ -983,32 +782,42 @@ components:
               example: Forward email
               description: The text displayed as the name for the forward email link in the footer when a user forwards an email. This property applies to <code>format_type</code> 1 and 2.
               maxLength: 80
-    ResendToNonOpenersObject:
+    EmailCampaigns:
       type: object
       properties:
-        resend_subject:
+        campaign_id:
           type: string
-          example: Our Big Sale is Coming Soon!
-          description: The subject line for the resend email.
-        delay_days:
-          type: integer
-          format: int32
-          example: 7
-          description: The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This property is mutually exclusive with <code>delay_minutes</code>. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value.
-        delay_minutes:
-          type: integer
-          format: int32
-          example: 10,080
-          description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
-        resend_date:
+          example: 8987dc1a-48ef-433a-b836-7ca4f9aa3481
+          description: The unique ID used to identify the email campaign (UUID format).
+        created_at:
           type: string
           format: date-time
-          description: The system generated ISO-8601 format date and time that Constant Contact resent the email to non-openers.
+          example: '2018-02-06T22:09:15.000Z'
+          description: The system generated date and time that this email campaign was created. This string is readonly and is in ISO-8601 format.
           readOnly: true
-        resend_request_id:
+        current_status:
           type: string
-          example: DRAFT
-          description: For scheduled or sent resend to non-opener emails, this property is a unique identifier for the resend. For draft email campaign resend activities, the value of this property is <code>DRAFT</code>.
+          example: Draft
+          description: "The current status of the email campaign. Valid values are: <ul>\n  <li>Draft — An email campaign that you have created but have not sent to contacts.</li>\n  <li>Scheduled — An email campaign that you have scheduled for Constant Contact to send to contacts.</li>\n  <li>Executing — An email campaign that Constant Contact is currently sending to contacts. Email campaign activities are only in this status briefly.</li>\n  <li>Done — An email campaign that you successfully sent to contacts.</li>\n  <li>Error — An email campaign activity that encountered an error.</li>\n  <li>Removed — An email campaign that a user deleted. Users can view and restore deleted emails through the UI.</li>\n</ul>\n"
+        name:
+          type: string
+          example: December Newsletter for Dog Lovers
+          description: The descriptive name the user provides to identify this campaign. Campaign names must be unique for each account ID.
+          maxLength: 80
+        type:
+          type: string
+          example: NEWSLETTER
+          description: Identifies the type of campaign that you select when creating the campaign. Newsletter and Custom Code email campaigns are the primary types.
+        type_code:
+          type: integer
+          example: 10
+          description: "The code used to identify the email campaign `type`. <ul>\n  <li> 1  (Default) </li>\n  <li> 2  (Bulk Email) </li>\n  <li> 10 (Newsletter) </li>\n  <li> 11 (Announcement) </li>\n  <li> 12 (Product/Service News) </li>\n  <li> 14 (Business Letter) </li>\n  <li> 15 (Card) </li>\n  <li> 16 (Press release)</li>\n  <li> 17 (Flyer) </li>\n  <li> 18 (Feedback Request) </li>\n  <li> 19 (Ratings and Reviews) </li>\n  <li> 20 (Event Announcement) </li>\n  <li> 21 (Simple Coupon) </li>\n  <li> 22 (Sale Promotion) </li>\n  <li> 23 (Product Promotion) </li>\n  <li> 24 (Membership Drive) </li>\n  <li> 25 (Fundraiser) </li>\n  <li> 26 (Custom Code Email)</li>\n  <li> 57 (A/B Test)</li>\n</ul>\n"
+        updated_at:
+          type: string
+          format: date-time
+          example: '2018-06-27T10:28:09.000Z'
+          description: The system generated date and time showing when the campaign was last updated. This string is read only and is in ISO-8601 format.
+          readOnly: true
     EmailCampaign:
       type: object
       properties:
@@ -1050,16 +859,133 @@ components:
           example: '2018-06-27T10:28:09.000Z'
           description: The system generated date and time showing when the campaign was last updated. This string is read only and is in ISO-8601 format.
           readOnly: true
-    EmailCampaignName:
+    EmailPhysicalAddress:
       type: object
       required:
+      - address_line1
+      - country_code
+      - organization_name
+      properties:
+        address_line1:
+          type: string
+          example: 123 Maple Street
+          description: Line 1 of the organization's street address.
+        address_line2:
+          type: string
+          example: Unit 1
+          description: Line 2 of the organization's street address.
+        address_line3:
+          type: string
+          description: Line 3 of the organization's street address.
+        address_optional:
+          type: string
+          example: Near Boston Fire Station
+          description: An optional address field for the organization. Only <code>format_type</code> 3, 4, and 5 can use this property.
+        city:
+          type: string
+          example: Boston
+          description: The city where the organization sending the email campaign is located.
+        country_code:
+          type: string
+          example: US
+          description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's country.
+        country_name:
+          type: string
+          example: United States
+          description: The full name of the country where the organization sending the email is located. Automatically generated using the <code>country_code</code>.
+          readOnly: true
+        organization_name:
+          type: string
+          example: Jake Dodge's Pancakes
+          description: The name of the organization that is sending the email campaign.
+        postal_code:
+          type: string
+          example: '02451'
+          description: The postal code address (ZIP code) of the organization.
+        state_code:
+          type: string
+          example: MA
+          description: The uppercase two letter <a href='https://en.wikipedia.org/wiki/ISO_3166-1' target='_blank'>ISO 3166-1 code</a> for the organization's state. This property is required if the <code>country_code</code> is US (United States).
+        state_name:
+          type: string
+          description: The full state name for a <code>state_code</code> that is inside the United States. Automatically generated using the <code>state_code</code>.
+          readOnly: true
+        state_non_us_name:
+          type: string
+          example: Victoria
+          description: The full state name for a <code>state_code</code> that is outside the United States. This property is not read only.
+    emailsPagingLinks:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/emailsLink'
+    CrossReference:
+      type: object
+      properties:
+        v2_email_campaign_id:
+          type: string
+          example: '1100567546598'
+          description: Identifies an email campaign in the V2 API.
+        campaign_id:
+          type: string
+          format: uuid
+          example: e4cf53f0-e37f-11e8-9f32-f2801f1b9fd1
+          description: <p>Identifies a campaign in the V3 API. In the V3 API, each campaign contains one or more activities. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Email Campaign Resource Changes<a/>.<p>
+        campaign_activity_id:
+          type: string
+          format: uuid
+          example: 4c08372c-957a-48b5-bc45-72c7f00796cd
+          description: <p>Identifies a campaign activity in the V3 API. In the V3 API, each campaign contains one or more activities. Email type activities represent the detailed information in an email and contain properties like <code>from_email</code> and <code>from_name</code>. For more information, see <a href="/api_guide/v3_v2_email_campaign_deltas.html" target_"blank">V3 Campaign Resource Changes<a/>.<p>
+    ResendToNonOpeners:
+      type: array
+      items:
+        type: object
+        properties:
+          resend_subject:
+            type: string
+            example: Our Big Sale is Coming Soon!
+            description: The subject line used when resending the email campaign activity.
+          delay_days:
+            type: integer
+            format: int32
+            example: 3
+            description: 'The number of days to wait before Constant Contact resends the email. Valid values include <code>1</code> to <code>10</code> days. This value is only returned in the response results if the resend activity was created with <code>delay_days</code> or the <code>delay_minutes</code> equal to an exact day value. '
+          delay_minutes:
+            type: integer
+            format: int32
+            example: 1000
+            description: The number of minutes to wait before Constant Contact resends the email. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>.
+          resend_date:
+            type: string
+            format: date-time
+            description: The system generated date and time (in ISO-8601 format) that the email campaign activity was resent to non-openers (only included in the response results for sent resend activities).
+            readOnly: true
+          resend_request_id:
+            type: string
+            example: DRAFT
+            description: For scheduled or sent resend to non-opener emails, the system generates an ID that identifies the resend to non-openers activity. For draft email campaign resend activities, the system returns <code>DRAFT</code>.
+          resend_status:
+            type: string
+            example: DRAFT
+            description: 'The status of the resend to non-openers campaign activity. The <code>resend_status</code> is only returned in the response results if the campaign activity is either scheduled to be sent or was already sent.
+
+              '
+    EmailCampaignComplete:
+      type: object
+      required:
+      - email_campaign_activities
       - name
       properties:
         name:
           type: string
           example: December Newsletter for Dog Lovers
-          description: The updated email campaign name. The email campaign name must be unique.
+          description: The unique and descriptive name that you specify for the email campaign.
           maxLength: 80
+        email_campaign_activities:
+          type: array
+          description: The content of the email campaign as an array that contains a single email campaign activity object.
+          items:
+            $ref: '#/components/schemas/EmailCampaignActivityInput'
     ResendToNonOpenersInput:
       required:
       - resend_subject
@@ -1078,6 +1004,11 @@ components:
           format: int32
           example: 1000
           description: The number of minutes to wait before Constant Contact resends the email campaign activity. There are 1,440 minutes in a day. Valid values includes a minimum of <code>720</code> (12 hours) and a maximum of <code>14,400</code> minutes (10 days). This property is mutually exclusive with <code>delay_days</code>
+    emailsLink:
+      type: object
+      properties:
+        href:
+          type: string
     ActivityReference:
       type: object
       properties:
@@ -1093,6 +1024,75 @@ components:
           type: string
           example: 21babb03-8385-4739-b9cc-n6cce44633a7
           description: Identifies the email document used in an email editor (format_type 4) email campaign.
+    EmailCampaignActivityInput:
+      type: object
+      required:
+      - format_type
+      - from_email
+      - from_name
+      - html_content
+      - reply_to_email
+      - subject
+      properties:
+        format_type:
+          type: integer
+          format: int32
+          example: 5
+          description: 'The email format you are using to create the email campaign activity. The V3 API supports creating emails using <code>format_type</code> 4 (email editor) and 5 (custom code emails).
+
+            '
+        from_name:
+          type: string
+          example: Jake Dodge
+          description: The email sender's name to display for the email campaign activity.
+          maxLength: 100
+        from_email:
+          type: string
+          example: jdodge@constantcontact.com
+          description: The sender's email address to use for the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+          maxLength: 80
+        reply_to_email:
+          type: string
+          example: jdodge@constantconatct.com
+          description: The sender's email address to use if the contact replies to the email campaign activity. You must use a confirmed Constant Contact account email address. Make a GET call to <code>/account/emails</code> to return a collection of account emails and their confirmation status.
+          maxLength: 80
+        subject:
+          type: string
+          example: Informed Daily Digest
+          description: The text to display in the subject line that describes the email campaign activity.
+        preheader:
+          type: string
+          example: You don't want to miss this.
+          description: The email preheader for the email campaign activity. Contacts will view your preheader as a short summary that follows the subject line in their email client. Only <code>format_type</code> 3, 4, and 5 email campaign activities use the preheader property.
+          maxLength: 200
+        html_content:
+          type: string
+          example: <html><body>[[trackingImage]] <a href="http://www.constantcontact.com">Visit ConstantContact.com!</a> </body></html>
+          description: 'The HTML content for the email campaign activity. Only <code>format_type</code> 5 (custom code emails) can contain <code>html_content</code>. When creating a <code>format_type</code> 5 custom code email, make sure that you include <code>[[trackingImage]]</code> in the <code>&lt;body&gt;</code> element of your HTML.
+
+            '
+          maxLength: 150000
+        physical_address_in_footer:
+          description: The physical address for the organization that is sending the email campaign. Constant Contact displays this information to contacts in the email message footer. If you do not include a physical address in the email campaign activity, Constant Contact will use the physical address information saved for the Constant Contact user account.
+          $ref: '#/components/schemas/EmailPhysicalAddress'
+    EmailCampaignName:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          example: December Newsletter for Dog Lovers
+          description: The updated email campaign name. The email campaign name must be unique.
+          maxLength: 80
+    CrossReferenceResponse:
+      type: object
+      properties:
+        xrefs:
+          type: array
+          description: An array of objects that contain a <code>v2_email_campaign_id</code> cross-referenced with a V3 <code>campaign_id</code> and a V3 <code>campaign_activity_id</code> value.
+          items:
+            $ref: '#/components/schemas/CrossReference'
   securitySchemes:
     oauth2_implicit:
       type: oauth2
