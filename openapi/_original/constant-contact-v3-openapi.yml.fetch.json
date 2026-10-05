@@ -1,0 +1,12 @@
+{
+ "url": "https://api.cc.email/v3/swagger.yaml",
+ "requested_url": "https://api.cc.email/v3/swagger.yaml",
+ "status": 200,
+ "content_type": "application/x-yaml",
+ "bytes": 724077,
+ "sha256": "319067b79f7de02746c06cd8cd0008279a64369d433ce829589a219138738004",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.977), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
