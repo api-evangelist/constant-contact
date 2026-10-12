@@ -1,0 +1,482 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/constant-contact/integrations
+checked:
+- https://composio.dev/toolkits/constant-contact
+- https://monid.ai/tools/constant-contact
+- https://n8n.io/integrations/constant-contact/
+- https://zapier.com/apps/constant-contact/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: constant-contact
+  url: https://zapier.com/apps/constant-contact/integrations
+  external_url: http://www.constantcontact.com/signup.jsp?pn=zapier
+  partner_tier: PLATINUM
+  triggers:
+  - key: contact
+    label: New Contact
+  - key: email_open
+    label: New Email Open
+  - key: list
+    label: New List
+  - key: unsubscriber
+    label: New Unsubscriber
+  actions:
+  - key: add_contact_list
+    label: Add Contact to List
+  - key: contact
+    label: Create Contact
+  - key: delete_contact
+    label: Delete Contact
+  - key: remove_contact_list
+    label: Remove Contact From List
+  - key: tag_contact
+    label: Tag Contact
+  - key: update_contact
+    label: Update Contact
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: find_contact
+    label: Find or Create Contact
+edges:
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Follow Up Boss
+  partner: follow-up-boss
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/follow-up-boss
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://www.followupboss.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Google Forms
+  partner: google-forms
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/google-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: monday.com
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Unbounce
+  partner: unbounce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/unbounce
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://unbounce.com/
+- partner_name: Wix
+  partner: wix
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wix
+  direction: third-party
+  category: Website Builders
+  partner_url: https://www.wix.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Canva
+  partner: canva
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/canva
+  direction: third-party
+  category: Images & Design
+  partner_url: null
+- partner_name: QuickBooks Online
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/quickbooks
+  direction: third-party
+  category: Accounting
+  partner_url: http://intuit.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: WPForms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wpforms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://wpforms.com/
+- partner_name: WooCommerce
+  partner: woocommerce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/woocommerce
+  direction: third-party
+  category: eCommerce
+  partner_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/acuity-scheduling
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://acuityscheduling.com/?utm_source=zapier.com&utm_medium=referral&utm_campaign=integration-page
+- partner_name: Square
+  partner: square
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/square
+  direction: third-party
+  category: eCommerce
+  partner_url: https://squareup.com/t/cmtp_performance/pr_developers/d_partnerships/p_zapier/?route=
+- partner_name: Redtail CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/redtailcrm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://redtailtechnology.com/
+- partner_name: kvCORE
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/kvcore
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.insiderealestate.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Formidable Forms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/formidable
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://formidableforms.com/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: WordPress
+  partner: wordpress
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wordpress
+  direction: third-party
+  category: Website Builders
+  partner_url: https://wordpress.org/
+- partner_name: klaviyo
+  partner: klaviyo
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/klaviyo/blob/main/openapi/klaviyo-flows-api-openapi.yml
+  contract_reference:
+    repo: klaviyo
+    spec_file: klaviyo-flows-api-openapi.yml
+    value: constant_contact
+    property: schemas.ConstantContactIntegrationFilter.value
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+- partner_name: zoho
+  partner: zoho
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/zoho/blob/main/openapi/zoho-timeline-api-openapi.yml
+  contract_reference:
+    repo: zoho
+    spec_file: zoho-timeline-api-openapi.yml
+    value: constant_contact
+    property: __timeline.source
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+- partner_name: zoho-crm
+  partner: zoho-crm
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/zoho-crm/blob/main/openapi/zoho-crm-timeline-api-openapi.yml
+  contract_reference:
+    repo: zoho-crm
+    spec_file: zoho-crm-timeline-api-openapi.yml
+    value: constant_contact
+    property: __timeline.source
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+templates:
+- title: Create Constant Contact contacts from new Squarespace Forms form submissions
+  url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
+  apps:
+  - squarespace-forms
+  - constant-contact
+- title: Send new Follow Up Boss contacts to Constant Contact
+  url: https://zapier.com/apps/constant-contact/integrations/follow-up-boss/5467/send-new-follow-up-boss-contacts-to-constant-contact
+  apps:
+  - follow-up-boss
+  - constant-contact
+- title: Create Constant Contacts from new form submissions in Unbounce
+  url: https://zapier.com/apps/constant-contact/integrations/unbounce/702071/create-constant-contacts-from-new-form-submissions-in-unbounce
+  apps:
+  - unbounce
+  - constant-contact
+- title: Add contacts to Constant Contact from new Webflow submissions
+  url: https://zapier.com/apps/constant-contact/integrations/webflow/66936/add-contacts-to-constant-contact-from-new-webflow-submissions
+  apps:
+  - webflow
+  - constant-contact
+- title: Create contacts in Constant Contact from new Google Sheets rows
+  url: https://zapier.com/apps/constant-contact/integrations/google-sheets/3415/create-contacts-in-constant-contact-from-new-google-sheets-rows
+  apps:
+  - google-sheets
+  - constant-contact
+- title: Create contacts in Constant Contact with new transactions in Givebutter
+  url: https://zapier.com/apps/constant-contact/integrations/givebutter/355202/create-contacts-in-constant-contact-with-new-transactions-in-givebutter
+  apps:
+  - givebutter
+  - constant-contact
+- title: Create contacts in Constant Contact from new Square customers
+  url: https://zapier.com/apps/constant-contact/integrations/square/851425/create-contacts-in-constant-contact-from-new-square-customers
+  apps:
+  - square
+  - constant-contact
+- title: Create contacts in Constant Contact for new Acuity Scheduling appointments
+  url: https://zapier.com/apps/acuity-scheduling/integrations/constant-contact/219291/create-contacts-in-constant-contact-for-new-acuity-scheduling-appointments
+  apps:
+  - acuity-scheduling
+  - constant-contact
+- title: Add contacts to a Google Ads customer list for new contacts on Constant Contact
+  url: https://zapier.com/apps/constant-contact/integrations/google-ads/543616/add-contacts-to-a-google-ads-customer-list-for-new-contacts-on-constant-contact
+  apps:
+  - constant-contact
+  - google-ads
+- title: Create Constant Contacts from new POWr Form Builder form submissions
+  url: https://zapier.com/apps/constant-contact/integrations/powr-form-builder/20730/create-constant-contacts-from-new-powr-form-builder-form-submissions
+  apps:
+  - powr-form-builder
+  - constant-contact
+- title: Add new Eventbrite attendees to Constant Contact lists
+  url: https://zapier.com/apps/constant-contact/integrations/eventbrite/702/add-new-eventbrite-attendees-to-constant-contact-lists
+  apps:
+  - eventbrite
+  - constant-contact
+- title: Copy new HubSpot contacts to Constant Contact
+  url: https://zapier.com/apps/constant-contact/integrations/hubspot/67643/copy-new-hubspot-contacts-to-constant-contact
+  apps:
+  - hubspot
+  - constant-contact
+template_total: 1817
