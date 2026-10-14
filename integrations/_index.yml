@@ -448,8 +448,9 @@
   status: not-a-workflow
   arazzo: null
 - slug: constant-contact-blackbaud-blackbaud-marketplace
-  label: Blackbaud (Blackbaud Marketplace)
-  partner_name: Blackbaud (Blackbaud Marketplace)
+  label: Blackbaud (blackbaud-marketplace)
+  partner: blackbaud
+  partner_name: Blackbaud (blackbaud-marketplace)
   type: marketplace
   marketplace: blackbaud-marketplace
   channel: partner-built

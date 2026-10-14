@@ -3,6 +3,7 @@ method: searched
 source:
 - https://zapier.com/apps/constant-contact/integrations
 checked:
+- blackbaud/integrations/blackbaud-integration-edges.yml
 - classy-org/integrations/classy-org-integration-edges.yml
 - https://composio.dev/toolkits/constant-contact
 - https://monid.ai/tools/constant-contact
@@ -444,31 +445,24 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-adtech.py
   detected: '2026-10-14'
-- partner_name: Blackbaud (Blackbaud Marketplace)
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  partner_note: Blackbaud has no all/* repo (catalog gap); publisher side only
+- partner_name: Blackbaud (blackbaud-marketplace)
+  partner: blackbaud
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
   relationship: platform-app
   direction: third-party
   channel: partner-built
   marketplace: blackbaud-marketplace
   evidence: https://app.blackbaud.com/marketplace/applications/bc68562e-253a-4bf4-ba43-699f90721de6
-  store: https://app.blackbaud.com/marketplace
-  store_api: https://mpl-pusa01.app.blackbaud.net/mktpl/v1/public/marketplace/applications
-  publisher: Constant Contact
-  publisher_match: domain
-  publisher_domain: constantcontact.com
+  mirror_of: blackbaud/integrations/blackbaud-integration-edges.yml
   apps:
   - Constant Contact
   listing_count: 1
-  compatible_solutions:
-  - renxt
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
   badges:
   - Reviewed by Blackbaud
-  detected_by: sweep-nonprofit.py
-  detected: '2026-10-14'
 - partner_name: Classy (own)
   partner: classy-org
   partner_match: mirror
