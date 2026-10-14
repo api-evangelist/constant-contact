@@ -163,7 +163,6 @@
   arazzo: null
 - slug: constant-contact-monday-com
   label: monday.com
-  partner: monday-com
   partner_name: monday.com
   category: Project Management
   type: marketplace
@@ -171,7 +170,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/constant-contact/integrations/monday
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: constant-contact-wix
   label: Wix
@@ -303,7 +302,6 @@
   arazzo: null
 - slug: constant-contact-microsoft-excel
   label: Microsoft Excel
-  partner: microsoft-excel
   partner_name: Microsoft Excel
   category: Microsoft
   type: marketplace
@@ -311,7 +309,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/constant-contact/integrations/excel
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: constant-contact-clickfunnels-classic
   label: ClickFunnels Classic
@@ -424,5 +422,28 @@
     property: __timeline.source
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-google-ad-tech-providers
+  label: Google Ad Tech Providers
+  partner_name: Google Ad Tech Providers
+  type: contract
+  channel: standard-directory
+  evidence: https://storage.googleapis.com/tcfac/additional-consent-providers.csv
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Google Ad Tech Providers (Additional Consent)
+    spec_file: null
+    role: google-atp
+    registered_name: Constant Contact
+    register_id: '144'
+    products:
+    - Constant Contact
+    matched_domain: constantcontact.com
+    api_families: null
+    api_families_basis: null
+    detected_by: sweep-adtech.py
+    detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null

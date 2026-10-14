@@ -6,6 +6,7 @@ checked:
 - https://composio.dev/toolkits/constant-contact
 - https://monid.ai/tools/constant-contact
 - https://n8n.io/integrations/constant-contact/
+- https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/constant-contact/integrations
 summary: null
 marketplace_apps:
@@ -418,6 +419,29 @@ edges:
     property: __timeline.source
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+- partner_name: Google Ad Tech Providers
+  partner: null
+  partner_match: domain
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://storage.googleapis.com/tcfac/additional-consent-providers.csv
+  contract_reference:
+    register: Google Ad Tech Providers (Additional Consent)
+    spec_file: null
+    role: google-atp
+    registered_name: Constant Contact
+    register_id: '144'
+    products:
+    - Constant Contact
+    matched_domain: constantcontact.com
+    api_families: null
+    api_families_basis: null
+    detected_by: sweep-adtech.py
+    detected: '2026-10-14'
+  detected_by: sweep-adtech.py
+  detected: '2026-10-14'
 templates:
 - title: Create Constant Contact contacts from new Squarespace Forms form submissions
   url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
