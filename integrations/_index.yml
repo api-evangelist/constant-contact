@@ -447,3 +447,27 @@
     detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null
+- slug: constant-contact-blackbaud-blackbaud-marketplace
+  label: Blackbaud (Blackbaud Marketplace)
+  partner_name: Blackbaud (Blackbaud Marketplace)
+  type: marketplace
+  marketplace: blackbaud-marketplace
+  channel: partner-built
+  evidence: https://app.blackbaud.com/marketplace/applications/bc68562e-253a-4bf4-ba43-699f90721de6
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-classy-own
+  label: Classy (own)
+  partner: classy-org
+  partner_name: Classy (own)
+  category: fundraising-giving-tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://pro.gofundme.com/c/integrations/constant-contact/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

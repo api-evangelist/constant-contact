@@ -3,8 +3,10 @@ method: searched
 source:
 - https://zapier.com/apps/constant-contact/integrations
 checked:
+- classy-org/integrations/classy-org-integration-edges.yml
 - https://composio.dev/toolkits/constant-contact
 - https://monid.ai/tools/constant-contact
+- https://mpl-pusa01.app.blackbaud.net/mktpl/v1/public/marketplace/applications
 - https://n8n.io/integrations/constant-contact/
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/constant-contact/integrations
@@ -442,6 +444,48 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-adtech.py
   detected: '2026-10-14'
+- partner_name: Blackbaud (Blackbaud Marketplace)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  partner_note: Blackbaud has no all/* repo (catalog gap); publisher side only
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: blackbaud-marketplace
+  evidence: https://app.blackbaud.com/marketplace/applications/bc68562e-253a-4bf4-ba43-699f90721de6
+  store: https://app.blackbaud.com/marketplace
+  store_api: https://mpl-pusa01.app.blackbaud.net/mktpl/v1/public/marketplace/applications
+  publisher: Constant Contact
+  publisher_match: domain
+  publisher_domain: constantcontact.com
+  apps:
+  - Constant Contact
+  listing_count: 1
+  compatible_solutions:
+  - renxt
+  badges:
+  - Reviewed by Blackbaud
+  detected_by: sweep-nonprofit.py
+  detected: '2026-10-14'
+- partner_name: Classy (own)
+  partner: classy-org
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://pro.gofundme.com/c/integrations/constant-contact/
+  mirror_of: classy-org/integrations/classy-org-integration-edges.yml
+  apps:
+  - Constant Contact
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: fundraising-giving-tools
 templates:
 - title: Create Constant Contact contacts from new Squarespace Forms form submissions
   url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
