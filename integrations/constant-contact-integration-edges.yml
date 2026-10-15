@@ -12,6 +12,7 @@ checked:
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/constant-contact/integrations
 - stripe/integrations/stripe-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -498,6 +499,23 @@ edges:
   detected: '2026-10-15'
   detected_by: mirror-platform-listings.py
   category: marketing
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/constant-contact-forms/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Constant Contact Forms
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 templates:
 - title: Create Constant Contact contacts from new Squarespace Forms form submissions
   url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
