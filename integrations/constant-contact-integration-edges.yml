@@ -11,6 +11,7 @@ checked:
 - https://n8n.io/integrations/constant-contact/
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/constant-contact/integrations
+- stripe/integrations/stripe-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -480,6 +481,23 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: fundraising-giving-tools
+- partner_name: Stripe (own)
+  partner: stripe
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/constant-contact
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - Constant Contact
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: marketing
 templates:
 - title: Create Constant Contact contacts from new Squarespace Forms form submissions
   url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
