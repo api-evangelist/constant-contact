@@ -573,7 +573,7 @@
     - connectors/applications/constant-contact
     vendor_link: https://www.constantcontact.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: constant-contact-slack-own
   label: Slack (own)
