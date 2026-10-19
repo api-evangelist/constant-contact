@@ -5,13 +5,20 @@ source:
 checked:
 - blackbaud/integrations/blackbaud-integration-edges.yml
 - classy-org/integrations/classy-org-integration-edges.yml
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/constant-contact
+- https://crates.io/api/v1
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://monid.ai/tools/constant-contact
 - https://mpl-pusa01.app.blackbaud.net/mktpl/v1/public/marketplace/applications
 - https://n8n.io/integrations/constant-contact/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/constant-contact/integrations
@@ -633,6 +640,36 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/ctct-api-client
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: ctct-api-client
+      version: 1.23.0
+      released: '2026-07-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/ctct-api-client
+      repo_leg: github-org:constantcontact
+      publisher_leg: email:constantcontact.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates:
 - title: Create Constant Contact contacts from new Squarespace Forms form submissions
   url: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
