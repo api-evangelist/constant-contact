@@ -15,6 +15,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
   template: https://zapier.com/apps/constant-contact/integrations/squarespace-forms/22137/create-constant-contact-contacts-from-new-squarespace-forms-form-submissions
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-send-new-follow-up-boss-contacts-to-constant-contact
@@ -29,6 +30,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/follow-up-boss/5467/send-new-follow-up-boss-contacts-to-constant-contact
   template: https://zapier.com/apps/constant-contact/integrations/follow-up-boss/5467/send-new-follow-up-boss-contacts-to-constant-contact
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-create-constant-contacts-from-new-form-submissions-in-unbounce
@@ -43,6 +45,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/unbounce/702071/create-constant-contacts-from-new-form-submissions-in-unbounce
   template: https://zapier.com/apps/constant-contact/integrations/unbounce/702071/create-constant-contacts-from-new-form-submissions-in-unbounce
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-create-contacts-in-constant-contact-from-new-square-customers
@@ -57,6 +60,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/square/851425/create-contacts-in-constant-contact-from-new-square-customers
   template: https://zapier.com/apps/constant-contact/integrations/square/851425/create-contacts-in-constant-contact-from-new-square-customers
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-create-contacts-in-constant-contact-for-new-acuity-scheduling-appointment
@@ -71,6 +75,7 @@
   evidence: https://zapier.com/apps/acuity-scheduling/integrations/constant-contact/219291/create-contacts-in-constant-contact-for-new-acuity-scheduling-appointments
   template: https://zapier.com/apps/acuity-scheduling/integrations/constant-contact/219291/create-contacts-in-constant-contact-for-new-acuity-scheduling-appointments
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-add-contacts-to-a-google-ads-customer-list-for-new-contacts-on-constant-c
@@ -85,6 +90,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/google-ads/543616/add-contacts-to-a-google-ads-customer-list-for-new-contacts-on-constant-contact
   template: https://zapier.com/apps/constant-contact/integrations/google-ads/543616/add-contacts-to-a-google-ads-customer-list-for-new-contacts-on-constant-contact
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-copy-new-hubspot-contacts-to-constant-contact
@@ -99,275 +105,7 @@
   evidence: https://zapier.com/apps/constant-contact/integrations/hubspot/67643/copy-new-hubspot-contacts-to-constant-contact
   template: https://zapier.com/apps/constant-contact/integrations/hubspot/67643/copy-new-hubspot-contacts-to-constant-contact
   source: template
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-gravity-forms
-  label: Gravity Forms
-  partner: gravity-forms
-  partner_name: Gravity Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/gravity-forms
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-typeform
-  label: Typeform
-  partner: typeform
-  partner_name: Typeform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/typeform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-facebook-lead-ads
-  label: Facebook Lead Ads
-  partner: facebook-lead-ads
-  partner_name: Facebook Lead Ads
-  category: Ads & Conversion
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/facebook-lead-ads
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-gmail
-  label: Gmail
-  partner: gmail
-  partner_name: Gmail
-  category: Email
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/gmail
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-google-forms
-  label: Google Forms
-  partner: google-forms
-  partner_name: Google Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/google-forms
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-monday-com
-  label: monday.com
-  partner_name: monday.com
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/monday
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-wix
-  label: Wix
-  partner: wix
-  partner_name: Wix
-  category: Website Builders
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/wix
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-canva
-  label: Canva
-  partner: canva
-  partner_name: Canva
-  category: Images & Design
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/canva
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-quickbooks-online
-  label: QuickBooks Online
-  partner_name: QuickBooks Online
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/quickbooks
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-zoom
-  label: Zoom
-  partner: zoom
-  partner_name: Zoom
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/zoom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-wpforms
-  label: WPForms
-  partner_name: WPForms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/wpforms
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-woocommerce
-  label: WooCommerce
-  partner: woocommerce
-  partner_name: WooCommerce
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/woocommerce
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/airtable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-kajabi
-  label: Kajabi
-  partner: kajabi
-  partner_name: Kajabi
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/kajabi
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-calendly
-  label: Calendly
-  partner: calendly
-  partner_name: Calendly
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/calendly
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-redtail-crm
-  label: Redtail CRM
-  partner_name: Redtail CRM
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/redtailcrm
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-kvcore
-  label: kvCORE
-  partner_name: kvCORE
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/kvcore
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-microsoft-excel
-  label: Microsoft Excel
-  partner_name: Microsoft Excel
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/excel
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-clickfunnels-classic
-  label: ClickFunnels Classic
-  partner: clickfunnels
-  partner_name: ClickFunnels Classic
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/clickfunnels-classic
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-pipedrive
-  label: Pipedrive
-  partner: pipedrive
-  partner_name: Pipedrive
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/pipedrive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-formidable-forms
-  label: Formidable Forms
-  partner_name: Formidable Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/formidable
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: constant-contact-google-calendar
-  label: Google Calendar
-  partner: google-calendar
-  partner_name: Google Calendar
-  category: Calendar
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/google-calendar
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: constant-contact-wordpress
-  label: WordPress
-  partner: wordpress
-  partner_name: WordPress
-  category: Website Builders
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/constant-contact/integrations/wordpress
-  source: edge
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: constant-contact-klaviyo
@@ -661,4 +399,298 @@
     detected_by: sweep-compliance-assurance.py
     detected: '2026-10-20'
   status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-gravity-forms
+  label: Gravity Forms
+  partner: gravity-forms
+  partner_name: Gravity Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/gravity-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-typeform
+  label: Typeform
+  partner: typeform
+  partner_name: Typeform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/typeform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-facebook-lead-ads
+  label: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_name: Facebook Lead Ads
+  category: Ads & Conversion
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/facebook-lead-ads
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-gmail
+  label: Gmail
+  partner: gmail
+  partner_name: Gmail
+  category: Email
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/gmail
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-google-forms
+  label: Google Forms
+  partner: google-forms
+  partner_name: Google Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/google-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-monday-com
+  label: monday.com
+  partner: monday-com
+  partner_name: monday.com
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/monday
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-wix
+  label: Wix
+  partner: wix
+  partner_name: Wix
+  category: Website Builders
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wix
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-canva
+  label: Canva
+  partner: canva
+  partner_name: Canva
+  category: Images & Design
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/canva
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-quickbooks-online
+  label: QuickBooks Online
+  partner: quickbooks
+  partner_name: QuickBooks Online
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/quickbooks
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-zoom
+  label: Zoom
+  partner: zoom
+  partner_name: Zoom
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/zoom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-wpforms
+  label: WPForms
+  partner_name: WPForms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wpforms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-woocommerce
+  label: WooCommerce
+  partner: woocommerce
+  partner_name: WooCommerce
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/woocommerce
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-kajabi
+  label: Kajabi
+  partner: kajabi
+  partner_name: Kajabi
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/kajabi
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-calendly
+  label: Calendly
+  partner: calendly
+  partner_name: Calendly
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/calendly
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-redtail-crm
+  label: Redtail CRM
+  partner_name: Redtail CRM
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/redtailcrm
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-kvcore
+  label: kvCORE
+  partner_name: kvCORE
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/kvcore
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-microsoft-excel
+  label: Microsoft Excel
+  partner_name: Microsoft Excel
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/excel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-clickfunnels-classic
+  label: ClickFunnels Classic
+  partner: clickfunnels
+  partner_name: ClickFunnels Classic
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/clickfunnels-classic
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-formidable-forms
+  label: Formidable Forms
+  partner_name: Formidable Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/formidable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: constant-contact-google-calendar
+  label: Google Calendar
+  partner: google-calendar
+  partner_name: Google Calendar
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/google-calendar
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-wordpress
+  label: WordPress
+  partner: wordpress
+  partner_name: WordPress
+  category: Website Builders
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/wordpress
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: constant-contact-microsoft-outlook
+  label: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_name: Microsoft Outlook
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/constant-contact/integrations/microsoft-outlook
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
