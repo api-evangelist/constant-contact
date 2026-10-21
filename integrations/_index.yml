@@ -694,3 +694,15 @@
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
+- slug: constant-contact-surveymonkey-own
+  label: SurveyMonkey (own)
+  partner: surveymonkey
+  partner_name: SurveyMonkey (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.surveymonkey.com/apps/sMG9kYyRHI1pBSkoRChs_2FA_3D_3D/details/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
