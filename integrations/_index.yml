@@ -185,83 +185,6 @@
     detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null
-- slug: constant-contact-blackbaud-blackbaud-marketplace
-  label: Blackbaud (blackbaud-marketplace)
-  partner: blackbaud
-  partner_name: Blackbaud (blackbaud-marketplace)
-  type: marketplace
-  marketplace: blackbaud-marketplace
-  channel: partner-built
-  evidence: https://app.blackbaud.com/marketplace/applications/bc68562e-253a-4bf4-ba43-699f90721de6
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: constant-contact-classy-own
-  label: Classy (own)
-  partner: classy-org
-  partner_name: Classy (own)
-  category: fundraising-giving-tools
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://pro.gofundme.com/c/integrations/constant-contact/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: constant-contact-stripe-own
-  label: Stripe (own)
-  partner: stripe
-  partner_name: Stripe (own)
-  category: marketing
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://marketplace.stripe.com/apps/constant-contact
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: constant-contact-wordpress-own
-  label: WordPress (own)
-  partner: wordpress
-  partner_name: WordPress (own)
-  category: WordPress plugin
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://wordpress.org/plugins/constant-contact-forms/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: constant-contact-slack-own
-  label: Slack (own)
-  partner: slack
-  partner_name: Slack (own)
-  category: Slack app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://slack.com/marketplace/A069LRR12SK-ctct-lgcrm-live-chat
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: constant-contact-zoom-own
-  label: Zoom (own)
-  partner: zoom
-  partner_name: Zoom (own)
-  category: Zoom app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://marketplace.zoom.us/apps/wGQvAwgnQua_kJplQEx_Tg
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: constant-contact-npm-registry
   label: npm registry
   partner: npm
@@ -694,6 +617,83 @@
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
+- slug: constant-contact-blackbaud-blackbaud-marketplace
+  label: Blackbaud (blackbaud-marketplace)
+  partner: blackbaud
+  partner_name: Blackbaud (blackbaud-marketplace)
+  type: marketplace
+  marketplace: blackbaud-marketplace
+  channel: partner-built
+  evidence: https://app.blackbaud.com/marketplace/applications/bc68562e-253a-4bf4-ba43-699f90721de6
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-classy-own
+  label: Classy (own)
+  partner: classy-org
+  partner_name: Classy (own)
+  category: fundraising-giving-tools
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://pro.gofundme.com/c/integrations/constant-contact/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-stripe-own
+  label: Stripe (own)
+  partner: stripe
+  partner_name: Stripe (own)
+  category: marketing
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.stripe.com/apps/constant-contact
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-wordpress-own
+  label: WordPress (own)
+  partner: wordpress
+  partner_name: WordPress (own)
+  category: WordPress plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://wordpress.org/plugins/constant-contact-forms/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A069LRR12SK-ctct-lgcrm-live-chat
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-zoom-own
+  label: Zoom (own)
+  partner: zoom
+  partner_name: Zoom (own)
+  category: Zoom app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.zoom.us/apps/wGQvAwgnQua_kJplQEx_Tg
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
 - slug: constant-contact-surveymonkey-own
   label: SurveyMonkey (own)
   partner: surveymonkey
@@ -702,6 +702,19 @@
   marketplace: own
   channel: partner-built
   evidence: https://www.surveymonkey.com/apps/sMG9kYyRHI1pBSkoRChs_2FA_3D_3D/details/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: constant-contact-wix-own
+  label: Wix (own)
+  partner: wix
+  partner_name: Wix (own)
+  category: Email
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.wix.com/app-market/developer/constant-contact
   source: edge
   relationship: platform-app
   status: not-a-workflow
