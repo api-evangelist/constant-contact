@@ -396,6 +396,8 @@ apis:
   - type: OpenAPI
     url: openapi/constant-contact-social-api-openapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/constant-contact/overview
 - type: FinOps
   url: finops/constant-contact-finops.yml
 - type: CapabilityMap
