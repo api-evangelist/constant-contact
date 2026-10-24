@@ -1,1497 +1,1365 @@
 {
+  "info": {
+    "_postman_id": "a42accdf-805c-47eb-8239-3bc83740e3bc",
+    "name": "AppConnect V3 Email Campaigns AB Tests API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:19:52.000Z",
+    "updatedAt": "2026-10-22T01:19:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a42accdf-805c-47eb-8239-3bc83740e3bc"
+  },
   "item": [
     {
-      "id": "f5a0b554-b044-409b-bdc1-1b5eda23f60d",
-      "name": "Email Campaigns AB Tests",
-      "description": {
-        "content": "Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.",
-        "type": "text/plain"
-      },
+      "name": "emails",
       "item": [
         {
-          "id": "3706d804-920a-4736-a416-c9353c1668c2",
-          "name": "GET A/B Test Details for an Email Campaign Activity",
-          "request": {
-            "name": "GET A/B Test Details for an Email Campaign Activity",
-            "description": {
-              "content": "Use this method to get A/B test details for a primary email campaign activity, such as the alternate email subject line, the contact test percentage size, and the number of hours to wait to determine the winning subject line to use. Currently, A/B tests support subject line only.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "emails",
-                "activities",
-                ":campaign_activity_id",
-                "abtest"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "campaign_activity_id",
-                  "description": "(Required) The unique ID for the primary email campaign activity."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "activities",
+          "item": [
             {
-              "id": "84275c2a-3368-4f55-8dc0-08ce50a6bb4f",
-              "name": "Request successful.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{campaign_activity_id}",
+              "item": [
+                {
+                  "name": "abtest",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "name": "GET A/B Test Details for an Email Campaign Activity",
+                      "id": "ce2c29e1-9aba-4118-b9a4-04ab45cd99dd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "emails",
+                            "activities",
+                            ":campaign_activity_id",
+                            "abtest"
+                          ],
+                          "variable": [
+                            {
+                              "id": "921e4c24-1c6e-4f31-92c4-8a30086ba70a",
+                              "key": "campaign_activity_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique ID for the primary email campaign activity."
+                            }
+                          ]
+                        },
+                        "description": "Use this method to get A/B test details for a primary email campaign activity, such as the alternate email subject line, the contact test percentage size, and the number of hours to wait to determine the winning subject line to use. Currently, A/B tests support subject line only."
+                      },
+                      "response": [
+                        {
+                          "id": "3aa76b97-501f-427a-ab90-7c2286695b8a",
+                          "name": "Request successful.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-3aa76b97-501f-427a-ab90-7c2286695b8a"
+                        },
+                        {
+                          "id": "ab5f376d-f6ab-4264-9d5d-da0f70dc6422",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-ab5f376d-f6ab-4264-9d5d-da0f70dc6422"
+                        },
+                        {
+                          "id": "612ecad9-f60a-4574-a688-2930b9afaddf",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-612ecad9-f60a-4574-a688-2930b9afaddf"
+                        },
+                        {
+                          "id": "5ab5ecef-a1b1-43e9-abf9-81632e1104f7",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-5ab5ecef-a1b1-43e9-abf9-81632e1104f7"
+                        },
+                        {
+                          "id": "5c70ec1b-1227-4ebf-9d9a-48a8a5a71039",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-5c70ec1b-1227-4ebf-9d9a-48a8a5a71039"
+                        },
+                        {
+                          "id": "24269a7d-36c0-4072-956f-a485cefb24dc",
+                          "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-24269a7d-36c0-4072-956f-a485cefb24dc"
+                        },
+                        {
+                          "id": "00335fb9-a822-48dd-81da-d1611f3f6a79",
+                          "name": "Too many requests. You exceeded the request rate limit.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-00335fb9-a822-48dd-81da-d1611f3f6a79"
+                        },
+                        {
+                          "id": "a46df5c9-a63b-4bcd-969a-1bcd1c70fa8b",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-a46df5c9-a63b-4bcd-969a-1bcd1c70fa8b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:53.000Z",
+                      "updatedAt": "2026-10-22T01:19:53.000Z",
+                      "uid": "35240-ce2c29e1-9aba-4118-b9a4-04ab45cd99dd"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3831ab29-a8fa-4fd7-928a-a9795cf6cc7f",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "name": "POST (Create) an A/B Test for an Email Campaign Activity",
+                      "id": "d38fc665-0fe1-4c4d-86fe-8282d9f6eecc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "emails",
+                            "activities",
+                            ":campaign_activity_id",
+                            "abtest"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a49ccd00-11df-4284-96c1-83a863451a51",
+                              "key": "campaign_activity_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique ID for the primary email campaign activity."
+                            }
+                          ]
+                        },
+                        "description": "Use this method to create a new A/B test for a primary email campaign activity. You must specify an alternative subject line, the percentage of contact to use for the A/B test, and the number of hours to wait after the A/B test is sent before determining the winning subject line. To create an A/B test, the campaign must have a `current_status` of `DRAFT`. When you create an A/B test, the `type` changes from Newsletter (code= `10`) to A/B Test (code= `57`)."
+                      },
+                      "response": [
+                        {
+                          "id": "68e951b8-5944-4e2a-bfa9-5e5c3d8ed282",
+                          "name": "Request successful.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-68e951b8-5944-4e2a-bfa9-5e5c3d8ed282"
+                        },
+                        {
+                          "id": "ba8cda7f-2bff-4d76-9982-f2f232d70e0b",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-ba8cda7f-2bff-4d76-9982-f2f232d70e0b"
+                        },
+                        {
+                          "id": "a1aa70c1-1ecd-40c6-8007-93bbf946a3fb",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-a1aa70c1-1ecd-40c6-8007-93bbf946a3fb"
+                        },
+                        {
+                          "id": "e24243a6-ba8c-46f0-8853-9a2df0ab0de6",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-e24243a6-ba8c-46f0-8853-9a2df0ab0de6"
+                        },
+                        {
+                          "id": "62603927-e2a6-4dca-b996-c37a95f483d1",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-62603927-e2a6-4dca-b996-c37a95f483d1"
+                        },
+                        {
+                          "id": "08f76b32-d60e-46e5-aa01-0934d417a63f",
+                          "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-08f76b32-d60e-46e5-aa01-0934d417a63f"
+                        },
+                        {
+                          "id": "642e7f61-635b-4aa6-84bf-ba5cf3437812",
+                          "name": "Too many requests. You exceeded the request rate limit.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-642e7f61-635b-4aa6-84bf-ba5cf3437812"
+                        },
+                        {
+                          "id": "87898984-7823-4235-a738-c23031f8316f",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-87898984-7823-4235-a738-c23031f8316f"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:53.000Z",
+                      "updatedAt": "2026-10-22T01:19:53.000Z",
+                      "uid": "35240-d38fc665-0fe1-4c4d-86fe-8282d9f6eecc"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "09dc953f-3579-4119-9aee-911d5cd5a02a",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
+                      "name": "DELETE an A/B Test for an Email Campaign Activity",
+                      "id": "ed68e67a-1b1e-400a-8345-096522d974f3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "emails",
+                            "activities",
+                            ":campaign_activity_id",
+                            "abtest"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cccf01a3-a02b-4af5-bdcb-27e1699df702",
+                              "key": "campaign_activity_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique ID for the primary email campaign activity."
+                            }
+                          ]
+                        },
+                        "description": "Deletes an A/B Test on an primary email campaign activity. You can only delete A/B tests that have a `current_status` of `Draft`. Deleting an A/B tests reverts the email campaign activity `type` from A/B Test (code= `57`) back to NewsLetter (code= `10`). Constant Contact uses the original subject line, rather than the alternate A/B test subject line, when an A/B test is deleted."
+                      },
+                      "response": [
+                        {
+                          "id": "a3cc27e8-e406-4b2f-a286-14693a269964",
+                          "name": "A/B test successfully deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-a3cc27e8-e406-4b2f-a286-14693a269964"
+                        },
+                        {
+                          "id": "e7d24810-ab41-440a-a98d-4f6aa311edcd",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-e7d24810-ab41-440a-a98d-4f6aa311edcd"
+                        },
+                        {
+                          "id": "17e3c2a1-11fb-4aba-9d54-eef0f8f02634",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-17e3c2a1-11fb-4aba-9d54-eef0f8f02634"
+                        },
+                        {
+                          "id": "4b675a0a-9245-4a7e-8f27-17a7ce10b998",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-4b675a0a-9245-4a7e-8f27-17a7ce10b998"
+                        },
+                        {
+                          "id": "be66ea1c-9872-49c2-af35-09ba2846520b",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-be66ea1c-9872-49c2-af35-09ba2846520b"
+                        },
+                        {
+                          "id": "681941e8-441d-4024-a725-9407efc16ca7",
+                          "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-681941e8-441d-4024-a725-9407efc16ca7"
+                        },
+                        {
+                          "id": "edb205b4-5d4c-42a9-bb21-ae99d9b63b46",
+                          "name": "Too many requests. You exceeded the request rate limit.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-edb205b4-5d4c-42a9-bb21-ae99d9b63b46"
+                        },
+                        {
+                          "id": "7bafd68a-f616-4d8d-bec5-ee9cdc2c5907",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/emails/activities/:campaign_activity_id/abtest",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "emails",
+                                "activities",
+                                ":campaign_activity_id",
+                                "abtest"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "campaign_activity_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:53.000Z",
+                          "updatedAt": "2026-10-22T01:19:53.000Z",
+                          "uid": "35240-7bafd68a-f616-4d8d-bec5-ee9cdc2c5907"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:53.000Z",
+                      "updatedAt": "2026-10-22T01:19:53.000Z",
+                      "uid": "35240-ed68e67a-1b1e-400a-8345-096522d974f3"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  ],
+                  "id": "3ea95dc9-fdf2-4c18-938a-00e2df101ab4",
+                  "createdAt": "2026-10-22T01:19:53.000Z",
+                  "updatedAt": "2026-10-22T01:19:53.000Z",
+                  "uid": "35240-3ea95dc9-fdf2-4c18-938a-00e2df101ab4"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ffc8af6d-922b-4fb0-aff2-c790be9fe40b",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "58802bd3-ee43-4d84-bed3-cff996e9e333",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a9283bd1-3ca4-4e39-a128-c60e1bea8330",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "14778911-ebff-43f2-b87d-462d62801860",
-              "name": "Too many requests. You exceeded the request rate limit.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ef4335a4-08d0-4937-909a-00e36dec83fc",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f5368a59-2be9-4e8c-8302-c9b039ec9e2e",
-          "name": "POST (Create) an A/B Test for an Email Campaign Activity",
-          "request": {
-            "name": "POST (Create) an A/B Test for an Email Campaign Activity",
-            "description": {
-              "content": "Use this method to create a new A/B test for a primary email campaign activity. You must specify an alternative subject line, the percentage of contact to use for the A/B test, and the number of hours to wait after the A/B test is sent before determining the winning subject line. To create an A/B test, the campaign must have a `current_status` of `DRAFT`. When you create an A/B test, the `type` changes from Newsletter (code= `10`) to A/B Test (code= `57`).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "emails",
-                "activities",
-                ":campaign_activity_id",
-                "abtest"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "campaign_activity_id",
-                  "description": "(Required) The unique ID for the primary email campaign activity."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"alternative_subject\": \"<string>\",\n  \"test_size\": \"<integer>\",\n  \"winner_wait_duration\": \"<integer>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "72ad291b-ff94-441c-b14f-23d50fa8d889",
-              "name": "Request successful.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b85d2ce9-c2d2-4bc4-804b-01fbac0a1b74",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5e9d2055-3b81-4d84-bc48-b58879ec683b",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "91446e99-f855-41c9-9221-3ca9fa8f55b9",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0ffe949e-4208-48be-9e6d-d639582bb295",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a50484cc-3c31-4e42-96ad-31992510a40c",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c6208dfb-a931-45c6-bf59-10017327962b",
-              "name": "Too many requests. You exceeded the request rate limit.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "74851b75-3556-4ec3-9a52-7dd977ceac82",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"alternative_subject\": \"Reminder: Our Biggest Sale of the Year is Coming Soon!\",\n  \"test_size\": 30,\n  \"winner_wait_duration\": 24\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "90555db8-4ad5-46f7-b28f-80a471660c2c",
-          "name": "DELETE an A/B Test for an Email Campaign Activity",
-          "request": {
-            "name": "DELETE an A/B Test for an Email Campaign Activity",
-            "description": {
-              "content": "Deletes an A/B Test on an primary email campaign activity. You can only delete A/B tests that have a `current_status` of `Draft`. Deleting an A/B tests reverts the email campaign activity `type` from A/B Test (code= `57`) back to NewsLetter (code= `10`). Constant Contact uses the original subject line, rather than the alternate A/B test subject line, when an A/B test is deleted.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "emails",
-                "activities",
-                ":campaign_activity_id",
-                "abtest"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "campaign_activity_id",
-                  "description": "(Required) The unique ID for the primary email campaign activity."
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "097cc7b5-4918-431f-a894-5c2f8a3b33af",
-              "name": "A/B test successfully deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3d509c36-72c2-44a8-87ee-632d5b146f89",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "649e761f-ad0b-45a7-87bf-2834424b0a05",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "86defcbd-0a56-464e-8b50-bbbc62fba775",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3574f120-aea7-450f-b631-c7d5d551920f",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8aad68ae-f75b-43ff-ada9-2d6d22411567",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "260fd259-e2ee-4ac9-b3da-e9b42d0a6325",
-              "name": "Too many requests. You exceeded the request rate limit.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f2cf5995-39ce-4232-b046-95acc6c64a2c",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "emails",
-                    "activities",
-                    ":campaign_activity_id",
-                    "abtest"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "campaign_activity_id",
-                      "description": "(Required) The unique ID for the primary email campaign activity."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "7db7967a-5162-4185-a8d0-061e1d85b019",
+              "createdAt": "2026-10-22T01:19:53.000Z",
+              "updatedAt": "2026-10-22T01:19:53.000Z",
+              "uid": "35240-7db7967a-5162-4185-a8d0-061e1d85b019"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "db07e883-14b6-4040-96fe-0f92c8d1bf6f",
+          "createdAt": "2026-10-22T01:19:53.000Z",
+          "updatedAt": "2026-10-22T01:19:53.000Z",
+          "uid": "35240-db07e883-14b6-4040-96fe-0f92c8d1bf6f"
         }
       ],
-      "event": []
+      "id": "df7ce694-a014-4a0f-bb0f-7235c2bfcf5b",
+      "createdAt": "2026-10-22T01:19:53.000Z",
+      "updatedAt": "2026-10-22T01:19:53.000Z",
+      "uid": "35240-df7ce694-a014-4a0f-bb0f-7235c2bfcf5b"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.cc.email/v3",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
     }
-  ],
-  "info": {
-    "_postman_id": "3024aa3f-b5d1-4220-8b39-c023ecd082fe",
-    "name": "AppConnect V3 Account Services Email Campaigns AB Tests API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

@@ -1,1646 +1,1545 @@
 {
+  "info": {
+    "_postman_id": "9b920aec-5051-497b-85f8-bf99a320ee31",
+    "name": "AppConnect V3 Contact Tags API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:19:26.000Z",
+    "updatedAt": "2026-10-22T01:19:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9b920aec-5051-497b-85f8-bf99a320ee31"
+  },
   "item": [
     {
-      "id": "d2f84997-8986-4c23-8540-54c0f9d35927",
-      "name": "Contact Tags",
-      "description": {
-        "content": "Endpoints and methods to get, create, delete, and update one or more contact tags.",
-        "type": "text/plain"
-      },
+      "name": "contact_tags",
       "item": [
         {
-          "id": "700af6ab-46fe-4fc0-af21-70eed264d0ec",
-          "name": "GET Tag Details",
-          "request": {
-            "name": "GET Tag Details",
-            "description": {
-              "content": "Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see  [Get a Tag's Details](/api_guide/tags_get_single.html).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "contact_tags",
-                ":tag_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "include_count",
-                  "value": "false",
-                  "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "tag_id",
-                  "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "{tag_id}",
+          "item": [
             {
-              "id": "97f64b54-46a1-46e7-b4e3-2e4ff85f108b",
-              "name": "Request Successful",
-              "originalRequest": {
+              "name": "GET Tag Details",
+              "id": "62b65ecd-2754-4d2e-b494-3077e0212ffe",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "contact_tags",
                     ":tag_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
                       "key": "include_count",
-                      "value": "true"
+                      "value": "false"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
+                      "id": "07e62b67-3545-4a56-9d03-c065cdfb7f98",
                       "key": "tag_id",
+                      "value": "<uuid>",
                       "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
                     }
                   ]
                 },
+                "description": "Use this method to get tag details for a specified `tag_id`. Use the `include_count` query parameter to include or exclude the total number of contacts to which this tag is assigned. To learn more, see Get a Tag's Details."
+              },
+              "response": [
+                {
+                  "id": "42b0f480-8c4b-4e8b-9775-5c9cfa53c2a7",
+                  "name": "Request Successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"tag_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"tag_source\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-42b0f480-8c4b-4e8b-9775-5c9cfa53c2a7"
+                },
+                {
+                  "id": "e3527f79-bfdb-49a7-ac99-dcb02bf91c8b",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-e3527f79-bfdb-49a7-ac99-dcb02bf91c8b"
+                },
+                {
+                  "id": "eb267c66-091c-4bdb-99ee-e9b9058e979d",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-eb267c66-091c-4bdb-99ee-e9b9058e979d"
+                },
+                {
+                  "id": "5347b0e8-04e9-4db5-8f8d-980b9c56b4d9",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-5347b0e8-04e9-4db5-8f8d-980b9c56b4d9"
+                },
+                {
+                  "id": "6c862983-23e8-4edc-8871-8d43262da38b",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-6c862983-23e8-4edc-8871-8d43262da38b"
+                },
+                {
+                  "id": "f3ae5fa7-d8b5-4661-a38b-253ca3b8a0eb",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id?include_count=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Use to include (`true`) or exclude (`false`) the total number of tagged contacts (`contacts_count`) from the results.",
+                          "key": "include_count",
+                          "value": "false"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-f3ae5fa7-d8b5-4661-a38b-253ca3b8a0eb"
+                }
+              ],
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-62b65ecd-2754-4d2e-b494-3077e0212ffe"
+            },
+            {
+              "name": "PUT (Update) a Tag",
+              "id": "3310fc74-fffc-4076-841c-7207a899d53c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tag_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"name\": \"Gold card member\",\n  \"contacts_count\": 325,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"tag_source\": \"ESTY\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0af8140d-170e-4427-8630-13951e8da2e8",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "include_count",
-                      "value": "true"
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
                     }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
                   }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "bb4690b3-a49c-452f-af6b-a01a526b87f3",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "contact_tags",
                     ":tag_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
+                      "id": "d10294ac-aa8d-49e1-8b0e-5c86a85a1192",
                       "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "db05e2e6-689a-4592-a433-28b37b18c8ca",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
                       "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a32dac3e-b6d1-4d14-b5da-6b59e825e5f5",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "504c9ce8-bd5e-4aa8-85eb-d0a4bb0b6df6",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8c1c55fc-207b-4eea-af66-cbd040e2df3d",
-          "name": "PUT (Update) a Tag",
-          "request": {
-            "name": "PUT (Update) a Tag",
-            "description": {
-              "content": "Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. [Learn more](/api_guide/tags_update.html)",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "contact_tags",
-                ":tag_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "tag_id",
-                  "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "c893d378-ef82-40c7-b856-e980657b5178",
-              "name": "Request Successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
                       "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                "description": "Use this method to rename an existing tag to a new unique tag name (`name`). The maximum length is 255 characters. The `tag_source` value cannot be updated using this method. You can set the `tag_source` value using the `POST contact_tags method`. Learn more"
+              },
+              "response": [
+                {
+                  "id": "3f3886da-1683-4e5b-bce6-0f3b8cf0043d",
+                  "name": "Request Successful",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"tag_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"tag_source\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-3f3886da-1683-4e5b-bce6-0f3b8cf0043d"
+                },
+                {
+                  "id": "82d64343-55ef-4182-81b1-ad9282ebaf85",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-82d64343-55ef-4182-81b1-ad9282ebaf85"
+                },
+                {
+                  "id": "5c92e33e-2e94-4c02-b8f4-153556c84cca",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-5c92e33e-2e94-4c02-b8f4-153556c84cca"
+                },
+                {
+                  "id": "319b06e5-4940-44a4-8623-a513b7741e17",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-319b06e5-4940-44a4-8623-a513b7741e17"
+                },
+                {
+                  "id": "dd07d7b9-a178-444e-b72a-b2f4f59a51ba",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-dd07d7b9-a178-444e-b72a-b2f4f59a51ba"
+                },
+                {
+                  "id": "58466730-692c-4108-9dd3-e58f63788547",
+                  "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-58466730-692c-4108-9dd3-e58f63788547"
+                },
+                {
+                  "id": "fea10d1f-876a-4649-8974-5a8a6ab8d7d6",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-fea10d1f-876a-4649-8974-5a8a6ab8d7d6"
+                }
+              ],
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-3310fc74-fffc-4076-841c-7207a899d53c"
+            },
+            {
+              "name": "DELETE a Tag",
+              "id": "501784a9-1985-47e6-9ac9-cc9462372c5f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tag_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"name\": \"Gold card member\",\n  \"contacts_count\": 325,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"tag_source\": \"ESTY\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "afe23305-44d8-4a00-b3f0-1dcf746282e3",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "contact_tags",
                     ":tag_id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
+                      "id": "442cdea6-78b2-4605-bc2e-6906987a24c4",
                       "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6d336b99-3336-4d44-a11f-6051ceb1c28b",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
                       "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "09871ed6-0768-4542-8008-c9155a9b76f4",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "776140d0-fe8b-4702-a7c7-b52b494d8bbc",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "58955c82-1633-452c-93cb-c31fa1d51040",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f2309ca2-862b-4236-90ca-bef7c3ab5b6d",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The system generated ID used to uniquely identify the tag that you want to rename (UUID format)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Bronze card member\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "46c6f94a-fb21-4003-a42f-88e3f39aecf6",
-          "name": "DELETE a Tag",
-          "request": {
-            "name": "DELETE a Tag",
-            "description": {
-              "content": "Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. [Learn more](/api_guide/tags_delete.html).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "contact_tags",
-                ":tag_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "tag_id",
-                  "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "a2fba0e5-66e1-446c-b921-9a54bad90955",
-              "name": "The asynchronous request was successfully accepted. To view the results of the activity request, use the href link returned in the response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
                       "description": "(Required) The ID that uniquely identifies a tag in UUID format."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                "description": "Use this method to create an activity used to un-assign a tag from all assigned contacts and delete the tag. This is an asynchronous activity. To view activity details for the delete request, use the href link returned in the response. Learn more."
+              },
+              "response": [
+                {
+                  "id": "29e90c52-ddc8-4f75-893a-a11e87d31ac8",
+                  "name": "The asynchronous request was successfully accepted. To view the results of the activity request, use the href link returned in the response.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Accepted",
-              "code": 202,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"activity_id\": \"d44ac96c-24f3-11eb-8ae8-fa163e595123\",\n  \"state\": \"completed\",\n  \"created_at\": \"2016-01-23T13:48:44.108Z\",\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"percent_done\": 25,\n  \"activity_errors\": [\n    {\n      \"message\": \"string\"\n    },\n    {\n      \"message\": \"string\"\n    }\n  ],\n  \"status\": {\n    \"items_total_count\": 89,\n    \"items_completed_count\": 89\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"/v3/activities/04fe9a97-a579-43c5-bb1a-58ed29bf0a6a\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1e0223fe-728b-4651-8468-c73cb721fd20",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "Accepted",
+                  "code": 202,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"activity_id\": \"<string>\",\n  \"state\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"percent_done\": \"<integer>\",\n  \"activity_errors\": [\n    {\n      \"message\": \"<string>\"\n    },\n    {\n      \"message\": \"<string>\"\n    }\n  ],\n  \"status\": {\n    \"items_total_count\": \"<integer>\",\n    \"items_completed_count\": \"<integer>\"\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-29e90c52-ddc8-4f75-893a-a11e87d31ac8"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "14cfa312-bc4e-4b09-a3dc-d7612b94b804",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-14cfa312-bc4e-4b09-a3dc-d7612b94b804"
+                },
+                {
+                  "id": "93ae7865-9898-44fa-a4b0-ff309d582e1d",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-93ae7865-9898-44fa-a4b0-ff309d582e1d"
+                },
+                {
+                  "id": "91513ccc-ff5b-4928-a4a2-8a9539b24102",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-91513ccc-ff5b-4928-a4a2-8a9539b24102"
+                },
+                {
+                  "id": "6f9b94cb-32f8-44fe-af7d-0f9e05b7c42c",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-6f9b94cb-32f8-44fe-af7d-0f9e05b7c42c"
+                },
+                {
+                  "id": "25687164-0599-49ab-9d8e-94dcb0a21ce9",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Acceptable",
+                  "code": 406,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-25687164-0599-49ab-9d8e-94dcb0a21ce9"
+                },
+                {
+                  "id": "67c7f9c6-2164-41ac-b09a-28149ddc82cc",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/contact_tags/:tag_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "contact_tags",
+                        ":tag_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "tag_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:19:26.000Z",
+                  "updatedAt": "2026-10-22T01:19:26.000Z",
+                  "uid": "35240-67c7f9c6-2164-41ac-b09a-28149ddc82cc"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e2f57493-dba0-48bb-97de-9808c7803440",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "99d0f0ad-b773-4279-bb38-b5b603b57c8a",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3bf506ff-cceb-4e10-b3f1-3a580c228e17",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "fe87ceb3-a9e5-4d1f-8ad6-663f983aebba",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Acceptable",
-              "code": 406,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e7049a4c-27a1-435a-9b74-66b948b713be",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags",
-                    ":tag_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "tag_id",
-                      "description": "(Required) The ID that uniquely identifies a tag in UUID format."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-501784a9-1985-47e6-9ac9-cc9462372c5f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f37d7a2c-63d4-47c8-b2d9-85cd6e33e9d8",
+          "createdAt": "2026-10-22T01:19:26.000Z",
+          "updatedAt": "2026-10-22T01:19:26.000Z",
+          "uid": "35240-f37d7a2c-63d4-47c8-b2d9-85cd6e33e9d8"
         },
         {
-          "id": "52ea41cd-3944-440d-88b5-cf86f51e16d6",
           "name": "GET Details for All Tags",
+          "id": "cfb24cf7-7042-45d9-8194-5e88aca6c199",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "GET Details for All Tags",
-            "description": {
-              "content": "Use this endpoint to get details for all tags in your account. Use the <code>include_count</code> query parameter to include the total number of contacts assigned each tag. Use the <code>limit</code> query parameter to limit the number of tag results returned per page. To get the next page of results, copy the <code>cursor={the cursor ID}</code> from the resulting href link and add it (<code>&</code>) to the URL. For example:\n\n<p><code>/v3/contact_tags?limit=1&cursor=</code></p><p><code>bGltaXQ9MSZuZXh0PTJjZDgwMjdhLTc4YzAtMTFlOS1iZmQwLWZhMTYzZTZiMDFjMQ=</code></p>\nTo learn more, see [Get Tags](/api_guide/tags_get.html).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "contact_tags"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
                 {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "50",
-                  "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`."
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update billing_data",
+                  "type": "string"
                 },
                 {
-                  "disabled": false,
-                  "key": "include_count",
-                  "value": "false",
-                  "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies."
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit",
+                  "type": "string"
                 }
-              ],
-              "variable": []
+              ]
             },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
+            "url": {
+              "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contact_tags"
+              ],
+              "query": [
                 {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
+                  "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                  "key": "limit",
+                  "value": "50"
                 },
                 {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
+                  "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                  "key": "include_count",
+                  "value": "false"
                 }
               ]
-            }
+            },
+            "description": "Use this endpoint to get details for all tags in your account. Use the include_count query parameter to include the total number of contacts assigned each tag. Use the limit query parameter to limit the number of tag results returned per page. To get the next page of results, copy the cursor={the cursor ID} from the resulting href link and add it (&) to the URL. For example:\n\n/v3/contact_tags?limit=1&cursor=\n\nbGltaXQ9MSZuZXh0PTJjZDgwMjdhLTc4YzAtMTFlOS1iZmQwLWZhMTYzZTZiMDFjMQ=\n\nTo learn more, see Get Tags."
           },
           "response": [
             {
-              "id": "64c07489-cc40-456a-9afd-0642e5eaa207",
+              "id": "a41a8df0-00ae-4bed-b2e6-b3594615dc57",
               "name": "Request Successful",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"tags\": [\n    {\n      \"tag_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Gold card member\",\n      \"contacts_count\": 325,\n      \"created_at\": \"2019-04-25T11:08:00.000Z\",\n      \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n      \"tag_source\": \"ESTY\"\n    },\n    {\n      \"tag_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Gold card member\",\n      \"contacts_count\": 325,\n      \"created_at\": \"2019-04-25T11:08:00.000Z\",\n      \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n      \"tag_source\": \"ESTY\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\",\n      \"next\": {\n        \"href\": \"string\"\n      }\n    }\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"tags\": [\n    {\n      \"tag_id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"contacts_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"tag_source\": \"<string>\"\n    },\n    {\n      \"tag_id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"contacts_count\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"tag_source\": \"<string>\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"<string>\",\n      \"next\": {\n        \"href\": \"<string>\"\n      }\n    }\n  }\n}",
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-a41a8df0-00ae-4bed-b2e6-b3594615dc57"
             },
             {
-              "id": "b0d9fb1d-b9f2-4827-af2a-3c6456d5fc09",
+              "id": "04fdfa94-191b-44c8-803e-7efd8e9536ae",
               "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-04fdfa94-191b-44c8-803e-7efd8e9536ae"
             },
             {
-              "id": "f108e037-a185-433b-af1f-ba038e159453",
+              "id": "612a3394-8ad5-4c4a-b058-52362f15b82a",
               "name": "The Access Token used is invalid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-612a3394-8ad5-4c4a-b058-52362f15b82a"
             },
             {
-              "id": "9a380f1d-c13b-48af-bf47-3c8cf2e0ca7a",
+              "id": "b05eed0e-2b14-4c92-bbf8-60be4db36033",
               "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-b05eed0e-2b14-4c92-bbf8-60be4db36033"
             },
             {
-              "id": "3b84d444-a085-459a-8c9d-c8419394b842",
+              "id": "1f35a9b7-1616-4011-a24e-f8acd77aaa3b",
               "name": "The requested resource was not found.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-1f35a9b7-1616-4011-a24e-f8acd77aaa3b"
             },
             {
-              "id": "fd12f916-c530-4762-a1e8-57e2cbfb9487",
+              "id": "252f3517-41b4-4079-b30e-517bd9738e9c",
               "name": "There was a problem with our internal service.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "25"
-                    },
-                    {
-                      "key": "include_count",
-                      "value": "true"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags?limit=50&include_count=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "Use to specify the number of tag results (up to `500`) to display per page of output. The default is `50`.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Returns the total number of contacts (`contacts_count`) to which a tag applies.",
+                      "key": "include_count",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-252f3517-41b4-4079-b30e-517bd9738e9c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:19:26.000Z",
+          "updatedAt": "2026-10-22T01:19:26.000Z",
+          "uid": "35240-cfb24cf7-7042-45d9-8194-5e88aca6c199"
         },
         {
-          "id": "6d071b31-457e-45d7-b58a-d2371366cff0",
           "name": "POST (Create) a Tag",
+          "id": "7881e5e5-bc38-4824-ae34-2a36fa09dac5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "POST (Create) a Tag",
-            "description": {
-              "content": "Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. [Learn more](/api_guide/tags_create.html).",
-              "type": "text/plain"
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update billing_data",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "contact_tags"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -1651,393 +1550,382 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/contact_tags",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "contact_tags"
+              ]
+            },
+            "description": "Use this method to create a new tag. The tag `name` is required and must be unique and can include most common keyboard symbols. Optionally, when creating a new tag you can specify the source (`tag_source`) used to identify the contacts to tag in the request body. Learn more."
           },
           "response": [
             {
-              "id": "3c8a117d-9302-4d06-bfc1-534a5e76d21f",
+              "id": "87b60f7d-f003-45b1-ad3d-84adf920a637",
               "name": "Request Successful",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"tag_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"name\": \"Gold card member\",\n  \"contacts_count\": 325,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"updated_at\": \"2016-01-23T13:48:44.108Z\",\n  \"tag_source\": \"ESTY\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"tag_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"contacts_count\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"tag_source\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-87b60f7d-f003-45b1-ad3d-84adf920a637"
             },
             {
-              "id": "d3a1e55c-a9f6-42b3-a4ff-bee752156972",
+              "id": "2166bb79-6fc2-4e1d-8538-eec0bb7fc720",
               "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-2166bb79-6fc2-4e1d-8538-eec0bb7fc720"
             },
             {
-              "id": "34e6638f-a46d-47c9-98c7-53e118789af5",
+              "id": "8d64e61b-7a70-4013-b7a7-4d9263c4625d",
               "name": "The Access Token used is invalid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-8d64e61b-7a70-4013-b7a7-4d9263c4625d"
             },
             {
-              "id": "181a68e1-6980-4640-98b2-24a521ddf16d",
+              "id": "027534bd-e380-4694-bafd-5a147fabffd1",
               "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-027534bd-e380-4694-bafd-5a147fabffd1"
             },
             {
-              "id": "9c2538b1-234c-472e-9a1e-923b1a3115e7",
+              "id": "23f8a44b-e929-4aa0-b7c1-5a9a1d0e6473",
               "name": "The requested resource was not found.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-23f8a44b-e929-4aa0-b7c1-5a9a1d0e6473"
             },
             {
-              "id": "2909b51a-2017-48f0-8f48-d36c95397527",
+              "id": "87aeccc4-5a96-4f92-bea9-6cdda5177206",
               "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Conflict",
               "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-87aeccc4-5a96-4f92-bea9-6cdda5177206"
             },
             {
-              "id": "fc5659c7-1140-4bf1-a575-b3aa6e1eceb8",
+              "id": "77c43f89-eb4d-4b43-9cb8-bc3e67ac205a",
               "name": "There was a problem with our internal service.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "contact_tags"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Silver card member\",\n  \"tag_source\": \"ESTY\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"tag_source\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/contact_tags",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "contact_tags"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:19:26.000Z",
+              "updatedAt": "2026-10-22T01:19:26.000Z",
+              "uid": "35240-77c43f89-eb4d-4b43-9cb8-bc3e67ac205a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:19:26.000Z",
+          "updatedAt": "2026-10-22T01:19:26.000Z",
+          "uid": "35240-7881e5e5-bc38-4824-ae34-2a36fa09dac5"
         }
       ],
-      "event": []
+      "id": "8b98df7d-1222-4cbf-b895-2ceb10fe2635",
+      "createdAt": "2026-10-22T01:19:26.000Z",
+      "updatedAt": "2026-10-22T01:19:26.000Z",
+      "uid": "35240-8b98df7d-1222-4cbf-b895-2ceb10fe2635"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.cc.email/v3",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
     }
-  ],
-  "info": {
-    "_postman_id": "9cb03e72-73a5-4b64-9bcb-74b1d75ac367",
-    "name": "AppConnect V3 Account Services Contact Tags API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

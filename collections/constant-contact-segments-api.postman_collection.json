@@ -1,484 +1,2150 @@
 {
+  "info": {
+    "_postman_id": "e7436129-9bf4-4f5c-a1a3-b3d4e1cbf92a",
+    "name": "AppConnect V3 Segments API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:20:33.000Z",
+    "updatedAt": "2026-10-22T01:20:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e7436129-9bf4-4f5c-a1a3-b3d4e1cbf92a"
+  },
   "item": [
     {
-      "id": "b11ae05f-aa04-4ca9-844f-eb5b01793591",
-      "name": "Segments",
-      "description": {
-        "content": "Use segments to target a subset of your contacts that are most likely to engage with a particular campaign.",
-        "type": "text/plain"
-      },
+      "name": "segments",
       "item": [
         {
-          "id": "823b67dd-a737-490c-b462-90a297b51733",
-          "name": "GET all Segments",
-          "request": {
-            "name": "GET all Segments",
-            "description": {
-              "content": "Use this method to get a list of all segments associated with the account. You can sort segment results and limit the number of segments that display per page. Deleted segments are excluded from the results. For more use case information, see [Get All Segments](/api_guide/segment_get_all.html) in the API guide.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "segments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "1000",
-                  "description": "The number of segments to return on a page."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "date",
-                  "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "{segment_id}",
+          "item": [
             {
-              "id": "fbd3ce48-6061-4ebf-bb8d-64d309c47b7d",
-              "name": "Request successful.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
+              "name": "name",
+              "item": [
+                {
+                  "name": "PATCH (rename) a Segment",
+                  "id": "0016ba45-bf2a-49cf-84c3-790013a1f020",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "contact_data campaign_data account_read account_update billing_data",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "implicit",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id/name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id",
+                        "name"
+                      ],
+                      "variable": [
+                        {
+                          "id": "88ab9c92-eb7a-4a5a-bbcf-ad6d4af82f09",
+                          "key": "segment_id",
+                          "value": "<integer>",
+                          "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
+                        }
+                      ]
+                    },
+                    "description": "Use this method to update an existing segment `name` with a new unique name in the request body. For more use case information, see Rename a Segment in the API guide."
+                  },
+                  "response": [
+                    {
+                      "id": "225d0aed-a267-4d7a-b316-ad77ebfb51b9",
+                      "name": "The segment name was successfully updated.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\",\n  \"segment_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"edited_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-225d0aed-a267-4d7a-b316-ad77ebfb51b9"
+                    },
+                    {
+                      "id": "259ff3c9-0c36-456e-89e7-e36ddd6d26ae",
+                      "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-259ff3c9-0c36-456e-89e7-e36ddd6d26ae"
+                    },
+                    {
+                      "id": "f8f2b4ee-6be4-4069-9850-272a9633ecc8",
+                      "name": "The Access Token used is invalid.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-f8f2b4ee-6be4-4069-9850-272a9633ecc8"
+                    },
+                    {
+                      "id": "417be800-9ee5-4739-82f7-3ba923ffdbec",
+                      "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-417be800-9ee5-4739-82f7-3ba923ffdbec"
+                    },
+                    {
+                      "id": "2ec5b5a0-4623-4c3c-9afb-21157e790d6e",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-2ec5b5a0-4623-4c3c-9afb-21157e790d6e"
+                    },
+                    {
+                      "id": "7ab496b8-2ee2-474d-a297-f17b708febe2",
+                      "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-7ab496b8-2ee2-474d-a297-f17b708febe2"
+                    },
+                    {
+                      "id": "bbb796e8-836d-4b2c-9088-f73ce64ac02c",
+                      "name": "Unsupported Media Type.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unsupported Media Type",
+                      "code": 415,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-bbb796e8-836d-4b2c-9088-f73ce64ac02c"
+                    },
+                    {
+                      "id": "8d316080-b016-445e-af83-09758753b4b3",
+                      "name": "There was a problem with our internal service.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/segments/:segment_id/name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "segments",
+                            ":segment_id",
+                            "name"
+                          ],
+                          "variable": [
+                            {
+                              "key": "segment_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:34.000Z",
+                      "updatedAt": "2026-10-22T01:20:34.000Z",
+                      "uid": "35240-8d316080-b016-445e-af83-09758753b4b3"
+                    }
                   ],
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-0016ba45-bf2a-49cf-84c3-790013a1f020"
+                }
+              ],
+              "id": "50b2e169-559f-47cd-a91c-f24ee916cd2f",
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-50b2e169-559f-47cd-a91c-f24ee916cd2f"
+            },
+            {
+              "name": "GET a Segment's Details",
+              "id": "c15405c9-7347-4ed2-bc74-613ec517b1ef",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/segments/:segment_id",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
+                  "path": [
+                    "segments",
+                    ":segment_id"
+                  ],
+                  "variable": [
                     {
-                      "key": "limit",
-                      "value": "1000"
-                    },
+                      "id": "605bfdd3-8abd-42f3-ae5b-2d52f36cab8e",
+                      "key": "segment_id",
+                      "value": "<integer>",
+                      "description": "(Required) The system-generated unique ID that identifies a segment."
+                    }
+                  ]
+                },
+                "description": "Use this method to get details about a segment, including the segment criteria. If you know the `segment_id` You can also use this method to get details about a deleted segment. For more use case information, see Get a Segment's Details in the API guide."
+              },
+              "response": [
+                {
+                  "id": "57253156-f99f-4cd9-93f1-78256913a098",
+                  "name": "The segment was successfully returned.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\",\n  \"segment_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"edited_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-57253156-f99f-4cd9-93f1-78256913a098"
                 },
+                {
+                  "id": "502c8e16-f291-46b7-bcb7-434608f8ae11",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-502c8e16-f291-46b7-bcb7-434608f8ae11"
+                },
+                {
+                  "id": "09d62d0d-b481-42f7-8fd5-87932acb1df3",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-09d62d0d-b481-42f7-8fd5-87932acb1df3"
+                },
+                {
+                  "id": "af15237c-d75b-4bec-9ecd-ce2f2a353ad4",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-af15237c-d75b-4bec-9ecd-ce2f2a353ad4"
+                },
+                {
+                  "id": "5ed7e98e-33e4-47e8-9787-bd8cce486d50",
+                  "name": "Unsupported Media Type.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unsupported Media Type",
+                  "code": 415,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-5ed7e98e-33e4-47e8-9787-bd8cce486d50"
+                },
+                {
+                  "id": "7b8c4fa1-5c5d-429f-914d-656eea6b57ef",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-7b8c4fa1-5c5d-429f-914d-656eea6b57ef"
+                }
+              ],
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-c15405c9-7347-4ed2-bc74-613ec517b1ef"
+            },
+            {
+              "name": "PUT (update) a Segment",
+              "id": "dcea3292-ab2d-40e0-90ed-0841636a5c5f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments/:segment_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments",
+                    ":segment_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5a3b10f2-3423-4577-b6ec-88594308a4d2",
+                      "key": "segment_id",
+                      "value": "<integer>",
+                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
+                    }
+                  ]
+                },
+                "description": "Use this method to update an existing segment's name (`name`) and/or contact selection criteria (`segment_criteria`). You must specify both the `name` and the `segment_criteria` in the request body, even if you don't plan to update both. The segment's name must be unique and the JSON must be valid (requires single-string escaped JSON). To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated. For more use case information, see Update Segment Details in the API guide."
+              },
+              "response": [
+                {
+                  "id": "8d896f99-4f8e-4d87-abfa-f94325696d3e",
+                  "name": "The segment was successfully updated.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\",\n  \"segment_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"edited_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-8d896f99-4f8e-4d87-abfa-f94325696d3e"
+                },
+                {
+                  "id": "a18bf870-be0d-4ea8-8dd5-599c1636ae81",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-a18bf870-be0d-4ea8-8dd5-599c1636ae81"
+                },
+                {
+                  "id": "1ed0c37a-e7b3-4e4f-a3d6-d5f9517d962e",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-1ed0c37a-e7b3-4e4f-a3d6-d5f9517d962e"
+                },
+                {
+                  "id": "175ac8e7-c5d6-4075-af66-df4aa570e13e",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-175ac8e7-c5d6-4075-af66-df4aa570e13e"
+                },
+                {
+                  "id": "7cbc4348-77e6-4eca-bb79-09bca53a8e2e",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-7cbc4348-77e6-4eca-bb79-09bca53a8e2e"
+                },
+                {
+                  "id": "53b06235-edc3-4195-a739-2ed8f64ad023",
+                  "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-53b06235-edc3-4195-a739-2ed8f64ad023"
+                },
+                {
+                  "id": "8a29c644-7c85-47f4-9a6c-5fb8a79cfdbf",
+                  "name": "Unsupported Media Type.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unsupported Media Type",
+                  "code": 415,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-8a29c644-7c85-47f4-9a6c-5fb8a79cfdbf"
+                },
+                {
+                  "id": "a04c1e90-52ad-470d-9304-12899ef70433",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-a04c1e90-52ad-470d-9304-12899ef70433"
+                }
+              ],
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-dcea3292-ab2d-40e0-90ed-0841636a5c5f"
+            },
+            {
+              "name": "DELETE a Segment",
+              "id": "95fa5777-5731-4606-a0cc-b2256b8d9e16",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/segments/:segment_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments",
+                    ":segment_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "555c1aca-1b59-4052-ae53-082eb39c5338",
+                      "key": "segment_id",
+                      "value": "<integer>",
+                      "description": "(Required) The system generated ID that uniquely identifies the segment."
+                    }
+                  ]
+                },
+                "description": "Use this method to delete a segment from your account. Before deleting a segment, verify that the segment is not associated with a scheduled campaign.\n\nDeleted segments do not display in the results when using the `GET /segments` endpoint. If you know the `segment_id`, you can use the `GET /segments/{segment_id}` endpoint to view the deleted segment's details. A segment's details are preserved for external reference purposes, such as displaying the segment name in a campaign's history. For more use case information, see Delete a Segment in the API guide."
+              },
+              "response": [
+                {
+                  "id": "23e490c3-be3c-4695-ac94-75f1a6712a26",
+                  "name": "The segment was successfully deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-23e490c3-be3c-4695-ac94-75f1a6712a26"
+                },
+                {
+                  "id": "a9c734db-231a-4a5a-a01d-20656f81d795",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-a9c734db-231a-4a5a-a01d-20656f81d795"
+                },
+                {
+                  "id": "1f65cba4-21c4-46e7-a34b-72d2c694ce0f",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-1f65cba4-21c4-46e7-a34b-72d2c694ce0f"
+                },
+                {
+                  "id": "cc66d319-bea2-47e2-ab40-b659411eebc0",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-cc66d319-bea2-47e2-ab40-b659411eebc0"
+                },
+                {
+                  "id": "0129959c-bc42-43de-a3aa-e8026dd0ad0e",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-0129959c-bc42-43de-a3aa-e8026dd0ad0e"
+                },
+                {
+                  "id": "0efb9b00-fdef-42e2-b5ff-dfb858e1db0a",
+                  "name": "Unsupported Media Type.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unsupported Media Type",
+                  "code": 415,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-0efb9b00-fdef-42e2-b5ff-dfb858e1db0a"
+                },
+                {
+                  "id": "08dffc16-a687-46f9-a451-be5779e1445f",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/segments/:segment_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "segments",
+                        ":segment_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "segment_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:20:34.000Z",
+                  "updatedAt": "2026-10-22T01:20:34.000Z",
+                  "uid": "35240-08dffc16-a687-46f9-a451-be5779e1445f"
+                }
+              ],
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-95fa5777-5731-4606-a0cc-b2256b8d9e16"
+            }
+          ],
+          "id": "b35c09b5-b8ec-452c-8144-87e98e02e873",
+          "createdAt": "2026-10-22T01:20:34.000Z",
+          "updatedAt": "2026-10-22T01:20:34.000Z",
+          "uid": "35240-b35c09b5-b8ec-452c-8144-87e98e02e873"
+        },
+        {
+          "name": "GET all Segments",
+          "id": "a1466e9a-7382-4423-860d-a7d83d0c9552",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update billing_data",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments"
+              ],
+              "query": [
+                {
+                  "description": "The number of segments to return on a page.",
+                  "key": "limit",
+                  "value": "1000"
+                },
+                {
+                  "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                  "key": "sort_by",
+                  "value": "date"
+                }
+              ]
+            },
+            "description": "Use this method to get a list of all segments associated with the account. You can sort segment results and limit the number of segments that display per page. Deleted segments are excluded from the results. For more use case information, see Get All Segments in the API guide."
+          },
+          "response": [
+            {
+              "id": "1c9ee65c-4271-4334-b1d7-c77f309a7fa2",
+              "name": "Request successful.",
+              "originalRequest": {
                 "method": "GET",
-                "body": {}
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"segments\": [\n    {\n      \"name\": \"Re-engage contacts who did not open the last 5 campaigns.\",\n      \"segment_id\": 14,\n      \"created_at\": \"2019-04-25T11:08:00.000Z\",\n      \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n    },\n    {\n      \"name\": \"Re-engage contacts who did not open the last 5 campaigns.\",\n      \"segment_id\": 14,\n      \"created_at\": \"2019-04-25T11:08:00.000Z\",\n      \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"segments\": [\n    {\n      \"name\": \"<string>\",\n      \"segment_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"edited_at\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"segment_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"edited_at\": \"<dateTime>\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-1c9ee65c-4271-4334-b1d7-c77f309a7fa2"
             },
             {
-              "id": "acc3ee15-ff78-4f33-ab3c-f38fa80ef758",
+              "id": "25869803-9b58-432e-b05e-29004494b575",
               "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-25869803-9b58-432e-b05e-29004494b575"
             },
             {
-              "id": "9b7d9e14-d46b-413a-85bc-415cba179320",
+              "id": "0532c627-f89e-4a66-a831-8a5f37975e85",
               "name": "The Access Token used is invalid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-0532c627-f89e-4a66-a831-8a5f37975e85"
             },
             {
-              "id": "60984033-4501-4926-aab1-23c906d80424",
+              "id": "8024fb38-2d06-4f73-96a9-85ea558782e6",
               "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-8024fb38-2d06-4f73-96a9-85ea558782e6"
             },
             {
-              "id": "b636f914-30c4-40ce-910d-2bb0cdd950f3",
+              "id": "d958643b-03c5-45ae-8428-7b4e46c19b61",
               "name": "The requested resource was not found.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-d958643b-03c5-45ae-8428-7b4e46c19b61"
             },
             {
-              "id": "0d028f43-222d-435f-b06f-256a9a4b1592",
+              "id": "2430b49a-696b-4249-97ca-ce7a8809f3ae",
               "name": "Unsupported Media Type.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Unsupported Media Type",
               "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-2430b49a-696b-4249-97ca-ce7a8809f3ae"
             },
             {
-              "id": "2164b498-9006-48cb-8b1d-2e4f3d95c36f",
+              "id": "319cb0b8-a329-400d-8e49-2c9c94abfa59",
               "name": "Too many requests. You exceeded the request rate limit.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-319cb0b8-a329-400d-8e49-2c9c94abfa59"
             },
             {
-              "id": "b478df0d-d8e0-4040-8c20-443dd1336024",
+              "id": "10019859-ba4b-4ad9-a756-dec1e7e71247",
               "name": "There was a problem with our internal service.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "1000"
-                    },
-                    {
-                      "key": "sort_by",
-                      "value": "sort_by=date"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/segments?limit=1000&sort_by=date",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of segments to return on a page.",
+                      "key": "limit",
+                      "value": "1000"
+                    },
+                    {
+                      "description": "Specify the segment sort order to use. Sort by name (`sort_by=name`) in ascending order, or sort by date (`sort_by=date`) in descending order with the most recently updated segments listed first.",
+                      "key": "sort_by",
+                      "value": "date"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-10019859-ba4b-4ad9-a756-dec1e7e71247"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:20:34.000Z",
+          "updatedAt": "2026-10-22T01:20:34.000Z",
+          "uid": "35240-a1466e9a-7382-4423-860d-a7d83d0c9552"
         },
         {
-          "id": "64fc6440-8e3a-4db8-9bb9-54fa849f3dc2",
           "name": "POST (create) a Segment",
+          "id": "67c76b13-4da8-4cfc-bea8-ad0e075b99aa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "POST (create) a Segment",
-            "description": {
-              "content": "Use this method to create a new segment. You create segments to target a subset of your contacts that meet your specific criteria for a marketing campaign. The segment `name` must be unique. The `segment_criteria` requires single-string escaped JSON. Constant Contact uses the contact data that you specify in the `segment_criteria` to evaluate and identify the contacts you want to target. Contact data can be grouped from different data sources, including:\n\n  -  **`tracking`**: Supports **or** and **and** groups.\n\n\n  -  **`contact`**: Supports **or** and **and** groups.\n\n\n  -  **`list_membership`**: Supports **or** groups.\n\n  -  **`tags`**: Supports **or** groups.\n\nIf you do not specify `list_membership` as criteria, Constant Contact evaluates all contacts in your account. To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated.\n\nFor more use case information, see the [Segments Overview](/api_guide/segments_overview.html) in the API guide.",
-              "type": "text/plain"
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "contact_data campaign_data account_read account_update billing_data",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "segments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -489,2194 +2155,382 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/segments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments"
+              ]
+            },
+            "description": "Use this method to create a new segment. You create segments to target a subset of your contacts that meet your specific criteria for a marketing campaign. The segment `name` must be unique. The `segment_criteria` requires single-string escaped JSON. Constant Contact uses the contact data that you specify in the `segment_criteria` to evaluate and identify the contacts you want to target. Contact data can be grouped from different data sources, including:\n\n- **`tracking`**: Supports **or** and **and** groups.\n\n- **`contact`**: Supports **or** and **and** groups.\n\n- **`list_membership`**: Supports **or** groups.\n\n- **`tags`**: Supports **or** groups.\n\nIf you do not specify `list_membership` as criteria, Constant Contact evaluates all contacts in your account. To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated.\n\nFor more use case information, see the Segments Overview in the API guide."
           },
           "response": [
             {
-              "id": "79348b1a-16d1-4da2-926c-aa7c2840cc49",
+              "id": "cf85bf09-985a-4975-ad4e-5abe20f16e50",
               "name": "Segment successfully created.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\",\n  \"segment_id\": 14,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\",\n  \"segment_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"edited_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-cf85bf09-985a-4975-ad4e-5abe20f16e50"
             },
             {
-              "id": "5acf4603-3429-4c5e-a314-fd1db328c998",
+              "id": "363216ec-96a4-471d-86d6-70a188a303ab",
               "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-363216ec-96a4-471d-86d6-70a188a303ab"
             },
             {
-              "id": "f8e3ff9c-2920-483e-8ea9-e844d7eb1373",
+              "id": "4e07ba7a-a5c9-44a6-9d94-e0032abcd944",
               "name": "The Access Token used is invalid.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-4e07ba7a-a5c9-44a6-9d94-e0032abcd944"
             },
             {
-              "id": "66c37ec6-c6b6-49c1-a08e-6ea00393eb15",
+              "id": "150e1448-49a4-46b7-9b03-4edd3d464dac",
               "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-150e1448-49a4-46b7-9b03-4edd3d464dac"
             },
             {
-              "id": "0802a140-eeed-422d-978b-9dd42b97b1b1",
+              "id": "a62a3eb4-67e2-4f0f-b31a-c90729d95a71",
               "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
                     "key": "Authorization",
                     "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "segments"
+                  ]
                 }
               },
               "status": "Conflict",
               "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-a62a3eb4-67e2-4f0f-b31a-c90729d95a71"
             },
             {
-              "id": "63c0f958-bd44-4763-b27a-7c781009d98d",
+              "id": "0029c3bb-f9d8-497f-b472-eff344253b75",
               "name": "Unsupported Media Type.",
               "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  ]
                 }
               },
               "status": "Unsupported Media Type",
               "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-0029c3bb-f9d8-497f-b472-eff344253b75"
             },
             {
-              "id": "8584318f-86a3-460e-ab52-cd824a1e0933",
+              "id": "8e4ac590-d6de-4998-8fed-34bb0028d3b7",
               "name": "There was a problem with our internal service.",
               "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/segments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "segments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:20:34.000Z",
+              "updatedAt": "2026-10-22T01:20:34.000Z",
+              "uid": "35240-8e4ac590-d6de-4998-8fed-34bb0028d3b7"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4daa9597-aad9-4b36-be79-c752aeb14543",
-          "name": "GET a Segment's Details",
-          "request": {
-            "name": "GET a Segment's Details",
-            "description": {
-              "content": "Use this method to get details about a segment, including the segment criteria. If you know the `segment_id` You can also use this method to get details about a deleted segment. For more use case information, see [Get a Segment's Details](/api_guide/segment_get.html) in the API guide.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "segments",
-                ":segment_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "segment_id",
-                  "description": "(Required) The system-generated unique ID that identifies a segment."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e1faa35f-23c4-4caf-a20e-e937dcf554a8",
-              "name": "The segment was successfully returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\",\n  \"segment_id\": 14,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8626f19a-4b9b-4f9f-b672-97e83859d6ee",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "90734f5a-a508-462a-9d80-4ae241af04cd",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "93c9108e-7eeb-40ec-a919-46e201cdeb0a",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f5815b85-6d25-4793-8c7f-9073f8691f82",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f57adaa9-55af-4ae8-9808-0de1c6465595",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system-generated unique ID that identifies a segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "889277f8-8d8c-4bd2-b2de-4534a1c6654f",
-          "name": "PUT (update) a Segment",
-          "request": {
-            "name": "PUT (update) a Segment",
-            "description": {
-              "content": "Use this method to update an existing segment's name (`name`) and/or contact selection criteria (`segment_criteria`). You must specify both the `name` and the `segment_criteria` in the request body, even if you don't plan to update both. The segment's name must be unique and the JSON must be valid (requires single-string escaped JSON). To avoid returning a 400 error response, when specifying the `segment_criteria` do not request more than 500 email campaigns or a date range greater than 1825 days (5 years) be evaluated. For more use case information, see [Update Segment Details](/api_guide/segment_update.html) in the API guide.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "segments",
-                ":segment_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "segment_id",
-                  "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"segment_criteria\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ca5a05c2-4f23-4c7e-a5a5-ff18d5320113",
-              "name": "The segment was successfully updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\",\n  \"segment_id\": 14,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1fa63c4f-ffe4-494f-883c-c4bb62258cba",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b55a1df8-bd24-43d7-abc7-2186e7af6000",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "594684bf-5db0-48a8-b34a-2816c67abe07",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a3fe2cf7-c79c-4baa-9612-f7485c077c28",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "89f2cf12-3b38-4e90-b646-723554510e20",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "eb6e46dc-82c0-4f54-9e43-cdf006837509",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a0578726-9c07-49e3-8270-c05e65b402f6",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a7e61102-b742-4b56-bf6f-321194000c20",
-          "name": "DELETE a Segment",
-          "request": {
-            "name": "DELETE a Segment",
-            "description": {
-              "content": "Use this method to delete a segment from your account. Before deleting a segment, verify that the segment is not associated with a scheduled campaign.\n\nDeleted segments do not display in the results when using the `GET /segments` endpoint. If you know the `segment_id`, you can use the `GET /segments/{segment_id}` endpoint to view the deleted segment's details. A segment's details are preserved for external reference purposes, such as displaying the segment name in a campaign's history. For more use case information, see [Delete a Segment](/api_guide/segment_delete.html) in the API guide.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "segments",
-                ":segment_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "segment_id",
-                  "description": "(Required) The system generated ID that uniquely identifies the segment."
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "cd904e92-f09d-4521-9f6e-21a99932b96f",
-              "name": "The segment was successfully deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "435e419e-e6cf-41f2-a458-df26249f8cd5",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a9b35093-b104-445e-bca2-9c758043d25e",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a47c24f4-8bb4-45d6-a640-b2e6169324dd",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "87cb6637-1f47-45f5-bf3b-6568407ec505",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "20a54b68-1772-49e7-a473-270415d867b1",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "86a9edf3-b54f-42a8-bf8c-9ffa685d8471",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7b6d1926-746c-49b8-9d84-39e2dac536be",
-          "name": "PATCH (rename) a Segment",
-          "request": {
-            "name": "PATCH (rename) a Segment",
-            "description": {
-              "content": "Use this method to update an existing segment `name` with a new unique name in the request body. For more use case information, see [Rename a Segment](/api_guide/segment_rename.html) in the API guide.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "segments",
-                ":segment_id",
-                "name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "segment_id",
-                  "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "5f755377-f798-4394-9383-fd405441736a",
-              "name": "The segment name was successfully updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"Re-engage contacts who did not open the last 5 email campaign activities.\",\n  \"segment_criteria\": \"{\\\"version\\\":\\\"1.0.0\\\",\\\"criteria\\\":{\\\"type\\\":\\\"and\\\",\\\"group\\\":[{\\\"source\\\":\\\"tracking\\\",\\\"field\\\":\\\"not_opened\\\",\\\"op\\\":\\\"contains-any\\\",\\\"const_value\\\":\\\"last-n-campaigns\\\",\\\"param\\\":\\\"5\\\"}]}}\",\n  \"segment_id\": 14,\n  \"created_at\": \"2019-04-25T11:08:00.000Z\",\n  \"edited_at\": \"2019-04-25T11:08:00.000Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ebc9db2f-fdfa-4a8a-99be-f940490fab02",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5a0f731b-ddfe-4133-9e37-1f25a4639b08",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2bba90bb-bdf0-4bfa-8ad5-fab94690b737",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "eb4a416e-8565-4fdb-980a-8be968c93809",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6da11f67-df49-4cbf-be98-bb723b0ee986",
-              "name": "Conflict. The resource you are creating or updating conflicts with an existing resource.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "dae7836b-c70b-418e-8d0e-536379940f5c",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "43d08719-cb38-4914-bd72-e542546f619d",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "segments",
-                    ":segment_id",
-                    "name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "segment_id",
-                      "description": "(Required) The system generated ID that uniquely identifies the segment that you want to modify."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contacts who did not open any email campaign within the last 100 days.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:20:34.000Z",
+          "updatedAt": "2026-10-22T01:20:34.000Z",
+          "uid": "35240-67c76b13-4da8-4cfc-bea8-ad0e075b99aa"
         }
       ],
-      "event": []
+      "id": "e9f4e780-6eaa-44ff-9c16-88968d5dc8d6",
+      "createdAt": "2026-10-22T01:20:34.000Z",
+      "updatedAt": "2026-10-22T01:20:34.000Z",
+      "uid": "35240-e9f4e780-6eaa-44ff-9c16-88968d5dc8d6"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.cc.email/v3",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
     }
-  ],
-  "info": {
-    "_postman_id": "d5b348c6-8090-4c8a-b646-e4fb8747fa6f",
-    "name": "AppConnect V3 Account Services Segments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

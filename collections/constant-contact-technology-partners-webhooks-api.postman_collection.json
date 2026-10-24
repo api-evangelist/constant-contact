@@ -1,1857 +1,1696 @@
 {
+  "info": {
+    "_postman_id": "3c0971cf-06e0-45a9-adbb-bfaf789a2736",
+    "name": "AppConnect V3 Technology Partners Webhooks API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:20:54.000Z",
+    "updatedAt": "2026-10-22T01:20:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3c0971cf-06e0-45a9-adbb-bfaf789a2736"
+  },
   "item": [
     {
-      "id": "b687da01-9e37-4170-b690-32a99497df87",
-      "name": "Technology Partners Webhooks",
-      "description": {
-        "content": "Use partner webhooks to subscribe to billing event notifications from Constant Contact.",
-        "type": "text/plain"
-      },
+      "name": "partner",
       "item": [
         {
-          "id": "c7cc0744-5567-4e41-a91b-b49f3f3359db",
-          "name": "GET a Collection of Webhook Topic Subscriptions",
-          "request": {
-            "name": "GET a Collection of Webhook Topic Subscriptions",
-            "description": {
-              "content": "Use this GET method to return a collection containing your application's webhook subscriptions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "partner",
-                "webhooks",
-                "subscriptions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "v3api/general.partner"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "webhooks",
+          "item": [
             {
-              "id": "51c4a5f7-c4c1-45d5-bd3c-7bdd21e3e062",
-              "name": "Request successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+              "name": "subscriptions",
+              "item": [
+                {
+                  "name": "{topic_id}",
+                  "item": [
+                    {
+                      "name": "tests",
+                      "item": [
+                        {
+                          "name": "POST Test Send Webhook Notification",
+                          "id": "571455d1-3b33-4e3c-9cf2-ff39d806db93",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "oauth2",
+                              "oauth2": [
+                                {
+                                  "key": "scope",
+                                  "value": "v3api/general.partner",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "authUrl",
+                                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "grant_type",
+                                  "value": "implicit",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id",
+                                "tests"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "659a876a-1d3d-4f0f-b5b6-5122bb12a220",
+                                  "key": "topic_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Identifies a webhook topic."
+                                }
+                              ]
+                            },
+                            "description": "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n* `1` - Billing tier upgrade.\n* `2` - Billing tier downgrade.\n* `3` - Account cancelled.\n* `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data."
+                          },
+                          "response": [
+                            {
+                              "id": "c9dcb01f-7852-4880-aa77-5b92cd544d9e",
+                              "name": "Test notification successfully sent to your callback URI.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"topic_id\": \"<integer>\",\n  \"hook_uri\": \"<string>\",\n  \"topic_name\": \"<string>\",\n  \"topic_description\": \"<string>\"\n}",
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-c9dcb01f-7852-4880-aa77-5b92cd544d9e"
+                            },
+                            {
+                              "id": "4463f27c-e08b-4178-b3fe-122128aa3b3f",
+                              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-4463f27c-e08b-4178-b3fe-122128aa3b3f"
+                            },
+                            {
+                              "id": "68d8edc9-5898-4f57-9bab-2b98d0cb2dfa",
+                              "name": "The Access Token used is invalid.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-68d8edc9-5898-4f57-9bab-2b98d0cb2dfa"
+                            },
+                            {
+                              "id": "4c19da23-fa17-4bba-acc3-d4366f2f661b",
+                              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-4c19da23-fa17-4bba-acc3-d4366f2f661b"
+                            },
+                            {
+                              "id": "8ac995cf-877d-48ac-9fea-cf9998488ca6",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-8ac995cf-877d-48ac-9fea-cf9998488ca6"
+                            },
+                            {
+                              "id": "f1aedfce-0836-4560-bd0b-1f6ef1138aa0",
+                              "name": "There was a problem with our internal service.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id/tests",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "partner",
+                                    "webhooks",
+                                    "subscriptions",
+                                    ":topic_id",
+                                    "tests"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "topic_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-22T01:20:55.000Z",
+                              "updatedAt": "2026-10-22T01:20:55.000Z",
+                              "uid": "35240-f1aedfce-0836-4560-bd0b-1f6ef1138aa0"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:20:54.000Z",
+                          "updatedAt": "2026-10-22T01:20:54.000Z",
+                          "uid": "35240-571455d1-3b33-4e3c-9cf2-ff39d806db93"
+                        }
+                      ],
+                      "id": "16b92791-5833-4383-90a6-5b223bf69120",
+                      "createdAt": "2026-10-22T01:20:54.000Z",
+                      "updatedAt": "2026-10-22T01:20:54.000Z",
+                      "uid": "35240-16b92791-5833-4383-90a6-5b223bf69120"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    {
+                      "name": "GET Webhook Topic Subscription",
+                      "id": "b0b41446-3222-40c8-9b42-32f8ed88dd84",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "v3api/general.partner",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions",
+                            ":topic_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a4ca6820-7970-4bf6-87e1-b9f004f1e8e2",
+                              "key": "topic_id",
+                              "value": "<string>",
+                              "description": "(Required) Identifies a webhook topic."
+                            }
+                          ]
+                        },
+                        "description": "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n* `1` - Billing tier upgrade.\n* `2` - Billing tier downgrade.\n* `3` - Account cancelled.\n* `4` - Account disabled."
+                      },
+                      "response": [
+                        {
+                          "id": "7cc3ade3-5aa6-4271-86b5-cc9b979cd7d4",
+                          "name": "Request successful",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"topic_id\": \"<integer>\",\n  \"hook_uri\": \"<string>\",\n  \"topic_name\": \"<string>\",\n  \"topic_description\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-7cc3ade3-5aa6-4271-86b5-cc9b979cd7d4"
+                        },
+                        {
+                          "id": "de4e69d3-e9ea-4e2c-a81c-f6f113199bb5",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-de4e69d3-e9ea-4e2c-a81c-f6f113199bb5"
+                        },
+                        {
+                          "id": "5a9d0702-5d1e-49b4-b108-4e00c8f2645d",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-5a9d0702-5d1e-49b4-b108-4e00c8f2645d"
+                        },
+                        {
+                          "id": "e098501b-1634-46da-b829-b73ec26e74b1",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-e098501b-1634-46da-b829-b73ec26e74b1"
+                        },
+                        {
+                          "id": "eb97e8c4-5e37-4270-bc41-c7f6082eb12b",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-eb97e8c4-5e37-4270-bc41-c7f6082eb12b"
+                        },
+                        {
+                          "id": "7cf93615-7df6-465f-8382-74cd503b2650",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-7cf93615-7df6-465f-8382-74cd503b2650"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:20:54.000Z",
+                      "updatedAt": "2026-10-22T01:20:54.000Z",
+                      "uid": "35240-b0b41446-3222-40c8-9b42-32f8ed88dd84"
+                    },
+                    {
+                      "name": "PUT Webhook Topic Subscription",
+                      "id": "ad175d81-0b0a-4e2a-b34a-8f1438261411",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "v3api/general.partner",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions",
+                            ":topic_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ebe4eb12-3dd2-4171-9ade-60523cd753f3",
+                              "key": "topic_id",
+                              "value": "<string>",
+                              "description": "(Required) Identifies a webhook topic."
+                            }
+                          ]
+                        },
+                        "description": "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n* `1` - Billing tier upgrade.\n* `2` - Billing tier downgrade.\n* `3` - Account cancelled.\n* `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request body:\n\n```\n{\"url\":\"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan\",\n\"api_key\":\"90ed8738-5190-44a3-bc12-c172930db12c\",\n\"event_type\":\"tier.increase\"}\n```\n\nIf your application does not return a success response after receiving a notification, Constant Contact will retry sending the POST notification at 1 minute intervals for up to an hour."
+                      },
+                      "response": [
+                        {
+                          "id": "047a5a28-e201-4b91-9402-d08b40b62665",
+                          "name": "Request successful.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"topic_id\": \"<integer>\",\n  \"hook_uri\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-047a5a28-e201-4b91-9402-d08b40b62665"
+                        },
+                        {
+                          "id": "91c5fe78-7961-410e-ba4e-52bd13ee9852",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-91c5fe78-7961-410e-ba4e-52bd13ee9852"
+                        },
+                        {
+                          "id": "c9821310-48c4-4876-a5a1-c4fd472ad1e6",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-c9821310-48c4-4876-a5a1-c4fd472ad1e6"
+                        },
+                        {
+                          "id": "0c16b574-9106-4f44-8c2d-e71163e91721",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-0c16b574-9106-4f44-8c2d-e71163e91721"
+                        },
+                        {
+                          "id": "4605f36f-f0bf-45d3-a965-04bd175a2aaa",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-4605f36f-f0bf-45d3-a965-04bd175a2aaa"
+                        },
+                        {
+                          "id": "b78ea01a-2870-434b-b499-68665b708203",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-b78ea01a-2870-434b-b499-68665b708203"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:20:54.000Z",
+                      "updatedAt": "2026-10-22T01:20:54.000Z",
+                      "uid": "35240-ad175d81-0b0a-4e2a-b34a-8f1438261411"
+                    },
+                    {
+                      "name": "DELETE Webhook Topic Subscriptions",
+                      "id": "674ef119-6b83-4b33-8aa3-00b9c7a455c3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "v3api/general.partner",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions",
+                            ":topic_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c4655f9b-b753-4ee2-b811-91722ddbf940",
+                              "key": "topic_id",
+                              "value": "<string>",
+                              "description": "(Required) Identifies a webhook topic."
+                            }
+                          ]
+                        },
+                        "description": "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n* `1` - Billing tier upgrade.\n* `2` - Billing tier downgrade.\n* `3` - Account cancelled.\n* `4` - Account disabled."
+                      },
+                      "response": [
+                        {
+                          "id": "89e144d0-4fb8-409e-aa0a-21c5ba66c73f",
+                          "name": "Webhooks subscription successfully deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-89e144d0-4fb8-409e-aa0a-21c5ba66c73f"
+                        },
+                        {
+                          "id": "fedd90d2-d226-42f4-9abf-db9c4346ef0c",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-fedd90d2-d226-42f4-9abf-db9c4346ef0c"
+                        },
+                        {
+                          "id": "2a7106d0-7c29-4b24-8215-f057ed828aa1",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-2a7106d0-7c29-4b24-8215-f057ed828aa1"
+                        },
+                        {
+                          "id": "bc8a5d4c-b87d-4f3f-9e26-62b283c1dea4",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-bc8a5d4c-b87d-4f3f-9e26-62b283c1dea4"
+                        },
+                        {
+                          "id": "8af7802e-64e9-4b88-aeee-abd03f6661f7",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-8af7802e-64e9-4b88-aeee-abd03f6661f7"
+                        },
+                        {
+                          "id": "f84f2451-db4e-4b25-abfb-d294fe65d097",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/partner/webhooks/subscriptions/:topic_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "partner",
+                                "webhooks",
+                                "subscriptions",
+                                ":topic_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "topic_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:20:55.000Z",
+                          "updatedAt": "2026-10-22T01:20:55.000Z",
+                          "uid": "35240-f84f2451-db4e-4b25-abfb-d294fe65d097"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:20:54.000Z",
+                      "updatedAt": "2026-10-22T01:20:54.000Z",
+                      "uid": "35240-674ef119-6b83-4b33-8aa3-00b9c7a455c3"
+                    }
+                  ],
+                  "id": "cc76e813-4a27-4a14-b7ee-2df7fbf833af",
+                  "createdAt": "2026-10-22T01:20:54.000Z",
+                  "updatedAt": "2026-10-22T01:20:54.000Z",
+                  "uid": "35240-cc76e813-4a27-4a14-b7ee-2df7fbf833af"
+                },
+                {
+                  "name": "GET a Collection of Webhook Topic Subscriptions",
+                  "id": "75d82376-e8ea-4e1a-ba7e-e9b719e1a1b2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"topic_id\": 2,\n    \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\",\n    \"topic_name\": \"Billing Tier Downgrade\",\n    \"topic_description\": \"Executes when an account's billing tier is downgraded.\"\n  },\n  {\n    \"topic_id\": 2,\n    \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\",\n    \"topic_name\": \"Billing Tier Downgrade\",\n    \"topic_description\": \"Executes when an account's billing tier is downgraded.\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c49cab45-35bb-4a52-8287-80f717cc814b",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "v3api/general.partner",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "implicit",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "96e0699d-2c70-40fd-85a7-3980394dd66d",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "partner",
+                        "webhooks",
+                        "subscriptions"
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4e992260-1d43-4399-8d8f-d1d9cdd4d43c",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9a58b228-654f-455d-9029-ee4878497a76",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e0dcf009-2a04-42d5-ad0c-6eeb8a5feec7",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "704fa0ad-8ea2-4ecc-b5f6-da2f2ea03083",
-          "name": "GET Webhook Topic Subscription",
-          "request": {
-            "name": "GET Webhook Topic Subscription",
-            "description": {
-              "content": "Use this GET method to return subscription information for a certain `topic_id`. Possible `topic_id` values include:\n\n  * `1` - Billing tier upgrade.\n  * `2` - Billing tier downgrade.\n  * `3` - Account cancelled.\n  * `4` - Account disabled.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "partner",
-                "webhooks",
-                "subscriptions",
-                ":topic_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "topic_id",
-                  "description": "(Required) Identifies a webhook topic."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "v3api/general.partner"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "bc2e2ffa-097d-48cf-8333-9b2a970f7ed2",
-              "name": "Request successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "description": "Use this GET method to return a collection containing your application's webhook subscriptions."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"topic_id\": 2,\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\",\n  \"topic_name\": \"Billing Tier Downgrade\",\n  \"topic_description\": \"Executes when an account's billing tier is downgraded.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "08e29efa-cdc5-46fd-a8b2-97df001f161b",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "82d698de-bc94-47cc-bfaf-117fb5682f3b",
+                      "name": "Request successful",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"topic_id\": \"<integer>\",\n    \"hook_uri\": \"<string>\",\n    \"topic_name\": \"<string>\",\n    \"topic_description\": \"<string>\"\n  },\n  {\n    \"topic_id\": \"<integer>\",\n    \"hook_uri\": \"<string>\",\n    \"topic_name\": \"<string>\",\n    \"topic_description\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-82d698de-bc94-47cc-bfaf-117fb5682f3b"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "41ac54d4-f45d-45d7-ab32-8c39518792ad",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "f053a1f1-7644-42dd-900c-80a9d6c1a0f8",
+                      "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-f053a1f1-7644-42dd-900c-80a9d6c1a0f8"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8f975730-fe38-4dcc-a5a8-08091bc48c5a",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "312393f6-f51a-4bf0-b70a-e7c7214b0928",
+                      "name": "The Access Token used is invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-312393f6-f51a-4bf0-b70a-e7c7214b0928"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ac802e0d-eb83-4ad7-befe-c1a5356cee84",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "338cb887-5914-4bca-b790-199f7e618d51",
+                      "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-338cb887-5914-4bca-b790-199f7e618d51"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3f3b1cb8-31f6-4d0b-8fac-34c20b1ca799",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
+                      "id": "b3097e47-e9f9-4212-9752-5388864ea275",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-b3097e47-e9f9-4212-9752-5388864ea275"
                     },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                    {
+                      "id": "786e21ef-657f-4e32-8bb6-973ad0c5e868",
+                      "name": "There was a problem with our internal service.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/partner/webhooks/subscriptions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "partner",
+                            "webhooks",
+                            "subscriptions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:20:55.000Z",
+                      "updatedAt": "2026-10-22T01:20:55.000Z",
+                      "uid": "35240-786e21ef-657f-4e32-8bb6-973ad0c5e868"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:20:54.000Z",
+                  "updatedAt": "2026-10-22T01:20:54.000Z",
+                  "uid": "35240-75d82376-e8ea-4e1a-ba7e-e9b719e1a1b2"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "b44f46ba-2321-4af0-9ffc-c54ec5a36cdb",
+              "createdAt": "2026-10-22T01:20:54.000Z",
+              "updatedAt": "2026-10-22T01:20:54.000Z",
+              "uid": "35240-b44f46ba-2321-4af0-9ffc-c54ec5a36cdb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bf42b08a-79d4-4c68-8ae1-ca9004cb1a70",
-          "name": "PUT Webhook Topic Subscription",
-          "request": {
-            "name": "PUT Webhook Topic Subscription",
-            "description": {
-              "content": "Use this PUT method to subscribe your application to a `topic_id` or to update the callback URI for an existing subscription. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you subscribe your application, Constant Contact will automatically start sending POST notifications for your chosen topic to your application's callback URI. This is an example of the POST notification request body:\n\n  ```\n  {\"url\":\"https://api.cc.email/v3/partner/accounts/a07e1my9tbw0/plan\",\n  \"api_key\":\"90ed8738-5190-44a3-bc12-c172930db12c\",\n  \"event_type\":\"tier.increase\"}\n  ```\n</br>\nIf your application does not return a success response after receiving a notification, Constant Contact will retry sending the POST notification at 1 minute intervals for up to an hour.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "partner",
-                "webhooks",
-                "subscriptions",
-                ":topic_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "topic_id",
-                  "description": "(Required) Identifies a webhook topic."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "v3api/general.partner"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"hook_uri\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "feba8846-cb52-42fb-8e9a-dccdc2a7b57f",
-              "name": "Request successful.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"topic_id\": 1,\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8b8d2bd6-9fa8-41b5-b1cc-b22e45afbaf7",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "024c3587-e64c-4a0b-b15e-8be62226858c",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "aa1be47b-d912-41d9-9181-77d48c83f5af",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "71203577-fad5-4d32-be6d-3ff27091ca62",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ece75ca3-1f26-4709-bde5-fcf182b0456c",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8c0f51db-a3fd-4902-85f1-4ff8a9eca476",
-          "name": "DELETE Webhook Topic Subscriptions",
-          "request": {
-            "name": "DELETE Webhook Topic Subscriptions",
-            "description": {
-              "content": "Use this DELETE method to unsubscribe your application from notifications on a certain `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "partner",
-                "webhooks",
-                "subscriptions",
-                ":topic_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "topic_id",
-                  "description": "(Required) Identifies a webhook topic."
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "v3api/general.partner"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "ed73fa81-d1b8-484a-be47-5ffc761a929f",
-              "name": "Webhooks subscription successfully deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9c91029f-2f26-4267-8ec4-c9f68ccdae97",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b7d428c6-b63c-4981-8e8c-18c2798dad53",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "90a4d32e-0c46-4ca9-a126-227f16e788c7",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "638f9284-87f3-4490-aa2e-06e9730aef47",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4564569a-cd9c-4a69-8015-f1a68a8a9f5f",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f41d5d72-d484-498b-a3b9-75532737976d",
-          "name": "POST Test Send Webhook Notification",
-          "request": {
-            "name": "POST Test Send Webhook Notification",
-            "description": {
-              "content": "Use this POST method to validate a webhook subscription by triggering a test notification for your chosen webhook `topic_id`. Possible `topic_id` values include:\n\n * `1` - Billing tier upgrade.\n * `2` - Billing tier downgrade.\n * `3` - Account cancelled.\n * `4` - Account disabled.\n\nAfter you successfully send this request, Constant Contact will automatically send a POST notification to your chosen topic's callback URI with example data.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "partner",
-                "webhooks",
-                "subscriptions",
-                ":topic_id",
-                "tests"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "topic_id",
-                  "description": "(Required) Identifies a webhook topic."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "v3api/general.partner"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://v3api-partner.auth.us-east-1.amazoncognito.com/oauth2/token"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "efb8ab1a-2126-4aab-8479-56d4cd52cb8a",
-              "name": "Test notification successfully sent to your callback URI.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"topic_id\": 2,\n  \"hook_uri\": \"https://www.examplename.com/webhooks/billingTier\",\n  \"topic_name\": \"Billing Tier Downgrade\",\n  \"topic_description\": \"Executes when an account's billing tier is downgraded.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bf3d5671-0d5d-4c68-bc49-dc6cb520c5f3",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "671c10e7-f9e9-46e0-b4f6-45b61d1ac78a",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "cee30d4d-3c89-44aa-bcff-e47d287ad0e7",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3b5c9645-639d-40c7-b32d-12e3790a7c21",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3b3af70d-a161-4b4f-880c-bf59f8796ded",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "partner",
-                    "webhooks",
-                    "subscriptions",
-                    ":topic_id",
-                    "tests"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "topic_id",
-                      "description": "(Required) Identifies a webhook topic."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d1ffc1c7-dfdb-4775-932d-e4cb00dade93",
+          "createdAt": "2026-10-22T01:20:54.000Z",
+          "updatedAt": "2026-10-22T01:20:54.000Z",
+          "uid": "35240-d1ffc1c7-dfdb-4775-932d-e4cb00dade93"
         }
       ],
-      "event": []
+      "id": "dab4f123-4c67-460b-a06f-053988a071fb",
+      "createdAt": "2026-10-22T01:20:54.000Z",
+      "updatedAt": "2026-10-22T01:20:54.000Z",
+      "uid": "35240-dab4f123-4c67-460b-a06f-053988a071fb"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.cc.email/v3",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
     }
-  ],
-  "info": {
-    "_postman_id": "2a8814dc-3b27-4cd5-89ab-41dfba4b6164",
-    "name": "AppConnect V3 Account Services Technology Partners Webhooks API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

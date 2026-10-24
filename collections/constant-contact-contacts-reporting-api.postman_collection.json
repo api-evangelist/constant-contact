@@ -1,1576 +1,1521 @@
 {
+  "info": {
+    "_postman_id": "fad16b28-929b-45dd-ae0e-3349cb2cbfde",
+    "name": "AppConnect V3 Contacts Reporting API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:19:42.000Z",
+    "updatedAt": "2026-10-22T01:19:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fad16b28-929b-45dd-ae0e-3349cb2cbfde"
+  },
   "item": [
     {
-      "id": "e450a168-62a7-4f71-845e-7d7797861c05",
-      "name": "Contacts Reporting",
-      "description": {
-        "content": "Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.",
-        "type": "text/plain"
-      },
+      "name": "reports",
       "item": [
         {
-          "id": "c8b1ddfa-4002-468a-b55d-8c179f4afd8e",
-          "name": "GET Contact Activity Details",
-          "request": {
-            "name": "GET Contact Activity Details",
-            "description": {
-              "content": "<p>Gets the tracking activity data for a single contact, sorted in descending activity date order.</p> <p>You must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.</p>\n      <table><tr><td colspan='2'>Valid tracking activity types</td></tr>\n        <tr><td><b>em_sends</b></td><td>Send activities</td></tr>\n        <tr><td><b>em_opens</b></td><td>Email open tracking activities</td></tr>\n        <tr><td><b>em_clicks</b></td><td>Link click-through tracking activities</td></tr>\n        <tr><td><b>em_bounces</b></td><td>Bounce tracking activities</td></tr>\n        <tr><td><b>em_optouts</b></td><td>Opt-out tracking activities</td></tr><tr>\n        <td><b>em_forwards</b></td><td>Forward to a friend tracking activities</td></tr>\n        <tr><td><b>p_contact_open</b></td><td>Landing page opens</td></tr>\n        <tr><td><b>p_contact_click</b></td><td>Landing page clicks</td></tr>\n        <tr><td><b>p_contact_add</b></td><td>Landing page adds</td></tr>\n        <tr><td><b>p_contact_update </b></td><td> Landing page updates</td></tr>\n      </table>",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "reports",
-                "contact_reports",
-                ":contact_id",
-                "activity_details"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "tracking_activities_list",
-                  "value": "<csv>",
-                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
-                },
-                {
-                  "disabled": false,
-                  "key": "tracking_activity_type",
-                  "value": "<string>,<string>",
-                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_campaign_activity_names",
-                  "value": "true",
-                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100",
-                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "contact_id",
-                  "description": "(Required) The contact's ID for which tracking activity data is requested."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "contact_reports",
+          "item": [
             {
-              "id": "c8c08fd5-10c9-4189-b74d-526a5aa378f4",
-              "name": "successful operation",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{contact_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"7fc87c54-b57d-fc39-c7ca-6cccd137b305\",\n      \"contact_id\": \"b2718775-61b4-8ea9-0e38-f44ba20a983c\",\n      \"created_time\": \"2017-04-02T04:08:00.000Z\",\n      \"tracking_activity_type\": \"em_sends\",\n      \"campaign_activity_name\": \"April DLCV Newsletter\"\n    },\n    {\n      \"campaign_activity_id\": \"b5246556-ac26-8bdf-80a6-0ae039513551\",\n      \"contact_id\": \"837c2c95-d4ab-370b-c4f1-e2d266bdb3ab\",\n      \"created_time\": \"2017-04-02T04:08:00.000Z\",\n      \"tracking_activity_type\": \"em_sends\",\n      \"campaign_activity_name\": \"April DLCV Newsletter\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9834c1d0-9db3-4455-9a0c-2a3f8c5d00f0",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "activity_details",
+                  "item": [
                     {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
+                      "name": "GET Contact Activity Details",
+                      "id": "54db62bd-335a-49c9-ac60-d723561d1fa5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "contact_reports",
+                            ":contact_id",
+                            "activity_details"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                              "key": "tracking_activities_list",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                              "key": "tracking_activity_type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                              "key": "tracking_activity_type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                              "key": "include_campaign_activity_names",
+                              "value": "true"
+                            },
+                            {
+                              "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "e7eb2083-9155-4982-92d6-87f111ad96fc",
+                              "key": "contact_id",
+                              "value": "<string>",
+                              "description": "(Required) The contact's ID for which tracking activity data is requested."
+                            }
+                          ]
+                        },
+                        "description": "Gets the tracking activity data for a single contact, sorted in descending activity date order.\n\nYou must chose either the `tracking_activities_list` query parameter and or the `tracking_activity_type` query parameter to specify one or more tracking activity types In the request. The `tracking_activities_list` and `tracking_activities_type` query parameters are mutually exclusive.\n\nValid tracking activity types\n\nem_sendsSend activities\n\nem_opensEmail open tracking activities\n\nem_clicksLink click-through tracking activities\n\nem_bouncesBounce tracking activities\n\nem_optoutsOpt-out tracking activities\n\nem_forwardsForward to a friend tracking activities\n\np_contact_openLanding page opens\n\np_contact_clickLanding page clicks\n\np_contact_addLanding page adds\n\np_contact_update Landing page updates"
+                      },
+                      "response": [
+                        {
+                          "id": "baf19db4-38ad-4ab7-82f9-e8bf6ab2087f",
+                          "name": "successful operation",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"tracking_activities\": [\n    {\n      \"campaign_activity_id\": \"<uuid>\",\n      \"contact_id\": \"<uuid>\",\n      \"created_time\": \"<dateTime>\",\n      \"tracking_activity_type\": \"<string>\",\n      \"campaign_activity_name\": \"<string>\"\n    },\n    {\n      \"campaign_activity_id\": \"<uuid>\",\n      \"contact_id\": \"<uuid>\",\n      \"created_time\": \"<dateTime>\",\n      \"tracking_activity_type\": \"<string>\",\n      \"campaign_activity_name\": \"<string>\"\n    }\n  ],\n  \"_links\": {\n    \"next\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-baf19db4-38ad-4ab7-82f9-e8bf6ab2087f"
+                        },
+                        {
+                          "id": "0d75274d-9042-4a50-9bad-1850f31b521d",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-0d75274d-9042-4a50-9bad-1850f31b521d"
+                        },
+                        {
+                          "id": "1e70f636-a0b1-4d7c-a8ef-5001fa6fa0e1",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-1e70f636-a0b1-4d7c-a8ef-5001fa6fa0e1"
+                        },
+                        {
+                          "id": "e0c4b2c2-7a69-45c3-941e-632b60ca00c7",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-e0c4b2c2-7a69-45c3-941e-632b60ca00c7"
+                        },
+                        {
+                          "id": "6479378e-0add-4414-a6bf-2aa5d8fb0175",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-6479378e-0add-4414-a6bf-2aa5d8fb0175"
+                        },
+                        {
+                          "id": "c4b100c3-cac5-41a8-821d-0eea4c955b44",
+                          "name": "Unsupported Media Type.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-c4b100c3-cac5-41a8-821d-0eea4c955b44"
+                        },
+                        {
+                          "id": "d09e1d0a-f59f-4eba-b580-86e3c86b51ba",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_details?tracking_activities_list=<string>&tracking_activity_type=<string>&include_campaign_activity_names=true&limit=100",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_details"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Specify one or more tracking activity types to include as a comma-delimited string. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activities_list",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Specify one or more tracking activity types to include as an array. The `tracking_activities_list`  and `tracking_activities_type` query parameters are mutually exclusive.",
+                                  "key": "tracking_activity_type",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Default (`true`) returns campaign activity names in the results. Not including campaign activity names in the results (`false`), is more efficient.",
+                                  "key": "include_campaign_activity_names",
+                                  "value": "true"
+                                },
+                                {
+                                  "description": "The number of tracking activities to return in a single page. Valid values are 1 to 100. Default is 100.",
+                                  "key": "limit",
+                                  "value": "100"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-d09e1d0a-f59f-4eba-b580-86e3c86b51ba"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:43.000Z",
+                      "updatedAt": "2026-10-22T01:19:43.000Z",
+                      "uid": "35240-54db62bd-335a-49c9-ac60-d723561d1fa5"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2d535ca3-211f-481d-9e2d-88166b63a388",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2dc4475f-075b-41f0-a8ba-9b39d55c60cc",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7a942eec-0541-4149-93bf-703b8157d165",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "89c28278-3445-4c19-a944-d46bac7dcd09",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2c7a6029-3cdf-4088-807a-4eab6bbb99c7",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_details"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "tracking_activities_list",
-                      "value": "em_clicks,em_opens"
-                    },
-                    {
-                      "key": "tracking_activity_type",
-                      "value": "<string>,<string>"
-                    },
-                    {
-                      "key": "include_campaign_activity_names",
-                      "value": "true"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact's ID for which tracking activity data is requested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "21f02c83-43a3-4ff8-941e-6f98060938d8",
-          "name": "GET Average Open and Click Rates",
-          "request": {
-            "name": "GET Average Open and Click Rates",
-            "description": {
-              "content": "<p>Gets the average open and click rate for a given account and contact.<p>Looks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.</p><p>Returns the rates and the number of campaign activities that were included in the calculation.</p><p>If no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0.</p>",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "reports",
-                "contact_reports",
-                ":contact_id",
-                "open_and_click_rates"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "start",
-                  "value": "<string>",
-                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
-                },
-                {
-                  "disabled": false,
-                  "key": "end",
-                  "value": "<string>",
-                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "contact_id",
-                  "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "07e7acdb-693e-4e6b-9321-914e448eecb4",
-              "name": "Request Successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"average_click_rate\": 0.6,\n  \"average_open_rate\": 0.6,\n  \"contact_id\": \"b82ae51e-a7ed-0498-24df-2ac45fcf4802\",\n  \"included_activities_count\": 10\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "57e9ed41-d822-4652-a8b5-79d32256e4f9",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4fd3fdd8-77e1-4ffb-84e5-12af3e7d6570",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ae519855-114f-4f39-abbf-54272103182a",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d7b981d6-37d3-4ece-9059-4e271c9962ed",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2abfc5dc-6087-4495-ba2a-f5cfcb0a6e91",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7c2dc57c-f42c-437d-b7da-946019b545aa",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "open_and_click_rates"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7cc2d856-c4e8-4f7b-b460-93d2be9e29cf",
-          "name": "GET Contact Action Summary",
-          "request": {
-            "name": "GET Contact Action Summary",
-            "description": {
-              "content": "Get a list of the recent emails (aka, campaign activities) sent to a specific contact and a summary of the actions the contact took on that email for the most recent 200 campaigns.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "reports",
-                "contact_reports",
-                ":contact_id",
-                "activity_summary"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "start",
-                  "value": "<string>",
-                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500."
+                  "id": "7cac9ae6-69ec-4147-b1a0-6108f1ed0a48",
+                  "createdAt": "2026-10-22T01:19:43.000Z",
+                  "updatedAt": "2026-10-22T01:19:43.000Z",
+                  "uid": "35240-7cac9ae6-69ec-4147-b1a0-6108f1ed0a48"
                 },
                 {
-                  "disabled": false,
-                  "key": "end",
-                  "value": "<string>",
-                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500."
+                  "name": "open_and_click_rates",
+                  "item": [
+                    {
+                      "name": "GET Average Open and Click Rates",
+                      "id": "6eb8ac7d-4d8c-4871-b86f-ff17f78c5db6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "contact_reports",
+                            ":contact_id",
+                            "open_and_click_rates"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                              "key": "start",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                              "key": "end",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "bd5bd88d-e6a7-491e-9945-8b5b5afb3b98",
+                              "key": "contact_id",
+                              "value": "<string>",
+                              "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+                            }
+                          ]
+                        },
+                        "description": "Gets the average open and click rate for a given account and contact.\nLooks at all tracking activities for bulk emails from a given contact over the given date range. Range cannot exceed 5 years.\n\nReturns the rates and the number of campaign activities that were included in the calculation.\n\nIf no activities fall into the given date range, all rates will return 0 and the number of included activities will be 0."
+                      },
+                      "response": [
+                        {
+                          "id": "db326cd8-a1c1-4ad8-ad02-a2bd4754b40e",
+                          "name": "Request Successful",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"average_click_rate\": \"<double>\",\n  \"average_open_rate\": \"<double>\",\n  \"contact_id\": \"<uuid>\",\n  \"included_activities_count\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-db326cd8-a1c1-4ad8-ad02-a2bd4754b40e"
+                        },
+                        {
+                          "id": "c01ae8a9-930f-4383-a982-c623d7fcc3a0",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-c01ae8a9-930f-4383-a982-c623d7fcc3a0"
+                        },
+                        {
+                          "id": "ef0b4d63-dff1-4079-9763-0f22b75d7a4e",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-ef0b4d63-dff1-4079-9763-0f22b75d7a4e"
+                        },
+                        {
+                          "id": "7edb9693-cf62-4211-8200-2d59d461f570",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-7edb9693-cf62-4211-8200-2d59d461f570"
+                        },
+                        {
+                          "id": "b14c1d65-4d76-42c0-8f5a-cb0ce1a0b831",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-b14c1d65-4d76-42c0-8f5a-cb0ce1a0b831"
+                        },
+                        {
+                          "id": "2f79f339-6839-49f4-8158-6d1a6d0d0547",
+                          "name": "Unsupported Media Type.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-2f79f339-6839-49f4-8158-6d1a6d0d0547"
+                        },
+                        {
+                          "id": "67c27a22-7444-41a5-997f-a6598199cec5",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/open_and_click_rates?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "open_and_click_rates"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-67c27a22-7444-41a5-997f-a6598199cec5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:43.000Z",
+                      "updatedAt": "2026-10-22T01:19:43.000Z",
+                      "uid": "35240-6eb8ac7d-4d8c-4871-b86f-ff17f78c5db6"
+                    }
+                  ],
+                  "id": "36e04711-3c10-4d3e-8e74-b3ff4e3c97bf",
+                  "createdAt": "2026-10-22T01:19:43.000Z",
+                  "updatedAt": "2026-10-22T01:19:43.000Z",
+                  "uid": "35240-36e04711-3c10-4d3e-8e74-b3ff4e3c97bf"
+                },
+                {
+                  "name": "activity_summary",
+                  "item": [
+                    {
+                      "name": "GET Contact Action Summary",
+                      "id": "a6ba408c-1232-467d-aa54-67b9f05e61d8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "oauth2",
+                          "oauth2": [
+                            {
+                              "key": "scope",
+                              "value": "contact_data campaign_data account_read account_update billing_data",
+                              "type": "string"
+                            },
+                            {
+                              "key": "authUrl",
+                              "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                              "type": "string"
+                            },
+                            {
+                              "key": "grant_type",
+                              "value": "implicit",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "contact_reports",
+                            ":contact_id",
+                            "activity_summary"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                              "key": "start",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                              "key": "end",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "9f1d44d0-4716-42d8-8699-0b19b3f89050",
+                              "key": "contact_id",
+                              "value": "<string>",
+                              "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
+                            }
+                          ]
+                        },
+                        "description": "Get a list of the recent emails (aka, campaign activities) sent to a specific contact and a summary of the actions the contact took on that email for the most recent 200 campaigns."
+                      },
+                      "response": [
+                        {
+                          "id": "f66631bc-a23f-44b3-b5c1-da28456d162a",
+                          "name": "successful operation",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"campaign_activities\": [\n    {\n      \"campaign_activity_id\": \"<uuid>\",\n      \"em_bounces\": \"<integer>\",\n      \"em_clicks\": \"<integer>\",\n      \"em_forwards\": \"<integer>\",\n      \"em_opens\": \"<integer>\",\n      \"em_sends\": \"<integer>\",\n      \"em_unsubscribes\": \"<integer>\",\n      \"start_on\": \"<dateTime>\"\n    },\n    {\n      \"campaign_activity_id\": \"<uuid>\",\n      \"em_bounces\": \"<integer>\",\n      \"em_clicks\": \"<integer>\",\n      \"em_forwards\": \"<integer>\",\n      \"em_opens\": \"<integer>\",\n      \"em_sends\": \"<integer>\",\n      \"em_unsubscribes\": \"<integer>\",\n      \"start_on\": \"<dateTime>\"\n    }\n  ],\n  \"contact_id\": \"<uuid>\",\n  \"_links\": {\n    \"next\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-f66631bc-a23f-44b3-b5c1-da28456d162a"
+                        },
+                        {
+                          "id": "fbaa87d0-cfd5-4e73-ba8b-f4e8379f3fc9",
+                          "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-fbaa87d0-cfd5-4e73-ba8b-f4e8379f3fc9"
+                        },
+                        {
+                          "id": "cfa88b31-602c-4d0b-b1cb-ed2a42fa4cab",
+                          "name": "The Access Token used is invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-cfa88b31-602c-4d0b-b1cb-ed2a42fa4cab"
+                        },
+                        {
+                          "id": "6fe17f3c-d503-43c0-89fe-819b6914f03d",
+                          "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-6fe17f3c-d503-43c0-89fe-819b6914f03d"
+                        },
+                        {
+                          "id": "c49433e5-4f7d-42ce-8108-ff2280ce2555",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-c49433e5-4f7d-42ce-8108-ff2280ce2555"
+                        },
+                        {
+                          "id": "c7d97651-db3d-4bcd-a6a5-a698e600ed3d",
+                          "name": "Unsupported Media Type.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-c7d97651-db3d-4bcd-a6a5-a698e600ed3d"
+                        },
+                        {
+                          "id": "1a26f265-e622-4ed7-97cc-e301a2fa8efe",
+                          "name": "There was a problem with our internal service.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/reports/contact_reports/:contact_id/activity_summary?start=<string>&end=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "reports",
+                                "contact_reports",
+                                ":contact_id",
+                                "activity_summary"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The starting date, in ISO 8601 format, to use to get campaigns. For example: 2019-01-01T00:00:00-0500.",
+                                  "key": "start",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The ending date, in ISO 8601 format, to use to get campaigns. For example: 2019-12-01T00:00:00-0500.",
+                                  "key": "end",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "contact_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:19:43.000Z",
+                          "updatedAt": "2026-10-22T01:19:43.000Z",
+                          "uid": "35240-1a26f265-e622-4ed7-97cc-e301a2fa8efe"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:19:43.000Z",
+                      "updatedAt": "2026-10-22T01:19:43.000Z",
+                      "uid": "35240-a6ba408c-1232-467d-aa54-67b9f05e61d8"
+                    }
+                  ],
+                  "id": "08d183bb-1757-493b-82ae-27d66f464f99",
+                  "createdAt": "2026-10-22T01:19:43.000Z",
+                  "updatedAt": "2026-10-22T01:19:43.000Z",
+                  "uid": "35240-08d183bb-1757-493b-82ae-27d66f464f99"
                 }
               ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "contact_id",
-                  "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "oauth2",
-              "oauth2": [
-                {
-                  "key": "scope",
-                  "value": "contact_data campaign_data account_read account_update"
-                },
-                {
-                  "key": "authUrl",
-                  "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize"
-                },
-                {
-                  "key": "grant_type",
-                  "value": "implicit"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5b4601a6-9fd1-428c-bed9-4fda23a2a073",
-              "name": "successful operation",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"campaign_activities\": [\n    {\n      \"campaign_activity_id\": \"5ed87ca5-5ed0-4770-a76c-d1ff5b184c58\",\n      \"em_bounces\": 1149,\n      \"em_clicks\": 1609,\n      \"em_forwards\": 7142,\n      \"em_opens\": 8480,\n      \"em_sends\": 93,\n      \"em_unsubscribes\": 4429,\n      \"start_on\": \"1991-07-26T16:08:58.662Z\"\n    },\n    {\n      \"campaign_activity_id\": \"c79e066e-1376-59b8-cce5-5cccc6d4e920\",\n      \"em_bounces\": 8734,\n      \"em_clicks\": 7967,\n      \"em_forwards\": 1385,\n      \"em_opens\": 378,\n      \"em_sends\": 1686,\n      \"em_unsubscribes\": 3013,\n      \"start_on\": \"1992-04-09T13:24:55.453Z\"\n    }\n  ],\n  \"contact_id\": \"fb4455fe-15ae-ad6c-dd8c-3d5955f71bbd\",\n  \"_links\": {\n    \"next\": {\n      \"href\": \"string\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "052fbe20-37dd-4f49-94b3-c9d7cc072a5c",
-              "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "97e7eb59-69bd-4079-bca3-1e0da1442f81",
-              "name": "The Access Token used is invalid.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d82fc837-a682-4af1-b994-4870a045028d",
-              "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c8012cff-85fa-4377-b382-f89cdeae018f",
-              "name": "The requested resource was not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "291246ee-55be-4bc4-9771-6912b08732bf",
-              "name": "Unsupported Media Type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unsupported Media Type",
-              "code": 415,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e0712b7e-199e-43c2-addf-2f5340e6e0ea",
-              "name": "There was a problem with our internal service.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports",
-                    "contact_reports",
-                    ":contact_id",
-                    "activity_summary"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "end",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "contact_id",
-                      "description": "(Required) The contact id which is requesting tracking activity data (e.g. aa9ff7b0-478d-11e6-8059-00163e3c8e19)"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "28d47ec6-46b8-4abe-a402-22e27e923fa6",
+              "createdAt": "2026-10-22T01:19:43.000Z",
+              "updatedAt": "2026-10-22T01:19:43.000Z",
+              "uid": "35240-28d47ec6-46b8-4abe-a402-22e27e923fa6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "320f1f0a-f1af-4f74-bb11-2c896d07df63",
+          "createdAt": "2026-10-22T01:19:43.000Z",
+          "updatedAt": "2026-10-22T01:19:43.000Z",
+          "uid": "35240-320f1f0a-f1af-4f74-bb11-2c896d07df63"
         }
       ],
-      "event": []
+      "id": "e043c013-1b2f-4b6d-8a80-42bf0fb21397",
+      "createdAt": "2026-10-22T01:19:43.000Z",
+      "updatedAt": "2026-10-22T01:19:43.000Z",
+      "uid": "35240-e043c013-1b2f-4b6d-8a80-42bf0fb21397"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.cc.email/v3",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
     }
-  ],
-  "info": {
-    "_postman_id": "5b25d6fc-a8d5-46b8-a462-a7c37259d386",
-    "name": "AppConnect V3 Account Services Contacts Reporting API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

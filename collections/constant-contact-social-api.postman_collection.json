@@ -1,0 +1,1429 @@
+{
+  "info": {
+    "_postman_id": "ff509c8a-5069-44e3-bd75-4ea41502ced4",
+    "name": "AppConnect V3 Social API",
+    "description": "The Constant Contact, Inc. V3 public API, for building integrations with Constant Contact, the leading small-business email marketing platform.\n\nContact Support:\n Name: webservices@constantcontact.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:21:07.000Z",
+    "updatedAt": "2026-10-22T01:21:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ff509c8a-5069-44e3-bd75-4ea41502ced4"
+  },
+  "item": [
+    {
+      "name": "social",
+      "item": [
+        {
+          "name": "profiles",
+          "item": [
+            {
+              "name": "GET social media profiles",
+              "id": "df8f649a-18f3-4a59-84a2-32d757debbbf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "social",
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                      "key": "include",
+                      "value": "accessible"
+                    }
+                  ]
+                },
+                "description": "Retrieves all social media profiles connected to the account. A profile represents a single account on a social network (such as a Facebook Business Page, a LinkedIn Company Page, or an Instagram Business account) that the user has connected to Constant Contact.\n\nUse the `include=accessible` query parameter to additionally check whether each profile is currently accessible for posting. Profiles that are not currently accessible will fail if used to publish a post."
+              },
+              "response": [
+                {
+                  "id": "70ea9d35-306b-48af-8ba7-aaea73bf0e4a",
+                  "name": "Request successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"connected\": \"<boolean>\",\n    \"network\": \"<string>\",\n    \"profile_id\": \"<string>\",\n    \"accessible\": \"<boolean>\",\n    \"account_info\": {\n      \"account_url\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"network\": \"<string>\",\n      \"network_account_id\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"handle\": \"<string>\",\n    \"image_url\": \"<string>\",\n    \"name\": \"<string>\",\n    \"network_profile_id\": \"<string>\",\n    \"network_user_id\": \"<string>\",\n    \"settings\": {\n      \"reprehenderited\": {},\n      \"laboris_bd6\": {}\n    },\n    \"url\": \"<string>\"\n  },\n  {\n    \"connected\": \"<boolean>\",\n    \"network\": \"<string>\",\n    \"profile_id\": \"<string>\",\n    \"accessible\": \"<boolean>\",\n    \"account_info\": {\n      \"account_url\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"network\": \"<string>\",\n      \"network_account_id\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"handle\": \"<string>\",\n    \"image_url\": \"<string>\",\n    \"name\": \"<string>\",\n    \"network_profile_id\": \"<string>\",\n    \"network_user_id\": \"<string>\",\n    \"settings\": {\n      \"magna4a\": {}\n    },\n    \"url\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-70ea9d35-306b-48af-8ba7-aaea73bf0e4a"
+                },
+                {
+                  "id": "10ae933e-f8f6-48ba-8eb4-e1bb1e1d68c1",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-10ae933e-f8f6-48ba-8eb4-e1bb1e1d68c1"
+                },
+                {
+                  "id": "c2331571-3b9b-48bf-a868-544f495dc858",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-c2331571-3b9b-48bf-a868-544f495dc858"
+                },
+                {
+                  "id": "3ffab303-5891-46e9-be31-dc10068a190c",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-3ffab303-5891-46e9-be31-dc10068a190c"
+                },
+                {
+                  "id": "72f78110-8954-4767-ad18-3c280c4db2d6",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-72f78110-8954-4767-ad18-3c280c4db2d6"
+                },
+                {
+                  "id": "e62933ed-7fb9-4dcb-99c2-5e220662cb72",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/profiles?include=accessible",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional sub-resources to include. Use `accessible` to check if profiles are accessible on the network.",
+                          "key": "include",
+                          "value": "accessible"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-e62933ed-7fb9-4dcb-99c2-5e220662cb72"
+                }
+              ],
+              "createdAt": "2026-10-22T01:21:07.000Z",
+              "updatedAt": "2026-10-22T01:21:07.000Z",
+              "uid": "35240-df8f649a-18f3-4a59-84a2-32d757debbbf"
+            }
+          ],
+          "id": "b91ca236-c362-45f3-924b-dc832751d0e9",
+          "createdAt": "2026-10-22T01:21:07.000Z",
+          "updatedAt": "2026-10-22T01:21:07.000Z",
+          "uid": "35240-b91ca236-c362-45f3-924b-dc832751d0e9"
+        },
+        {
+          "name": "connections",
+          "item": [
+            {
+              "name": "GET social network connections",
+              "id": "3f6dbc42-0b56-4686-9daa-8914f1700471",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/social/connections",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "social",
+                    "connections"
+                  ]
+                },
+                "description": "Retrieves all social network accounts connected to the Constant Contact account, with support for multiple accounts per social network.\n\nA connection represents the authorization link between a Constant Contact account and a single account on a social network (Facebook, Instagram, LinkedIn, TikTok, etc.). Each connection includes account information about the connected user on that network (display name, username, image, etc.) and the current status of the connection (whether it's active, rate-limited, or has any errors).\n\nNote that a single connection may have multiple profiles (pages) associated with it \u2014 use `GET /social/profiles` to retrieve the individual profiles."
+              },
+              "response": [
+                {
+                  "id": "41891cac-44dc-4ea3-b8f1-1027bdb1c2ea",
+                  "name": "Request successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"connections\": [\n    {\n      \"account_info\": {\n        \"account_url\": \"<string>\",\n        \"display_name\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"network\": \"<string>\",\n        \"network_account_id\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      \"connection_status\": {\n        \"error\": \"<string>\",\n        \"has_token\": \"<boolean>\",\n        \"is_active_user\": \"<boolean>\",\n        \"rate_limited\": \"<boolean>\",\n        \"status\": \"<integer>\",\n        \"token_has_scopes\": \"<boolean>\",\n        \"token_is_valid\": \"<boolean>\"\n      }\n    },\n    {\n      \"account_info\": {\n        \"account_url\": \"<string>\",\n        \"display_name\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"network\": \"<string>\",\n        \"network_account_id\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      \"connection_status\": {\n        \"error\": \"<string>\",\n        \"has_token\": \"<boolean>\",\n        \"is_active_user\": \"<boolean>\",\n        \"rate_limited\": \"<boolean>\",\n        \"status\": \"<integer>\",\n        \"token_has_scopes\": \"<boolean>\",\n        \"token_is_valid\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-41891cac-44dc-4ea3-b8f1-1027bdb1c2ea"
+                },
+                {
+                  "id": "1e585c46-0d03-4774-bd03-a5c9a5ad11a3",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-1e585c46-0d03-4774-bd03-a5c9a5ad11a3"
+                },
+                {
+                  "id": "200ddc30-7945-4d12-9675-bb101b45fe73",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-200ddc30-7945-4d12-9675-bb101b45fe73"
+                },
+                {
+                  "id": "d6229597-3ef9-4480-94d8-d3cbc4400c1f",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-d6229597-3ef9-4480-94d8-d3cbc4400c1f"
+                },
+                {
+                  "id": "e64acf35-dc46-4713-8386-4a73ba821c41",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-e64acf35-dc46-4713-8386-4a73ba821c41"
+                },
+                {
+                  "id": "0ad8e6c6-a804-40c0-989e-01eb5c548366",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/connections",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "connections"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-0ad8e6c6-a804-40c0-989e-01eb5c548366"
+                }
+              ],
+              "createdAt": "2026-10-22T01:21:07.000Z",
+              "updatedAt": "2026-10-22T01:21:07.000Z",
+              "uid": "35240-3f6dbc42-0b56-4686-9daa-8914f1700471"
+            }
+          ],
+          "id": "716d2be1-419a-47d8-aec9-5114f2ba150d",
+          "createdAt": "2026-10-22T01:21:07.000Z",
+          "updatedAt": "2026-10-22T01:21:07.000Z",
+          "uid": "35240-716d2be1-419a-47d8-aec9-5114f2ba150d"
+        },
+        {
+          "name": "hashtags",
+          "item": [
+            {
+              "name": "groups",
+              "item": [
+                {
+                  "name": "GET hashtag groups",
+                  "id": "87fe71e7-f20c-422d-9b83-161d0389e0bb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2",
+                      "oauth2": [
+                        {
+                          "key": "scope",
+                          "value": "contact_data campaign_data account_read account_update billing_data",
+                          "type": "string"
+                        },
+                        {
+                          "key": "authUrl",
+                          "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                          "type": "string"
+                        },
+                        {
+                          "key": "grant_type",
+                          "value": "implicit",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "hashtags",
+                        "groups"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                          "key": "limit",
+                          "value": "5"
+                        },
+                        {
+                          "description": "Page number to retrieve (0-based).",
+                          "key": "page",
+                          "value": "0"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a paginated list of saved hashtag groups for the account. Hashtag groups allow users to save and organize reusable collections of hashtags that can be applied to social posts.\n\nUse the `limit` and `page` query parameters to paginate through results. Navigate to the next page using the `_links.next` link in the response."
+                  },
+                  "response": [
+                    {
+                      "id": "7923537b-51da-4f9b-a00b-675522dad856",
+                      "name": "Request successful",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"_links\": {\n    \"next\": {\n      \"href\": \"<string>\"\n    }\n  },\n  \"hashtag_groups\": [\n    {\n      \"hashtag_group_name\": \"<string>\",\n      \"hashtag_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashtag_group_id\": \"<string>\"\n    },\n    {\n      \"hashtag_group_name\": \"<string>\",\n      \"hashtag_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"hashtag_group_id\": \"<string>\"\n    }\n  ],\n  \"page\": {\n    \"page\": \"<long>\",\n    \"size\": \"<long>\",\n    \"total_elements\": \"<long>\",\n    \"total_pages\": \"<long>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-7923537b-51da-4f9b-a00b-675522dad856"
+                    },
+                    {
+                      "id": "9db7fd22-1dd7-4a91-92f9-98863b157677",
+                      "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-9db7fd22-1dd7-4a91-92f9-98863b157677"
+                    },
+                    {
+                      "id": "d194daa5-f396-4017-a93a-ec0aa768f485",
+                      "name": "The Access Token used is invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-d194daa5-f396-4017-a93a-ec0aa768f485"
+                    },
+                    {
+                      "id": "69e4815e-7c51-4ebc-9634-58dfad01d2d9",
+                      "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-69e4815e-7c51-4ebc-9634-58dfad01d2d9"
+                    },
+                    {
+                      "id": "fea7ba48-642f-406b-b9e7-60c7195eed79",
+                      "name": "The requested resource was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-fea7ba48-642f-406b-b9e7-60c7195eed79"
+                    },
+                    {
+                      "id": "e93d5d14-ddc0-429a-b019-365a517f409c",
+                      "name": "There was a problem with our internal service.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/social/hashtags/groups?limit=5&page=0",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "social",
+                            "hashtags",
+                            "groups"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of hashtag groups to retrieve per page. Default and maximum is `5`.",
+                              "key": "limit",
+                              "value": "5"
+                            },
+                            {
+                              "description": "Page number to retrieve (0-based).",
+                              "key": "page",
+                              "value": "0"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:21:07.000Z",
+                      "updatedAt": "2026-10-22T01:21:07.000Z",
+                      "uid": "35240-e93d5d14-ddc0-429a-b019-365a517f409c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-87fe71e7-f20c-422d-9b83-161d0389e0bb"
+                }
+              ],
+              "id": "2eac7ebc-f6ad-4f56-a64b-d136f90a8609",
+              "createdAt": "2026-10-22T01:21:07.000Z",
+              "updatedAt": "2026-10-22T01:21:07.000Z",
+              "uid": "35240-2eac7ebc-f6ad-4f56-a64b-d136f90a8609"
+            }
+          ],
+          "id": "a0bdbd77-9f9e-4643-85f8-3001315538d6",
+          "createdAt": "2026-10-22T01:21:07.000Z",
+          "updatedAt": "2026-10-22T01:21:07.000Z",
+          "uid": "35240-a0bdbd77-9f9e-4643-85f8-3001315538d6"
+        },
+        {
+          "name": "posts",
+          "item": [
+            {
+              "name": "POST (create) a social media post",
+              "id": "f9939f62-02bd-4445-9486-01eb5589fbe7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "oauth2",
+                  "oauth2": [
+                    {
+                      "key": "scope",
+                      "value": "contact_data campaign_data account_read account_update billing_data",
+                      "type": "string"
+                    },
+                    {
+                      "key": "authUrl",
+                      "value": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+                      "type": "string"
+                    },
+                    {
+                      "key": "grant_type",
+                      "value": "implicit",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/social/posts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "social",
+                    "posts"
+                  ]
+                },
+                "description": "Creates a new social media post that can be published immediately or scheduled for later publication. A post can target one or more social profiles, and can include text, images, and network-specific settings.\n\nSet `status` to `DRAFT` to save without publishing, or `SCHEDULED` to schedule for publication. Scheduled posts require a `scheduled_time` in ISO-8601 format.\n\nPost content and settings can vary per profile \u2014 each `profile_posts` entry can have its own text, images, and network-specific settings (e.g., TikTok-specific settings like `disable_comment`)."
+              },
+              "response": [
+                {
+                  "id": "dfecd104-b8a8-4987-ada6-34524ba28551",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"temporb\": {\n          \"ipsum5\": \"<string>\",\n          \"ad9\": \"<string>\"\n        },\n        \"in61a\": {\n          \"ut_3\": \"<string>\",\n          \"ad3\": \"<string>\"\n        },\n        \"aute7\": {\n          \"in_bb\": \"<string>\"\n        },\n        \"elit_b56\": {\n          \"sit9a\": \"<string>\",\n          \"non_3_\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"commodo_dc\": {\n          \"sintf2\": \"<string>\",\n          \"non_db\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-dfecd104-b8a8-4987-ada6-34524ba28551"
+                },
+                {
+                  "id": "4133ae87-f2f1-4afc-9133-c7218f7965ca",
+                  "name": "Post created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"temporb\": {\n          \"ipsum5\": \"<string>\",\n          \"ad9\": \"<string>\"\n        },\n        \"in61a\": {\n          \"ut_3\": \"<string>\",\n          \"ad3\": \"<string>\"\n        },\n        \"aute7\": {\n          \"in_bb\": \"<string>\"\n        },\n        \"elit_b56\": {\n          \"sit9a\": \"<string>\",\n          \"non_3_\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"commodo_dc\": {\n          \"sintf2\": \"<string>\",\n          \"non_db\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-4133ae87-f2f1-4afc-9133-c7218f7965ca"
+                },
+                {
+                  "id": "d43cfda2-e7e4-49f9-9640-1c6248481501",
+                  "name": "Bad request. Either the JSON was malformed or there was a data validation error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-d43cfda2-e7e4-49f9-9640-1c6248481501"
+                },
+                {
+                  "id": "f949bd79-32d6-4114-9a32-aa267b359c01",
+                  "name": "The Access Token used is invalid.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-f949bd79-32d6-4114-9a32-aa267b359c01"
+                },
+                {
+                  "id": "b19841a4-b01d-40af-8dd5-b91611d7874e",
+                  "name": "Forbidden request. You lack the necessary scopes, you lack the necessary user privileges, or the application is deactivated.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-b19841a4-b01d-40af-8dd5-b91611d7874e"
+                },
+                {
+                  "id": "26d09667-cc43-40cd-bd7b-07a41709a2e0",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-26d09667-cc43-40cd-bd7b-07a41709a2e0"
+                },
+                {
+                  "id": "6594e0b6-d6d6-4eac-b071-1e91f9d904a8",
+                  "name": "There was a problem with our internal service.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"profile_posts\": [\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"Lorem_43\": {\n          \"mollit_e8c\": \"<string>\"\n        },\n        \"nulla399\": {\n          \"eu1\": \"<string>\",\n          \"aliquip_0e\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    },\n    {\n      \"profiles\": [\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        },\n        {\n          \"profile_id\": \"<string>\",\n          \"account_username\": \"<string>\",\n          \"campaign_activity_id\": \"<string>\",\n          \"campaign_activity_status\": \"<string>\",\n          \"campaign_activity_status_date\": \"<dateTime>\",\n          \"campaign_activity_status_message\": \"<string>\",\n          \"image_url\": \"<string>\",\n          \"network\": \"<string>\",\n          \"network_post_id\": \"<string>\",\n          \"post_url\": \"<string>\",\n          \"profile_name\": \"<string>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        },\n        {\n          \"url\": \"<string>\",\n          \"image_id\": \"<string>\"\n        }\n      ],\n      \"post_content_id\": \"<string>\",\n      \"settings\": {\n        \"exercitation_772\": {\n          \"velitb\": \"<string>\",\n          \"sint0\": \"<string>\"\n        }\n      },\n      \"text\": \"<string>\"\n    }\n  ],\n  \"status\": \"<string>\",\n  \"name\": \"<string>\",\n  \"scheduled_time\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/social/posts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "social",
+                        "posts"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:21:07.000Z",
+                  "updatedAt": "2026-10-22T01:21:07.000Z",
+                  "uid": "35240-6594e0b6-d6d6-4eac-b071-1e91f9d904a8"
+                }
+              ],
+              "createdAt": "2026-10-22T01:21:07.000Z",
+              "updatedAt": "2026-10-22T01:21:07.000Z",
+              "uid": "35240-f9939f62-02bd-4445-9486-01eb5589fbe7"
+            }
+          ],
+          "id": "b0908476-59b5-42ac-81d8-8ab121d80f5b",
+          "createdAt": "2026-10-22T01:21:07.000Z",
+          "updatedAt": "2026-10-22T01:21:07.000Z",
+          "uid": "35240-b0908476-59b5-42ac-81d8-8ab121d80f5b"
+        }
+      ],
+      "id": "2a3dca63-22ab-46a3-bd9a-4b98bd09b247",
+      "createdAt": "2026-10-22T01:21:07.000Z",
+      "updatedAt": "2026-10-22T01:21:07.000Z",
+      "uid": "35240-2a3dca63-22ab-46a3-bd9a-4b98bd09b247"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.cc.email/v3"
+    }
+  ]
+}
