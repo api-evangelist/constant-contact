@@ -1,4 +1,4 @@
-# Constant Contact (constant-contact)
+# Constant Contact
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,81 +66,247 @@
 
 Constant Contact is a small-business email and digital marketing platform offering email campaigns, automation, SMS, contact management, surveys, and events. The Constant Contact V3 API is a REST + JSON, OAuth2-protected service published at api.cc.email/v3 covering accounts, contacts, lists, tags, custom fields, segments, email campaigns, A/B tests, schedules and tests, bulk activities (CSV/JSON import, export, list and tag mutations), events with registration and check-in, reporting, and partner provisioning.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/constant-contact/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/constant-contact/refs/heads/main/apis.yml)
+**Areas:** Campaigns · Contacts · Email Marketing · Event · Reporting · SMS · Surveys · Email
 
-## Scope
+## Constant Contact on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Constant Contact is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/constant-contact/](https://apis.io/providers/constant-contact/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (19)
 
-- Campaigns
-- Contacts
-- Email Marketing
-- Events
-- Reporting
-- SMS
-- Surveys
+- [Constant Contact Account Services API](https://apis.io/apis/constant-contact/constant-contact-account-services-api/) — Use the account endpoints and methods to get account information.
+- [Constant Contact Bulk Activities API](https://apis.io/apis/constant-contact/constant-contact-bulk-activities-api/) — Bulk activities endpoints are used to manage large numbers of contacts, lists, and tags.
+- [Constant Contact Lists API](https://apis.io/apis/constant-contact/constant-contact-contact-lists-api/) — Endpoints and methods to get, create, delete, and update one or more contact lists.
+- [Constant Contact Tags API](https://apis.io/apis/constant-contact/constant-contact-contact-tags-api/) — Endpoints and methods to get, create, delete, and update one or more contact tags.
+- [Constant Contact Contacts API](https://apis.io/apis/constant-contact/constant-contact-contacts-api/) — Endpoints and methods to get, create, delete, and update one or more contacts.
+- [Constant Contact Contacts Custom Fields API](https://apis.io/apis/constant-contact/constant-contact-contacts-custom-fields-api/) — Endpoints and methods to get, create, delete, and update on one or more custom fields.
+- [Constant Contact Contacts Reporting API](https://apis.io/apis/constant-contact/constant-contact-contacts-reporting-api/) — Contact reporting endpoints are used to gather activity reports for campaigns sent to a contact.
+- [Constant Contact Email Campaigns AB Tests API](https://apis.io/apis/constant-contact/constant-contact-email-campaigns-ab-tests-api/) — Use email campaigns A/B Test endpoints and methods to get, create, delete and update A/B tests.
+- [Constant Contact Email Campaigns API](https://apis.io/apis/constant-contact/constant-contact-email-campaigns-api/) — Use email campaign endpoints and methods to get, create, and update email campaigns.
+- [Constant Contact Email Reporting API](https://apis.io/apis/constant-contact/constant-contact-email-reporting-api/) — Use the email reporting endpoints and methods to get reporting data for email campaigns you sent to contacts.
+- [Constant Contact Email Scheduling API](https://apis.io/apis/constant-contact/constant-contact-email-scheduling-api/) — Use email scheduling endpoints and methods to schedule an email campaign activity, unschedule an email campaign activity, and GET schedule information.
+- [Constant Contact Events API](https://apis.io/apis/constant-contact/constant-contact-events-api/) — Endpoints and methods used to create and manage events.
+- [Constant Contact Landing Pages Reporting API](https://apis.io/apis/constant-contact/constant-contact-landing-pages-reporting-api/) — Use landing pages reporting endpoints and methods to get reporting data about how a contact interacted with a campaign activity.
+- [Constant Contact Segments API](https://apis.io/apis/constant-contact/constant-contact-segments-api/) — Use segments to target a subset of your contacts that are most likely to engage with a particular campaign.
+- [Constant Contact SMS Reporting API](https://apis.io/apis/constant-contact/constant-contact-sms-reporting-api/) — Use SMS reporting endpoints and methods to get reporting data about SMS campaigns.
+- [Constant Contact Technology Partners API](https://apis.io/apis/constant-contact/constant-contact-technology-partners-api/) — Use partner endpoints to manage client Constant Contact accounts under your partner account.
+- [Constant Contact Technology Partners Webhooks API](https://apis.io/apis/constant-contact/constant-contact-technology-partners-webhooks-api/) — Use partner webhooks to subscribe to billing event notifications from Constant Contact.
+- [Constant Contact Automations API](https://apis.io/apis/constant-contact/constant-contact-automations-api/) — Use the automation endpoints and methods to manage automation campaigns
+- [Constant Contact Social API](https://apis.io/apis/constant-contact/constant-contact-social-api/) — The Social API from Constant Contact — 4 operation(s) for social.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Constant Contact V3 API
+Event-driven and webhook contracts.
 
-Production REST API for Constant Contact's email marketing, SMS, and events platform. OAuth2 authorization (auth code, PKCE, and JWT-bearer flows) gates all endpoints across account services, contacts, contact lists, tags, custom fields, segments, email campaigns and activities (with A/B tests, schedules, and tests), bulk activities for high-volume mutations, events (registrations, tracks, check-in, payment status), contact reporting, landing pages, and partner technology-account provisioning.
+- [Constant Contact Webhooks](https://apis.io/asyncapis/constant-contact/constant-contact-webhooks/)
 
-- **Human URL:** [https://developer.constantcontact.com/](https://developer.constantcontact.com/)
-- **Base URL:** `https://api.cc.email/v3`
+#### GraphQL (1)
 
-#### Tags
+GraphQL schemas.
 
-- Campaigns
-- Contacts
-- Email Marketing
-- Events
-- OAuth2
-- REST
-- SMS
+- [Moved to /providers/constant-contact/](https://apis.io/graphqls/constant-contact/constant-contact-graphql/)
 
-#### Properties
+#### MCP servers (1)
 
-- [Documentation](https://developer.constantcontact.com/)
-- [Getting Started](https://developer.constantcontact.com/api_guide/index.html)
-- [Authentication](https://developer.constantcontact.com/api_guide/auth_overview.html)
-- [OpenAPI](https://api.cc.email/v3/swagger.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/constant-contact-v3-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/constant-contact-v3.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/constant-contact-v3.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [constant-contact-mcp.yml](https://apis.io/servers/constant-contact/constant-contact-mcp-yml/)
 
-- [LinkedIn](https://www.linkedin.com/company/constant-contact)
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Constant Contact Agentic Access](https://apis.io/agentic-access/constant-contact/constant-contact-agentic-access/)
+
+#### JSON Schema (2)
+
+The data models the API reads and writes.
+
+- [Constant Contact Email Campaign](https://apis.io/schemas/constant-contact/constant-contact-campaign/)
+- [Constant Contact Contact](https://apis.io/schemas/constant-contact/constant-contact-contact/)
+
+#### JSON Structure (1)
+
+Data models expressed in JSON Structure.
+
+- [Constant Contact Structure](https://apis.io/json-structure/constant-contact/constant-contact-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Constant Contact Context](https://apis.io/jsonld/constant-contact/constant-contact-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Constant Contact Domain Vocabulary](https://apis.io/vocabularies/constant-contact/constant-contact-vocabulary/)
+
+#### Collections (18)
+
+Postman and Open Collection request collections.
+
+- [AppConnect V3 Account Services API](https://apis.io/collections/constant-contact/open-constant-contact-account-services-api/)
+- [AppConnect V3 Account Services Bulk Activities API](https://apis.io/collections/constant-contact/open-constant-contact-bulk-activities-api/)
+- [AppConnect V3 Account Services Contact Lists API](https://apis.io/collections/constant-contact/open-constant-contact-contact-lists-api/)
+- [AppConnect V3 Account Services Contact Tags API](https://apis.io/collections/constant-contact/open-constant-contact-contact-tags-api/)
+- [AppConnect V3 Account Services Contacts API](https://apis.io/collections/constant-contact/open-constant-contact-contacts-api/)
+- [AppConnect V3 Account Services Contacts Custom Fields API](https://apis.io/collections/constant-contact/open-constant-contact-contacts-custom-fields-api/)
+- [AppConnect V3 Account Services Contacts Reporting API](https://apis.io/collections/constant-contact/open-constant-contact-contacts-reporting-api/)
+- [AppConnect V3 Account Services Email Campaigns AB Tests API](https://apis.io/collections/constant-contact/open-constant-contact-email-campaigns-ab-tests-api/)
+- [AppConnect V3 Account Services Email Campaigns API](https://apis.io/collections/constant-contact/open-constant-contact-email-campaigns-api/)
+- [AppConnect V3 Account Services Email Reporting API](https://apis.io/collections/constant-contact/open-constant-contact-email-reporting-api/)
+- [AppConnect V3 Account Services Email Scheduling API](https://apis.io/collections/constant-contact/open-constant-contact-email-scheduling-api/)
+- [AppConnect V3 Account Services Events API](https://apis.io/collections/constant-contact/open-constant-contact-events-api/)
+- [AppConnect V3 Account Services Landing Pages Reporting API](https://apis.io/collections/constant-contact/open-constant-contact-landing-pages-reporting-api/)
+- [AppConnect V3 Account Services Segments API](https://apis.io/collections/constant-contact/open-constant-contact-segments-api/)
+- [AppConnect V3 Account Services SMS Reporting API](https://apis.io/collections/constant-contact/open-constant-contact-sms-reporting-api/)
+- [AppConnect V3 Account Services Technology Partners API](https://apis.io/collections/constant-contact/open-constant-contact-technology-partners-api/)
+- [AppConnect V3 Account Services Technology Partners Webhooks API](https://apis.io/collections/constant-contact/open-constant-contact-technology-partners-webhooks-api/)
+- [AppConnect V3](https://apis.io/collections/constant-contact/open-constant-contact-v3/)
+
+#### Overlays (36)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Constant Contact Account Services Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-account-services-api-overlay/)
+- [Constant Contact Account Services Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-account-services-api-phrasing-overlay/)
+- [Constant Contact Automations Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-automations-api-phrasing-overlay/)
+- [Constant Contact Bulk Activities Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-bulk-activities-api-overlay/)
+- [Constant Contact Bulk Activities Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-bulk-activities-api-phrasing-overlay/)
+- [Constant Contact Contact Lists Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-contact-lists-api-overlay/)
+- [Constant Contact Contact Lists Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-contact-lists-api-phrasing-overlay/)
+- [Constant Contact Contact Tags Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-contact-tags-api-overlay/)
+- [Constant Contact Contact Tags Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-contact-tags-api-phrasing-overlay/)
+- [Constant Contact Contacts Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-api-overlay/)
+- [Constant Contact Contacts Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-api-phrasing-overlay/)
+- [Constant Contact Contacts Custom Fields Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-custom-fields-api-overlay/)
+- [Constant Contact Contacts Custom Fields Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-custom-fields-api-phrasing-overlay/)
+- [Constant Contact Contacts Reporting Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-reporting-api-overlay/)
+- [Constant Contact Contacts Reporting Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-contacts-reporting-api-phrasing-overlay/)
+- [Constant Contact Email Campaigns Ab Tests Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-campaigns-ab-tests-api-overlay/)
+- [Constant Contact Email Campaigns Ab Tests Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-campaigns-ab-tests-api-phrasing-overlay/)
+- [Constant Contact Email Campaigns Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-campaigns-api-overlay/)
+- [Constant Contact Email Campaigns Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-campaigns-api-phrasing-overlay/)
+- [Constant Contact Email Reporting Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-reporting-api-overlay/)
+- [Constant Contact Email Reporting Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-reporting-api-phrasing-overlay/)
+- [Constant Contact Email Scheduling Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-scheduling-api-overlay/)
+- [Constant Contact Email Scheduling Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-email-scheduling-api-phrasing-overlay/)
+- [Constant Contact Events Api Overlay](https://apis.io/overlays/constant-contact/constant-contact-events-api-overlay/)
+- [Constant Contact Events Api Phrasing Overlay](https://apis.io/overlays/constant-contact/constant-contact-events-api-phrasing-overlay/)
+- …and 11 more published on APIs.io
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Constant Contact — jsonschema rules](https://apis.io/rules/constant-contact/constant-contact-jsonschema-spectral-rules/)
+- [Constant Contact API Rules](https://apis.io/rules/constant-contact/constant-contact-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Constant Contact Authentication](https://apis.io/security/constant-contact/constant-contact-authentication/)
+- [Constant Contact Domain Security](https://apis.io/security/constant-contact/constant-contact-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Constant Contact Scopes](https://apis.io/scopes/constant-contact/constant-contact-scopes/)
+
+#### Plans and pricing (2)
+
+Published plans, tiers and prices.
+
+- [Constant Contact Plans Pricing](https://apis.io/plans/constant-contact/constant-contact-plans-pricing/)
+- [Constant Contact Price Estimates](https://apis.io/plans/constant-contact/constant-contact-price-estimates/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Constant Contact Rate Limits](https://apis.io/rate-limits/constant-contact/constant-contact-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Constant Contact Finops](https://apis.io/finops/constant-contact/constant-contact-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.constantcontact.com/)
-- [Portal](https://developer.constantcontact.com/)
-- [Getting Started](https://developer.constantcontact.com/api_guide/index.html)
-- [Authentication](https://developer.constantcontact.com/api_guide/auth_overview.html)
-- [API Reference](https://developer.constantcontact.com/api_reference/index.html)
-- [OpenAPI](https://api.cc.email/v3/swagger.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Status Page](https://status.constantcontact.com/)
+- [Documentation](https://developer.constantcontact.com/api_guide/index.html)
+- [Getting started](https://developer.constantcontact.com/api_guide/index.html)
+- [API reference](https://developer.constantcontact.com/api_reference/index.html)
+- [Pricing](https://www.constantcontact.com/pricing)
 - [Support](https://www.constantcontact.com/help)
-- [Community](https://community.constantcontact.com/)
 - [Blog](https://blogs.constantcontact.com/)
-- [GitHub Organization](https://github.com/constantcontact)
-- [Privacy Policy](https://www.constantcontact.com/legal/privacy-statement)
-- [Terms of Service](https://www.constantcontact.com/legal/terms-of-use)
-- [JSON-LD](json-ld/constant-contact-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/constant-contact-contact-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/constant-contact-campaign-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Spectral Rules](rules/constant-contact-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
-- [Features](undefined)
+- [Terms of service](https://www.constantcontact.com/legal/terms-of-use)
+- [Privacy policy](https://www.constantcontact.com/legal/privacy-statement)
+- [GitHub](https://github.com/constantcontact)
+- [Status](https://status.constantcontact.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 68.0** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 61.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 73.7 |
+| Developer ergonomics | 67.3 |
+| Access clarity | 63.2 |
+
+**Agent readiness 32.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.0** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/constant-contact/](https://apis.io/providers/constant-contact/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Constant Contact: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/constant-contact/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
