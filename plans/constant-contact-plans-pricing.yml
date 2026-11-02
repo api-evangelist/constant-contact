@@ -1,0 +1,69 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://community.constantcontact.com/ask-the-community/post/pricing-for-4-000-contacts-5mpua0Rx6qMPtlk
+sources:
+- https://community.constantcontact.com/ask-the-community/post/pricing-for-4-000-contacts-5mpua0Rx6qMPtlk
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T125857
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
+  managed_tier: Lite
+published: true
+note: Community forum reply quoting pricing for the 2,501-5,000 contact tier, not an official pricing
+  page; points to constantcontact.com/pricing.
+plan_count: 3
+currency: USD
+plans:
+- name: Lite
+  price_text: Lite is $80/month
+  price: 80
+  currency: USD
+  period: month
+  included_quota: 2,501-5,000 contact tier
+- name: Standard
+  price_text: Standard is $110/month
+  price: 110
+  currency: USD
+  period: month
+  included_quota: 2,501-5,000 contact tier
+- name: Premium
+  price_text: Premium is $200/month
+  price: 200
+  currency: USD
+  period: month
+  included_quota: 2,501-5,000 contact tier
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Lite
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Standard
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Premium
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
