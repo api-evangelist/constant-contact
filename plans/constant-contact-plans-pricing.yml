@@ -40,7 +40,7 @@ plans:
   period: month
   included_quota: 2,501-5,000 contact tier
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - subscription
